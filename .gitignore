@@ -1,6 +1,11 @@
-data/*.csv
-data/**/*.csv
-res/*.csv
-res/**/*.csv
-./*/*.csv
+# 忽略所有CSV文件
+*.csv
+**/*.csv
 
+# 忽略所有LOG文件
+*.log
+**/*.log
+
+# 忽略特定目录下的文件
+data/
+res/
