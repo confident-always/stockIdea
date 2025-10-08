@@ -3059,3 +3059,85 @@
 2025-10-07 22:39:24,869 [INFO] 交易日: 2025-09-30
 2025-10-07 22:39:24,869 [INFO] 符合条件股票数: 57
 2025-10-07 22:39:28,367 [INFO] 已生成结果CSV: res/ADX243_2025-09-30.csv
+2025-10-08 20:28:55,783 [INFO] 未指定 --date，使用最近日期 2025-09-30
+2025-10-08 20:28:56,813 [ERROR] 跳过配置 {'class': 'ADXSelector', 'alias': 'ADX39', 'activate': True, 'params': {'period': 39, 'lookback_days': 30}}：ADXSelector.__init__() got an unexpected keyword argument 'period'
+2025-10-08 20:28:56,813 [ERROR] 跳过配置 {'class': 'ADXSelector', 'alias': 'ADX105', 'activate': True, 'params': {'period': 105, 'lookback_days': 30}}：ADXSelector.__init__() got an unexpected keyword argument 'period'
+2025-10-08 20:28:56,813 [ERROR] 跳过配置 {'class': 'ADXSelector', 'alias': 'ADX243', 'activate': True, 'params': {'period': 243, 'lookback_days': 30}}：ADXSelector.__init__() got an unexpected keyword argument 'period'
+2025-10-08 20:29:10,823 [ERROR] 跳过配置 {'class': 'ADXSelector', 'alias': 'ADX39', 'activate': True, 'params': {'period': 39, 'lookback_days': 30}}：ADXSelector.__init__() got an unexpected keyword argument 'period'
+2025-10-08 20:29:10,823 [ERROR] 跳过配置 {'class': 'ADXSelector', 'alias': 'ADX105', 'activate': True, 'params': {'period': 105, 'lookback_days': 30}}：ADXSelector.__init__() got an unexpected keyword argument 'period'
+2025-10-08 20:29:10,823 [ERROR] 跳过配置 {'class': 'ADXSelector', 'alias': 'ADX243', 'activate': True, 'params': {'period': 243, 'lookback_days': 30}}：ADXSelector.__init__() got an unexpected keyword argument 'period'
+2025-10-08 20:33:19,337 [ERROR] 跳过配置 {'class': 'ADXSelector', 'alias': 'ADX39', 'activate': True, 'params': {'period': 39, 'lookback_days': 30}}：ADXSelector.__init__() got an unexpected keyword argument 'period'
+2025-10-08 20:33:19,337 [ERROR] 跳过配置 {'class': 'ADXSelector', 'alias': 'ADX105', 'activate': True, 'params': {'period': 105, 'lookback_days': 30}}：ADXSelector.__init__() got an unexpected keyword argument 'period'
+2025-10-08 20:33:19,337 [ERROR] 跳过配置 {'class': 'ADXSelector', 'alias': 'ADX243', 'activate': True, 'params': {'period': 243, 'lookback_days': 30}}：ADXSelector.__init__() got an unexpected keyword argument 'period'
+2025-10-08 20:40:43,156 [INFO] 
+2025-10-08 20:40:43,156 [INFO] 【参数提示】ADX39：DMI周期=39；lookback_days=30
+2025-10-08 20:40:43,156 [INFO] 这是最近 30 天范围内 ADX 上穿 MDI 的数据
+2025-10-08 20:40:47,986 [INFO] 
+2025-10-08 20:40:47,986 [INFO] ============== 选股结果 [ADX39] ==============
+2025-10-08 20:40:47,986 [INFO] 交易日: 2025-09-30
+2025-10-08 20:40:47,986 [INFO] 符合条件股票数: 213
+2025-10-08 20:41:02,186 [INFO] 已生成结果CSV: res/ADX39_2025-09-30.csv
+2025-10-08 20:41:02,186 [INFO] 
+2025-10-08 20:41:02,186 [INFO] 【参数提示】ADX105：DMI周期=105；lookback_days=30
+2025-10-08 20:41:02,186 [INFO] 这是最近 30 天范围内 ADX 上穿 MDI 的数据
+2025-10-08 20:41:07,039 [INFO] 
+2025-10-08 20:41:07,039 [INFO] ============== 选股结果 [ADX105] ==============
+2025-10-08 20:41:07,039 [INFO] 交易日: 2025-09-30
+2025-10-08 20:41:07,039 [INFO] 符合条件股票数: 141
+2025-10-08 20:41:15,817 [INFO] 已生成结果CSV: res/ADX105_2025-09-30.csv
+2025-10-08 20:41:15,817 [INFO] 
+2025-10-08 20:41:15,817 [INFO] 【参数提示】ADX243：DMI周期=243；lookback_days=30
+2025-10-08 20:41:15,817 [INFO] 这是最近 30 天范围内 ADX 上穿 MDI 的数据
+2025-10-08 20:41:20,638 [INFO] 
+2025-10-08 20:41:20,638 [INFO] ============== 选股结果 [ADX243] ==============
+2025-10-08 20:41:20,639 [INFO] 交易日: 2025-09-30
+2025-10-08 20:41:20,639 [INFO] 符合条件股票数: 57
+2025-10-08 20:41:25,375 [INFO] 已生成结果CSV: res/ADX243_2025-09-30.csv
+2025-10-08 20:42:25,177 [INFO] 
+2025-10-08 20:42:25,177 [INFO] 【参数提示】ADX39：DMI周期=39；lookback_days=30
+2025-10-08 20:42:25,177 [INFO] 这是最近 30 天范围内 ADX 上穿 MDI 的数据
+2025-10-08 20:42:30,117 [INFO] 
+2025-10-08 20:42:30,117 [INFO] ============== 选股结果 [ADX39] ==============
+2025-10-08 20:42:30,117 [INFO] 交易日: 2025-09-30
+2025-10-08 20:42:30,117 [INFO] 符合条件股票数: 213
+2025-10-08 20:42:44,180 [INFO] 已生成结果CSV: res/ADX39_2025-09-30.csv
+2025-10-08 20:42:44,180 [INFO] 
+2025-10-08 20:42:44,180 [INFO] 【参数提示】ADX105：DMI周期=105；lookback_days=10
+2025-10-08 20:42:44,180 [INFO] 这是最近 10 天范围内 ADX 上穿 MDI 的数据
+2025-10-08 20:42:48,646 [INFO] 
+2025-10-08 20:42:48,647 [INFO] ============== 选股结果 [ADX105] ==============
+2025-10-08 20:42:48,647 [INFO] 交易日: 2025-09-30
+2025-10-08 20:42:48,647 [INFO] 符合条件股票数: 92
+2025-10-08 20:42:55,395 [INFO] 已生成结果CSV: res/ADX105_2025-09-30.csv
+2025-10-08 20:42:55,395 [INFO] 
+2025-10-08 20:42:55,395 [INFO] 【参数提示】ADX243：DMI周期=243；lookback_days=5
+2025-10-08 20:42:55,395 [INFO] 这是最近 5 天范围内 ADX 上穿 MDI 的数据
+2025-10-08 20:42:59,900 [INFO] 
+2025-10-08 20:42:59,900 [INFO] ============== 选股结果 [ADX243] ==============
+2025-10-08 20:42:59,900 [INFO] 交易日: 2025-09-30
+2025-10-08 20:42:59,900 [INFO] 符合条件股票数: 43
+2025-10-08 20:43:03,600 [INFO] 已生成结果CSV: res/ADX243_2025-09-30.csv
+2025-10-08 22:01:54,718 [INFO] 
+2025-10-08 22:01:54,719 [INFO] 【参数提示】ADX39：DMI周期=39；lookback_days=30
+2025-10-08 22:01:54,719 [INFO] 这是最近 30 天范围内 ADX 上穿 MDI 的数据
+2025-10-08 22:01:59,775 [INFO] 
+2025-10-08 22:01:59,775 [INFO] ============== 选股结果 [ADX39] ==============
+2025-10-08 22:01:59,775 [INFO] 交易日: 2025-09-30
+2025-10-08 22:01:59,775 [INFO] 符合条件股票数: 213
+2025-10-08 22:02:12,690 [INFO] 已生成结果CSV: res/ADX39_2025-09-30.csv
+2025-10-08 22:02:12,690 [INFO] 
+2025-10-08 22:02:12,690 [INFO] 【参数提示】ADX105：DMI周期=105；lookback_days=30
+2025-10-08 22:02:12,690 [INFO] 这是最近 30 天范围内 ADX 上穿 MDI 的数据
+2025-10-08 22:02:17,637 [INFO] 
+2025-10-08 22:02:17,637 [INFO] ============== 选股结果 [ADX105] ==============
+2025-10-08 22:02:17,637 [INFO] 交易日: 2025-09-30
+2025-10-08 22:02:17,637 [INFO] 符合条件股票数: 141
+2025-10-08 22:02:25,268 [INFO] 已生成结果CSV: res/ADX105_2025-09-30.csv
+2025-10-08 22:02:25,268 [INFO] 
+2025-10-08 22:02:25,268 [INFO] 【参数提示】ADX243：DMI周期=243；lookback_days=30
+2025-10-08 22:02:25,268 [INFO] 这是最近 30 天范围内 ADX 上穿 MDI 的数据
+2025-10-08 22:02:30,221 [INFO] 
+2025-10-08 22:02:30,221 [INFO] ============== 选股结果 [ADX243] ==============
+2025-10-08 22:02:30,221 [INFO] 交易日: 2025-09-30
+2025-10-08 22:02:30,221 [INFO] 符合条件股票数: 57
+2025-10-08 22:02:33,920 [INFO] 已生成结果CSV: res/ADX243_2025-09-30.csv

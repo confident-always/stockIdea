@@ -75,10 +75,30 @@
     },
     {
       "class": "ADXSelector",
-      "alias": "ADX战法",
+      "alias": "ADX39",
       "activate": true,
       "params": {
-        "cross_threshold": 1.0,
+        "dmi_period": 39,
+        "lookback_days": 30
+      }
+    }
+    ,
+    {
+      "class": "ADXSelector",
+      "alias": "ADX105",
+      "activate": true,
+      "params": {
+        "dmi_period": 105,
+        "lookback_days": 30
+      }
+    }
+    ,
+    {
+      "class": "ADXSelector",
+      "alias": "ADX243",
+      "activate": true,
+      "params": {
+        "dmi_period": 243,
         "lookback_days": 30
       }
     }

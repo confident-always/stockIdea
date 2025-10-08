@@ -2,3 +2,5 @@ data/*.csv
 data/**/*.csv
 res/*.csv
 res/**/*.csv
+./*/*.csv
+
