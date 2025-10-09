@@ -102,9 +102,9 @@ def calculate_price_change_after_signal(kline_df, signal_date):
             # 如果信号日期后没有K线数据，返回涨跌幅为0
             return 0.0, 0.0, base_price, signal_date
         
-        # 计算期间内的最高价和最低价
-        max_high = future_data['high'].max()
-        min_low = future_data['low'].min()
+        # 计算期间内的收盘最高价和最低价
+        max_high = future_data['close'].max()
+        min_low = future_data['close'].min()
         
         # 计算相对于基准价格的涨跌幅
         max_up_pct = (max_high - base_price) / base_price

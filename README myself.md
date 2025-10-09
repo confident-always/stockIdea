@@ -12,5 +12,6 @@ python fetch_kline_akshare.py --start 0 --end today --stocklist ./stocklist.csv 
 python select_stock.py --data-dir ./data --config ./configs.json --meta-workers 8
 ```
 # 涨跌幅过滤
-
+```bash
 python adx_filter.py --input-dir res --output-dir resByFilter
+```

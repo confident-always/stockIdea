@@ -951,27 +951,28 @@ class ADXSelector:
         return None
 
     def _post_cross_price_ok(self, hist: pd.DataFrame, cross_idx: int) -> bool:
-        """
-        价格约束：在上穿发生后，之后的所有交易日收盘价均不低于上穿当天的开盘价。
-        """
-        if hist.empty:
-            return False
-        if cross_idx < 0 or cross_idx >= len(hist):
-            return False
+        # """
+        # 价格约束：在上穿发生后，之后的所有交易日收盘价均不低于上穿当天的开盘价。
+        # """
+        # if hist.empty:
+        #     return False
+        # if cross_idx < 0 or cross_idx >= len(hist):
+        #     return False
 
-        cross_open = float(hist['open'].iloc[cross_idx])
-        if not np.isfinite(cross_open):
-            return False
+        # cross_open = float(hist['open'].iloc[cross_idx])
+        # if not np.isfinite(cross_open):
+        #     return False
 
-        if cross_idx + 1 >= len(hist):
-            # 上穿发生在最后一天，无后续交易日，视为满足
-            return True
+        # if cross_idx + 1 >= len(hist):
+        #     # 上穿发生在最后一天，无后续交易日，视为满足
+        #     return True
 
-        after_close = hist['close'].iloc[cross_idx + 1 :]
-        if after_close.empty:
-            return True
+        # after_close = hist['close'].iloc[cross_idx + 1 :]
+        # if after_close.empty:
+        #     return True
 
-        return (after_close >= cross_open).all()
+        # return (after_close >= cross_open).all()
+        return True
     
     def _passes_filters(self, hist: pd.DataFrame) -> bool:
         """
