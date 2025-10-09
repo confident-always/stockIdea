@@ -160,7 +160,7 @@ def fetch_one(ak_symbol: str, start: Optional[str], end: Optional[str], out_dir:
 def main():
     parser = argparse.ArgumentParser(description="使用 Akshare 抓取 A 股日线（不复权）并保存到 akdata")
     parser.add_argument("--stocklist", type=Path, default=Path("./stocklist.csv"), help="股票清单CSV，需包含 ts_code 或 symbol")
-    parser.add_argument("--start", default="20190101", help="起始日期 YYYYMMDD 或 'today'；传 0 表示不填接口参数")
+    parser.add_argument("--start", default="0", help="起始日期 YYYYMMDD 或 'today'；传 0 表示不填接口参数")
     parser.add_argument("--end", default="today", help="结束日期 YYYYMMDD 或 'today'；传 0 表示不填接口参数")
     parser.add_argument("--exclude-boards", nargs="*", default=[], choices=["gem", "star", "bj"], help="排除板块：gem/star/bj")
     parser.add_argument("--out", default="./data", help="输出目录")

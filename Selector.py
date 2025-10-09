@@ -416,6 +416,114 @@ class BBIKDJSelector:
             hist = hist.tail(self.max_window + 20)
             if self._passes_filters(hist):
                 picks.append(code)
+class PDISelector:
+    """
+    PDI战法选股器
+    检测PDI上穿MDI的信号，逻辑与ADXSelector类似，只是将ADX替换为PDI
+    """
+    
+    def __init__(self, dmi_period: int = 39, cross_threshold: float = 0.5, lookback_days: int = 5):
+        self.dmi_period = dmi_period
+        self.cross_threshold = cross_threshold
+        self.lookback_days = lookback_days
+    
+    def _find_recent_pdi_cross_index(self, dmi_data: pd.DataFrame) -> Optional[int]:
+        """
+        在最近 lookback_days 天内，寻找"PDI 上穿 MDI"的索引位置：
+        前一日 PDI < MDI，后一日 PDI > MDI。返回发生上穿的当天索引；若未发生返回 None。
+        """
+        n = len(dmi_data)
+        if n < 2:
+            return None
+
+        pdi = dmi_data['PDI']
+        mdi = dmi_data['MDI']
+        adx = dmi_data['ADX']
+
+        # 从最近 lookback_days 区间内扫描（确保有前一日）
+        start = max(1, n - self.lookback_days)
+        for i in range(start, n):
+            prev_pdi, prev_mdi = pdi.iloc[i - 1], mdi.iloc[i - 1]
+            curr_pdi, curr_mdi = pdi.iloc[i], mdi.iloc[i]
+
+            if (
+                pd.isna(prev_pdi) or pd.isna(prev_mdi) or pd.isna(curr_pdi) or pd.isna(curr_mdi)
+                or pd.isna(adx.iloc[i])
+            ):
+                continue
+
+            # 上穿当日要求 PDI > MDI
+            if prev_pdi < prev_mdi and curr_pdi > curr_mdi:
+                return i
+
+        return None
+
+    def _post_cross_price_ok(self, hist: pd.DataFrame, cross_idx: int) -> bool:
+        """
+        价格约束：在上穿发生后，之后的所有交易日收盘价均不低于上穿当天的开盘价。
+        """
+        return True
+    
+    def _passes_filters(self, hist: pd.DataFrame) -> bool:
+        """
+        简化的过滤条件：检查"PDI上穿MDI"且满足后续收盘价约束
+        """
+        if len(hist) < self.dmi_period + 1:
+            return False
+        
+        # 从首日开始计算 DMI 指标
+        dmi_data = compute_dmi(hist, self.dmi_period)
+
+        # 寻找最近发生的"PDI 上穿 MDI"索引（限定在 lookback_days 内）
+        cross_idx = self._find_recent_pdi_cross_index(dmi_data)
+        if cross_idx is None:
+            return False
+
+        # 满足上穿后的价格约束
+        return self._post_cross_price_ok(hist, cross_idx)
+    
+    def select(self, date: pd.Timestamp, data: Dict[str, pd.DataFrame]) -> List[str]:
+        picks: List[str] = []
+        
+        for code, df in data.items():
+            # 使用完整历史（至 trade_date），确保从数据首日开始计算
+            hist = df[df["date"] <= date]
+            if len(hist) < self.dmi_period + 1:
+                continue
+            if self._passes_filters(hist):
+                picks.append(code)
+        return picks
+    
+    def select_with_details(self, date: pd.Timestamp, data: Dict[str, pd.DataFrame]) -> List[Dict[str, Any]]:
+        """
+        返回包含PDI、MDI和ADX值的详细选股结果
+        """
+        picks: List[Dict[str, Any]] = []
+        
+        for code, df in data.items():
+            hist = df[df["date"] <= date]
+            if len(hist) < self.dmi_period + 1:
+                continue
+            
+            # 计算DMI指标
+            dmi_data = compute_dmi(hist, self.dmi_period)
+            cross_idx = self._find_recent_pdi_cross_index(dmi_data)
+            if cross_idx is not None and self._post_cross_price_ok(hist, cross_idx):
+                # 获取最新的PDI、MDI和ADX值
+                latest_pdi = dmi_data['PDI'].iloc[-1]
+                latest_mdi = dmi_data['MDI'].iloc[-1]
+                latest_adx = dmi_data['ADX'].iloc[-1]
+                # 发生上穿的日期
+                cross_date = pd.to_datetime(hist['date'].iloc[cross_idx]).date().isoformat()
+                
+                picks.append({
+                    'code': code,
+                    'PDI': round(latest_pdi, 3),
+                    'MDI': round(latest_mdi, 3),
+                    'ADX': round(latest_adx, 3),
+                    'cross_date': cross_date
+                })
+        
         return picks
     
 

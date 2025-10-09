@@ -6,6 +6,8 @@ python fetch_kline.py --start 0 --end today --stocklist ./stocklist.csv --exclud
 
 ```bash
 python fetch_kline_akshare.py --start 0 --end today --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 12
+
+python fetch_kline_akshare.py --start 0 --end today --stocklist ./stocklist.csv --out ./data --workers 12
 ```
 ### 运行选股
 ```bash

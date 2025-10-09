@@ -30,10 +30,47 @@
         "lookback_days": 30
       }
     }
+    ,
+    {
+      "class": "PDISelector",
+      "alias": "PDI39",
+      "activate": true,
+      "params": {
+        "dmi_period": 39,
+        "lookback_days": 30
+      }
+    }
+    ,
+    {
+      "class": "PDISelector",
+      "alias": "PDI105",
+      "activate": true,
+      "params": {
+        "dmi_period": 105,
+        "lookback_days": 30
+      }
+    }
+    ,
+    {
+      "class": "PDISelector",
+      "alias": "PDI243",
+      "activate": true,
+      "params": {
+        "dmi_period": 243,
+        "lookback_days": 30
+      }
+    }
   ],
   "ADXfilteringconfig": {
-    "//": " 涨跌幅过滤配置，为0%表示不进行过滤",
+    "//": " ADX涨跌幅过滤配置，为0%表示不进行过滤，上穿日起涨幅超过20%或下降超过0.1%的股票不进行交易",
+    "active": true,
     "rangeUp": "20%",
-    "rangeDown": "1%"
+    "rangeDown": "3%"
+  },
+  "PDIfilteringconfig": {
+    "//": " PDI涨跌幅过滤配置，为0%表示不进行过滤，上穿日起涨幅超过20%或下降超过0.1%的股票不进行交易",
+    "active": true,
+    "rangeUp": "20%",
+    "rangeDown": "0.1%"
   }
 }

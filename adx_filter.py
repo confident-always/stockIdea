@@ -29,10 +29,17 @@ def load_config():
     try:
         with open('configs.json', 'r', encoding='utf-8') as f:
             config = json.load(f)
-        return config.get('ADXfilteringconfig', {})
+        
+        adx_config = config.get('ADXfilteringconfig', {})
+        pdi_config = config.get('PDIfilteringconfig', {})
+        
+        return {
+            'ADX': adx_config,
+            'PDI': pdi_config
+        }
     except Exception as e:
         logger.error(f"加载配置文件失败: {e}")
-        return {}
+        return {'ADX': {}, 'PDI': {}}
 
 def parse_percentage(pct_str):
     """解析百分比字符串为浮点数"""
@@ -120,24 +127,26 @@ def calculate_price_change_after_signal(kline_df, signal_date):
         logger.error(f"计算价格变化失败: {e}")
         return None, None, None, None
 
-def filter_adx_results(input_file, output_file, range_up, range_down):
+def filter_results(input_file, output_file, range_up, range_down, file_type):
     """
-    过滤ADX结果文件
+    过滤结果文件
     
     Args:
-        input_file: 输入的ADX结果文件
-        output_file: 输出的过滤后文件
-        range_up: 允许的最大涨幅
-        range_down: 允许的最大跌幅
+        input_file: 输入文件路径
+        output_file: 输出文件路径
+        range_up: 最大涨幅阈值
+        range_down: 最大跌幅阈值
+        file_type: 文件类型 ('ADX' 或 'PDI')
     """
     try:
-        # 读取ADX结果
-        adx_df = pd.read_csv(input_file)
-        logger.info(f"读取ADX结果文件: {input_file}, 共 {len(adx_df)} 条记录")
+        # 读取结果文件
+        df = pd.read_csv(input_file)
+        file_type = "PDI" if "PDI" in os.path.basename(input_file) else "ADX"
+        logger.info(f"读取{file_type}结果文件: {input_file}, 共 {len(df)} 条记录")
         
         filtered_results = []
         
-        for idx, row in adx_df.iterrows():
+        for idx, row in df.iterrows():
             original_code = str(row['code'])
             signal_date = row['date']
             
@@ -205,46 +214,67 @@ def filter_adx_results(input_file, output_file, range_up, range_down):
         else:
             logger.warning("没有股票通过过滤条件")
             # 创建空文件但保持相同的列结构，包含新增的三个字段
-            columns = list(adx_df.columns) + ['基准价格', '最大涨幅', '最大跌幅']
+            columns = list(df.columns) + ['基准价格', '最大涨幅', '最大跌幅']
             empty_df = pd.DataFrame(columns=columns)
             empty_df.to_csv(output_file, index=False)
             
     except Exception as e:
-        logger.error(f"过滤ADX结果失败: {e}")
+        logger.error(f"过滤结果失败: {e}")
 
 def main():
-    parser = argparse.ArgumentParser(description='ADX结果过滤器')
+    parser = argparse.ArgumentParser(description='ADX和PDI结果过滤器')
     parser.add_argument('--input-dir', default='res', help='输入目录')
     parser.add_argument('--output-dir', default='resByFilter', help='输出目录')
     
     args = parser.parse_args()
     
     # 加载配置
-    config = load_config()
-    range_up = parse_percentage(config.get('rangeUp', '0%'))
-    range_down = parse_percentage(config.get('rangeDown', '0%'))
-    
-    logger.info(f"过滤配置: 最大涨幅 {range_up:.2%}, 最大跌幅 {range_down:.2%}")
+    configs = load_config()
+    adx_config = configs['ADX']
+    pdi_config = configs['PDI']
     
     # 确保输出目录存在
     os.makedirs(args.output_dir, exist_ok=True)
     
-    # 查找所有ADX结果文件
+    # 查找所有ADX和PDI结果文件
     adx_files = glob.glob(os.path.join(args.input_dir, 'ADX*.csv'))
+    pdi_files = glob.glob(os.path.join(args.input_dir, 'PDI*.csv'))
     
-    if not adx_files:
-        logger.warning(f"在 {args.input_dir} 目录下未找到ADX结果文件")
+    if not adx_files and not pdi_files:
+        logger.warning(f"在 {args.input_dir} 目录下未找到ADX或PDI结果文件")
         return
     
-    logger.info(f"找到 {len(adx_files)} 个ADX结果文件")
+    logger.info(f"找到 {len(adx_files)} 个ADX结果文件, {len(pdi_files)} 个PDI结果文件")
     
-    # 处理每个文件
-    for input_file in adx_files:
-        filename = os.path.basename(input_file)
-        output_file = os.path.join(args.output_dir, filename)
+    # 处理ADX文件
+    if adx_files and adx_config.get('active', False):
+        adx_range_up = parse_percentage(adx_config.get('rangeUp', '0%'))
+        adx_range_down = parse_percentage(adx_config.get('rangeDown', '0%'))
+        logger.info(f"ADX过滤配置: 最大涨幅 {adx_range_up:.2%}, 最大跌幅 {adx_range_down:.2%}")
         
-        logger.info(f"开始处理: {input_file}")
-        filter_adx_results(input_file, output_file, range_up, range_down)
+        for input_file in adx_files:
+            filename = os.path.basename(input_file)
+            output_file = os.path.join(args.output_dir, filename)
+            
+            logger.info(f"开始处理ADX文件: {input_file}")
+            filter_results(input_file, output_file, adx_range_up, adx_range_down, 'ADX')
+    elif adx_files:
+        logger.info("ADX配置未启用，跳过ADX文件处理")
+    
+    # 处理PDI文件
+    if pdi_files and pdi_config.get('active', False):
+        pdi_range_up = parse_percentage(pdi_config.get('rangeUp', '0%'))
+        pdi_range_down = parse_percentage(pdi_config.get('rangeDown', '0%'))
+        logger.info(f"PDI过滤配置: 最大涨幅 {pdi_range_up:.2%}, 最大跌幅 {pdi_range_down:.2%}")
+        
+        for input_file in pdi_files:
+            filename = os.path.basename(input_file)
+            output_file = os.path.join(args.output_dir, filename)
+            
+            logger.info(f"开始处理PDI文件: {input_file}")
+            filter_results(input_file, output_file, pdi_range_up, pdi_range_down, 'PDI')
+    elif pdi_files:
+        logger.info("PDI配置未启用，跳过PDI文件处理")
     
     logger.info("所有文件处理完成")
 
