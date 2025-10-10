@@ -62,15 +62,21 @@
     }
   ],
   "ADXfilteringconfig": {
-    "//": " ADX涨跌幅过滤配置，为0%表示不进行过滤，上穿日起涨幅超过20%或下降超过0.1%的股票不进行交易",
     "active": true,
+     "//": " ADX涨跌幅过滤配置，为0%表示不进行过滤，上穿日起涨幅超过20%或下降超过0.1%的股票不进行交易",
     "rangeUp": "20%",
-    "rangeDown": "0.1%"
+    "rangeDown": "3%",
+     "//1":"发生上穿前后N日的最大涨幅必须大于M%,maxRangeUp为0%时表示不进行过滤",
+    "lookback_days": 3,
+    "maxRangeUp": "7%"
   },
   "PDIfilteringconfig": {
-    "//": " PDI涨跌幅过滤配置，为0%表示不进行过滤，上穿日起涨幅超过20%或下降超过0.1%的股票不进行交易",
     "active": true,
+    "//": " PDI涨跌幅过滤配置，为0%表示不进行过滤，上穿日起涨幅超过20%或下降超过0.1%的股票不进行交易",
     "rangeUp": "20%",
-    "rangeDown": "0.1%"
+    "rangeDown": "3%",
+    "//1":"发生上穿前后N日的最大涨幅必须大于M%,maxRangeUp为0%时表示不进行过滤",
+    "lookback_days": 3,
+    "maxRangeUp": "7%"
   }
 }

@@ -24,10 +24,18 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def load_config():
-    """加载配置文件"""
+def load_config(config_file='configs.json'):
+    """
+    加载配置文件
+    
+    Args:
+        config_file: 配置文件路径，默认为'configs.json'
+    
+    Returns:
+        dict: 配置字典
+    """
     try:
-        with open('configs.json', 'r', encoding='utf-8') as f:
+        with open(config_file, 'r', encoding='utf-8') as f:
             config = json.load(f)
         
         adx_config = config.get('ADXfilteringconfig', {})
@@ -36,6 +44,12 @@ def load_config():
         return {
             'ADX': adx_config,
             'PDI': pdi_config
+        }
+    except FileNotFoundError:
+        logger.error(f"配置文件 {config_file} 未找到")
+        return {
+            'ADX': {'active': False},
+            'PDI': {'active': False}
         }
     except Exception as e:
         logger.error(f"加载配置文件失败: {e}")
@@ -73,6 +87,48 @@ def load_kline_data(file_path):
         return df
     except Exception as e:
         logger.error(f"加载K线数据失败 {file_path}: {e}")
+        return None
+
+def calculate_max_range_during_crossover(kline_df, signal_date, lookback_days=3):
+    """
+    计算上穿前后lookback_days日内的最大涨幅
+    
+    Args:
+        kline_df: K线数据DataFrame
+        signal_date: 上穿信号日期
+        lookback_days: 上穿前后查看的天数
+    
+    Returns:
+        float: 最大涨幅百分比，计算失败时返回None
+    """
+    try:
+        signal_date = pd.to_datetime(signal_date)
+        
+        # 计算查看范围：上穿前后lookback_days天，总共2*lookback_days+1天
+        start_date = signal_date - timedelta(days=lookback_days)
+        end_date = signal_date + timedelta(days=lookback_days)
+        
+        # 获取指定日期范围内的数据
+        range_data = kline_df[(kline_df['date'] >= start_date) & (kline_df['date'] <= end_date)]
+        
+        if range_data.empty:
+            logger.warning(f"在日期范围 {start_date} 到 {end_date} 内未找到K线数据")
+            return None
+        
+        # 找到期间内的最高收盘价和最低开盘价
+        max_close = range_data['close'].max()
+        min_open = range_data['open'].min()
+        
+        # 计算最大涨幅
+        if min_open > 0:
+            max_range_up = (max_close - min_open) / min_open
+            return max_range_up
+        else:
+            logger.warning(f"最低开盘价为0或负数，无法计算涨幅")
+            return None
+            
+    except Exception as e:
+        logger.error(f"计算上穿期间最大涨幅失败: {e}")
         return None
 
 def calculate_price_change_after_signal(kline_df, signal_date):
@@ -127,7 +183,7 @@ def calculate_price_change_after_signal(kline_df, signal_date):
         logger.error(f"计算价格变化失败: {e}")
         return None, None, None, None
 
-def filter_results(input_file, output_file, range_up, range_down, file_type):
+def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=0):
     """
     过滤结果文件
     
@@ -137,6 +193,8 @@ def filter_results(input_file, output_file, range_up, range_down, file_type):
         range_up: 最大涨幅阈值
         range_down: 最大跌幅阈值
         file_type: 文件类型 ('ADX' 或 'PDI')
+        lookback_days: 上穿前后查看的天数
+        max_range_up: 上穿期间最大涨幅阈值
     """
     try:
         # 读取结果文件
@@ -183,28 +241,40 @@ def filter_results(input_file, output_file, range_up, range_down, file_type):
             if max_up_pct is None or max_down_pct is None or base_price is None:
                 continue
             
-            # 检查是否符合过滤条件 - 修正过滤逻辑
-            # 如果涨幅超过rangeUp，则过滤掉（不保留）
-            # 如果跌幅超过rangeDown，则过滤掉（不保留）
+            # 计算上穿期间最大涨幅
+            crossover_max_range = calculate_max_range_during_crossover(kline_df, signal_date, lookback_days)
+            if crossover_max_range is None:
+                logger.warning(f"股票 {matched_code} 无法计算上穿期间最大涨幅")
+                continue
+            
+            # 检查是否符合过滤条件
+            # 1. 原有的涨跌幅过滤条件
             up_ok = range_up == 0 or max_up_pct <= range_up
             down_ok = range_down == 0 or max_down_pct <= range_down
             
-            if up_ok and down_ok:
-                # 创建新的行数据，包含原有字段和新增的三个字段
+            # 2. 新增的上穿期间最大涨幅过滤条件
+            crossover_ok = max_range_up == 0 or crossover_max_range >= max_range_up
+            
+            if up_ok and down_ok and crossover_ok:
+                # 创建新的行数据，包含原有字段和新增的四个字段
                 new_row = row.copy()
                 new_row['code'] = matched_code  # 使用从data文件夹中匹配到的代码
                 new_row['基准价格'] = round(base_price, 2)
                 new_row['最大涨幅'] = round(max_up_pct * 100, 2)  # 转换为百分比
                 new_row['最大跌幅'] = round(max_down_pct * 100, 2)  # 转换为百分比
+                new_row['上穿期间最大涨幅'] = round(crossover_max_range * 100, 2)  # 转换为百分比
                 
                 filtered_results.append(new_row)
                 logger.info(f"股票 {matched_code} 通过过滤: 信号日期 {signal_date}, "
-                           f"基准价格 {base_price:.2f}, 最大涨幅 {max_up_pct:.2%}, 最大跌幅 {max_down_pct:.2%}")
+                           f"基准价格 {base_price:.2f}, 最大涨幅 {max_up_pct:.2%}, 最大跌幅 {max_down_pct:.2%}, "
+                           f"上穿期间最大涨幅 {crossover_max_range:.2%}")
             else:
                 logger.info(f"股票 {matched_code} 被过滤: 信号日期 {signal_date}, "
-                           f"基准价格 {base_price:.2f}, 最大涨幅 {max_up_pct:.2%}, 最大跌幅 {max_down_pct:.2%} "
+                           f"基准价格 {base_price:.2f}, 最大涨幅 {max_up_pct:.2%}, 最大跌幅 {max_down_pct:.2%}, "
+                           f"上穿期间最大涨幅 {crossover_max_range:.2%} "
                            f"(涨幅超限: {max_up_pct > range_up if range_up > 0 else False}, "
-                           f"跌幅超限: {max_down_pct > range_down if range_down > 0 else False})")
+                           f"跌幅超限: {max_down_pct > range_down if range_down > 0 else False}, "
+                           f"上穿期间涨幅不足: {crossover_max_range < max_range_up if max_range_up > 0 else False})")
         
         # 保存过滤结果
         if filtered_results:
@@ -213,8 +283,8 @@ def filter_results(input_file, output_file, range_up, range_down, file_type):
             logger.info(f"过滤完成，保存 {len(filtered_results)} 条记录到: {output_file}")
         else:
             logger.warning("没有股票通过过滤条件")
-            # 创建空文件但保持相同的列结构，包含新增的三个字段
-            columns = list(df.columns) + ['基准价格', '最大涨幅', '最大跌幅']
+            # 创建空文件但保持相同的列结构，包含新增的四个字段
+            columns = list(df.columns) + ['基准价格', '最大涨幅', '最大跌幅', '上穿期间最大涨幅']
             empty_df = pd.DataFrame(columns=columns)
             empty_df.to_csv(output_file, index=False)
             
@@ -250,14 +320,18 @@ def main():
     if adx_files and adx_config.get('active', False):
         adx_range_up = parse_percentage(adx_config.get('rangeUp', '0%'))
         adx_range_down = parse_percentage(adx_config.get('rangeDown', '0%'))
-        logger.info(f"ADX过滤配置: 最大涨幅 {adx_range_up:.2%}, 最大跌幅 {adx_range_down:.2%}")
+        adx_lookback_days = adx_config.get('lookback_days', 3)
+        adx_max_range_up = parse_percentage(adx_config.get('maxRangeUp', '0%'))
+        logger.info(f"ADX过滤配置: 最大涨幅 {adx_range_up:.2%}, 最大跌幅 {adx_range_down:.2%}, "
+                   f"回看天数 {adx_lookback_days}, 上穿期间最大涨幅阈值 {adx_max_range_up:.2%}")
         
         for input_file in adx_files:
             filename = os.path.basename(input_file)
             output_file = os.path.join(args.output_dir, filename)
             
             logger.info(f"开始处理ADX文件: {input_file}")
-            filter_results(input_file, output_file, adx_range_up, adx_range_down, 'ADX')
+            filter_results(input_file, output_file, adx_range_up, adx_range_down, 'ADX', 
+                         adx_lookback_days, adx_max_range_up)
     elif adx_files:
         logger.info("ADX配置未启用，跳过ADX文件处理")
     
@@ -265,14 +339,18 @@ def main():
     if pdi_files and pdi_config.get('active', False):
         pdi_range_up = parse_percentage(pdi_config.get('rangeUp', '0%'))
         pdi_range_down = parse_percentage(pdi_config.get('rangeDown', '0%'))
-        logger.info(f"PDI过滤配置: 最大涨幅 {pdi_range_up:.2%}, 最大跌幅 {pdi_range_down:.2%}")
+        pdi_lookback_days = pdi_config.get('lookback_days', 3)
+        pdi_max_range_up = parse_percentage(pdi_config.get('maxRangeUp', '0%'))
+        logger.info(f"PDI过滤配置: 最大涨幅 {pdi_range_up:.2%}, 最大跌幅 {pdi_range_down:.2%}, "
+                   f"回看天数 {pdi_lookback_days}, 上穿期间最大涨幅阈值 {pdi_max_range_up:.2%}")
         
         for input_file in pdi_files:
             filename = os.path.basename(input_file)
             output_file = os.path.join(args.output_dir, filename)
             
             logger.info(f"开始处理PDI文件: {input_file}")
-            filter_results(input_file, output_file, pdi_range_up, pdi_range_down, 'PDI')
+            filter_results(input_file, output_file, pdi_range_up, pdi_range_down, 'PDI',
+                         pdi_lookback_days, pdi_max_range_up)
     elif pdi_files:
         logger.info("PDI配置未启用，跳过PDI文件处理")
     

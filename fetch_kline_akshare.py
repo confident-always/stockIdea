@@ -179,16 +179,6 @@ def main():
 
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
-    # 清空输出目录（删除现有 CSV）
-    removed = 0
-    for p in out_dir.iterdir():
-        try:
-            if p.is_file() and p.suffix.lower() == ".csv":
-                p.unlink()
-                removed += 1
-        except Exception as e:
-            logger.warning("删除失败 %s: %s", p, e)
-    logger.info("已清空输出目录 %s ，删除 %d 个CSV文件", out_dir.resolve(), removed)
 
     # 读取股票池
     codes = load_codes_from_stocklist(Path(args.stocklist), list(args.exclude_boards or []))
