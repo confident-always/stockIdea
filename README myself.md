@@ -15,5 +15,5 @@ python select_stock.py --data-dir ./data --config ./configs.json --meta-workers 
 ```
 # 涨跌幅过滤
 ```bash
-python adx_filter.py --input-dir res --output-dir resByFilter
+python adx_filter.py --input-dir res --output-dir resByFilter --workers 8
 ```

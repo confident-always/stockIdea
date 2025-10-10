@@ -12,6 +12,8 @@ import glob
 import logging
 from datetime import datetime, timedelta
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from tqdm import tqdm
 
 # 配置日志
 logging.basicConfig(
@@ -553,10 +555,51 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
     except Exception as e:
         logger.error(f"过滤结果失败: {e}")
 
+def process_single_file(input_file, output_dir, file_type, config):
+    """
+    处理单个文件的函数，用于并行处理
+    
+    Args:
+        input_file: 输入文件路径
+        output_dir: 输出目录
+        file_type: 文件类型 ('ADX' 或 'PDI')
+        config: 配置字典
+    
+    Returns:
+        str: 处理结果信息
+    """
+    try:
+        filename = os.path.basename(input_file)
+        output_file = os.path.join(output_dir, filename)
+        
+        # 解析配置参数
+        range_up = parse_percentage(config.get('maxRange', '0%'))
+        range_down = parse_percentage(config.get('minRange', '0%'))
+        lookback_days = config.get('lookback_days', 3)
+        max_range_up = parse_percentage(config.get('maxRangeUp', '0%'))
+        pre_high_days = config.get('preHighDays', 10)
+        pre_high_min_range = parse_percentage(config.get('preHighMinRange', '0%'))
+        pre_high_max_range = parse_percentage(config.get('preHighMaxRange', '0%'))
+        hislow_range = parse_range_percent(config.get('HisLowPointRange', 'none'))
+        lookback_months = config.get('lookback_months', 120)
+        
+        logger.info(f"开始处理{file_type}文件: {input_file}")
+        filter_results(input_file, output_file, range_up, range_down, file_type, 
+                     lookback_days, max_range_up, pre_high_days, pre_high_min_range, 
+                     pre_high_max_range, hislow_range, lookback_months)
+        
+        return f"成功处理 {filename}"
+    except Exception as e:
+        error_msg = f"处理文件 {input_file} 时出错: {str(e)}"
+        logger.error(error_msg)
+        return error_msg
+
+
 def main():
     parser = argparse.ArgumentParser(description='ADX和PDI结果过滤器')
     parser.add_argument('--input-dir', default='res', help='输入目录')
     parser.add_argument('--output-dir', default='resByFilter', help='输出目录')
+    parser.add_argument('--workers', type=int, default=12, help='并发处理的线程数')
     
     args = parser.parse_args()
     
@@ -578,33 +621,28 @@ def main():
     
     logger.info(f"找到 {len(adx_files)} 个ADX结果文件, {len(pdi_files)} 个PDI结果文件")
     
+    # 准备并行处理的任务列表
+    tasks = []
+    
     # 处理ADX文件
     if adx_files and adx_config.get('active', False):
         adx_range_up = parse_percentage(adx_config.get('maxRange', '0%'))
         adx_range_down = parse_percentage(adx_config.get('minRange', '0%'))
-        adx_lookback_days = adx_config.get('lookback_days', 3)
         adx_max_range_up = parse_percentage(adx_config.get('maxRangeUp', '0%'))
-        adx_pre_high_days = adx_config.get('preHighDays', 10)
         adx_pre_high_min_range = parse_percentage(adx_config.get('preHighMinRange', '0%'))
         adx_pre_high_max_range = parse_percentage(adx_config.get('preHighMaxRange', '0%'))
         adx_hislow_range = parse_range_percent(adx_config.get('HisLowPointRange', 'none'))
-        # 历史低点涨幅窗口月数（ADX配置未设置时默认120）
-        adx_lookback_months = adx_config.get('lookback_months', 120)
+        
         logger.info(f"ADX过滤配置: 最大涨幅 {'none' if adx_range_up is None else f'{adx_range_up:.2%}'}, "
                    f"最大跌幅 {'none' if adx_range_down is None else f'{adx_range_down:.2%}'}, "
-                   f"回看天数 {adx_lookback_days}, 上穿期间最大涨幅阈值 {'none' if adx_max_range_up is None else f'{adx_max_range_up:.2%}'}, "
-                   f"前高天数 {adx_pre_high_days}, 前高最小涨幅阈值 {'none' if adx_pre_high_min_range is None else f'{adx_pre_high_min_range:.2%}'}, "
+                   f"回看天数 {adx_config.get('lookback_days', 3)}, 上穿期间最大涨幅阈值 {'none' if adx_max_range_up is None else f'{adx_max_range_up:.2%}'}, "
+                   f"前高天数 {adx_config.get('preHighDays', 10)}, 前高最小涨幅阈值 {'none' if adx_pre_high_min_range is None else f'{adx_pre_high_min_range:.2%}'}, "
                    f"前高最大涨幅阈值 {'none' if adx_pre_high_max_range is None else f'{adx_pre_high_max_range:.2%}'}, "
                    f"历史低点涨幅区间 {'none' if adx_hislow_range is None else f'{adx_hislow_range[0]:.2%}-{adx_hislow_range[1]:.2%}'}, "
-                   f"历史低点涨幅窗口 {adx_lookback_months}月")
+                   f"历史低点涨幅窗口 {adx_config.get('lookback_months', 120)}月")
         
         for input_file in adx_files:
-            filename = os.path.basename(input_file)
-            output_file = os.path.join(args.output_dir, filename)
-            
-            logger.info(f"开始处理ADX文件: {input_file}")
-            filter_results(input_file, output_file, adx_range_up, adx_range_down, 'ADX', 
-                         adx_lookback_days, adx_max_range_up, adx_pre_high_days, adx_pre_high_min_range, adx_pre_high_max_range, adx_hislow_range, adx_lookback_months)
+            tasks.append((input_file, args.output_dir, 'ADX', adx_config))
     elif adx_files:
         logger.info("ADX配置未启用，跳过ADX文件处理")
     
@@ -612,30 +650,42 @@ def main():
     if pdi_files and pdi_config.get('active', False):
         pdi_range_up = parse_percentage(pdi_config.get('maxRange', '0%'))
         pdi_range_down = parse_percentage(pdi_config.get('minRange', '0%'))
-        pdi_lookback_days = pdi_config.get('lookback_days', 3)
         pdi_max_range_up = parse_percentage(pdi_config.get('maxRangeUp', '0%'))
-        pdi_pre_high_days = pdi_config.get('preHighDays', 10)
         pdi_pre_high_min_range = parse_percentage(pdi_config.get('preHighMinRange', '0%'))
         pdi_pre_high_max_range = parse_percentage(pdi_config.get('preHighMaxRange', '0%'))
         pdi_hislow_range = parse_range_percent(pdi_config.get('HisLowPointRange', 'none'))
-        pdi_lookback_months = pdi_config.get('lookback_months', 120)
+        
         logger.info(f"PDI过滤配置: 最大涨幅 {'none' if pdi_range_up is None else f'{pdi_range_up:.2%}'}, "
                    f"最大跌幅 {'none' if pdi_range_down is None else f'{pdi_range_down:.2%}'}, "
-                   f"回看天数 {pdi_lookback_days}, 上穿期间最大涨幅阈值 {'none' if pdi_max_range_up is None else f'{pdi_max_range_up:.2%}'}, "
-                   f"前高天数 {pdi_pre_high_days}, 前高最小涨幅阈值 {'none' if pdi_pre_high_min_range is None else f'{pdi_pre_high_min_range:.2%}'}, "
+                   f"回看天数 {pdi_config.get('lookback_days', 3)}, 上穿期间最大涨幅阈值 {'none' if pdi_max_range_up is None else f'{pdi_max_range_up:.2%}'}, "
+                   f"前高天数 {pdi_config.get('preHighDays', 10)}, 前高最小涨幅阈值 {'none' if pdi_pre_high_min_range is None else f'{pdi_pre_high_min_range:.2%}'}, "
                    f"前高最大涨幅阈值 {'none' if pdi_pre_high_max_range is None else f'{pdi_pre_high_max_range:.2%}'}, "
                    f"历史低点涨幅区间 {'none' if pdi_hislow_range is None else f'{pdi_hislow_range[0]:.2%}-{pdi_hislow_range[1]:.2%}'}, "
-                   f"历史低点涨幅窗口 {pdi_lookback_months}月")
+                   f"历史低点涨幅窗口 {pdi_config.get('lookback_months', 120)}月")
         
         for input_file in pdi_files:
-            filename = os.path.basename(input_file)
-            output_file = os.path.join(args.output_dir, filename)
-            
-            logger.info(f"开始处理PDI文件: {input_file}")
-            filter_results(input_file, output_file, pdi_range_up, pdi_range_down, 'PDI',
-                         pdi_lookback_days, pdi_max_range_up, pdi_pre_high_days, pdi_pre_high_min_range, pdi_pre_high_max_range, pdi_hislow_range, pdi_lookback_months)
+            tasks.append((input_file, args.output_dir, 'PDI', pdi_config))
     elif pdi_files:
         logger.info("PDI配置未启用，跳过PDI文件处理")
+    
+    if not tasks:
+        logger.info("没有需要处理的文件")
+        return
+    
+    # 并行处理所有文件
+    logger.info(f"开始并行处理 {len(tasks)} 个文件，使用 {args.workers} 个线程")
+    
+    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+        # 提交所有任务
+        futures = [
+            executor.submit(process_single_file, input_file, output_dir, file_type, config)
+            for input_file, output_dir, file_type, config in tasks
+        ]
+        
+        # 使用tqdm显示进度条
+        for future in tqdm(as_completed(futures), total=len(futures), desc="处理进度"):
+            result = future.result()
+            logger.debug(result)
     
     logger.info("所有文件处理完成")
 
