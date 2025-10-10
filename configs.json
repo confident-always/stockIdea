@@ -63,20 +63,30 @@
   ],
   "ADXfilteringconfig": {
     "active": true,
-     "//": " ADX涨跌幅过滤配置，为0%表示不进行过滤，上穿日起涨幅超过20%或下降超过0.1%的股票不进行交易",
-    "rangeUp": "20%",
-    "rangeDown": "3%",
-     "//1":"发生上穿前后N日的最大涨幅必须大于M%,maxRangeUp为0%时表示不进行过滤",
+    "//": " 枢轴点涨跌幅过滤配置，minRange和maxRange可以为负值表示跌幅，为none表示不进行过滤",
+    "minRange": "0%",
+    "maxRange": "25%",
+    "//1":"发生上穿前后N日的最大涨幅必须大于M%,maxRangeUp为none时表示不进行过滤",
     "lookback_days": 3,
-    "maxRangeUp": "7%"
+    "maxRangeUp": "none",
+    "//2":"前高价格过滤配置：计算上穿前N天的收盘最高价M，计算上穿后最高收盘价H后的最低收盘价J相对于M的涨幅K",
+    "preHighDays": 30,
+    "preHighMinRange": "0%",
+    "//3":"前高最大涨幅过滤：前高价格M到上穿后最高收盘价H的涨幅，preHighMinRange和preHighMaxRange可以为负值表示跌幅，为none时表示不进行过滤",
+    "preHighMaxRange": "20%"
   },
   "PDIfilteringconfig": {
     "active": true,
-    "//": " PDI涨跌幅过滤配置，为0%表示不进行过滤，上穿日起涨幅超过20%或下降超过0.1%的股票不进行交易",
-    "rangeUp": "20%",
-    "rangeDown": "3%",
-    "//1":"发生上穿前后N日的最大涨幅必须大于M%,maxRangeUp为0%时表示不进行过滤",
-    "lookback_days": 3,
-    "maxRangeUp": "7%"
+    "//": " 枢轴点涨跌幅过滤配置，minRange和maxRange可以为负值表示跌幅，为none表示不进行过滤",
+    "minRange": "0%",
+    "maxRange": "25%",
+    "//1":"发生上穿前后N日的最大涨幅必须大于M%,maxRangeUp为none时表示不进行过滤",
+    "lookback_days": 1,
+    "maxRangeUp": "none",
+    "//2":"前高价格过滤配置：计算上穿前N天的收盘最高价M，计算上穿后最高收盘价H后的最低收盘价J相对于M的涨幅K",
+    "preHighDays": 30,
+    "preHighMinRange": "0%",
+    "//3":"前高最大涨幅过滤：前高价格M到上穿后最高收盘价H的涨幅，preHighMinRange和preHighMaxRange可以为负值表示跌幅，为none时表示不进行过滤",
+    "preHighMaxRange": "20%"
   }
 }

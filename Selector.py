@@ -429,8 +429,8 @@ class PDISelector:
     
     def _find_recent_pdi_cross_index(self, dmi_data: pd.DataFrame) -> Optional[int]:
         """
-        在最近 lookback_days 天内，寻找"PDI 上穿 MDI"的索引位置：
-        前一日 PDI < MDI，后一日 PDI > MDI。返回发生上穿的当天索引；若未发生返回 None。
+        在最近 lookback_days 天内，寻找"PDI 上穿 MDI"的最后一次索引位置：
+        前一日 PDI < MDI，后一日 PDI > MDI。返回最后一次发生上穿的当天索引；若未发生返回 None。
         """
         n = len(dmi_data)
         if n < 2:
@@ -442,6 +442,9 @@ class PDISelector:
 
         # 从最近 lookback_days 区间内扫描（确保有前一日）
         start = max(1, n - self.lookback_days)
+        last_cross_index = None
+        
+        # 从前往后扫描，记录最后一次上穿的索引
         for i in range(start, n):
             prev_pdi, prev_mdi = pdi.iloc[i - 1], mdi.iloc[i - 1]
             curr_pdi, curr_mdi = pdi.iloc[i], mdi.iloc[i]
@@ -454,9 +457,9 @@ class PDISelector:
 
             # 上穿当日要求 PDI > MDI
             if prev_pdi < prev_mdi and curr_pdi > curr_mdi:
-                return i
+                last_cross_index = i
 
-        return None
+        return last_cross_index
 
     def _post_cross_price_ok(self, hist: pd.DataFrame, cross_idx: int) -> bool:
         """
@@ -885,7 +888,7 @@ class MA60CrossVolumeWaveSelector:
     1) 当日 J 绝对低或相对低（J < j_threshold 或 J ≤ 近 max_window 根 J 的 j_q_threshold 分位）
     2) 最近 lookback_n 内，存在一次“有效上穿 MA60”（t-1 收盘 < MA60, t 收盘 ≥ MA60）；
        且从该上穿日 T 到今天的“上涨波段”日均成交量 ≥ 上穿前等长窗口的日均成交量 * vol_multiple
-       —— 上涨波段定义为 [T, today] 间的所有交易日（不做趋势单调性强约束，稳健且可复现）
+       —— 上涨波段定义为 [T, today] 间的所有交易日（不做趋势单调强劲约束，稳健且可复现）
     3) 近 ma60_slope_days（默认 5）个交易日的 MA60 回归斜率 > 0
     """
     def __init__(
@@ -1029,8 +1032,8 @@ class ADXSelector:
     
     def _find_recent_adx_cross_index(self, dmi_data: pd.DataFrame) -> Optional[int]:
         """
-        在最近 lookback_days 天内，寻找“ADX 上穿 MDI”的索引位置：
-        前一日 ADX < MDI，后一日 ADX > MDI。返回发生上穿的当天索引；若未发生返回 None。
+        在最近 lookback_days 天内，寻找"ADX 上穿 MDI"的最后一次索引位置：
+        前一日 ADX < MDI，后一日 ADX > MDI。返回最后一次发生上穿的当天索引；若未发生返回 None。
         """
         n = len(dmi_data)
         if n < 2:
@@ -1042,6 +1045,9 @@ class ADXSelector:
 
         # 从最近 lookback_days 区间内扫描（确保有前一日）
         start = max(1, n - self.lookback_days)
+        last_cross_index = None
+        
+        # 从前往后扫描，记录最后一次上穿的索引
         for i in range(start, n):
             prev_adx, prev_mdi = adx.iloc[i - 1], mdi.iloc[i - 1]
             curr_adx, curr_mdi = adx.iloc[i], mdi.iloc[i]
@@ -1054,9 +1060,9 @@ class ADXSelector:
 
             # 上穿当日要求 PDI > MDI
             if prev_adx < prev_mdi and curr_adx > curr_mdi and pdi.iloc[i] > curr_mdi:
-                return i
+                last_cross_index = i
 
-        return None
+        return last_cross_index
 
     def _post_cross_price_ok(self, hist: pd.DataFrame, cross_idx: int) -> bool:
         """
