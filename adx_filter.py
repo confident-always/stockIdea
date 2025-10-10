@@ -63,6 +63,30 @@ def parse_percentage(pct_str):
         return float(pct_str[:-1]) / 100.0
     return 0.0
 
+def parse_range_percent(range_str):
+    """解析形如 "A-B%" 的区间百分比配置，返回 (A, B) 的浮点区间（按比例值），或 None 表示不过滤。
+    例如："16-600%" => (0.16, 6.0)
+    支持大小写的"none"返回 None。
+    """
+    if range_str is None:
+        return None
+    if isinstance(range_str, str) and range_str.strip().lower() == 'none':
+        return None
+    if isinstance(range_str, str) and range_str.endswith('%') and '-' in range_str:
+        try:
+            body = range_str[:-1]
+            parts = body.split('-')
+            if len(parts) != 2:
+                return None
+            low = float(parts[0]) / 100.0
+            high = float(parts[1]) / 100.0
+            return (low, high)
+        except Exception:
+            logger.warning(f"区间百分比解析失败: {range_str}")
+            return None
+    logger.warning(f"未识别的区间配置: {range_str}")
+    return None
+
 def find_kline_file(stock_code):
     """查找股票对应的K线数据文件"""
     # 尝试不同的文件名格式
@@ -96,7 +120,7 @@ def calculate_pre_high_metrics(kline_df, signal_date, pre_high_days=10):
     计算前高价格相关指标
     
     功能说明：
-    1. 计算上穿前N天的收盘最高价M
+    1. 计算上穿前N个交易日的开盘价和收盘价中的最高价M
     2. 计算上穿后最高收盘价H发生日往后的最低收盘价J相对于M的涨幅K（前高最小涨幅）
     3. 计算前最高价M到当前收盘价的涨幅A（前高当前涨幅）
     4. 计算前最高价M到发生上穿后最高收盘价H的涨幅B（前高最大涨幅）
@@ -104,7 +128,7 @@ def calculate_pre_high_metrics(kline_df, signal_date, pre_high_days=10):
     Args:
         kline_df: K线数据DataFrame，包含date, open, high, low, close列
         signal_date: 上穿信号日期
-        pre_high_days: 上穿前查看的天数，默认10天
+        pre_high_days: 上穿前查看的交易日数，默认10天
     
     Returns:
         dict: 包含以下键值对的字典
@@ -117,36 +141,49 @@ def calculate_pre_high_metrics(kline_df, signal_date, pre_high_days=10):
     try:
         signal_date = pd.to_datetime(signal_date)
         
-        # 1. 计算上穿前N天的收盘最高价M
-        pre_signal_start = signal_date - timedelta(days=pre_high_days)
-        pre_signal_data = kline_df[(kline_df['date'] >= pre_signal_start) & (kline_df['date'] < signal_date)]
-        
-        if pre_signal_data.empty:
-            logger.warning(f"在上穿前{pre_high_days}天内未找到K线数据")
+        # 1. 计算上穿前N个交易日的开盘价和收盘价中的最高价M
+        # 找到信号日期在K线数据中的位置
+        signal_idx = kline_df[kline_df['date'] == signal_date].index
+        if len(signal_idx) == 0:
+            logger.warning(f"未找到信号日期 {signal_date} 的K线数据")
             return None
         
-        pre_high_price = pre_signal_data['close'].max()  # M
+        signal_idx = signal_idx[0]
+        # 获取信号日期前N个交易日的数据
+        start_idx = max(0, signal_idx - pre_high_days)
+        pre_signal_data = kline_df.iloc[start_idx:signal_idx]
+        
+        if pre_signal_data.empty:
+            logger.warning(f"在上穿前{pre_high_days}个交易日内未找到K线数据")
+            return None
+        
+        # 计算开盘价和收盘价中的最高价
+        open_max = pre_signal_data['open'].max()
+        close_max = pre_signal_data['close'].max()
+        pre_high_price = max(open_max, close_max)  # M
         
         # 2. 获取上穿后的数据
         post_signal_data = kline_df[kline_df['date'] > signal_date]
         
-        if post_signal_data.empty:
-            logger.warning(f"上穿日期{signal_date}后未找到K线数据")
-            return None
-        
-        # 3. 计算上穿后最高收盘价H
-        post_high_price = post_signal_data['close'].max()  # H
-        post_high_date = post_signal_data[post_signal_data['close'] == post_high_price]['date'].iloc[0]
-        
-        # 4. 计算上穿后最高收盘价H发生日往后的最低收盘价J
-        post_high_data = kline_df[kline_df['date'] >= post_high_date]
-        if post_high_data.empty:
-            post_min_price = post_high_price  # 如果没有后续数据，使用最高价本身
-        else:
-            post_min_price = post_high_data['close'].min()  # J
-        
         # 5. 计算当前收盘价（最后一天的收盘价）
         current_price = kline_df['close'].iloc[-1]
+        
+        if post_signal_data.empty:
+            # 当上穿日期为最后一天时，直接用最后一天收盘价计算涨跌幅
+            logger.info(f"上穿日期{signal_date}为最后一天，直接使用最后一天收盘价计算涨跌幅")
+            post_high_price = current_price  # H = 当前收盘价
+            post_min_price = current_price   # J = 当前收盘价
+        else:
+            # 3. 计算上穿后最高收盘价H
+            post_high_price = post_signal_data['close'].max()  # H
+            post_high_date = post_signal_data[post_signal_data['close'] == post_high_price]['date'].iloc[0]
+            
+            # 4. 计算上穿后最高收盘价H发生日往后的最低收盘价J
+            post_high_data = kline_df[kline_df['date'] >= post_high_date]
+            if post_high_data.empty:
+                post_min_price = post_high_price  # 如果没有后续数据，使用最高价本身
+            else:
+                post_min_price = post_high_data['close'].min()  # J
         
         # 6. 计算各项涨幅
         if pre_high_price > 0:
@@ -175,12 +212,12 @@ def calculate_pre_high_metrics(kline_df, signal_date, pre_high_days=10):
 
 def calculate_max_range_during_crossover(kline_df, signal_date, lookback_days=3):
     """
-    计算上穿前后lookback_days日内的最大涨幅
+    计算上穿前后lookback_days个交易日内的最大涨幅
     
     Args:
         kline_df: K线数据DataFrame
         signal_date: 上穿信号日期
-        lookback_days: 上穿前后查看的天数
+        lookback_days: 上穿前后查看的交易日数
     
     Returns:
         float: 最大涨幅百分比，计算失败时返回None
@@ -188,15 +225,23 @@ def calculate_max_range_during_crossover(kline_df, signal_date, lookback_days=3)
     try:
         signal_date = pd.to_datetime(signal_date)
         
-        # 计算查看范围：上穿前后lookback_days天，总共2*lookback_days+1天
-        start_date = signal_date - timedelta(days=lookback_days)
-        end_date = signal_date + timedelta(days=lookback_days)
+        # 找到信号日期在K线数据中的位置
+        signal_idx = kline_df[kline_df['date'] == signal_date].index
+        if len(signal_idx) == 0:
+            logger.warning(f"未找到信号日期 {signal_date} 的K线数据")
+            return None
         
-        # 获取指定日期范围内的数据
-        range_data = kline_df[(kline_df['date'] >= start_date) & (kline_df['date'] <= end_date)]
+        signal_idx = signal_idx[0]
+        
+        # 计算查看范围：上穿前后lookback_days个交易日
+        start_idx = max(0, signal_idx - lookback_days)
+        end_idx = min(len(kline_df) - 1, signal_idx + lookback_days)
+        
+        # 获取指定交易日范围内的数据
+        range_data = kline_df.iloc[start_idx:end_idx + 1]
         
         if range_data.empty:
-            logger.warning(f"在日期范围 {start_date} 到 {end_date} 内未找到K线数据")
+            logger.warning(f"在上穿前后{lookback_days}个交易日内未找到K线数据")
             return None
         
         # 找到期间内的最高收盘价和最低开盘价
@@ -246,12 +291,15 @@ def calculate_price_change_after_signal(kline_df, signal_date):
         
         if future_data.empty:
             logger.warning(f"信号日期 {signal_date} 后没有K线数据")
-            # 如果信号日期后没有K线数据，返回涨跌幅为0
-            return 0.0, 0.0, base_price, signal_date
-        
-        # 计算期间内的收盘最高价和最低价
-        max_high = future_data['close'].max()
-        min_low = future_data['close'].min()
+            logger.info(f"上穿日期{signal_date}为最后一天，直接使用最后一天收盘价计算枢轴点涨跌幅")
+            # 当上穿日期为最后一天时，将最大最小价格都设置为当天收盘价
+            current_close = signal_row['close']
+            max_high = current_close
+            min_low = current_close
+        else:
+            # 计算期间内的收盘最高价和最低价
+            max_high = future_data['close'].max()
+            min_low = future_data['close'].min()
         
         # 计算相对于枢轴点价格的涨跌幅
         max_up_pct = (max_high - base_price) / base_price
@@ -292,11 +340,19 @@ def calculate_current_range_from_base(kline_df, signal_date):
         signal_row = signal_day_data.iloc[0]
         base_price = (signal_row['high'] + signal_row['low'] + 2 * signal_row['close']) / 4
         
-        # 获取最后一日的收盘价
-        last_close = kline_df.iloc[-1]['close']
+        # 检查信号日期是否为最后一天
+        future_data = kline_df[kline_df['date'] > signal_date]
+        
+        if future_data.empty:
+            # 当上穿日期为最后一天时，直接使用当天收盘价作为当前价格
+            logger.info(f"上穿日期{signal_date}为最后一天，直接使用当天收盘价计算当前涨幅")
+            current_price = signal_row['close']
+        else:
+            # 获取最后一日的收盘价
+            current_price = kline_df.iloc[-1]['close']
         
         # 计算当前涨幅
-        current_range = (last_close - base_price) / base_price
+        current_range = (current_price - base_price) / base_price
         
         return current_range
         
@@ -305,7 +361,39 @@ def calculate_current_range_from_base(kline_df, signal_date):
         return 0.0
 
 
-def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=0, pre_high_days=10, pre_high_min_range=0, pre_high_max_range=0):
+def calculate_hislow_point_range(kline_df: pd.DataFrame, lookback_months: int | None = None) -> float | None:
+    """
+    计算最后一天收盘价相对于历史最低价的涨幅。
+
+    - 当提供 lookback_months 时，仅统计最后日期往前 N 月内的最低价。
+    - 返回比例值，例如 0.16 表示 16%。若历史最低价<=0或数据缺失则返回 None。
+    """
+    try:
+        if kline_df is None or kline_df.empty:
+            return None
+        # 确保日期为 datetime
+        dates = pd.to_datetime(kline_df['date'])
+        last_close = float(kline_df['close'].iloc[-1])
+        if lookback_months is not None and lookback_months > 0:
+            last_date = dates.iloc[-1]
+            start_date = last_date - pd.DateOffset(months=int(lookback_months))
+            window_df = kline_df[dates >= start_date]
+        else:
+            window_df = kline_df
+        if window_df is None or window_df.empty:
+            logger.warning("指定窗口内无数据，无法计算历史低点涨幅")
+            return None
+        hist_low = float(window_df['low'].min())
+        if hist_low <= 0:
+            logger.warning("历史最低价<=0，无法计算历史低点涨幅")
+            return None
+        return (last_close - hist_low) / hist_low
+    except Exception as e:
+        logger.error(f"计算历史低点涨幅失败: {e}")
+        return None
+
+
+def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=0, pre_high_days=10, pre_high_min_range=0, pre_high_max_range=0, hislow_range: tuple | None = None, hislow_lookback_months: int | None = None):
     """
     过滤结果文件
     
@@ -377,6 +465,11 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
             if pre_high_metrics is None:
                 logger.warning(f"股票 {matched_code} 无法计算前高价格相关指标")
                 continue
+
+            # 计算历史低点涨幅（按配置的 lookback_months 窗口）
+            hislow_pct = calculate_hislow_point_range(kline_df, hislow_lookback_months)
+            # 历史低点涨幅过滤（None 表示不过滤）
+            hislow_ok = hislow_range is None or (hislow_pct is not None and hislow_range[0] <= hislow_pct <= hislow_range[1])
             
             # 检查是否符合过滤条件
             # 计算当前涨幅（枢轴点价格到最后一日的涨幅）
@@ -399,10 +492,13 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
             # 4. 新增的前高最大涨幅过滤条件（pre_high_max_range可以为负值表示跌幅，None表示不过滤）
             pre_high_max_ok = pre_high_max_range is None or pre_high_metrics['pre_high_max_range'] <= pre_high_max_range
             
-            if up_ok and down_ok and crossover_ok and pre_high_ok and pre_high_max_ok:
+            if up_ok and down_ok and crossover_ok and pre_high_ok and pre_high_max_ok and hislow_ok:
                 # 创建新的行数据，包含原有字段和新增的字段
                 new_row = row.copy()
                 new_row['code'] = matched_code  # 使用从data文件夹中匹配到的代码
+                # 历史低点涨幅（在CSV中位于枢轴点价格之前），并注明窗口月数
+                hislow_label = f"历史低点涨幅({hislow_lookback_months}月)" if hislow_lookback_months else "历史低点涨幅"
+                new_row[hislow_label] = f"{round((hislow_pct or 0) * 100, 2)}%"
                 new_row['枢轴点价格'] = round(base_price, 2)
                 new_row['当前涨幅'] = f"{round(current_range * 100, 2)}%"  # 转换为百分比并添加百分号
                 new_row['最小涨幅'] = f"{round(max_down_pct * 100, 2)}%"  # 转换为百分比并添加百分号
@@ -426,22 +522,31 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
                            f"上穿期间最大涨幅 {crossover_max_range:.2%}, "
                            f"前高价格 {pre_high_metrics['pre_high_price']:.2f}, "
                            f"前高最小涨幅 {pre_high_metrics['pre_high_min_range']:.2%}, "
-                           f"前高最大涨幅 {pre_high_metrics['pre_high_max_range']:.2%} "
+                           f"前高最大涨幅 {pre_high_metrics['pre_high_max_range']:.2%}, "
+                           f"历史低点涨幅({hislow_lookback_months}月) {'' if hislow_pct is None else f'{hislow_pct:.2%}'} "
                            f"(涨幅超限: {max_up_pct > range_up if range_up is not None else False}, "
                            f"跌幅超限: {max_down_pct > range_down if range_down is not None else False}, "
                            f"上穿期间涨幅不足: {crossover_max_range < max_range_up if max_range_up is not None else False}, "
                            f"前高最小涨幅不足: {pre_high_metrics['pre_high_min_range'] < pre_high_min_range if pre_high_min_range is not None else False}, "
-                           f"前高最大涨幅超限: {pre_high_metrics['pre_high_max_range'] > pre_high_max_range if pre_high_max_range is not None else False})")
+                           f"前高最大涨幅超限: {pre_high_metrics['pre_high_max_range'] > pre_high_max_range if pre_high_max_range is not None else False}, "
+                           f"历史低点涨幅不在区间: {False if hislow_range is None or hislow_pct is None else not (hislow_range[0] <= hislow_pct <= hislow_range[1])})")
         
         # 保存过滤结果
         if filtered_results:
             filtered_df = pd.DataFrame(filtered_results)
+            # 统一列顺序，确保“历史低点涨幅(XX月)”位于“枢轴点价格”之前
+            base_cols = list(df.columns)
+            hislow_label = f"历史低点涨幅({hislow_lookback_months}月)" if hislow_lookback_months else "历史低点涨幅"
+            extra_cols = [hislow_label, '枢轴点价格', '当前涨幅', '最小涨幅', '最大涨幅', '上穿期间最大涨幅', '前高价格', '前高当前涨幅', '前高最小涨幅', '前高最大涨幅']
+            desired_cols = base_cols + [c for c in extra_cols if c not in base_cols]
+            filtered_df = filtered_df.reindex(columns=desired_cols)
             filtered_df.to_csv(output_file, index=False)
             logger.info(f"过滤完成，保存 {len(filtered_results)} 条记录到: {output_file}")
         else:
             logger.warning("没有股票通过过滤条件")
             # 创建空文件但保持相同的列结构，包含新增的字段
-            columns = list(df.columns) + ['枢轴点价格', '当前涨幅', '最小涨幅', '最大涨幅', '上穿期间最大涨幅', '前高价格', '前高当前涨幅', '前高最小涨幅', '前高最大涨幅']
+            hislow_label = f"历史低点涨幅({hislow_lookback_months}月)" if hislow_lookback_months else "历史低点涨幅"
+            columns = list(df.columns) + [hislow_label, '枢轴点价格', '当前涨幅', '最小涨幅', '最大涨幅', '上穿期间最大涨幅', '前高价格', '前高当前涨幅', '前高最小涨幅', '前高最大涨幅']
             empty_df = pd.DataFrame(columns=columns)
             empty_df.to_csv(output_file, index=False)
             
@@ -482,11 +587,16 @@ def main():
         adx_pre_high_days = adx_config.get('preHighDays', 10)
         adx_pre_high_min_range = parse_percentage(adx_config.get('preHighMinRange', '0%'))
         adx_pre_high_max_range = parse_percentage(adx_config.get('preHighMaxRange', '0%'))
+        adx_hislow_range = parse_range_percent(adx_config.get('HisLowPointRange', 'none'))
+        # 历史低点涨幅窗口月数（ADX配置未设置时默认120）
+        adx_lookback_months = adx_config.get('lookback_months', 120)
         logger.info(f"ADX过滤配置: 最大涨幅 {'none' if adx_range_up is None else f'{adx_range_up:.2%}'}, "
                    f"最大跌幅 {'none' if adx_range_down is None else f'{adx_range_down:.2%}'}, "
                    f"回看天数 {adx_lookback_days}, 上穿期间最大涨幅阈值 {'none' if adx_max_range_up is None else f'{adx_max_range_up:.2%}'}, "
                    f"前高天数 {adx_pre_high_days}, 前高最小涨幅阈值 {'none' if adx_pre_high_min_range is None else f'{adx_pre_high_min_range:.2%}'}, "
-                   f"前高最大涨幅阈值 {'none' if adx_pre_high_max_range is None else f'{adx_pre_high_max_range:.2%}'}")
+                   f"前高最大涨幅阈值 {'none' if adx_pre_high_max_range is None else f'{adx_pre_high_max_range:.2%}'}, "
+                   f"历史低点涨幅区间 {'none' if adx_hislow_range is None else f'{adx_hislow_range[0]:.2%}-{adx_hislow_range[1]:.2%}'}, "
+                   f"历史低点涨幅窗口 {adx_lookback_months}月")
         
         for input_file in adx_files:
             filename = os.path.basename(input_file)
@@ -494,7 +604,7 @@ def main():
             
             logger.info(f"开始处理ADX文件: {input_file}")
             filter_results(input_file, output_file, adx_range_up, adx_range_down, 'ADX', 
-                         adx_lookback_days, adx_max_range_up, adx_pre_high_days, adx_pre_high_min_range, adx_pre_high_max_range)
+                         adx_lookback_days, adx_max_range_up, adx_pre_high_days, adx_pre_high_min_range, adx_pre_high_max_range, adx_hislow_range, adx_lookback_months)
     elif adx_files:
         logger.info("ADX配置未启用，跳过ADX文件处理")
     
@@ -507,11 +617,15 @@ def main():
         pdi_pre_high_days = pdi_config.get('preHighDays', 10)
         pdi_pre_high_min_range = parse_percentage(pdi_config.get('preHighMinRange', '0%'))
         pdi_pre_high_max_range = parse_percentage(pdi_config.get('preHighMaxRange', '0%'))
+        pdi_hislow_range = parse_range_percent(pdi_config.get('HisLowPointRange', 'none'))
+        pdi_lookback_months = pdi_config.get('lookback_months', 120)
         logger.info(f"PDI过滤配置: 最大涨幅 {'none' if pdi_range_up is None else f'{pdi_range_up:.2%}'}, "
                    f"最大跌幅 {'none' if pdi_range_down is None else f'{pdi_range_down:.2%}'}, "
                    f"回看天数 {pdi_lookback_days}, 上穿期间最大涨幅阈值 {'none' if pdi_max_range_up is None else f'{pdi_max_range_up:.2%}'}, "
                    f"前高天数 {pdi_pre_high_days}, 前高最小涨幅阈值 {'none' if pdi_pre_high_min_range is None else f'{pdi_pre_high_min_range:.2%}'}, "
-                   f"前高最大涨幅阈值 {'none' if pdi_pre_high_max_range is None else f'{pdi_pre_high_max_range:.2%}'}")
+                   f"前高最大涨幅阈值 {'none' if pdi_pre_high_max_range is None else f'{pdi_pre_high_max_range:.2%}'}, "
+                   f"历史低点涨幅区间 {'none' if pdi_hislow_range is None else f'{pdi_hislow_range[0]:.2%}-{pdi_hislow_range[1]:.2%}'}, "
+                   f"历史低点涨幅窗口 {pdi_lookback_months}月")
         
         for input_file in pdi_files:
             filename = os.path.basename(input_file)
@@ -519,7 +633,7 @@ def main():
             
             logger.info(f"开始处理PDI文件: {input_file}")
             filter_results(input_file, output_file, pdi_range_up, pdi_range_down, 'PDI',
-                         pdi_lookback_days, pdi_max_range_up, pdi_pre_high_days, pdi_pre_high_min_range, pdi_pre_high_max_range)
+                         pdi_lookback_days, pdi_max_range_up, pdi_pre_high_days, pdi_pre_high_min_range, pdi_pre_high_max_range, pdi_hislow_range, pdi_lookback_months)
     elif pdi_files:
         logger.info("PDI配置未启用，跳过PDI文件处理")
     
