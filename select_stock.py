@@ -41,64 +41,61 @@ def load_data(data_dir: Path, codes: Iterable[str]) -> Dict[str, pd.DataFrame]:
 
 
 def fetch_company_info_from_em(codes: List[str], max_workers: int | None = None) -> Dict[str, Dict[str, str]]:
-    """通过东方财富接口获取公司名称、所属行业与公司简介。
+    """从stocklist.csv获取股票公司信息。
 
-    使用 ak.stock_individual_info_em(symbol) 逐只查询；返回
-    映射：code -> {name, industry, brief}。
-    参考页面示例：`http://quote.eastmoney.com/concept/sh603777.html?from=classic`
+    返回映射：code -> {name, industry}
     """
-    def _fetch_one(code: str) -> tuple[str, Dict[str, str]]:
-        symbol = str(code).strip().zfill(6)
+    
+    def _load_stocklist_mapping() -> Dict[str, Dict[str, str]]:
+        """加载stocklist.csv中的股票信息映射"""
+        stocklist_path = Path("stocklist.csv")
+        if not stocklist_path.exists():
+            logger.warning("stocklist.csv 文件不存在，无法获取股票信息")
+            return {}
+        
         try:
-            df = ak.stock_individual_info_em(symbol=symbol)
+            df = pd.read_csv(stocklist_path)
+            # 创建symbol到股票信息的映射
+            mapping = {}
+            for _, row in df.iterrows():
+                symbol = str(row['symbol']).zfill(6)  # 确保6位数字
+                mapping[symbol] = {
+                    'name': str(row['name']),
+                    'industry': str(row['industry'])
+                }
+            logger.info("✓ 成功加载 %d 只股票信息映射", len(mapping))
+            return mapping
         except Exception as e:
-            logger.warning("东方财富个股信息查询失败 %s: %s", symbol, e)
-            return code, {"name": "", "industry": "", "brief": ""}
-
-        if df is None or df.empty:
-            return code, {"name": "", "industry": "", "brief": ""}
-
-        # 常见返回结构：两列 item/value
-        try:
-            kv = df.copy()
-            item_col = next((c for c in ["item", "项目", "字段"] if c in kv.columns), None)
-            value_col = next((c for c in ["value", "值", "内容"] if c in kv.columns), None)
-            if item_col is None or value_col is None:
-                item_col, value_col = kv.columns[:2]
-            series = (
-                kv.set_index(item_col)[value_col]
-                .astype(str)
-                .str.strip()
-            )
-        except Exception:
-            series = pd.Series(dtype=str)
-
-        def pick(keys: List[str]) -> str:
-            for k in keys:
-                if k in series.index and pd.notna(series.get(k, None)):
-                    return str(series[k])
-            return ""
-
-        name = pick(["公司名称", "公司简称", "股票简称", "证券简称", "名称"])
-        industry = pick(["所属行业", "行业"])
-        brief = pick(["公司简介", "公司概述", "公司介绍", "公司简介(最新)"])
-        return code, {"name": name, "industry": industry, "brief": brief}
+            logger.error("加载stocklist.csv失败: %s", e)
+            return {}
+    
+    def _fetch_from_stocklist(code: str, stocklist_mapping: Dict[str, Dict[str, str]]) -> tuple[str, Dict[str, str]]:
+        """从stocklist映射获取股票信息"""
+        symbol = str(code).strip().zfill(6)
+        
+        if symbol in stocklist_mapping:
+            info = stocklist_mapping[symbol]
+            logger.debug("✓ 从stocklist获取 %s 信息: %s", symbol, info['name'])
+            return code, info
+        else:
+            logger.debug("✗ stocklist中未找到 %s", symbol)
+            return code, {"name": "", "industry": ""}
 
     if not codes:
         return {}
 
-    workers = max_workers if (isinstance(max_workers, int) and max_workers > 0) else min(8, len(codes))
+    # 加载stocklist映射
+    stocklist_mapping = _load_stocklist_mapping()
+    if not stocklist_mapping:
+        logger.warning("无法加载股票信息映射，返回空结果")
+        return {code: {"name": "", "industry": ""} for code in codes}
+
+    # 获取股票信息
     info: Dict[str, Dict[str, str]] = {}
-    with ThreadPoolExecutor(max_workers=workers) as ex:
-        futures = {ex.submit(_fetch_one, c): c for c in codes}
-        for fu in as_completed(futures):
-            try:
-                code, payload = fu.result()
-            except Exception as e:
-                code = futures[fu]
-                logger.warning("并发获取公司信息失败 %s: %s", code, e)
-                payload = {"name": "", "industry": "", "brief": ""}
-            info[code] = payload
+    for code in codes:
+        _, payload = _fetch_from_stocklist(code, stocklist_mapping)
+        info[code] = payload
+    
     return info
 
 
@@ -284,7 +281,6 @@ def main():
                         adx_val,
                         meta.get("name", ""),
                         meta.get("industry", ""),
-                        meta.get("brief", ""),
                     ])
 
                 # 按行业排序（无行业信息的排后）；空结果时仅写表头
@@ -293,7 +289,7 @@ def main():
 
                 with open(out_file, "w", newline="", encoding="utf-8") as f:
                     writer = csv.writer(f)
-                    writer.writerow(["code", "date", "ADX", "name", "industry", "brief"])
+                    writer.writerow(["code", "date", "ADX", "name", "industry"])
                     for r in rows:
                         writer.writerow(r)
                 logger.info("已生成结果CSV: %s", out_file)
@@ -392,7 +388,6 @@ def main():
                         pdi_val,
                         meta.get("name", ""),
                         meta.get("industry", ""),
-                        meta.get("brief", ""),
                     ])
 
                 # 按行业排序（无行业信息的排后）；空结果时仅写表头
@@ -401,7 +396,7 @@ def main():
 
                 with open(out_file, "w", newline="", encoding="utf-8") as f:
                     writer = csv.writer(f)
-                    writer.writerow(["code", "date", "PDI", "name", "industry", "brief"])
+                    writer.writerow(["code", "date", "PDI", "name", "industry"])
                     for r in rows:
                         writer.writerow(r)
                 logger.info("已生成结果CSV: %s", out_file)
