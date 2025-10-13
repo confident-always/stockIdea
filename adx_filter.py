@@ -288,11 +288,11 @@ def calculate_price_change_after_signal(kline_df, signal_date):
         # 使用信号日期当天的(最高价+最低价+2*收盘价)/4作为枢轴点价格
         # base_price = (signal_row['high'] + signal_row['low'] + 2 * signal_row['close']) / 4
       
-        # 或者使用信号日期当天的收盘价作为枢轴点价格
-        # base_price = signal_row['close'];
+        #或者使用信号日期当天的收盘价作为枢轴点价格
+        base_price = signal_row['close']
         
         # 或者使用信号日期当天的开盘价作为枢轴点价格
-        base_price = signal_row['open'];
+        # base_price = signal_row['open']
 
 
         # 获取信号日期后的所有数据（不包含信号日当天）

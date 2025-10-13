@@ -18,3 +18,8 @@ python adx_filter.py --input-dir res --output-dir resByFilter --workers 6
 ```bash
 python run_pipeline.py
 ```
+
+### 画线
+```bash
+python draw_base_lines.py --input-dir resByFilter --output-dir drawLineRes --workers 6
+```
