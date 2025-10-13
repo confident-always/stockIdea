@@ -193,7 +193,7 @@ def main():
         # 处理 ADXSelector 配置
         if cfg.get("class") == "ADXSelector":
             dmi_period = cfg.get("params", {}).get("dmi_period", 39)
-            lookback_days = cfg.get("params", {}).get("lookback_days", 5)
+            lookback_days = cfg.get("params", {}).get("lookback_days", 30)
             alias = cfg.get("alias", f"ADX{dmi_period}")
             
             logger.info("")
