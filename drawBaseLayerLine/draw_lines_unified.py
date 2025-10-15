@@ -572,7 +572,7 @@ class UnifiedLineDrawer:
                 logger.debug(f"资源清理异常: {cleanup_error}")
                 pass
     
-    def process_stock_list(self, stock_list: List[Tuple[str, str, str]], 
+    def process_stock_list(self, stock_list: List[Tuple[str, str, str, str]], 
                           output_dir: str = None, data_dir: str = "../data", workers: int = 4):
         """处理指定的股票列表"""
         # 如果未指定输出目录，使用带日期的默认目录
@@ -604,8 +604,8 @@ class UnifiedLineDrawer:
         with ThreadPoolExecutor(max_workers=workers) as executor:
             # 提交任务
             future_to_stock = {
-                executor.submit(self._process_single_stock, code, name, output_dir, data_dir): (code, name, industry)
-                for code, name, industry in stock_list
+                executor.submit(self._process_single_stock, code, name, output_dir, data_dir, file_prefix): (code, name, industry, file_prefix)
+                for code, name, industry, file_prefix in stock_list
             }
             
             # 收集结果
@@ -644,7 +644,7 @@ class UnifiedLineDrawer:
                 logger.warning(f"   ... 还有{len(failed_stocks)-10}只股票失败")
 
     def _process_single_stock(self, stock_code: str, stock_name: str, 
-                           output_dir: str, data_dir: str) -> dict:
+                           output_dir: str, data_dir: str, file_prefix: str = "") -> dict:
         """处理单只股票（内部方法）"""
         start_time = time.time()
         result = {
@@ -675,7 +675,11 @@ class UnifiedLineDrawer:
             os.makedirs(output_dir, exist_ok=True)
             
             # 4. 生成图表
-            output_file = os.path.join(output_dir, f"{stock_code}_{stock_name}.png")
+            # 根据文件前缀生成带前缀的文件名
+            if file_prefix and file_prefix != "UNKNOWN":
+                output_file = os.path.join(output_dir, f"{file_prefix}_{stock_code}_{stock_name}.png")
+            else:
+                output_file = os.path.join(output_dir, f"{stock_code}_{stock_name}.png")
             success = self.create_unified_chart(stock_code, stock_name, df, stage_lows, output_file)
             
             if success:
@@ -767,6 +771,24 @@ def main():
             import pandas as pd
             df = pd.read_csv(file_path)
             
+            # 从文件名提取前缀类型（ADX39或PDI39）
+            file_name = os.path.basename(file_path)
+            file_prefix = ""
+            if file_name.startswith("ADX"):
+                file_prefix = "ADX39"
+            elif file_name.startswith("PDI"):
+                file_prefix = "PDI39"
+            else:
+                # 如果文件名不以ADX或PDI开头，尝试从文件名中提取
+                if "ADX" in file_name.upper():
+                    file_prefix = "ADX39"
+                elif "PDI" in file_name.upper():
+                    file_prefix = "PDI39"
+                else:
+                    file_prefix = "UNKNOWN"
+            
+            logger.info(f"📊 文件类型: {file_prefix}")
+            
             # 从CSV文件中提取股票信息
             for _, row in df.iterrows():
                 code = str(row.get('code', ''))
@@ -777,7 +799,8 @@ def main():
                 if code:
                     normalized_code = code.zfill(6)
                     if normalized_code not in all_stocks:
-                        all_stocks[normalized_code] = (normalized_code, name, industry)
+                        # 扩展股票信息，包含文件前缀
+                        all_stocks[normalized_code] = (normalized_code, name, industry, file_prefix)
                         
         except Exception as e:
             logger.error(f"❌ 读取文件 {file_path} 失败: {e}")
