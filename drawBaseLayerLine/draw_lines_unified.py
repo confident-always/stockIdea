@@ -277,98 +277,129 @@ class UnifiedLineDrawer:
             return None
     
     def find_stage_lows_unified(self, df: pd.DataFrame) -> List[Tuple[int, float, str]]:
-        """统一版阶段低点检测 - 基于zigzag转折检测，只保留一个最终低点"""
+        """统一版阶段低点检测 - 基于历史最高价后的最低点，确保符合山峰定义"""
         try:
             if len(df) < 50:
                 logger.warning("⚠️ 数据不足，无法检测阶段低点")
                 return []
             
-            # 实现zigzag转折检测算法
-            def detect_zigzag_turning_points(prices: np.ndarray, threshold: float = 0.6) -> List[int]:
-                """检测zigzag转折点，threshold为转折幅度阈值（60%对应0.6）"""
-                if len(prices) < 3:
-                    return []
-                
-                turning_points = []
-                current_trend = None  # 'up' or 'down'
-                last_extreme_idx = 0
-                last_extreme_price = prices[0]
-                
-                for i in range(1, len(prices)):
-                    current_price = prices[i]
-                    
-                    # 计算相对于上一个极值点的变化幅度
-                    if last_extreme_price > 0:
-                        change_ratio = abs(current_price - last_extreme_price) / last_extreme_price
-                    else:
-                        change_ratio = 0
-                    
-                    # 检测转折点
-                    if change_ratio >= threshold:
-                        if current_price > last_extreme_price:
-                            # 上涨超过阈值
-                            if current_trend != 'up':
-                                # 趋势转为上涨，记录前一个低点
-                                if current_trend == 'down':
-                                    turning_points.append(last_extreme_idx)
-                                current_trend = 'up'
-                                last_extreme_idx = i
-                                last_extreme_price = current_price
-                        else:
-                            # 下跌超过阈值
-                            if current_trend != 'down':
-                                # 趋势转为下跌，记录前一个高点
-                                if current_trend == 'up':
-                                    turning_points.append(last_extreme_idx)
-                                current_trend = 'down'
-                                last_extreme_idx = i
-                                last_extreme_price = current_price
-                    else:
-                        # 更新当前极值点
-                        if current_trend == 'up' and current_price > last_extreme_price:
-                            last_extreme_idx = i
-                            last_extreme_price = current_price
-                        elif current_trend == 'down' and current_price < last_extreme_price:
-                            last_extreme_idx = i
-                            last_extreme_price = current_price
-                
-                return turning_points
+            # 找到历史最高价位置
+            max_high_idx = df['high'].idxmax()
+            max_high_price = df.loc[max_high_idx, 'high']
+            max_high_date = df.loc[max_high_idx, 'date']
             
-            # 检测zigzag转折点
-            turning_points = detect_zigzag_turning_points(df['close'].values, threshold=0.6)
+            # 计算70%跌幅位置（山峰定义的阈值）
+            decline_70_threshold = max_high_price * 0.3
             
-            # 找到最后一个转折点之后的最低点
+            # 从历史最高价之后开始寻找最低点
+            after_peak_df = df[df.index > max_high_idx].copy()
+            
             final_low_idx = None
             final_low_price = float('inf')
+            final_low_date = None
             
-            if turning_points:
-                # 从最后一个转折点开始寻找最低点
-                last_turning_point = turning_points[-1]
-                search_start = max(0, last_turning_point)
+            if len(after_peak_df) > 0:
+                # 在历史最高价之后寻找最低点
+                min_idx_after_peak = after_peak_df['low'].idxmin()
+                min_price_after_peak = after_peak_df.loc[min_idx_after_peak, 'low']
+                min_date_after_peak = after_peak_df.loc[min_idx_after_peak, 'date']
                 
-                # 在转折点之后寻找最低点
-                for i in range(search_start, len(df)):
-                    current_low = df.loc[i, 'low']
-                    if current_low < final_low_price:
-                        final_low_price = current_low
-                        final_low_idx = i
-            else:
-                # 如果没有检测到转折点，使用全局最低点
-                final_low_idx = df['low'].idxmin()
-                final_low_price = df.loc[final_low_idx, 'low']
+                # 检查是否符合70%跌幅条件（山峰定义）
+                if min_price_after_peak <= decline_70_threshold:
+                    # 符合山峰定义，使用山峰后的最低点
+                    final_low_idx = min_idx_after_peak
+                    final_low_price = min_price_after_peak
+                    final_low_date = min_date_after_peak
+                    
+                    logger.debug(f"✅ 符合山峰定义: 最高价={max_high_price:.2f}({max_high_date.strftime('%Y-%m-%d')}), "
+                               f"70%跌幅阈值={decline_70_threshold:.2f}, 山峰后最低价={final_low_price:.2f}")
+                else:
+                    # 不符合山峰定义，使用zigzag算法寻找转折点
+                    logger.debug(f"⚠️ 不符合山峰定义: 山峰后最低价{min_price_after_peak:.2f} > 70%跌幅阈值{decline_70_threshold:.2f}")
+                    
+                    # 实现zigzag转折检测算法作为备选方案
+                    def detect_zigzag_turning_points(prices: np.ndarray, threshold: float = 0.6) -> List[int]:
+                        """检测zigzag转折点，threshold为转折幅度阈值（60%对应0.6）"""
+                        if len(prices) < 3:
+                            return []
+                        
+                        turning_points = []
+                        current_trend = None  # 'up' or 'down'
+                        last_extreme_idx = 0
+                        last_extreme_price = prices[0]
+                        
+                        for i in range(1, len(prices)):
+                            current_price = prices[i]
+                            
+                            # 计算相对于上一个极值点的变化幅度
+                            if last_extreme_price > 0:
+                                change_ratio = abs(current_price - last_extreme_price) / last_extreme_price
+                            else:
+                                change_ratio = 0
+                            
+                            # 检测转折点
+                            if change_ratio >= threshold:
+                                if current_price > last_extreme_price:
+                                    # 上涨超过阈值
+                                    if current_trend != 'up':
+                                        # 趋势转为上涨，记录前一个低点
+                                        if current_trend == 'down':
+                                            turning_points.append(last_extreme_idx)
+                                        current_trend = 'up'
+                                        last_extreme_idx = i
+                                        last_extreme_price = current_price
+                                else:
+                                    # 下跌超过阈值
+                                    if current_trend != 'down':
+                                        # 趋势转为下跌，记录前一个高点
+                                        if current_trend == 'up':
+                                            turning_points.append(last_extreme_idx)
+                                        current_trend = 'down'
+                                        last_extreme_idx = i
+                                        last_extreme_price = current_price
+                            else:
+                                # 更新当前极值点
+                                if current_trend == 'up' and current_price > last_extreme_price:
+                                    last_extreme_idx = i
+                                    last_extreme_price = current_price
+                                elif current_trend == 'down' and current_price < last_extreme_price:
+                                    last_extreme_idx = i
+                                    last_extreme_price = current_price
+                        
+                        return turning_points
+                    
+                    # 检测zigzag转折点
+                    turning_points = detect_zigzag_turning_points(df['close'].values, threshold=0.6)
+                    
+                    if turning_points:
+                        # 从最后一个转折点开始寻找最低点
+                        last_turning_point = turning_points[-1]
+                        search_start = max(0, last_turning_point)
+                        
+                        # 在转折点之后寻找最低点
+                        for i in range(search_start, len(df)):
+                            current_low = df.loc[i, 'low']
+                            if current_low < final_low_price:
+                                final_low_price = current_low
+                                final_low_idx = i
+                        
+                        if final_low_idx is not None:
+                            final_low_date = df.loc[final_low_idx, 'date']
             
             # 如果仍然没有找到有效的低点，使用全局最低点作为备选
             if final_low_idx is None:
                 final_low_idx = df['low'].idxmin()
                 final_low_price = df.loc[final_low_idx, 'low']
+                final_low_date = df.loc[final_low_idx, 'date']
+                logger.debug(f"⚠️ 使用全局最低点作为备选")
             
             # 格式化日期
-            final_low_date = df.loc[final_low_idx, 'date'].strftime('%Y-%m-%d')
+            final_low_date_str = final_low_date.strftime('%Y-%m-%d')
             
             # 返回单一低点
-            stage_lows = [(final_low_idx, final_low_price, final_low_date)]
+            stage_lows = [(final_low_idx, final_low_price, final_low_date_str)]
             
-            logger.debug(f"✅ 检测到1个最终低点: 日期={final_low_date}, 价格={final_low_price:.2f}")
+            logger.debug(f"✅ 检测到1个最终低点: 日期={final_low_date_str}, 价格={final_low_price:.2f}")
             return stage_lows
             
         except Exception as e:
