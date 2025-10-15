@@ -7,6 +7,7 @@ import logging
 import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List
+from datetime import datetime
 
 import pandas as pd
 import csv
@@ -140,6 +141,10 @@ def instantiate_selector(cfg: Dict[str, Any]):
 # ---------- 主函数 ----------
 
 def main():
+    # 生成带日期的默认输出目录
+    current_date = datetime.now().strftime('%Y%m%d')
+    default_output_dir = f'{current_date}-res'
+    
     p = argparse.ArgumentParser(description="Run selectors defined in configs.json")
     p.add_argument("--data-dir", default="./data", help="CSV 行情目录")
     p.add_argument("--config", default="./configs.json", help="Selector 配置文件")
@@ -147,6 +152,7 @@ def main():
     p.add_argument("--tickers", default="all", help="'all' 或逗号分隔股票代码列表")
     p.add_argument("--meta-workers", type=int, default=4, help="公司信息查询并发线程数（东方财富接口）")
     p.add_argument("--adx-periods", default=None, help="运行 ADX 的 DMI 周期列表，逗号分隔，例如 39,105,243；缺省按 39/105/243 生成")
+    p.add_argument("--output-dir", default=default_output_dir, help=f"输出目录 (默认: {default_output_dir})")
     args = p.parse_args()
 
     # --- 加载行情 ---
@@ -249,7 +255,7 @@ def main():
                 logger.info("无符合条件股票")
 
             # 生成 CSV：使用 alias + 日期命名
-            out_dir = Path("res")
+            out_dir = Path(args.output_dir)
             out_dir.mkdir(exist_ok=True)
             out_file = out_dir / f"{alias}_{trade_date.date().isoformat()}.csv"
             try:
@@ -356,7 +362,7 @@ def main():
                 logger.info("无符合条件股票")
 
             # 生成 CSV：使用 alias + 日期命名
-            out_dir = Path("res")
+            out_dir = Path(args.output_dir)
             out_dir.mkdir(exist_ok=True)
             out_file = out_dir / f"{alias}_{trade_date.date().isoformat()}.csv"
             try:

@@ -532,9 +532,14 @@ class UnifiedLineDrawer:
         
         return result
     
-    def process_all_stocks(self, output_dir: str = "drawLineRes", 
+    def process_all_stocks(self, output_dir: str = None, 
                           data_dir: str = "../data", workers: int = 4):
         """批量处理所有股票"""
+        # 如果未指定输出目录，使用带日期的默认目录
+        if output_dir is None:
+            current_date = datetime.now().strftime('%Y%m%d')
+            output_dir = f'{current_date}-drawLineRes'
+        
         logger.info(f"🚀 开始批量处理股票")
         logger.info(f"📁 数据目录: {data_dir}")
         logger.info(f"📁 输出目录: {output_dir}")
@@ -615,7 +620,7 @@ def main():
   python draw_lines_unified.py --all
   
   # 指定输出目录和线程数
-  python draw_lines_unified.py --all --output drawLineRes --workers 4
+  python draw_lines_unified.py --all --output 20241015-drawLineRes --workers 4
   
   # 从指定数据目录读取
   python draw_lines_unified.py --all --data-dir ../data
@@ -627,9 +632,13 @@ def main():
     group.add_argument('--stock', type=str, help='处理单只股票（股票代码）')
     group.add_argument('--all', action='store_true', help='批量处理所有股票')
     
+    # 生成带日期的默认输出目录
+    current_date = datetime.now().strftime('%Y%m%d')
+    default_output_dir = f'{current_date}-drawLineRes'
+    
     # 可选参数
-    parser.add_argument('--output', type=str, default='drawLineRes', 
-                       help='输出目录 (默认: drawLineRes)')
+    parser.add_argument('--output', type=str, default=default_output_dir, 
+                       help=f'输出目录 (默认: {default_output_dir})')
     parser.add_argument('--data-dir', type=str, default='../data', 
                        help='数据目录 (默认: ../data)')
     parser.add_argument('--workers', type=int, default=4, 

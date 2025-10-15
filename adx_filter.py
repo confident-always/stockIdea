@@ -603,9 +603,13 @@ def process_single_file(input_file, output_dir, file_type, config):
 
 
 def main():
+    # 生成带日期的默认输出目录
+    current_date = datetime.now().strftime('%Y%m%d')
+    default_output_dir = f'{current_date}-resByFilter'
+    
     parser = argparse.ArgumentParser(description='ADX和PDI结果过滤器')
     parser.add_argument('--input-dir', default='res', help='输入目录')
-    parser.add_argument('--output-dir', default='resByFilter', help='输出目录')
+    parser.add_argument('--output-dir', default=default_output_dir, help=f'输出目录 (默认: {default_output_dir})')
     parser.add_argument('--workers', type=int, default=12, help='并发处理的线程数')
     
     args = parser.parse_args()
