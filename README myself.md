@@ -21,5 +21,5 @@ python run_pipeline.py
 
 ### 画线
 ```bash
-python draw_base_lines.py --input-dir resByFilter --output-dir drawLineRes --workers 6
+python draw_lines_unified.py --all --workers 8
 ```

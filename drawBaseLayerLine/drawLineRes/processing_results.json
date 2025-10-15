@@ -1,0 +1,1546 @@
+[
+  {
+    "stock_code": "603012",
+    "stock_name": "创力集团",
+    "success": true,
+    "elapsed_time": 1.4441430568695068,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600215",
+    "stock_name": "派斯林",
+    "success": true,
+    "elapsed_time": 4.4252097606658936,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603698",
+    "stock_name": "航天工程",
+    "success": true,
+    "elapsed_time": 4.56739616394043,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000593",
+    "stock_name": "德龙汇能",
+    "success": true,
+    "elapsed_time": 4.794469833374023,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600917",
+    "stock_name": "重庆燃气",
+    "success": true,
+    "elapsed_time": 4.773764133453369,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600071",
+    "stock_name": "凤凰光学",
+    "success": true,
+    "elapsed_time": 4.8056769371032715,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000069",
+    "stock_name": "华侨城A",
+    "success": true,
+    "elapsed_time": 6.54708194732666,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002271",
+    "stock_name": "东方雨虹",
+    "success": true,
+    "elapsed_time": 5.9335618019104,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002825",
+    "stock_name": "纳尔股份",
+    "success": true,
+    "elapsed_time": 4.213293075561523,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000517",
+    "stock_name": "荣安地产",
+    "success": true,
+    "elapsed_time": 5.1938910484313965,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600060",
+    "stock_name": "海信视像",
+    "success": true,
+    "elapsed_time": 7.77237606048584,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002701",
+    "stock_name": "奥瑞金",
+    "success": true,
+    "elapsed_time": 5.990097999572754,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002949",
+    "stock_name": "华阳国际",
+    "success": true,
+    "elapsed_time": 2.9322092533111572,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600133",
+    "stock_name": "东湖高新",
+    "success": true,
+    "elapsed_time": 4.091398000717163,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600640",
+    "stock_name": "国脉文化",
+    "success": true,
+    "elapsed_time": 7.041335105895996,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000883",
+    "stock_name": "湖北能源",
+    "success": true,
+    "elapsed_time": 6.878765821456909,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600025",
+    "stock_name": "华能水电",
+    "success": true,
+    "elapsed_time": 4.165802955627441,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600686",
+    "stock_name": "金龙汽车",
+    "success": true,
+    "elapsed_time": 4.990933179855347,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000589",
+    "stock_name": "贵州轮胎",
+    "success": true,
+    "elapsed_time": 7.4670491218566895,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603348",
+    "stock_name": "文灿股份",
+    "success": true,
+    "elapsed_time": 5.139971971511841,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603730",
+    "stock_name": "岱美股份",
+    "success": true,
+    "elapsed_time": 2.7463769912719727,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603997",
+    "stock_name": "继峰股份",
+    "success": true,
+    "elapsed_time": 2.9870808124542236,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000543",
+    "stock_name": "皖能电力",
+    "success": true,
+    "elapsed_time": 4.8688061237335205,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002318",
+    "stock_name": "久立特材",
+    "success": true,
+    "elapsed_time": 5.437227010726929,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603995",
+    "stock_name": "甬金股份",
+    "success": true,
+    "elapsed_time": 3.1766698360443115,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600874",
+    "stock_name": "创业环保",
+    "success": true,
+    "elapsed_time": 4.473110914230347,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "605056",
+    "stock_name": "咸亨国际",
+    "success": true,
+    "elapsed_time": 4.64289116859436,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603220",
+    "stock_name": "中贝通信",
+    "success": true,
+    "elapsed_time": 2.443687915802002,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600235",
+    "stock_name": "民丰特纸",
+    "success": true,
+    "elapsed_time": 3.6930949687957764,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002135",
+    "stock_name": "东南网架",
+    "success": true,
+    "elapsed_time": 4.819977760314941,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601333",
+    "stock_name": "广深铁路",
+    "success": true,
+    "elapsed_time": 4.7318878173828125,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000612",
+    "stock_name": "焦作万方",
+    "success": true,
+    "elapsed_time": 5.556134939193726,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002996",
+    "stock_name": "顺博合金",
+    "success": true,
+    "elapsed_time": 4.4594879150390625,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603172",
+    "stock_name": "万丰股份",
+    "success": true,
+    "elapsed_time": 1.9216649532318115,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603105",
+    "stock_name": "芯能科技",
+    "success": true,
+    "elapsed_time": 1.738996982574463,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000977",
+    "stock_name": "浪潮信息",
+    "success": true,
+    "elapsed_time": 3.9739437103271484,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002534",
+    "stock_name": "西子洁能",
+    "success": true,
+    "elapsed_time": 4.8567681312561035,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603169",
+    "stock_name": "兰石重装",
+    "success": true,
+    "elapsed_time": 3.4964370727539062,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603391",
+    "stock_name": "力聚热能",
+    "success": true,
+    "elapsed_time": 2.060175895690918,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000792",
+    "stock_name": "盐湖股份",
+    "success": true,
+    "elapsed_time": 3.4627182483673096,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002895",
+    "stock_name": "川恒股份",
+    "success": true,
+    "elapsed_time": 4.245870113372803,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603650",
+    "stock_name": "彤程新材",
+    "success": true,
+    "elapsed_time": 2.464702844619751,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002430",
+    "stock_name": "杭氧股份",
+    "success": true,
+    "elapsed_time": 3.0417747497558594,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002064",
+    "stock_name": "华峰化学",
+    "success": true,
+    "elapsed_time": 4.214968919754028,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002049",
+    "stock_name": "紫光国微",
+    "success": true,
+    "elapsed_time": 4.76708197593689,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002213",
+    "stock_name": "大为股份",
+    "success": true,
+    "elapsed_time": 4.735490083694458,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600460",
+    "stock_name": "士兰微",
+    "success": true,
+    "elapsed_time": 4.963471174240112,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603690",
+    "stock_name": "至纯科技",
+    "success": true,
+    "elapsed_time": 4.199148893356323,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600848",
+    "stock_name": "上海临港",
+    "success": true,
+    "elapsed_time": 4.99715781211853,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600458",
+    "stock_name": "时代新材",
+    "success": true,
+    "elapsed_time": 6.570012331008911,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603838",
+    "stock_name": "*ST四通",
+    "success": true,
+    "elapsed_time": 4.170353174209595,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002192",
+    "stock_name": "融捷股份",
+    "success": true,
+    "elapsed_time": 3.4251060485839844,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002191",
+    "stock_name": "劲嘉股份",
+    "success": true,
+    "elapsed_time": 4.414757966995239,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603687",
+    "stock_name": "大胜达",
+    "success": true,
+    "elapsed_time": 3.149501323699951,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002663",
+    "stock_name": "普邦股份",
+    "success": true,
+    "elapsed_time": 2.770102024078369,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600846",
+    "stock_name": "同济科技",
+    "success": true,
+    "elapsed_time": 5.252945899963379,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601611",
+    "stock_name": "中国核建",
+    "success": true,
+    "elapsed_time": 5.042470932006836,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "001300",
+    "stock_name": "三柏硕",
+    "success": true,
+    "elapsed_time": 2.131680965423584,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600022",
+    "stock_name": "山东钢铁",
+    "success": true,
+    "elapsed_time": 3.088075876235962,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600282",
+    "stock_name": "南钢股份",
+    "success": true,
+    "elapsed_time": 5.385166168212891,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600769",
+    "stock_name": "祥龙电业",
+    "success": true,
+    "elapsed_time": 6.914414882659912,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601872",
+    "stock_name": "招商轮船",
+    "success": true,
+    "elapsed_time": 6.388082981109619,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603162",
+    "stock_name": "海通发展",
+    "success": true,
+    "elapsed_time": 3.0288569927215576,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601127",
+    "stock_name": "赛力斯",
+    "success": true,
+    "elapsed_time": 2.235546112060547,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002284",
+    "stock_name": "亚太股份",
+    "success": true,
+    "elapsed_time": 3.498171806335449,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002434",
+    "stock_name": "万里扬",
+    "success": true,
+    "elapsed_time": 3.8220131397247314,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600660",
+    "stock_name": "福耀玻璃",
+    "success": true,
+    "elapsed_time": 5.6505889892578125,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603950",
+    "stock_name": "长源东谷",
+    "success": true,
+    "elapsed_time": 4.582799911499023,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600157",
+    "stock_name": "永泰能源",
+    "success": true,
+    "elapsed_time": 3.9871861934661865,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601011",
+    "stock_name": "宝泰隆",
+    "success": true,
+    "elapsed_time": 5.076533079147339,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600403",
+    "stock_name": "大有能源",
+    "success": true,
+    "elapsed_time": 4.6270997524261475,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000035",
+    "stock_name": "中国天楹",
+    "success": true,
+    "elapsed_time": 5.856350898742676,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603588",
+    "stock_name": "高能环境",
+    "success": true,
+    "elapsed_time": 4.830737829208374,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601636",
+    "stock_name": "旗滨集团",
+    "success": true,
+    "elapsed_time": 3.481673002243042,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603416",
+    "stock_name": "信捷电气",
+    "success": true,
+    "elapsed_time": 3.5937438011169434,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000400",
+    "stock_name": "许继电气",
+    "success": true,
+    "elapsed_time": 5.0278778076171875,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000682",
+    "stock_name": "东方电子",
+    "success": true,
+    "elapsed_time": 6.633860111236572,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002169",
+    "stock_name": "智光电气",
+    "success": true,
+    "elapsed_time": 5.682959079742432,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601126",
+    "stock_name": "四方股份",
+    "success": true,
+    "elapsed_time": 4.277018785476685,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002985",
+    "stock_name": "北摩高科",
+    "success": true,
+    "elapsed_time": 2.9594168663024902,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002811",
+    "stock_name": "郑中设计",
+    "success": true,
+    "elapsed_time": 2.3229968547821045,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000060",
+    "stock_name": "中金岭南",
+    "success": true,
+    "elapsed_time": 5.136384963989258,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000751",
+    "stock_name": "锌业股份",
+    "success": true,
+    "elapsed_time": 6.4709792137146,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000807",
+    "stock_name": "云铝股份",
+    "success": true,
+    "elapsed_time": 6.328136920928955,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002128",
+    "stock_name": "电投能源",
+    "success": true,
+    "elapsed_time": 5.449270963668823,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "001337",
+    "stock_name": "四川黄金",
+    "success": true,
+    "elapsed_time": 2.4045569896698,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002255",
+    "stock_name": "海陆重工",
+    "success": true,
+    "elapsed_time": 2.855931043624878,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002483",
+    "stock_name": "润邦股份",
+    "success": true,
+    "elapsed_time": 4.304504871368408,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002523",
+    "stock_name": "天桥起重",
+    "success": true,
+    "elapsed_time": 4.153452157974243,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603277",
+    "stock_name": "银都股份",
+    "success": true,
+    "elapsed_time": 3.154165029525757,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002910",
+    "stock_name": "庄园牧场",
+    "success": true,
+    "elapsed_time": 2.376525640487671,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000681",
+    "stock_name": "视觉中国",
+    "success": true,
+    "elapsed_time": 4.0300421714782715,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600617",
+    "stock_name": "国新能源",
+    "success": true,
+    "elapsed_time": 6.424779176712036,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600251",
+    "stock_name": "冠农股份",
+    "success": true,
+    "elapsed_time": 6.590122222900391,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000422",
+    "stock_name": "湖北宜化",
+    "success": true,
+    "elapsed_time": 6.227465867996216,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600141",
+    "stock_name": "兴发集团",
+    "success": true,
+    "elapsed_time": 6.480319976806641,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600373",
+    "stock_name": "中文传媒",
+    "success": true,
+    "elapsed_time": 6.162778854370117,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "001217",
+    "stock_name": "华尔泰",
+    "success": true,
+    "elapsed_time": 3.8561768531799316,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "001218",
+    "stock_name": "丽臣实业",
+    "success": true,
+    "elapsed_time": 1.4674148559570312,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603010",
+    "stock_name": "万盛股份",
+    "success": true,
+    "elapsed_time": 2.6704249382019043,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600889",
+    "stock_name": "南京化纤",
+    "success": true,
+    "elapsed_time": 5.212730169296265,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002016",
+    "stock_name": "世荣兆业",
+    "success": true,
+    "elapsed_time": 5.81429386138916,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603368",
+    "stock_name": "柳药集团",
+    "success": true,
+    "elapsed_time": 4.242462873458862,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "605111",
+    "stock_name": "新洁能",
+    "success": true,
+    "elapsed_time": 2.5250861644744873,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600064",
+    "stock_name": "南京高科",
+    "success": true,
+    "elapsed_time": 4.143864870071411,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002886",
+    "stock_name": "沃特股份",
+    "success": true,
+    "elapsed_time": 4.74100923538208,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002084",
+    "stock_name": "海鸥住工",
+    "success": true,
+    "elapsed_time": 3.840334177017212,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002631",
+    "stock_name": "德尔未来",
+    "success": true,
+    "elapsed_time": 3.918989658355713,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603091",
+    "stock_name": "众鑫股份",
+    "success": true,
+    "elapsed_time": 2.408259868621826,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002677",
+    "stock_name": "浙江美大",
+    "success": true,
+    "elapsed_time": 2.2674407958984375,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000762",
+    "stock_name": "西藏矿业",
+    "success": true,
+    "elapsed_time": 4.620909929275513,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002291",
+    "stock_name": "遥望科技",
+    "success": true,
+    "elapsed_time": 5.333725929260254,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601515",
+    "stock_name": "东峰集团",
+    "success": true,
+    "elapsed_time": 4.215820789337158,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601968",
+    "stock_name": "宝钢包装",
+    "success": true,
+    "elapsed_time": 3.398699998855591,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000090",
+    "stock_name": "天健集团",
+    "success": true,
+    "elapsed_time": 4.719243049621582,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000498",
+    "stock_name": "山东路桥",
+    "success": true,
+    "elapsed_time": 6.264879941940308,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603017",
+    "stock_name": "中衡设计",
+    "success": true,
+    "elapsed_time": 4.631878852844238,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "605167",
+    "stock_name": "利柏特",
+    "success": true,
+    "elapsed_time": 2.396911144256592,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000862",
+    "stock_name": "银星能源",
+    "success": true,
+    "elapsed_time": 3.6488418579101562,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "003816",
+    "stock_name": "中国广核",
+    "success": true,
+    "elapsed_time": 4.098598003387451,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600821",
+    "stock_name": "金开新能",
+    "success": true,
+    "elapsed_time": 4.561283826828003,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601121",
+    "stock_name": "宝地矿业",
+    "success": true,
+    "elapsed_time": 4.029677867889404,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603823",
+    "stock_name": "百合花",
+    "success": true,
+    "elapsed_time": 2.075143814086914,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600868",
+    "stock_name": "梅雁吉祥",
+    "success": true,
+    "elapsed_time": 4.903271913528442,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601992",
+    "stock_name": "金隅集团",
+    "success": true,
+    "elapsed_time": 5.504089832305908,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600375",
+    "stock_name": "汉马科技",
+    "success": true,
+    "elapsed_time": 4.702372789382935,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600741",
+    "stock_name": "华域汽车",
+    "success": true,
+    "elapsed_time": 6.12231183052063,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600188",
+    "stock_name": "兖矿能源",
+    "success": true,
+    "elapsed_time": 6.901410102844238,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000708",
+    "stock_name": "中信特钢",
+    "success": true,
+    "elapsed_time": 6.950490951538086,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603324",
+    "stock_name": "盛剑科技",
+    "success": true,
+    "elapsed_time": 4.3382179737091064,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603568",
+    "stock_name": "伟明环保",
+    "success": true,
+    "elapsed_time": 2.224816083908081,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600819",
+    "stock_name": "耀皮玻璃",
+    "success": true,
+    "elapsed_time": 5.33513617515564,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002338",
+    "stock_name": "奥普光电",
+    "success": true,
+    "elapsed_time": 5.892571926116943,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002056",
+    "stock_name": "横店东磁",
+    "success": true,
+    "elapsed_time": 4.130331993103027,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002129",
+    "stock_name": "TCL中环",
+    "success": true,
+    "elapsed_time": 4.286803960800171,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002350",
+    "stock_name": "北京科锐",
+    "success": true,
+    "elapsed_time": 4.171834945678711,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600468",
+    "stock_name": "百利电气",
+    "success": true,
+    "elapsed_time": 5.04013204574585,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601012",
+    "stock_name": "隆基绿能",
+    "success": true,
+    "elapsed_time": 4.65418815612793,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603097",
+    "stock_name": "江苏华辰",
+    "success": true,
+    "elapsed_time": 2.5481228828430176,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603218",
+    "stock_name": "日月股份",
+    "success": true,
+    "elapsed_time": 2.080672025680542,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000417",
+    "stock_name": "合百集团",
+    "success": true,
+    "elapsed_time": 4.870374917984009,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002057",
+    "stock_name": "中钢天源",
+    "success": true,
+    "elapsed_time": 6.065234899520874,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600724",
+    "stock_name": "宁波富达",
+    "success": true,
+    "elapsed_time": 5.745024919509888,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600095",
+    "stock_name": "湘财股份",
+    "success": true,
+    "elapsed_time": 6.65620493888855,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601688",
+    "stock_name": "华泰证券",
+    "success": true,
+    "elapsed_time": 5.438556909561157,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002474",
+    "stock_name": "榕基软件",
+    "success": true,
+    "elapsed_time": 4.192163705825806,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000039",
+    "stock_name": "中集集团",
+    "success": true,
+    "elapsed_time": 5.659931182861328,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000778",
+    "stock_name": "新兴铸管",
+    "success": true,
+    "elapsed_time": 6.997586965560913,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600338",
+    "stock_name": "西藏珠峰",
+    "success": true,
+    "elapsed_time": 6.262754917144775,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600497",
+    "stock_name": "驰宏锌锗",
+    "success": true,
+    "elapsed_time": 5.473695993423462,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002171",
+    "stock_name": "楚江新材",
+    "success": true,
+    "elapsed_time": 4.79092812538147,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000933",
+    "stock_name": "神火股份",
+    "success": true,
+    "elapsed_time": 5.704910755157471,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601600",
+    "stock_name": "中国铝业",
+    "success": true,
+    "elapsed_time": 5.875956058502197,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601677",
+    "stock_name": "明泰铝业",
+    "success": true,
+    "elapsed_time": 4.288027048110962,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "001333",
+    "stock_name": "光华股份",
+    "success": true,
+    "elapsed_time": 2.5565450191497803,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002683",
+    "stock_name": "广东宏大",
+    "success": true,
+    "elapsed_time": 2.395359992980957,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002998",
+    "stock_name": "优彩资源",
+    "success": true,
+    "elapsed_time": 2.6901698112487793,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600639",
+    "stock_name": "浦东金桥",
+    "success": true,
+    "elapsed_time": 4.935889005661011,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600736",
+    "stock_name": "苏州高新",
+    "success": true,
+    "elapsed_time": 7.184690952301025,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000987",
+    "stock_name": "越秀资本",
+    "success": true,
+    "elapsed_time": 6.2591729164123535,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002647",
+    "stock_name": "*ST仁东",
+    "success": true,
+    "elapsed_time": 4.747625827789307,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603038",
+    "stock_name": "华立股份",
+    "success": true,
+    "elapsed_time": 2.9755120277404785,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002290",
+    "stock_name": "禾盛新材",
+    "success": true,
+    "elapsed_time": 3.252218246459961,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "000629",
+    "stock_name": "钒钛股份",
+    "success": true,
+    "elapsed_time": 5.030719995498657,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002978",
+    "stock_name": "安宁股份",
+    "success": true,
+    "elapsed_time": 4.150693893432617,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600210",
+    "stock_name": "紫江企业",
+    "success": true,
+    "elapsed_time": 4.505034923553467,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603071",
+    "stock_name": "物产环能",
+    "success": true,
+    "elapsed_time": 4.157948970794678,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600630",
+    "stock_name": "龙头股份",
+    "success": true,
+    "elapsed_time": 4.483896970748901,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "605008",
+    "stock_name": "长鸿高科",
+    "success": true,
+    "elapsed_time": 4.607128620147705,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600026",
+    "stock_name": "中远海能",
+    "success": true,
+    "elapsed_time": 3.811572790145874,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601799",
+    "stock_name": "星宇股份",
+    "success": true,
+    "elapsed_time": 5.096692323684692,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603201",
+    "stock_name": "常润股份",
+    "success": true,
+    "elapsed_time": 2.7535431385040283,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002608",
+    "stock_name": "江苏国信",
+    "success": true,
+    "elapsed_time": 2.354156017303467,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600795",
+    "stock_name": "国电电力",
+    "success": true,
+    "elapsed_time": 4.943922996520996,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600395",
+    "stock_name": "盘江股份",
+    "success": true,
+    "elapsed_time": 6.103178977966309,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002214",
+    "stock_name": "*ST大立",
+    "success": true,
+    "elapsed_time": 5.158832788467407,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603556",
+    "stock_name": "海兴电力",
+    "success": true,
+    "elapsed_time": 3.7057619094848633,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002531",
+    "stock_name": "天顺风能",
+    "success": true,
+    "elapsed_time": 3.326141834259033,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600312",
+    "stock_name": "平高电气",
+    "success": true,
+    "elapsed_time": 5.2174201011657715,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601567",
+    "stock_name": "三星医疗",
+    "success": true,
+    "elapsed_time": 5.380185127258301,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "601616",
+    "stock_name": "广电电气",
+    "success": true,
+    "elapsed_time": 4.062586069107056,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603344",
+    "stock_name": "星德胜",
+    "success": true,
+    "elapsed_time": 2.4330461025238037,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600339",
+    "stock_name": "中油工程",
+    "success": true,
+    "elapsed_time": 3.3552911281585693,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600760",
+    "stock_name": "中航沈飞",
+    "success": true,
+    "elapsed_time": 6.288673162460327,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600893",
+    "stock_name": "航发动力",
+    "success": true,
+    "elapsed_time": 6.919503688812256,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002478",
+    "stock_name": "常宝股份",
+    "success": true,
+    "elapsed_time": 5.2836761474609375,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "605318",
+    "stock_name": "法狮龙",
+    "success": true,
+    "elapsed_time": 2.6612589359283447,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603815",
+    "stock_name": "交建股份",
+    "success": true,
+    "elapsed_time": 1.9505810737609863,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "600114",
+    "stock_name": "东睦股份",
+    "success": true,
+    "elapsed_time": 3.5266008377075195,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "605100",
+    "stock_name": "华丰股份",
+    "success": true,
+    "elapsed_time": 3.6158132553100586,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002664",
+    "stock_name": "信质集团",
+    "success": true,
+    "elapsed_time": 2.6960361003875732,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "603926",
+    "stock_name": "铁流股份",
+    "success": true,
+    "elapsed_time": 2.8935959339141846,
+    "error": null,
+    "stage_lows_count": 1
+  },
+  {
+    "stock_code": "002058",
+    "stock_name": "*ST威尔",
+    "success": true,
+    "elapsed_time": 3.502825975418091,
+    "error": null,
+    "stage_lows_count": 1
+  }
+]
