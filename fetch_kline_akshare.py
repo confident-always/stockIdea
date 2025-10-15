@@ -120,17 +120,44 @@ def load_codes_from_stocklist(stocklist_path: Path, exclude_boards: List[str]) -
 
 # --------------------------- 抓取 --------------------------- #
 def fetch_one(ak_symbol: str, start: Optional[str], end: Optional[str], out_dir: Path) -> None:
-    try:
-        kwargs = {"symbol": ak_symbol}
-        if start:
-            kwargs["start_date"] = start
-        if end:
-            kwargs["end_date"] = end
-        # Akshare 默认不复权；如需复权可加 adjust="qfq" / "hfq"
-        df = ak.stock_zh_a_daily(**kwargs)
-    except Exception as e:
-        logger.error("抓取失败 %s: %s", ak_symbol, e)
-        return
+    import time
+    import random
+    
+    max_retries = 3
+    base_delay = 1.0
+    
+    for attempt in range(max_retries):
+        try:
+            # 添加随机延时，避免频率限制
+            if attempt > 0:
+                delay = base_delay * (2 ** attempt) + random.uniform(0, 1)
+                logger.info("重试 %s (第%d次)，等待 %.2f 秒", ak_symbol, attempt + 1, delay)
+                time.sleep(delay)
+            
+            kwargs = {"symbol": ak_symbol}
+            if start:
+                kwargs["start_date"] = start
+            if end:
+                kwargs["end_date"] = end
+            # Akshare 默认不复权；如需复权可加 adjust="qfq" / "hfq"
+            df = ak.stock_zh_a_daily(**kwargs)
+            
+            # 如果成功获取数据，跳出重试循环
+            break
+            
+        except Exception as e:
+            error_msg = str(e)
+            if attempt < max_retries - 1:
+                # 判断是否为可重试的错误
+                if "No value to decode" in error_msg or "timeout" in error_msg.lower() or "connection" in error_msg.lower():
+                    logger.warning("抓取 %s 遇到可重试错误: %s，将重试", ak_symbol, error_msg)
+                    continue
+                else:
+                    logger.error("抓取失败 %s: %s (不可重试错误)", ak_symbol, error_msg)
+                    return
+            else:
+                logger.error("抓取失败 %s: %s (已重试%d次)", ak_symbol, error_msg, max_retries)
+                return
 
     if df is None or df.empty:
         logger.warning("数据为空: %s", ak_symbol)

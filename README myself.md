@@ -21,5 +21,5 @@ python run_pipeline.py
 
 ### 画线
 ```bash
-python draw_lines_unified.py --all --workers 8
+python draw_lines_unified.py --workers 6
 ```

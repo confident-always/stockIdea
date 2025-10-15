@@ -49,8 +49,8 @@ matplotlib.use('Agg')  # 非交互式后端，支持多线程
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-# 字体配置 - 优先使用英文避免字体问题
-plt.rcParams['font.family'] = ['Arial', 'DejaVu Sans', 'SimHei']
+# 字体配置 - 使用macOS系统支持的中文字体
+plt.rcParams['font.family'] = ['Heiti TC', 'PingFang HK', 'Arial Unicode MS', 'Arial', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
 # 配置日志
@@ -106,11 +106,41 @@ class UnifiedLineDrawer:
             logger.info(f"使用默认百分比配置")
             return default_percents
     
-    def _load_stock_info(self) -> Dict[str, str]:
-        """从resByFilter目录加载股票信息"""
+    def _load_stock_info(self) -> Dict[str, Dict[str, str]]:
+        """从stocklist.csv加载股票信息（名称和行业）"""
         stock_info = {}
         try:
-            # 尝试多个可能的路径
+            # 尝试多个可能的stocklist.csv路径
+            possible_paths = ["../stocklist.csv", "stocklist.csv", "./stocklist.csv"]
+            stocklist_file = None
+            
+            for path in possible_paths:
+                if os.path.exists(path):
+                    stocklist_file = path
+                    break
+            
+            if stocklist_file:
+                # 从stocklist.csv加载股票信息
+                try:
+                    df = pd.read_csv(stocklist_file)
+                    logger.info(f"📁 从{stocklist_file}加载股票信息")
+                    
+                    if 'symbol' in df.columns and 'name' in df.columns and 'industry' in df.columns:
+                        for _, row in df.iterrows():
+                            code = str(row['symbol']).zfill(6)
+                            name = str(row['name'])
+                            industry = str(row['industry']) if pd.notna(row['industry']) else "未知行业"
+                            stock_info[code] = {'name': name, 'industry': industry}
+                        
+                        logger.info(f"✅ 从stocklist.csv加载股票信息完成，共{len(stock_info)}只股票")
+                        return stock_info
+                    else:
+                        logger.warning(f"⚠️ stocklist.csv缺少必要字段: symbol, name, industry")
+                except Exception as e:
+                    logger.warning(f"⚠️ 读取stocklist.csv失败: {e}")
+            
+            # 如果stocklist.csv不可用，回退到从resByFilter目录加载
+            logger.info("📁 stocklist.csv不可用，回退到从resByFilter目录加载股票信息")
             possible_paths = ["../resByFilter", "resByFilter", "./resByFilter"]
             res_dir = None
             
@@ -133,7 +163,7 @@ class UnifiedLineDrawer:
                         for _, row in df.iterrows():
                             code = str(row['code']).zfill(6)
                             name = str(row['name'])
-                            stock_info[code] = name
+                            stock_info[code] = {'name': name, 'industry': "未知行业"}
                 except Exception as e:
                     logger.warning(f"⚠️ 读取文件失败 {csv_file}: {e}")
             
@@ -144,15 +174,17 @@ class UnifiedLineDrawer:
             logger.error(f"❌ 加载股票信息失败: {e}")
             return stock_info
     
-    def get_stock_list(self, data_dir: str = "../data") -> List[Tuple[str, str]]:
-        """获取股票列表"""
+    def get_stock_list(self, data_dir: str = "../data") -> List[Tuple[str, str, str]]:
+        """获取股票列表，返回(code, name, industry)"""
         stock_list = []
         
-        # 如果有resByFilter的股票信息，优先使用
+        # 如果有股票信息，优先使用
         if self.stock_info:
-            for code, name in self.stock_info.items():
-                stock_list.append((code, name))
-            logger.info(f"📋 从resByFilter获取股票列表: {len(stock_list)}只")
+            for code, info in self.stock_info.items():
+                name = info.get('name', code)
+                industry = info.get('industry', '未知行业')
+                stock_list.append((code, name, industry))
+            logger.info(f"📋 从股票信息获取股票列表: {len(stock_list)}只")
             return stock_list
         
         # 否则从数据目录获取
@@ -167,7 +199,8 @@ class UnifiedLineDrawer:
                 code = csv_file.stem
                 # 尝试从文件名推断股票名称，或使用代码作为名称
                 name = code
-                stock_list.append((code, name))
+                industry = "未知行业"
+                stock_list.append((code, name, industry))
             
             logger.info(f"📋 从数据目录获取股票列表: {len(stock_list)}只")
             return stock_list
@@ -179,9 +212,12 @@ class UnifiedLineDrawer:
     def validate_and_load_data(self, stock_code: str, data_dir: str) -> Optional[pd.DataFrame]:
         """验证并加载股票数据"""
         try:
+            # 标准化股票代码（补零到6位）
+            normalized_code = str(stock_code).zfill(6)
+            
             # 构建文件路径
             data_path = Path(data_dir)
-            csv_file = data_path / f"{stock_code}.csv"
+            csv_file = data_path / f"{normalized_code}.csv"
             
             if not csv_file.exists():
                 logger.warning(f"⚠️ 数据文件不存在: {csv_file}")
@@ -360,17 +396,27 @@ class UnifiedLineDrawer:
                 # 创建高质量图表
                 fig, ax = plt.subplots(figsize=(20, 12), dpi=200)
                 
+                # 获取最低点位置，只显示从最低点开始往后的数据
+                if stage_lows:
+                    lowest_idx, _, _ = stage_lows[0]  # 获取最低点的索引
+                    # 截取从最低点开始的数据
+                    df_display = df.iloc[lowest_idx:].copy()
+                    df_display = df_display.reset_index(drop=True)
+                else:
+                    # 如果没有检测到低点，显示全部数据
+                    df_display = df.copy()
+                
                 # 设置日期格式
-                dates = df['date']
+                dates = df_display['date']
                 
                 # 1. 绘制K线图（简化版）
-                for i in range(len(df)):
+                for i in range(len(df_display)):
                     try:
                         date = dates.iloc[i]
-                        open_price = df['open'].iloc[i]
-                        high_price = df['high'].iloc[i]
-                        low_price = df['low'].iloc[i]
-                        close_price = df['close'].iloc[i]
+                        open_price = df_display['open'].iloc[i]
+                        high_price = df_display['high'].iloc[i]
+                        low_price = df_display['low'].iloc[i]
+                        close_price = df_display['close'].iloc[i]
                         
                         # 数据验证
                         if pd.isna(open_price) or pd.isna(high_price) or pd.isna(low_price) or pd.isna(close_price):
@@ -385,7 +431,7 @@ class UnifiedLineDrawer:
                         ax.plot([date, date], [low_price, high_price], color='black', linewidth=0.5)
                         
                         # 绘制实体（每10根K线绘制一根，提高性能）
-                        if i % 10 == 0 or i == len(df) - 1:
+                        if i % 10 == 0 or i == len(df_display) - 1:
                             body_height = abs(close_price - open_price)
                             body_bottom = min(open_price, close_price)
                             
@@ -417,23 +463,40 @@ class UnifiedLineDrawer:
                             target_price = base_price * (1 + percent)
                             
                             # 检查目标价格是否在合理范围内
-                            max_price = df['high'].max()
+                            max_price = df_display['high'].max()
                             if target_price <= max_price * 1.5:  # 不超过历史最高价的1.5倍
                                 # 绘制粉红色虚线（加粗）
                                 ax.axhline(y=target_price, color='hotpink', linestyle='--', linewidth=3, alpha=0.8)
                                 
-                                # 标注百分比（加粗字体）
-                                ax.text(dates.iloc[0], target_price, f'+{percent_str}', 
-                                       fontsize=12, color='hotpink', fontweight='bold',
-                                       bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.9, edgecolor='hotpink', linewidth=2))
+                                # 标注百分比（棕灰色字体，显示在右边）
+                                ax.text(dates.iloc[-1], target_price, f'+{percent_str}', 
+                                       fontsize=12, color='#8B7355', fontweight='bold',
+                                       bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.9, edgecolor='#8B7355', linewidth=2),
+                                       ha='left', va='center')
                         except (ValueError, TypeError):
                             continue
                 
                 # 4. 设置图表属性
-                ax.set_title(f'{stock_code} {stock_name} - Stage Low Points Analysis', 
-                            fontsize=16, fontweight='bold', pad=20)
+                # 获取行业信息
+                industry = ""
+                if stock_code in self.stock_info:
+                    industry = self.stock_info[stock_code].get('industry', '')
+                
+                # 构建标题
+                title_parts = [stock_code, stock_name]
+                if industry and industry != "未知行业":
+                    title_parts.append(f"({industry})")
+                title = " ".join(title_parts) + " - Stage Low Points Analysis"
+                
+                ax.set_title(title, fontsize=16, fontweight='bold', pad=20)
                 ax.set_xlabel('Date', fontsize=12)
                 ax.set_ylabel('Price', fontsize=12)
+                
+                # 设置Y轴范围，基于显示的数据
+                if not df_display.empty:
+                    y_min = df_display['low'].min() * 0.95
+                    y_max = df_display['high'].max() * 1.1
+                    ax.set_ylim(y_min, y_max)
                 
                 # 设置日期格式
                 ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
@@ -478,9 +541,80 @@ class UnifiedLineDrawer:
                 logger.debug(f"资源清理异常: {cleanup_error}")
                 pass
     
-    def process_single_stock(self, stock_code: str, stock_name: str, 
+    def process_stock_list(self, stock_list: List[Tuple[str, str, str]], 
+                          output_dir: str = None, data_dir: str = "../data", workers: int = 4):
+        """处理指定的股票列表"""
+        # 如果未指定输出目录，使用带日期的默认目录
+        if output_dir is None:
+            current_date = datetime.now().strftime('%Y%m%d')
+            output_dir = f'{current_date}-drawLineRes'
+        
+        logger.info(f"🚀 开始处理指定股票列表")
+        logger.info(f"📁 数据目录: {data_dir}")
+        logger.info(f"📁 输出目录: {output_dir}")
+        logger.info(f"🧵 线程数: {workers}")
+        
+        if not stock_list:
+            logger.error("❌ 股票列表为空")
+            return
+        
+        self.total_count = len(stock_list)
+        self.processed_count = 0
+        
+        logger.info(f"📊 待处理股票数量: {self.total_count}")
+        
+        # 创建输出目录
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # 多线程处理
+        start_time = time.time()
+        results = []
+        
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            # 提交任务
+            future_to_stock = {
+                executor.submit(self._process_single_stock, code, name, output_dir, data_dir): (code, name, industry)
+                for code, name, industry in stock_list
+            }
+            
+            # 收集结果
+            for future in as_completed(future_to_stock):
+                result = future.result()
+                results.append(result)
+        
+        # 统计结果
+        total_time = time.time() - start_time
+        success_count = sum(1 for r in results if r['success'])
+        failed_count = len(results) - success_count
+        
+        logger.info(f"🎉 股票列表处理完成!")
+        logger.info(f"📊 总计: {len(results)}只股票")
+        logger.info(f"✅ 成功: {success_count}只")
+        logger.info(f"❌ 失败: {failed_count}只")
+        logger.info(f"⏱️ 总耗时: {total_time:.2f}秒")
+        logger.info(f"⚡ 平均速度: {len(results)/total_time:.2f}只/秒")
+        
+        # 保存处理结果
+        results_file = os.path.join(output_dir, "processing_results.json")
+        try:
+            with open(results_file, 'w', encoding='utf-8') as f:
+                json.dump(results, f, ensure_ascii=False, indent=2)
+            logger.info(f"📄 处理结果已保存: {results_file}")
+        except Exception as e:
+            logger.error(f"❌ 保存结果失败: {e}")
+        
+        # 显示失败的股票
+        failed_stocks = [r for r in results if not r['success']]
+        if failed_stocks:
+            logger.warning(f"⚠️ 失败的股票:")
+            for r in failed_stocks[:10]:  # 只显示前10个
+                logger.warning(f"   {r['stock_code']} {r['stock_name']}: {r['error']}")
+            if len(failed_stocks) > 10:
+                logger.warning(f"   ... 还有{len(failed_stocks)-10}只股票失败")
+
+    def _process_single_stock(self, stock_code: str, stock_name: str, 
                            output_dir: str, data_dir: str) -> dict:
-        """处理单只股票"""
+        """处理单只股票（内部方法）"""
         start_time = time.time()
         result = {
             'stock_code': stock_code,
@@ -531,146 +665,106 @@ class UnifiedLineDrawer:
             result['elapsed_time'] = time.time() - start_time
         
         return result
-    
-    def process_all_stocks(self, output_dir: str = None, 
-                          data_dir: str = "../data", workers: int = 4):
-        """批量处理所有股票"""
-        # 如果未指定输出目录，使用带日期的默认目录
-        if output_dir is None:
-            current_date = datetime.now().strftime('%Y%m%d')
-            output_dir = f'{current_date}-drawLineRes'
-        
-        logger.info(f"🚀 开始批量处理股票")
-        logger.info(f"📁 数据目录: {data_dir}")
-        logger.info(f"📁 输出目录: {output_dir}")
-        logger.info(f"🧵 线程数: {workers}")
-        
-        # 获取股票列表
-        stock_list = self.get_stock_list(data_dir)
-        if not stock_list:
-            logger.error("❌ 未找到任何股票数据")
-            return
-        
-        self.total_count = len(stock_list)
-        self.processed_count = 0
-        
-        logger.info(f"📊 待处理股票数量: {self.total_count}")
-        
-        # 创建输出目录
-        os.makedirs(output_dir, exist_ok=True)
-        
-        # 多线程处理
-        start_time = time.time()
-        results = []
-        
-        with ThreadPoolExecutor(max_workers=workers) as executor:
-            # 提交任务
-            future_to_stock = {
-                executor.submit(self.process_single_stock, code, name, output_dir, data_dir): (code, name)
-                for code, name in stock_list
-            }
-            
-            # 收集结果
-            for future in as_completed(future_to_stock):
-                result = future.result()
-                results.append(result)
-        
-        # 统计结果
-        total_time = time.time() - start_time
-        success_count = sum(1 for r in results if r['success'])
-        failed_count = len(results) - success_count
-        
-        logger.info(f"🎉 批量处理完成!")
-        logger.info(f"📊 总计: {len(results)}只股票")
-        logger.info(f"✅ 成功: {success_count}只")
-        logger.info(f"❌ 失败: {failed_count}只")
-        logger.info(f"⏱️ 总耗时: {total_time:.2f}秒")
-        logger.info(f"⚡ 平均速度: {len(results)/total_time:.2f}只/秒")
-        
-        # 保存处理结果
-        results_file = os.path.join(output_dir, "processing_results.json")
-        try:
-            with open(results_file, 'w', encoding='utf-8') as f:
-                json.dump(results, f, ensure_ascii=False, indent=2)
-            logger.info(f"📄 处理结果已保存: {results_file}")
-        except Exception as e:
-            logger.error(f"❌ 保存结果失败: {e}")
-        
-        # 显示失败的股票
-        failed_stocks = [r for r in results if not r['success']]
-        if failed_stocks:
-            logger.warning(f"⚠️ 失败的股票:")
-            for r in failed_stocks[:10]:  # 只显示前10个
-                logger.warning(f"   {r['stock_code']} {r['stock_name']}: {r['error']}")
-            if len(failed_stocks) > 10:
-                logger.warning(f"   ... 还有{len(failed_stocks)-10}只股票失败")
 
 
 def main():
     """主函数"""
     parser = argparse.ArgumentParser(
-        description="统一版基础层画线脚本 - 整合所有功能",
+        description="基础层画线脚本 - 读取resByFilter中的股票",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 使用示例:
-  # 处理单只股票
-  python draw_lines_unified.py --stock 002895
+  # 默认行为：读取当前日期的resByFilter中的股票
+  python draw_lines_unified.py
   
-  # 批量处理所有股票
-  python draw_lines_unified.py --all
+  # 读取指定日期的resByFilter中的股票
+  python draw_lines_unified.py --date 2025-01-15
   
-  # 指定输出目录和线程数
-  python draw_lines_unified.py --all --output 20241015-drawLineRes --workers 4
-  
-  # 从指定数据目录读取
-  python draw_lines_unified.py --all --data-dir ../data
+  # 指定线程数
+  python draw_lines_unified.py --workers 6
         """
     )
     
-    # 互斥参数组
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('--stock', type=str, help='处理单只股票（股票代码）')
-    group.add_argument('--all', action='store_true', help='批量处理所有股票')
-    
     # 生成带日期的默认输出目录
     current_date = datetime.now().strftime('%Y%m%d')
-    default_output_dir = f'{current_date}-drawLineRes'
     
-    # 可选参数
-    parser.add_argument('--output', type=str, default=default_output_dir, 
-                       help=f'输出目录 (默认: {default_output_dir})')
-    parser.add_argument('--data-dir', type=str, default='../data', 
-                       help='数据目录 (默认: ../data)')
-    parser.add_argument('--workers', type=int, default=4, 
-                       help='线程数 (默认: 4)')
-    parser.add_argument('--config', type=str, default='lineConfig.json', 
-                       help='配置文件 (默认: lineConfig.json)')
+    # 参数
+    parser.add_argument('--date', type=str, 
+                       help='日期参数，格式为YYYY-MM-DD，用于构建resByFilter目录')
+    parser.add_argument('--workers', type=int, default=4,
+                       help='并发处理的线程数 (默认: 4)')
     
     args = parser.parse_args()
     
-    # 创建统一画线器
-    drawer = UnifiedLineDrawer(config_file=args.config)
-    
-    if args.stock:
-        # 处理单只股票
-        stock_code = args.stock
-        stock_name = drawer.stock_info.get(stock_code, stock_code)
-        
-        logger.info(f"🎯 处理单只股票: {stock_code} {stock_name}")
-        
-        result = drawer.process_single_stock(stock_code, stock_name, args.output, args.data_dir)
-        
-        if result['success']:
-            logger.info(f"✅ 处理成功: {stock_code} {stock_name}")
-            logger.info(f"📊 检测到{result['stage_lows_count']}个阶段低点")
-            logger.info(f"⏱️ 耗时: {result['elapsed_time']:.2f}秒")
-        else:
-            logger.error(f"❌ 处理失败: {stock_code} {stock_name} - {result['error']}")
+    # 处理日期参数
+    if args.date:
+        try:
+            # 验证日期格式并转换
+            date_obj = datetime.strptime(args.date, '%Y-%m-%d')
+            date_str = date_obj.strftime('%Y%m%d')
+        except ValueError:
+            logger.error(f"❌ 日期格式错误: {args.date}，请使用YYYY-MM-DD格式")
             sys.exit(1)
+    else:
+        date_str = current_date
     
-    elif args.all:
-        # 批量处理所有股票
-        drawer.process_all_stocks(args.output, args.data_dir, args.workers)
+    # 创建统一画线器
+    drawer = UnifiedLineDrawer()
+    
+    # 读取指定日期的resByFilter中的股票
+    filter_dir = f"../{date_str}-resByFilter"
+    if not os.path.exists(filter_dir):
+        logger.error(f"❌ 目录不存在: {filter_dir}")
+        logger.info(f"💡 提示：请确保存在 {filter_dir} 目录")
+        sys.exit(1)
+    
+    # 查找所有CSV文件（PDI和ADX结果文件）
+    csv_files = glob.glob(os.path.join(filter_dir, "*.csv"))
+    if not csv_files:
+        logger.error(f"❌ 在目录 {filter_dir} 中未找到CSV文件")
+        logger.info(f"💡 提示：请在 {filter_dir} 目录中放置股票列表CSV文件")
+        sys.exit(1)
+    
+    logger.info(f"📁 找到 {len(csv_files)} 个CSV文件")
+    
+    # 读取所有CSV文件中的股票，并去重
+    all_stocks = {}  # 使用字典去重，key为股票代码
+    
+    for file_path in csv_files:
+        logger.info(f"📄 读取文件: {file_path}")
+        try:
+            import pandas as pd
+            df = pd.read_csv(file_path)
+            
+            # 从CSV文件中提取股票信息
+            for _, row in df.iterrows():
+                code = str(row.get('code', ''))
+                name = str(row.get('name', code))
+                industry = str(row.get('industry', '未知行业'))
+                
+                # 标准化股票代码（补零到6位）
+                if code:
+                    normalized_code = code.zfill(6)
+                    if normalized_code not in all_stocks:
+                        all_stocks[normalized_code] = (normalized_code, name, industry)
+                        
+        except Exception as e:
+            logger.error(f"❌ 读取文件 {file_path} 失败: {e}")
+            continue
+    
+    if not all_stocks:
+        logger.error(f"❌ 未读取到有效的股票数据")
+        sys.exit(1)
+    
+    # 转换为列表
+    stock_list = list(all_stocks.values())
+    logger.info(f"📋 去重后共有 {len(stock_list)} 只股票")
+    
+    # 生成输出目录
+    output_dir = f"{date_str}-drawLineRes"
+    
+    # 批量处理股票列表
+    drawer.process_stock_list(stock_list, output_dir, "../data", args.workers)
     
     logger.info("🎉 程序执行完成!")
 

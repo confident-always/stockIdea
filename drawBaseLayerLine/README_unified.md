@@ -1,81 +1,17 @@
-# 统一版基础层画线脚本 (draw_lines_unified.py)
 
-## 概述
-
-`draw_lines_unified.py` 是一个整合了所有 drawBaseLayerLine 功能的单一可执行脚本，通过一个命令行即可输出完整的股票技术分析图表。该脚本整合了原有的多个脚本功能，提供了更加便捷和高效的使用体验。
-
-## 主要功能
-
-### 🎯 核心特性
-- **单一脚本执行**: 整合所有功能，无需运行多个脚本
-- **智能数据验证**: 多层数据验证和清洗机制
-- **多算法融合**: 结合多种算法检测阶段低点
-- **高质量图表**: 生成高分辨率的技术分析图表
-- **多线程处理**: 支持并发处理，提高执行效率
-- **完整错误处理**: 详细的日志记录和错误处理机制
-
-### 📊 技术分析功能
-1. **K线图绘制**: 显示股票的开高低收价格走势
-2. **阶段低点检测**: 使用多种算法识别重要的支撑位
-3. **水平支撑线**: 在阶段低点绘制蓝色水平线并标注价格
-4. **百分比涨幅线**: 根据配置绘制不同百分比的目标价位线
-5. **技术指标辅助**: 结合RSI等技术指标优化低点检测
-
-## 安装要求
-
-### Python 依赖
+#### 3. 处理指定文件中的股票列表
 ```bash
-pip install pandas numpy matplotlib scipy
+# 从指定JSON文件读取股票列表
+python draw_lines_unified.py --file /path/to/stocks.json --output filtered_charts --data-dir ../data
+
+# 自动从当前日期的resByFilter目录读取（默认使用当前日期）
+python draw_lines_unified.py --file --output today_charts --data-dir ../data
+
+# 指定日期的resByFilter目录
+python draw_lines_unified.py --file --date 20241015 --output historical_charts --data-dir ../data
 ```
 
-### 系统要求
-- Python 3.7+
-- macOS/Linux/Windows
-- 至少 2GB 可用内存（用于大批量处理）
-
-## 使用方法
-
-### 基本语法
-```bash
-python draw_lines_unified.py [选项]
-```
-
-### 命令行参数
-
-#### 必选参数（二选一）
-- `--stock STOCK`: 处理单只股票（指定股票代码）
-- `--all`: 批量处理所有股票
-
-#### 可选参数
-- `--output OUTPUT`: 输出目录（默认: drawLineRes）
-- `--data-dir DATA_DIR`: 数据目录（默认: ../data）
-- `--workers WORKERS`: 线程数（默认: 4）
-- `--config CONFIG`: 配置文件（默认: lineConfig.json）
-
-### 使用示例
-
-#### 1. 处理单只股票
-```bash
-# 处理股票代码为 002895 的股票
-python draw_lines_unified.py --stock 002895
-
-# 指定输出目录
-python draw_lines_unified.py --stock 002895 --output my_charts
-```
-
-#### 2. 批量处理所有股票
-```bash
-# 使用默认设置批量处理
-python draw_lines_unified.py --all --workers 8
-
-# 指定输出目录和线程数
-python draw_lines_unified.py --all --output batch_results --workers 8
-
-# 从指定数据目录读取
-python draw_lines_unified.py --all --data-dir /path/to/data --workers 6
-```
-
-#### 3. 自定义配置
+#### 4. 自定义配置
 ```bash
 # 使用自定义配置文件
 python draw_lines_unified.py --all --config my_config.json
@@ -86,6 +22,73 @@ python draw_lines_unified.py --all \
     --data-dir /data/stocks \
     --workers 8 \
     --config production_config.json
+```
+
+## 参数说明
+
+### 基础参数
+- `--stock CODE`: 处理单只股票，指定股票代码
+- `--all`: 批量处理所有股票
+- `--file [PATH]`: 从指定文件读取股票列表，支持JSON格式
+- `--date YYYYMMDD`: 指定日期，用于构建resByFilter目录路径（默认：当前日期）
+- `--output DIR`: 输出目录（默认：当前日期-drawLineRes）
+- `--data-dir DIR`: 数据目录（默认：../data）
+- `--workers N`: 线程数（默认：4）
+- `--config FILE`: 配置文件路径（默认：lineConfig.json）
+
+### 文件参数详细说明
+
+#### JSON文件格式
+支持两种JSON格式：
+
+**格式1：数组格式**
+```json
+[
+  {
+    "code": "000006",
+    "name": "深振业A",
+    "industry": "房地产"
+  },
+  {
+    "code": "000004", 
+    "name": "*ST国华",
+    "industry": "综合"
+  }
+]
+```
+
+**格式2：对象格式**
+```json
+{
+  "000006": {
+    "name": "深振业A",
+    "industry": "房地产"
+  },
+  "000004": {
+    "name": "*ST国华", 
+    "industry": "综合"
+  }
+}
+```
+
+#### 自动文件查找
+当使用 `--file` 参数但不指定具体文件路径时，脚本会：
+1. 根据 `--date` 参数构建目录路径：`../{date}-resByFilter/`
+2. 在该目录中查找第一个 `.json` 文件
+3. 自动加载并处理其中的股票列表
+
+#### resByFilter目录结构
+```
+../
+├── 20241015-resByFilter/
+│   ├── filtered_stocks.json
+│   └── other_files...
+├── 20251015-resByFilter/
+│   ├── today_stocks.json
+│   └── other_files...
+└── data/
+    ├── 000001.csv
+    └── ...
 ```
 
 ## 配置文件
@@ -125,9 +128,10 @@ data/
 ```
 
 ### 股票信息来源
-脚本会自动从以下位置获取股票名称信息：
-1. `../resByFilter/` 目录下的 CSV 文件
-2. 如果找不到，则使用股票代码作为名称
+脚本会按以下优先级获取股票名称信息：
+1. 从指定的JSON文件中读取（使用 `--file` 参数时）
+2. 从 `../stocklist.csv` 文件中查找匹配的股票信息
+3. 如果都找不到，则使用股票代码作为名称
 
 ## 输出结果
 
@@ -138,7 +142,9 @@ data/
 - **命名**: `{股票代码}_{股票名称}.png`
 
 ### 处理结果文件
-批量处理时会生成 `processing_results.json` 文件，包含：
+批量处理和文件列表处理时会生成 `processing_results.json` 文件，包含：
+
+**单只股票处理结果**：
 ```json
 {
   "stock_code": "002895",
@@ -147,6 +153,27 @@ data/
   "elapsed_time": 1.33,
   "error": null,
   "stage_lows_count": 10
+}
+```
+
+**文件列表处理结果**：
+```json
+{
+  "total_stocks": 3,
+  "successful_stocks": 3,
+  "failed_stocks": 0,
+  "total_time": 1.68,
+  "average_speed": 1.78,
+  "results": [
+    {
+      "stock_code": "000006",
+      "stock_name": "深振业A",
+      "success": true,
+      "elapsed_time": 1.68,
+      "stage_lows_count": 1
+    }
+  ],
+  "failed_list": []
 }
 ```
 
@@ -189,7 +216,25 @@ Font family 'SimHei' not found
 - 确认股票代码对应的 CSV 文件存在
 - 使用 `--data-dir` 参数指定正确的数据目录
 
-#### 3. 图表创建失败
+#### 3. JSON文件格式错误
+```
+JSON文件解析失败
+```
+**解决方案**:
+- 检查JSON文件格式是否正确
+- 确认文件编码为UTF-8
+- 验证JSON语法是否有效
+
+#### 4. resByFilter目录不存在
+```
+在目录 ../20251015-resByFilter 中未找到JSON文件
+```
+**解决方案**:
+- 检查日期参数是否正确
+- 确认对应日期的resByFilter目录存在
+- 使用绝对路径指定JSON文件
+
+#### 5. 图表创建失败
 ```
 图表创建失败
 ```
@@ -198,7 +243,7 @@ Font family 'SimHei' not found
 - 确认数据质量（至少需要 100 天的有效数据）
 - 查看详细日志文件了解具体错误
 
-#### 4. 内存不足
+#### 6. 内存不足
 **解决方案**:
 - 减少线程数: `--workers 2`
 - 分批处理股票
@@ -235,13 +280,18 @@ logging.basicConfig(level=logging.DEBUG)
 
 ## 版本历史
 
-### v1.0.0 (当前版本)
+### v1.1.0 (当前版本)
 - ✅ 整合所有 drawBaseLayerLine 功能
 - ✅ 实现命令行参数支持
 - ✅ 多线程批量处理
 - ✅ 完整的错误处理和日志记录
 - ✅ 高质量图表生成
 - ✅ 智能数据验证和清洗
+- ✅ **新增**: 指定文件列表处理功能
+- ✅ **新增**: 自动日期目录查找功能
+- ✅ **新增**: 支持JSON格式股票列表
+- ✅ **新增**: resByFilter目录集成
+- ✅ **优化**: K线显示范围（仅显示从最低点开始的数据）
 
 ## 与原版本对比
 
@@ -249,6 +299,10 @@ logging.basicConfig(level=logging.DEBUG)
 |------|--------|----------|
 | 脚本数量 | 多个脚本 | 单一脚本 |
 | 命令行支持 | 有限 | 完整支持 |
+| 文件列表处理 | 不支持 | 完整支持 |
+| 日期目录查找 | 不支持 | 自动查找 |
+| JSON格式支持 | 不支持 | 双格式支持 |
+| K线显示优化 | 全部数据 | 从低点开始 |
 | 错误处理 | 基础 | 完善 |
 | 数据验证 | 简单 | 多层验证 |
 | 算法融合 | 单一算法 | 多算法融合 |

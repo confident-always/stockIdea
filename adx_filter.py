@@ -10,6 +10,7 @@ import json
 import os
 import glob
 import logging
+import sys
 from datetime import datetime, timedelta
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -31,15 +32,16 @@ def load_config(config_file='configs.json'):
     加载配置文件
     
     Args:
-        config_file: 配置文件路径，默认为'configs.json'
+        config_file: 配置文件路径
     
     Returns:
-        dict: 配置字典
+        dict: 包含ADX和PDI配置的字典
     """
     try:
         with open(config_file, 'r', encoding='utf-8') as f:
             config = json.load(f)
         
+        # 提取ADX和PDI过滤配置
         adx_config = config.get('ADXfilteringconfig', {})
         pdi_config = config.get('PDIfilteringconfig', {})
         
@@ -53,9 +55,12 @@ def load_config(config_file='configs.json'):
             'ADX': {'active': False},
             'PDI': {'active': False}
         }
-    except Exception as e:
-        logger.error(f"加载配置文件失败: {e}")
-        return {'ADX': {}, 'PDI': {}}
+    except json.JSONDecodeError as e:
+        logger.error(f"配置文件 {config_file} 格式错误: {e}")
+        return {
+            'ADX': {'active': False},
+            'PDI': {'active': False}
+        }
 
 def parse_percentage(pct_str):
     """解析百分比字符串为浮点数，支持none值表示不过滤"""
@@ -402,7 +407,7 @@ def calculate_hislow_point_range(kline_df: pd.DataFrame, lookback_months: int | 
         return None
 
 
-def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=0, pre_high_days=10, pre_high_min_range=0, pre_high_max_range=0, hislow_range: tuple | None = None, hislow_lookback_months: int | None = None):
+def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=0, pre_high_days=10, pre_high_min_range=0, pre_high_max_range=0, hislow_range: tuple | None = None, hislow_lookback_months: int | None = None, target_date=None):
     """
     过滤结果文件
     
@@ -429,6 +434,11 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
         for idx, row in df.iterrows():
             original_code = str(row['code'])
             signal_date = row['date']
+            
+            # 如果指定了target_date，则使用target_date替换原始日期
+            if target_date:
+                signal_date = target_date
+                logger.debug(f"股票 {original_code} 日期从 {row['date']} 修正为 {target_date}")
             
             # 直接从data文件夹中查找匹配的CSV文件
             data_dir = 'data'
@@ -505,6 +515,9 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
                 # 创建新的行数据，包含原有字段和新增的字段
                 new_row = row.copy()
                 new_row['code'] = matched_code  # 使用从data文件夹中匹配到的代码
+                # 如果指定了target_date，则更新日期字段
+                if target_date:
+                    new_row['date'] = target_date
                 # 历史低点涨幅（在CSV中位于枢轴点价格之前），并注明窗口月数
                 hislow_label = f"历史低点涨幅({hislow_lookback_months}月)" if hislow_lookback_months else "历史低点涨幅"
                 new_row[hislow_label] = f"{round((hislow_pct or 0) * 100, 2)}%"
@@ -562,7 +575,7 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
     except Exception as e:
         logger.error(f"过滤结果失败: {e}")
 
-def process_single_file(input_file, output_dir, file_type, config):
+def process_single_file(input_file, output_dir, file_type, config, target_date=None):
     """
     处理单个文件的函数，用于并行处理
     
@@ -571,6 +584,7 @@ def process_single_file(input_file, output_dir, file_type, config):
         output_dir: 输出目录
         file_type: 文件类型 ('ADX' 或 'PDI')
         config: 配置字典
+        target_date: 目标日期，用于修正CSV文件中的日期字段
     
     Returns:
         str: 处理结果信息
@@ -593,7 +607,7 @@ def process_single_file(input_file, output_dir, file_type, config):
         logger.info(f"开始处理{file_type}文件: {input_file}")
         filter_results(input_file, output_file, range_up, range_down, file_type, 
                      lookback_days, max_range_up, pre_high_days, pre_high_min_range, 
-                     pre_high_max_range, hislow_range, lookback_months)
+                     pre_high_max_range, hislow_range, lookback_months, target_date)
         
         return f"成功处理 {filename}"
     except Exception as e:
@@ -607,12 +621,38 @@ def main():
     current_date = datetime.now().strftime('%Y%m%d')
     default_output_dir = f'{current_date}-resByFilter'
     
+    # 生成带日期的默认输入目录
+    default_input_dir = f'{current_date}-res'
+    
     parser = argparse.ArgumentParser(description='ADX和PDI结果过滤器')
-    parser.add_argument('--input-dir', default='res', help='输入目录')
+    parser.add_argument('--input-dir', default=default_input_dir, help=f'输入目录 (默认: {default_input_dir})')
     parser.add_argument('--output-dir', default=default_output_dir, help=f'输出目录 (默认: {default_output_dir})')
     parser.add_argument('--workers', type=int, default=12, help='并发处理的线程数')
+    parser.add_argument('--date', help='指定日期，格式为YYYY-MM-DD，用于修正CSV文件中的日期字段并确定输入目录')
     
     args = parser.parse_args()
+    
+    # 记录用户是否明确指定了输入目录
+    user_specified_input_dir = '--input-dir' in sys.argv
+    
+    # 如果指定了日期参数，将其转换为目标日期格式并更新输入目录
+    target_date = None
+    if args.date:
+        try:
+            # 验证日期格式并转换
+            date_obj = datetime.strptime(args.date, '%Y-%m-%d')
+            target_date = args.date
+            
+            # 只有在用户没有明确指定输入目录时，才根据日期参数自动设置
+            if not user_specified_input_dir:
+                specified_date = date_obj.strftime('%Y%m%d')
+                args.input_dir = f'{specified_date}-res'
+                logger.info(f"根据指定日期 {target_date}，输入目录设置为: {args.input_dir}")
+            
+            logger.info(f"将使用指定日期 {target_date} 修正CSV文件中的日期字段")
+        except ValueError:
+            logger.error(f"日期格式错误: {args.date}，请使用YYYY-MM-DD格式")
+            return
     
     # 加载配置
     configs = load_config()
@@ -653,7 +693,7 @@ def main():
                    f"历史低点涨幅窗口 {adx_config.get('lookback_months', 120)}月")
         
         for input_file in adx_files:
-            tasks.append((input_file, args.output_dir, 'ADX', adx_config))
+            tasks.append((input_file, args.output_dir, 'ADX', adx_config, target_date))
     elif adx_files:
         logger.info("ADX配置未启用，跳过ADX文件处理")
     
@@ -675,7 +715,7 @@ def main():
                    f"历史低点涨幅窗口 {pdi_config.get('lookback_months', 120)}月")
         
         for input_file in pdi_files:
-            tasks.append((input_file, args.output_dir, 'PDI', pdi_config))
+            tasks.append((input_file, args.output_dir, 'PDI', pdi_config, target_date))
     elif pdi_files:
         logger.info("PDI配置未启用，跳过PDI文件处理")
     
@@ -689,8 +729,8 @@ def main():
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
         # 提交所有任务
         futures = [
-            executor.submit(process_single_file, input_file, output_dir, file_type, config)
-            for input_file, output_dir, file_type, config in tasks
+            executor.submit(process_single_file, input_file, output_dir, file_type, config, target_date)
+            for input_file, output_dir, file_type, config, target_date in tasks
         ]
         
         # 使用tqdm显示进度条

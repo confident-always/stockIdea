@@ -68,7 +68,7 @@ def main():
             "description": "第二步: 进行选股 (select_stock.py)"
         },
         {
-            "command": "python adx_filter.py --input-dir res --output-dir resByFilter --workers 6",
+            "command": "python adx_filter.py --workers 6",
             "description": "第三步: 进行涨跌幅过滤 (adx_filter.py)"
         }
     ]
