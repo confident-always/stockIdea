@@ -1,14 +1,8 @@
 
 #### 3. 处理指定文件中的股票列表
 ```bash
-# 从指定JSON文件读取股票列表
-python draw_lines_unified.py --file /path/to/stocks.json --output filtered_charts --data-dir ../data
-
-# 自动从当前日期的resByFilter目录读取（默认使用当前日期）
-python draw_lines_unified.py --file --output today_charts --data-dir ../data
-
 # 指定日期的resByFilter目录
-python draw_lines_unified.py --file --date 20241015 --output historical_charts --data-dir ../data
+python draw_lines_unified.py --date 2025-10-15 --workers 6
 ```
 
 #### 4. 自定义配置

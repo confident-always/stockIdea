@@ -21,5 +21,8 @@ python run_pipeline.py
 
 ### 画线
 ```bash
-python draw_lines_unified.py --workers 6
+python draw_lines_unified.py  --workers 6
+```
+```bash
+python draw_lines_unified.py --date 2025-10-15 --workers 6
 ```
