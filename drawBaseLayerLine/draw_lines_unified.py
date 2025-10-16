@@ -84,7 +84,7 @@ class UnifiedLineDrawer:
         logger.info(f"📈 加载{len(self.stock_info)}只股票信息")
     
     def _load_config(self) -> List[str]:
-        """加载配置文件中的百分比数据"""
+        """加载配置文件中的百分比数据和ZigZag参数"""
         try:
             config_path = Path(self.config_file)
             if not config_path.exists():
@@ -92,18 +92,26 @@ class UnifiedLineDrawer:
                 config_path = Path("..") / self.config_file
                 if not config_path.exists():
                     logger.warning(f"⚠️ 配置文件 {self.config_file} 不存在，使用默认配置")
-                    return ["3%", "16%", "25%", "34%", "50%", "67%", "128%", "228%", "247%", "323%", "457%", "589%", "636%", "770%", "823%", "935%"]
+                    default_percents = ["3%", "16%", "25%", "34%", "50%", "67%", "128%", "228%", "247%", "323%", "457%", "589%", "636%", "770%", "823%", "935%"]
+                    self.zigzag_period = 20
+                    self.zigzag_threshold = 0.05
+                    return default_percents
             
             with open(config_path, 'r', encoding='utf-8') as f:
                 config = json.load(f)
                 percent_dic = config.get('percent_dic', [])
+                self.zigzag_period = config.get('zigzag_period', 20)
+                self.zigzag_threshold = config.get('zigzag_threshold', 0.05)
                 logger.info(f"✅ 成功加载配置文件: {config_path}")
+                logger.info(f"🔧 ZigZag周期: {self.zigzag_period}, 阈值: {self.zigzag_threshold}")
                 return percent_dic
         except Exception as e:
             logger.error(f"❌ 加载配置文件失败: {e}")
             # 使用默认配置
             default_percents = ["3%", "16%", "25%", "34%", "50%", "67%", "128%", "228%", "247%", "323%", "457%", "589%", "636%", "770%", "823%", "935%"]
-            logger.info(f"使用默认百分比配置")
+            self.zigzag_period = 20
+            self.zigzag_threshold = 0.05
+            logger.info(f"使用默认配置")
             return default_percents
     
     def _load_stock_info(self) -> Dict[str, Dict[str, str]]:
@@ -277,121 +285,95 @@ class UnifiedLineDrawer:
             return None
     
     def find_stage_lows_unified(self, df: pd.DataFrame) -> List[Tuple[int, float, str]]:
-        """统一版阶段低点检测 - 基于历史最高价后的最低点，确保符合山峰定义"""
+        """统一版阶段低点检测 - 基于通达信TROUGHBARS算法"""
         try:
-            if len(df) < 50:
-                logger.warning("⚠️ 数据不足，无法检测阶段低点")
+            # 从配置文件读取zigzag参数
+            zigzag_period = getattr(self, 'zigzag_period', 20)
+            zigzag_threshold = getattr(self, 'zigzag_threshold', 0.05)
+            
+            if len(df) < zigzag_period:
+                logger.warning(f"⚠️ 数据不足，需要至少{zigzag_period}个数据点")
                 return []
             
-            # 找到历史最高价位置
+            logger.debug(f"🔍 开始TROUGHBARS阶段低点检测: 周期={zigzag_period}, 阈值={zigzag_threshold}")
+            
+            # 实现通达信TROUGHBARS算法
+            def troughbars(low_prices: np.ndarray, period: int) -> np.ndarray:
+                """通达信TROUGHBARS函数实现"""
+                result = np.zeros(len(low_prices), dtype=int)
+                
+                for i in range(len(low_prices)):
+                    start_idx = max(0, i - period + 1)
+                    end_idx = i + 1
+                    
+                    if end_idx - start_idx < period:
+                        result[i] = -1
+                        continue
+                    
+                    window_lows = low_prices[start_idx:end_idx]
+                    min_idx_in_window = np.argmin(window_lows)
+                    actual_min_idx = start_idx + min_idx_in_window
+                    distance = i - actual_min_idx
+                    result[i] = distance
+                
+                return result
+            
+            # 实现通达信REF和BARSLAST算法
+            def find_lowest_price_with_barslast(low_prices: np.ndarray, trough_distances: np.ndarray) -> Tuple[int, float]:
+                """实现: 低价1:=REF(L,BARSLAST(最低APP=0))"""
+                zero_distance_indices = np.where(trough_distances == 0)[0]
+                
+                if len(zero_distance_indices) == 0:
+                    min_idx = np.argmin(low_prices)
+                    logger.debug(f"⚠️ 未找到距离为0的点，使用全局最低点: 索引={min_idx}, 价格={low_prices[min_idx]:.2f}")
+                    return min_idx, low_prices[min_idx]
+                
+                # 找到历史最高价作为参考
+                max_high_idx = np.argmax(df['high'].values)
+                max_high_price = df.loc[max_high_idx, 'high']
+                
+                # 计算每个距离为0的点的综合评分（跌幅 + 时间权重）
+                best_idx = zero_distance_indices[0]
+                best_score = 0
+                
+                for idx in zero_distance_indices:
+                    if idx > max_high_idx:  # 只考虑山峰后的低点
+                        decline = (max_high_price - low_prices[idx]) / max_high_price * 100
+                        # 时间权重：更近期的低点获得更高权重
+                        time_weight = (idx - max_high_idx) / (len(low_prices) - max_high_idx) * 100  # 时间权重0-100
+                        score = decline + time_weight  # 综合评分
+                        
+                        if score > best_score:
+                            best_score = score
+                            best_idx = idx
+                
+                # 如果找到了山峰后的低点，使用它
+                if best_score > 0:
+                    decline = (max_high_price - low_prices[best_idx]) / max_high_price * 100
+                    logger.debug(f"✅ 找到山峰后最佳低点: 索引={best_idx}, 价格={low_prices[best_idx]:.2f}, 跌幅={decline:.2f}%, 评分={best_score:.2f}")
+                    return best_idx, low_prices[best_idx]
+                else:
+                    # 如果没有山峰后的低点，使用最后一个距离为0的点
+                    last_zero_idx = zero_distance_indices[-1]
+                    last_zero_price = low_prices[last_zero_idx]
+                    logger.debug(f"✅ 使用最近一次最低点: 索引={last_zero_idx}, 价格={last_zero_price:.2f}")
+                    return last_zero_idx, last_zero_price
+            
+            # 执行TROUGHBARS算法
+            low_prices = df['low'].values
+            trough_distances = troughbars(low_prices, zigzag_period)
+            
+            # 找到最近一次最低点
+            final_low_idx, final_low_price = find_lowest_price_with_barslast(low_prices, trough_distances)
+            final_low_date = df.loc[final_low_idx, 'date']
+            
+            # 计算从历史最高价的跌幅
             max_high_idx = df['high'].idxmax()
             max_high_price = df.loc[max_high_idx, 'high']
-            max_high_date = df.loc[max_high_idx, 'date']
+            actual_decline = (max_high_price - final_low_price) / max_high_price * 100
             
-            # 计算70%跌幅位置（山峰定义的阈值）
-            decline_70_threshold = max_high_price * 0.3
-            
-            # 从历史最高价之后开始寻找最低点
-            after_peak_df = df[df.index > max_high_idx].copy()
-            
-            final_low_idx = None
-            final_low_price = float('inf')
-            final_low_date = None
-            
-            if len(after_peak_df) > 0:
-                # 在历史最高价之后寻找最低点
-                min_idx_after_peak = after_peak_df['low'].idxmin()
-                min_price_after_peak = after_peak_df.loc[min_idx_after_peak, 'low']
-                min_date_after_peak = after_peak_df.loc[min_idx_after_peak, 'date']
-                
-                # 检查是否符合70%跌幅条件（山峰定义）
-                if min_price_after_peak <= decline_70_threshold:
-                    # 符合山峰定义，使用山峰后的最低点
-                    final_low_idx = min_idx_after_peak
-                    final_low_price = min_price_after_peak
-                    final_low_date = min_date_after_peak
-                    
-                    logger.debug(f"✅ 符合山峰定义: 最高价={max_high_price:.2f}({max_high_date.strftime('%Y-%m-%d')}), "
-                               f"70%跌幅阈值={decline_70_threshold:.2f}, 山峰后最低价={final_low_price:.2f}")
-                else:
-                    # 不符合山峰定义，使用zigzag算法寻找转折点
-                    logger.debug(f"⚠️ 不符合山峰定义: 山峰后最低价{min_price_after_peak:.2f} > 70%跌幅阈值{decline_70_threshold:.2f}")
-                    
-                    # 实现zigzag转折检测算法作为备选方案
-                    def detect_zigzag_turning_points(prices: np.ndarray, threshold: float = 0.6) -> List[int]:
-                        """检测zigzag转折点，threshold为转折幅度阈值（60%对应0.6）"""
-                        if len(prices) < 3:
-                            return []
-                        
-                        turning_points = []
-                        current_trend = None  # 'up' or 'down'
-                        last_extreme_idx = 0
-                        last_extreme_price = prices[0]
-                        
-                        for i in range(1, len(prices)):
-                            current_price = prices[i]
-                            
-                            # 计算相对于上一个极值点的变化幅度
-                            if last_extreme_price > 0:
-                                change_ratio = abs(current_price - last_extreme_price) / last_extreme_price
-                            else:
-                                change_ratio = 0
-                            
-                            # 检测转折点
-                            if change_ratio >= threshold:
-                                if current_price > last_extreme_price:
-                                    # 上涨超过阈值
-                                    if current_trend != 'up':
-                                        # 趋势转为上涨，记录前一个低点
-                                        if current_trend == 'down':
-                                            turning_points.append(last_extreme_idx)
-                                        current_trend = 'up'
-                                        last_extreme_idx = i
-                                        last_extreme_price = current_price
-                                else:
-                                    # 下跌超过阈值
-                                    if current_trend != 'down':
-                                        # 趋势转为下跌，记录前一个高点
-                                        if current_trend == 'up':
-                                            turning_points.append(last_extreme_idx)
-                                        current_trend = 'down'
-                                        last_extreme_idx = i
-                                        last_extreme_price = current_price
-                            else:
-                                # 更新当前极值点
-                                if current_trend == 'up' and current_price > last_extreme_price:
-                                    last_extreme_idx = i
-                                    last_extreme_price = current_price
-                                elif current_trend == 'down' and current_price < last_extreme_price:
-                                    last_extreme_idx = i
-                                    last_extreme_price = current_price
-                        
-                        return turning_points
-                    
-                    # 检测zigzag转折点
-                    turning_points = detect_zigzag_turning_points(df['close'].values, threshold=0.6)
-                    
-                    if turning_points:
-                        # 从最后一个转折点开始寻找最低点
-                        last_turning_point = turning_points[-1]
-                        search_start = max(0, last_turning_point)
-                        
-                        # 在转折点之后寻找最低点
-                        for i in range(search_start, len(df)):
-                            current_low = df.loc[i, 'low']
-                            if current_low < final_low_price:
-                                final_low_price = current_low
-                                final_low_idx = i
-                        
-                        if final_low_idx is not None:
-                            final_low_date = df.loc[final_low_idx, 'date']
-            
-            # 如果仍然没有找到有效的低点，使用全局最低点作为备选
-            if final_low_idx is None:
-                final_low_idx = df['low'].idxmin()
-                final_low_price = df.loc[final_low_idx, 'low']
-                final_low_date = df.loc[final_low_idx, 'date']
-                logger.debug(f"⚠️ 使用全局最低点作为备选")
+            logger.debug(f"✅ TROUGHBARS检测到阶段低点: 日期={final_low_date.strftime('%Y-%m-%d')}, "
+                       f"价格={final_low_price:.2f}, 跌幅={actual_decline:.2f}%")
             
             # 格式化日期
             final_low_date_str = final_low_date.strftime('%Y-%m-%d')
@@ -399,11 +381,11 @@ class UnifiedLineDrawer:
             # 返回单一低点
             stage_lows = [(final_low_idx, final_low_price, final_low_date_str)]
             
-            logger.debug(f"✅ 检测到1个最终低点: 日期={final_low_date_str}, 价格={final_low_price:.2f}")
+            logger.debug(f"✅ 最终阶段低点: 日期={final_low_date_str}, 价格={final_low_price:.2f}")
             return stage_lows
             
         except Exception as e:
-            logger.error(f"❌ 阶段低点检测失败: {e}")
+            logger.error(f"❌ TROUGHBARS阶段低点检测失败: {e}")
             # 备选方案：返回全局最低点
             try:
                 global_min_idx = df['low'].idxmin()
