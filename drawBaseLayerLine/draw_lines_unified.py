@@ -406,8 +406,20 @@ class UnifiedLineDrawer:
                 import matplotlib
                 matplotlib.use('Agg')  # 确保使用非交互式后端
                 
-                # 创建高质量图表
-                fig, ax = plt.subplots(figsize=(20, 12), dpi=200)
+                # 创建高质量图表 - 统一尺寸为参考图片尺寸 (3991 x 2392)
+                # 使用精确计算来达到目标像素尺寸
+                target_width_px = 3991
+                target_height_px = 2392
+                
+                # 使用更精确的DPI计算
+                # 计算精确的DPI以达到目标尺寸
+                fig_width = 20.0
+                fig_height = 12.0
+                dpi = int(target_width_px / fig_width)  # 使用宽度计算DPI
+                
+                # 调整高度以精确匹配目标高度
+                target_fig_height = target_height_px / dpi
+                fig, ax = plt.subplots(figsize=(fig_width, target_fig_height), dpi=dpi)
                 
                 # 获取最低点位置，只显示从最低点开始往后的数据
                 if stage_lows:
@@ -461,10 +473,11 @@ class UnifiedLineDrawer:
                     # 绘制蓝色水平线
                     ax.axhline(y=price, color='blue', linestyle='-', linewidth=2, alpha=0.8)
                     
-                    # 标注价格
-                    ax.text(dates.iloc[-1], price, f'{price:.2f}', 
-                           fontsize=10, color='blue', fontweight='bold',
-                           bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.8))
+                    # 标注价格（显示在图片右边）
+                    ax.text(1.02, price, f'{price:.2f}', 
+                           fontsize=16, color='blue', fontweight='bold',
+                           bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.8),
+                           transform=ax.get_yaxis_transform(), ha='left', va='center')
                 
                 # 3. 绘制百分比涨幅线（粉红色线段，加粗显示）
                 if stage_lows:
@@ -481,11 +494,11 @@ class UnifiedLineDrawer:
                                 # 绘制粉红色虚线（加粗）
                                 ax.axhline(y=target_price, color='hotpink', linestyle='--', linewidth=3, alpha=0.8)
                                 
-                                # 标注百分比（棕灰色字体，显示在右边）
-                                ax.text(dates.iloc[-1], target_price, f'+{percent_str}', 
-                                       fontsize=12, color='#8B7355', fontweight='bold',
+                                # 标注百分比（棕灰色字体，显示在图片右边）
+                                ax.text(1.02, target_price, f'+{percent_str}', 
+                                       fontsize=18, color='#8B7355', fontweight='bold',
                                        bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.9, edgecolor='#8B7355', linewidth=2),
-                                       ha='left', va='center')
+                                       transform=ax.get_yaxis_transform(), ha='left', va='center')
                         except (ValueError, TypeError):
                             continue
                 
@@ -501,9 +514,9 @@ class UnifiedLineDrawer:
                     title_parts.append(f"({industry})")
                 title = " ".join(title_parts) + " - Stage Low Points Analysis"
                 
-                ax.set_title(title, fontsize=16, fontweight='bold', pad=20)
-                ax.set_xlabel('Date', fontsize=12)
-                ax.set_ylabel('Price', fontsize=12)
+                ax.set_title(title, fontsize=24, fontweight='bold', pad=20)
+                ax.set_xlabel('Date', fontsize=18, fontweight='bold')
+                ax.set_ylabel('Price', fontsize=18, fontweight='bold')
                 
                 # 设置Y轴范围，基于显示的数据
                 if not df_display.empty:
@@ -514,7 +527,8 @@ class UnifiedLineDrawer:
                 # 设置日期格式
                 ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
                 ax.xaxis.set_major_locator(mdates.MonthLocator(interval=3))
-                plt.setp(ax.xaxis.get_majorticklabels(), rotation=45)
+                plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, fontsize=14, fontweight='bold')
+                plt.setp(ax.yaxis.get_majorticklabels(), fontsize=14, fontweight='bold')
                 
                 # 网格
                 ax.grid(True, alpha=0.3)
@@ -525,6 +539,21 @@ class UnifiedLineDrawer:
                 # 保存图表
                 plt.savefig(output_file, dpi=200, bbox_inches='tight', 
                            facecolor='white', edgecolor='none')
+                
+                # 调整图片尺寸到精确的目标尺寸
+                try:
+                    from PIL import Image
+                    with Image.open(output_file) as img:
+                        # 调整到精确的目标尺寸 (3991 x 2392)
+                        target_width = 3991
+                        target_height = 2392
+                        resized_img = img.resize((target_width, target_height), Image.Resampling.LANCZOS)
+                        resized_img.save(output_file, 'PNG', quality=95)
+                        logger.debug(f"✅ 图片尺寸已调整到: {target_width}x{target_height}")
+                except ImportError:
+                    logger.warning("⚠️ PIL未安装，无法调整图片尺寸")
+                except Exception as e:
+                    logger.warning(f"⚠️ 调整图片尺寸失败: {e}")
                 
                 # 验证输出文件
                 if os.path.exists(output_file):
@@ -753,21 +782,33 @@ def main():
             import pandas as pd
             df = pd.read_csv(file_path)
             
-            # 从文件名提取前缀类型（ADX39或PDI39）
+            # 从文件名提取前缀类型（保持原始数字）
             file_name = os.path.basename(file_path)
             file_prefix = ""
-            if file_name.startswith("ADX"):
-                file_prefix = "ADX39"
-            elif file_name.startswith("PDI"):
-                file_prefix = "PDI39"
+            
+            # 使用正则表达式提取ADX或PDI后的数字
+            import re
+            
+            # 尝试匹配ADX开头的文件名
+            adx_match = re.match(r'ADX(\d+)', file_name)
+            if adx_match:
+                file_prefix = f"ADX{adx_match.group(1)}"
             else:
-                # 如果文件名不以ADX或PDI开头，尝试从文件名中提取
-                if "ADX" in file_name.upper():
-                    file_prefix = "ADX39"
-                elif "PDI" in file_name.upper():
-                    file_prefix = "PDI39"
+                # 尝试匹配PDI开头的文件名
+                pdi_match = re.match(r'PDI(\d+)', file_name)
+                if pdi_match:
+                    file_prefix = f"PDI{pdi_match.group(1)}"
                 else:
-                    file_prefix = "UNKNOWN"
+                    # 如果文件名不以ADX或PDI开头，尝试从文件名中搜索
+                    adx_search = re.search(r'ADX(\d+)', file_name.upper())
+                    if adx_search:
+                        file_prefix = f"ADX{adx_search.group(1)}"
+                    else:
+                        pdi_search = re.search(r'PDI(\d+)', file_name.upper())
+                        if pdi_search:
+                            file_prefix = f"PDI{pdi_search.group(1)}"
+                        else:
+                            file_prefix = "UNKNOWN"
             
             logger.info(f"📊 文件类型: {file_prefix}")
             
