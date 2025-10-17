@@ -365,18 +365,21 @@ class UnifiedLineDrawer:
             
             # 找到最近一次最低点
             final_low_idx, final_low_price = find_lowest_price_with_barslast(low_prices, trough_distances)
-            final_low_date = df.loc[final_low_idx, 'date']
+            final_low_date = df.loc[final_low_idx, "date"]
             
             # 计算从历史最高价的跌幅
             max_high_idx = df['high'].idxmax()
             max_high_price = df.loc[max_high_idx, 'high']
             actual_decline = (max_high_price - final_low_price) / max_high_price * 100
             
-            logger.debug(f"✅ TROUGHBARS检测到阶段低点: 日期={final_low_date.strftime('%Y-%m-%d')}, "
+            logger.debug(f"✅ TROUGHBARS检测到阶段低点: 日期={final_low_date}, "
                        f"价格={final_low_price:.2f}, 跌幅={actual_decline:.2f}%")
             
             # 格式化日期
-            final_low_date_str = final_low_date.strftime('%Y-%m-%d')
+            if hasattr(final_low_date, 'strftime'):
+                final_low_date_str = final_low_date.strftime("%Y-%m-%d")
+            else:
+                final_low_date_str = str(final_low_date)
             
             # 返回单一低点
             stage_lows = [(final_low_idx, final_low_price, final_low_date_str)]
@@ -397,8 +400,7 @@ class UnifiedLineDrawer:
     
     def create_unified_chart(self, stock_code: str, stock_name: str, df: pd.DataFrame, 
                            stage_lows: List[Tuple[int, float, str]], output_file: str) -> bool:
-        """创建统一版高质量图表"""
-        fig = None
+        """创建统一版高质量图表 - 使用mplfinance绘制专业K线图"""
         try:
             # 使用线程锁确保matplotlib操作的线程安全
             with matplotlib_lock:
@@ -406,103 +408,64 @@ class UnifiedLineDrawer:
                 import matplotlib
                 matplotlib.use('Agg')  # 确保使用非交互式后端
                 
-                # 创建高质量图表 - 统一尺寸为参考图片尺寸 (3991 x 2392)
-                # 使用精确计算来达到目标像素尺寸
-                target_width_px = 3991
-                target_height_px = 2392
-                
-                # 使用更精确的DPI计算
-                # 计算精确的DPI以达到目标尺寸
-                fig_width = 20.0
-                fig_height = 12.0
-                dpi = int(target_width_px / fig_width)  # 使用宽度计算DPI
-                
-                # 调整高度以精确匹配目标高度
-                target_fig_height = target_height_px / dpi
-                fig, ax = plt.subplots(figsize=(fig_width, target_fig_height), dpi=dpi)
+                import mplfinance as mpf
                 
                 # 获取最低点位置，只显示从最低点开始往后的数据
                 if stage_lows:
                     lowest_idx, _, _ = stage_lows[0]  # 获取最低点的索引
                     # 截取从最低点开始的数据
                     df_display = df.iloc[lowest_idx:].copy()
-                    df_display = df_display.reset_index(drop=True)
+                    # 不要重置索引，保持原始索引
                 else:
                     # 如果没有检测到低点，显示全部数据
                     df_display = df.copy()
                 
-                # 设置日期格式
-                dates = df_display['date']
+                # 准备mplfinance需要的数据格式
+                df_mpf = df_display.copy()
+                df_mpf['date'] = pd.to_datetime(df_mpf['date'])
+                df_mpf.set_index('date', inplace=True)
                 
-                # 1. 绘制K线图（简化版）
-                for i in range(len(df_display)):
-                    try:
-                        date = dates.iloc[i]
-                        open_price = df_display['open'].iloc[i]
-                        high_price = df_display['high'].iloc[i]
-                        low_price = df_display['low'].iloc[i]
-                        close_price = df_display['close'].iloc[i]
-                        
-                        # 数据验证
-                        if pd.isna(open_price) or pd.isna(high_price) or pd.isna(low_price) or pd.isna(close_price):
-                            continue
-                        if high_price < low_price or high_price <= 0 or low_price <= 0:
-                            continue
-                        
-                        # 确定颜色
-                        color = 'red' if close_price >= open_price else 'green'
-                        
-                        # 绘制高低线
-                        ax.plot([date, date], [low_price, high_price], color='black', linewidth=0.5)
-                        
-                        # 绘制实体（每10根K线绘制一根，提高性能）
-                        if i % 10 == 0 or i == len(df_display) - 1:
-                            body_height = abs(close_price - open_price)
-                            body_bottom = min(open_price, close_price)
-                            
-                            # 使用矩形绘制实体
-                            rect = plt.Rectangle((date, body_bottom), pd.Timedelta(days=1), body_height, 
-                                               facecolor=color, alpha=0.7, linewidth=0.5)
-                            ax.add_patch(rect)
-                    except Exception as e:
-                        logger.debug(f"跳过K线数据 {i}: {e}")
-                        continue
+                # 确保列名符合mplfinance要求
+                df_mpf = df_mpf[['open', 'high', 'low', 'close']].copy()
                 
-                # 2. 绘制阶段低点水平线（蓝色直线）
+                # 检查数据是否为空
+                if df_mpf.empty:
+                    logger.warning(f"⚠️ 处理后的数据为空: {stock_code}")
+                    return False
+                
+                logger.debug(f"📊 mplfinance数据: {len(df_mpf)} 行, 列: {list(df_mpf.columns)}")
+                
+                # 准备额外的绘图元素
+                additional_plots = []
+                
+                # 1. 添加阶段低点水平线
                 for i, (idx, price, date_str) in enumerate(stage_lows):
-                    # 绘制蓝色水平线
-                    ax.axhline(y=price, color='blue', linestyle='-', linewidth=2, alpha=0.8)
-                    
-                    # 标注价格（显示在图片右边）
-                    ax.text(1.02, price, f'{price:.2f}', 
-                           fontsize=16, color='blue', fontweight='bold',
-                           bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.8),
-                           transform=ax.get_yaxis_transform(), ha='left', va='center')
+                    # 创建水平线数据
+                    hline_data = [price] * len(df_mpf)
+                    additional_plots.append(mpf.make_addplot(hline_data, color='blue', linestyle='-', width=2, alpha=0.8))
                 
-                # 3. 绘制百分比涨幅线（粉红色线段，加粗显示）
+                # 2. 添加百分比涨幅线
                 if stage_lows:
                     base_price = min(price for _, price, _ in stage_lows)  # 使用最低价作为基准
+                    max_price = df_mpf['high'].max()
                     
+                    # 先画原有的百分比线，找出K线覆盖范围内最上方的百分比线
+                    visible_percent_lines = []
                     for i, percent_str in enumerate(self.percent_list):
                         try:
                             percent = float(percent_str.rstrip('%')) / 100
                             target_price = base_price * (1 + percent)
                             
-                            # 检查目标价格是否在合理范围内
-                            max_price = df_display['high'].max()
-                            if target_price <= max_price * 1.5:  # 不超过历史最高价的1.5倍
-                                # 绘制粉红色虚线（加粗）
-                                ax.axhline(y=target_price, color='hotpink', linestyle='--', linewidth=3, alpha=0.8)
-                                
-                                # 标注百分比（棕灰色字体，显示在图片右边）
-                                ax.text(1.02, target_price, f'+{percent_str}', 
-                                       fontsize=18, color='#8B7355', fontweight='bold',
-                                       bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.9, edgecolor='#8B7355', linewidth=2),
-                                       transform=ax.get_yaxis_transform(), ha='left', va='center')
+                            # 所有百分比线都限制在K线方框内（最高价的100%以内）
+                            if target_price <= max_price:  # 限制在K线最高价以内
+                                visible_percent_lines.append((percent_str, target_price))
+                                # 创建水平线数据
+                                hline_data = [target_price] * len(df_mpf)
+                                additional_plots.append(mpf.make_addplot(hline_data, color='hotpink', linestyle='--', width=3, alpha=0.8))
                         except (ValueError, TypeError):
                             continue
                 
-                # 4. 设置图表属性
+                
                 # 获取行业信息
                 industry = ""
                 if stock_code in self.stock_info:
@@ -514,31 +477,78 @@ class UnifiedLineDrawer:
                     title_parts.append(f"({industry})")
                 title = " ".join(title_parts) + " - Stage Low Points Analysis"
                 
-                ax.set_title(title, fontsize=24, fontweight='bold', pad=20)
-                ax.set_xlabel('Date', fontsize=18, fontweight='bold')
-                ax.set_ylabel('Price', fontsize=18, fontweight='bold')
+                # 设置中文字体
+                import matplotlib.pyplot as plt
+                plt.rcParams['font.sans-serif'] = ['SimHei', 'Arial Unicode MS', 'DejaVu Sans']
+                plt.rcParams['axes.unicode_minus'] = False
                 
-                # 设置Y轴范围，基于显示的数据
-                if not df_display.empty:
-                    y_min = df_display['low'].min() * 0.95
-                    y_max = df_display['high'].max() * 1.1
-                    ax.set_ylim(y_min, y_max)
+                # 设置mplfinance样式
+                style = mpf.make_mpf_style(
+                    base_mpf_style='charles',
+                    gridstyle='-',
+                    gridcolor='lightgray',
+                    y_on_right=True,
+                    facecolor='white',
+                    edgecolor='black',
+                    figcolor='white',
+                    rc={'font.size': 12, 'axes.titlesize': 20, 'axes.labelsize': 14, 
+                        'font.sans-serif': ['SimHei', 'Arial Unicode MS', 'DejaVu Sans'],
+                        'axes.unicode_minus': False}
+                )
                 
-                # 设置日期格式
-                ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
-                ax.xaxis.set_major_locator(mdates.MonthLocator(interval=3))
-                plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, fontsize=14, fontweight='bold')
-                plt.setp(ax.yaxis.get_majorticklabels(), fontsize=14, fontweight='bold')
+                # 创建图表
+                fig, axes = mpf.plot(
+                    df_mpf,
+                    type='candle',
+                    style=style,
+                    title=title,
+                    ylabel='Price',
+                    volume=False,
+                    addplot=additional_plots if additional_plots else None,
+                    figsize=(20, 12),
+                    tight_layout=True,
+                    returnfig=True,
+                    panel_ratios=(1,),  # 只显示主图
+                    show_nontrading=False,  # 不显示非交易日
+                    datetime_format='%Y-%m',  # 日期格式
+                    xrotation=45  # X轴标签旋转
+                )
                 
-                # 网格
-                ax.grid(True, alpha=0.3)
+                # 添加价格标注
+                ax = axes[0]  # 获取主图轴
                 
-                # 自动调整布局
-                plt.tight_layout()
+                # 标注阶段低点价格
+                for i, (idx, price, date_str) in enumerate(stage_lows):
+                    ax.text(1.02, price, f'{price:.2f}', 
+                           fontsize=16, color='blue', fontweight='bold',
+                           bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.8),
+                           transform=ax.get_yaxis_transform(), ha='left', va='center')
                 
-                # 保存图表
-                plt.savefig(output_file, dpi=200, bbox_inches='tight', 
-                           facecolor='white', edgecolor='none')
+                # 标注百分比涨幅线
+                if stage_lows:
+                    base_price = min(price for _, price, _ in stage_lows)
+                    max_price = df_mpf['high'].max()
+                    
+                    # 标注K线覆盖范围内的百分比线
+                    for percent_str in self.percent_list:
+                        try:
+                            percent = float(percent_str.rstrip('%')) / 100
+                            target_price = base_price * (1 + percent)
+                            
+                            if target_price <= max_price:  # 限制在K线最高价以内
+                                ax.text(1.02, target_price, f'+{percent_str}', 
+                                       fontsize=18, color='#8B7355', fontweight='bold',
+                                       bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.9, edgecolor='#8B7355', linewidth=2),
+                                       transform=ax.get_yaxis_transform(), ha='left', va='center')
+                        except (ValueError, TypeError):
+                            continue
+                    
+                
+                # 重新保存带标注的图表
+                plt.savefig(output_file, dpi=200, bbox_inches='tight', facecolor='white', edgecolor='none')
+                
+                # 关闭图形以释放内存
+                plt.close(fig)
                 
                 # 调整图片尺寸到精确的目标尺寸
                 try:
@@ -549,17 +559,17 @@ class UnifiedLineDrawer:
                         target_height = 2392
                         resized_img = img.resize((target_width, target_height), Image.Resampling.LANCZOS)
                         resized_img.save(output_file, 'PNG', quality=95)
-                        logger.debug(f"✅ 图片尺寸已调整到: {target_width}x{target_height}")
+                        logger.debug(f"✅ 图片尺寸已调整: {target_width}x{target_height}")
                 except ImportError:
                     logger.warning("⚠️ PIL未安装，无法调整图片尺寸")
                 except Exception as e:
                     logger.warning(f"⚠️ 调整图片尺寸失败: {e}")
                 
-                # 验证输出文件
+                # 检查文件是否成功生成
                 if os.path.exists(output_file):
                     file_size = os.path.getsize(output_file)
-                    if file_size > 50000:  # 至少50KB
-                        logger.debug(f"✅ 图表创建成功: {output_file} ({file_size} bytes)")
+                    if file_size > 1000:  # 至少1KB
+                        logger.debug(f"✅ 图表文件生成成功: {output_file} ({file_size} bytes)")
                         return True
                     else:
                         logger.warning(f"⚠️ 生成的图片文件过小: {output_file} ({file_size} bytes)")
@@ -576,8 +586,6 @@ class UnifiedLineDrawer:
         finally:
             # 确保释放matplotlib资源
             try:
-                if fig is not None:
-                    plt.close(fig)
                 plt.close('all')  # 关闭所有图形
             except Exception as cleanup_error:
                 logger.debug(f"资源清理异常: {cleanup_error}")
@@ -789,26 +797,20 @@ def main():
             # 使用正则表达式提取ADX或PDI后的数字
             import re
             
-            # 尝试匹配ADX开头的文件名
-            adx_match = re.match(r'ADX(\d+)', file_name)
-            if adx_match:
-                file_prefix = f"ADX{adx_match.group(1)}"
-            else:
-                # 尝试匹配PDI开头的文件名
-                pdi_match = re.match(r'PDI(\d+)', file_name)
-                if pdi_match:
-                    file_prefix = f"PDI{pdi_match.group(1)}"
-                else:
-                    # 如果文件名不以ADX或PDI开头，尝试从文件名中搜索
-                    adx_search = re.search(r'ADX(\d+)', file_name.upper())
-                    if adx_search:
-                        file_prefix = f"ADX{adx_search.group(1)}"
-                    else:
-                        pdi_search = re.search(r'PDI(\d+)', file_name.upper())
-                        if pdi_search:
-                            file_prefix = f"PDI{pdi_search.group(1)}"
-                        else:
-                            file_prefix = "UNKNOWN"
+            # 定义匹配模式
+            patterns = [
+                (r'^ADX(\d+)', 'ADX'),  # 匹配开头的ADX
+                (r'^PDI(\d+)', 'PDI'),  # 匹配开头的PDI
+                (r'ADX(\d+)', 'ADX'),    # 匹配任意位置的ADX
+                (r'PDI(\d+)', 'PDI')     # 匹配任意位置的PDI
+            ]
+            
+            # 按优先级尝试匹配
+            for pattern, prefix_type in patterns:
+                match = re.search(pattern, file_name.upper())
+                if match:
+                    file_prefix = f"{prefix_type}{match.group(1)}"
+                    break
             
             logger.info(f"📊 文件类型: {file_prefix}")
             
