@@ -659,8 +659,19 @@ def main():
     adx_config = configs['ADX']
     pdi_config = configs['PDI']
     
+    # 清空并重新创建输出目录
+    if os.path.exists(args.output_dir):
+        import shutil
+        logger.info(f"🗑️  清空输出目录: {args.output_dir}")
+        try:
+            shutil.rmtree(args.output_dir)
+            logger.info(f"✅ 已清空输出目录")
+        except Exception as e:
+            logger.warning(f"⚠️  清空输出目录时出错: {e}")
+    
     # 确保输出目录存在
     os.makedirs(args.output_dir, exist_ok=True)
+    logger.info(f"📁 创建输出目录: {args.output_dir}")
     
     # 查找所有ADX和PDI结果文件
     adx_files = glob.glob(os.path.join(args.input_dir, 'ADX*.csv'))

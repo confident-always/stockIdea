@@ -10,7 +10,10 @@ python select_stock.py --data-dir ./data --config ./configs.json --meta-workers 
 ```
 # 涨跌幅过滤
 ```bash
-python adx_filter.py --input-dir res --output-dir resByFilter --workers 6
+python adx_filter.py --workers 6
+
+python adx_filter.py --input-dir ./20251018-res --output-dir ./20251018-resByFilter --workers 6
+
 ```
 # 股票数据处理流水线使用说明
 
@@ -24,5 +27,5 @@ python run_pipeline.py
 python draw_lines_unified.py  --workers 6
 ```
 ```bash
-python draw_lines_unified.py --date 2025-10-16 --workers 6
+python draw_lines_unified.py --date 2025-10-18 --workers 6
 ```

@@ -284,118 +284,283 @@ class UnifiedLineDrawer:
             logger.error(f"❌ 数据加载失败 {stock_code}: {e}")
             return None
     
+    def zigzag(self, high_prices: np.ndarray, low_prices: np.ndarray, 
+               threshold_pct: float = 0.49) -> List[Tuple[int, float, str]]:
+        """
+        实现ZigZag指标算法，找到显著的转折点
+        
+        ZigZag算法原理：
+        - 只有当价格变化超过设定阈值时才确认转折点
+        - 过滤掉小幅波动，保留主要趋势
+        - threshold_pct: 49% 表示价格变化需超过49%才确认转折
+        
+        Args:
+            high_prices: 最高价数组
+            low_prices: 最低价数组
+            threshold_pct: 转折阈值（百分比，如0.49表示49%）
+        
+        Returns:
+            转折点列表 [(索引, 价格, 类型)]，类型为'high'或'low'
+        """
+        if len(high_prices) < 3:
+            return []
+        
+        pivots = []  # 存储转折点
+        
+        # 从第一个点开始
+        last_pivot_idx = 0
+        last_pivot_price = low_prices[0]
+        last_pivot_type = 'low'  # 假设从低点开始
+        
+        # 初始化：找到真正的第一个转折点
+        # 先找第一个高点
+        searching_for = 'high'
+        
+        for i in range(1, len(high_prices)):
+            if searching_for == 'high':
+                # 寻找高点
+                current_high = high_prices[i]
+                # 计算从最后一个低点到当前的涨幅
+                if last_pivot_type == 'low':
+                    pct_change = (current_high - last_pivot_price) / last_pivot_price
+                    if pct_change >= threshold_pct:
+                        # 找到一个显著的高点
+                        pivots.append((last_pivot_idx, last_pivot_price, 'low'))
+                        last_pivot_idx = i
+                        last_pivot_price = current_high
+                        last_pivot_type = 'high'
+                        searching_for = 'low'
+                    else:
+                        # 更新潜在的起点（如果找到更低的低点）
+                        if low_prices[i] < last_pivot_price:
+                            last_pivot_idx = i
+                            last_pivot_price = low_prices[i]
+                            
+            else:  # searching_for == 'low'
+                # 寻找低点
+                current_low = low_prices[i]
+                # 计算从最后一个高点到当前的跌幅
+                if last_pivot_type == 'high':
+                    pct_change = (last_pivot_price - current_low) / last_pivot_price
+                    if pct_change >= threshold_pct:
+                        # 找到一个显著的低点
+                        pivots.append((last_pivot_idx, last_pivot_price, 'high'))
+                        last_pivot_idx = i
+                        last_pivot_price = current_low
+                        last_pivot_type = 'low'
+                        searching_for = 'high'
+                    else:
+                        # 更新潜在的高点（如果找到更高的高点）
+                        if high_prices[i] > last_pivot_price:
+                            last_pivot_idx = i
+                            last_pivot_price = high_prices[i]
+        
+        # 添加最后一个转折点
+        if pivots and last_pivot_idx != pivots[-1][0]:
+            pivots.append((last_pivot_idx, last_pivot_price, last_pivot_type))
+        
+        return pivots
+
+    def troughbars(self, data: np.ndarray, period: int, n: int) -> np.ndarray:
+        """
+        实现通达信TROUGHBARS函数
+        TROUGHBARS(X,N,M) 返回N周期内X的第M个波谷到当前位置的周期数
+        
+        Args:
+            data: 价格数据数组 (通常是最低价)
+            period: 查找周期 N  
+            n: 第几个波谷 M
+        
+        Returns:
+            每个位置到第n个波谷的距离数组
+        """
+        result = np.full(len(data), np.nan)
+        
+        for i in range(len(data)):
+            # 获取当前位置前N个周期的数据（包含当前位置）
+            start_idx = max(0, i - period + 1)
+            end_idx = i + 1
+            window_data = data[start_idx:end_idx]
+            
+            if len(window_data) < 3:  # 至少需要3个点才能找到波谷
+                continue
+            
+            # 寻找波谷（局部最小值）
+            troughs = []
+            
+            # 检查窗口内的每个点是否为波谷
+            for j in range(len(window_data)):
+                actual_idx = start_idx + j
+                
+                # 边界处理：第一个和最后一个点也可能是波谷
+                is_trough = False
+                
+                if j == 0:  # 第一个点
+                    if len(window_data) > 1 and window_data[j] <= window_data[j+1]:
+                        is_trough = True
+                elif j == len(window_data) - 1:  # 最后一个点（当前点）
+                    if window_data[j] <= window_data[j-1]:
+                        is_trough = True
+                else:  # 中间点
+                    if window_data[j] <= window_data[j-1] and window_data[j] <= window_data[j+1]:
+                        is_trough = True
+                
+                if is_trough:
+                    troughs.append((actual_idx, window_data[j]))
+            
+            # 按价格排序，找到第n个最低的波谷
+            if len(troughs) >= n:
+                troughs.sort(key=lambda x: x[1])  # 按价格从低到高排序
+                nth_trough_idx = troughs[n-1][0]  # 第n个波谷的索引
+                result[i] = i - nth_trough_idx  # 距离当前位置的周期数
+            
+        return result
+
+    def barslast(self, condition: np.ndarray) -> np.ndarray:
+        """
+        实现通达信BARSLAST函数
+        BARSLAST(X) 返回上一次X条件成立到当前的周期数
+        
+        Args:
+            condition: 布尔条件数组
+        
+        Returns:
+            距离上次条件成立的周期数数组
+        """
+        result = np.full(len(condition), np.nan)
+        last_true_idx = -1
+        
+        for i in range(len(condition)):
+            if condition[i]:
+                last_true_idx = i
+                result[i] = 0
+            elif last_true_idx >= 0:
+                result[i] = i - last_true_idx
+        
+        return result
+
+    def ref(self, data: np.ndarray, periods: np.ndarray) -> np.ndarray:
+        """
+        实现通达信REF函数
+        REF(X,A) 引用A周期前的X值
+        
+        Args:
+            data: 数据数组
+            periods: 引用周期数数组
+        
+        Returns:
+            引用的历史数据数组
+        """
+        result = np.full(len(data), np.nan)
+        
+        for i in range(len(data)):
+            if not np.isnan(periods[i]):
+                ref_idx = int(i - periods[i])
+                if 0 <= ref_idx < len(data):
+                    result[i] = data[ref_idx]
+        
+        return result
+
     def find_stage_lows_unified(self, df: pd.DataFrame) -> List[Tuple[int, float, str]]:
-        """统一版阶段低点检测 - 基于通达信TROUGHBARS算法"""
+        """
+        统一版阶段低点检测 - 使用ZigZag(L,49)算法
+        参数49从lineConfig.json的zigzag_period读取，表示49%的价格变化阈值
+        """
         try:
-            # 从配置文件读取zigzag参数
-            zigzag_period = getattr(self, 'zigzag_period', 20)
-            zigzag_threshold = getattr(self, 'zigzag_threshold', 0.05)
+            # 将zigzag_period转换为百分比阈值（49 -> 0.49）
+            threshold_pct = self.zigzag_period / 100.0
+            logger.debug(f"🔍 开始ZigZag阶段低点检测 (阈值={self.zigzag_period}%)")
             
-            if len(df) < zigzag_period:
-                logger.warning(f"⚠️ 数据不足，需要至少{zigzag_period}个数据点")
-                return []
-            
-            logger.debug(f"🔍 开始TROUGHBARS阶段低点检测: 周期={zigzag_period}, 阈值={zigzag_threshold}")
-            
-            # 实现通达信TROUGHBARS算法
-            def troughbars(low_prices: np.ndarray, period: int) -> np.ndarray:
-                """通达信TROUGHBARS函数实现"""
-                result = np.zeros(len(low_prices), dtype=int)
-                
-                for i in range(len(low_prices)):
-                    start_idx = max(0, i - period + 1)
-                    end_idx = i + 1
-                    
-                    if end_idx - start_idx < period:
-                        result[i] = -1
-                        continue
-                    
-                    window_lows = low_prices[start_idx:end_idx]
-                    min_idx_in_window = np.argmin(window_lows)
-                    actual_min_idx = start_idx + min_idx_in_window
-                    distance = i - actual_min_idx
-                    result[i] = distance
-                
-                return result
-            
-            # 实现通达信REF和BARSLAST算法
-            def find_lowest_price_with_barslast(low_prices: np.ndarray, trough_distances: np.ndarray) -> Tuple[int, float]:
-                """实现: 低价1:=REF(L,BARSLAST(最低APP=0))"""
-                zero_distance_indices = np.where(trough_distances == 0)[0]
-                
-                if len(zero_distance_indices) == 0:
-                    min_idx = np.argmin(low_prices)
-                    logger.debug(f"⚠️ 未找到距离为0的点，使用全局最低点: 索引={min_idx}, 价格={low_prices[min_idx]:.2f}")
-                    return min_idx, low_prices[min_idx]
-                
-                # 找到历史最高价作为参考
-                max_high_idx = np.argmax(df['high'].values)
-                max_high_price = df.loc[max_high_idx, 'high']
-                
-                # 计算每个距离为0的点的综合评分（跌幅 + 时间权重）
-                best_idx = zero_distance_indices[0]
-                best_score = 0
-                
-                for idx in zero_distance_indices:
-                    if idx > max_high_idx:  # 只考虑山峰后的低点
-                        decline = (max_high_price - low_prices[idx]) / max_high_price * 100
-                        # 时间权重：更近期的低点获得更高权重
-                        time_weight = (idx - max_high_idx) / (len(low_prices) - max_high_idx) * 100  # 时间权重0-100
-                        score = decline + time_weight  # 综合评分
-                        
-                        if score > best_score:
-                            best_score = score
-                            best_idx = idx
-                
-                # 如果找到了山峰后的低点，使用它
-                if best_score > 0:
-                    decline = (max_high_price - low_prices[best_idx]) / max_high_price * 100
-                    logger.debug(f"✅ 找到山峰后最佳低点: 索引={best_idx}, 价格={low_prices[best_idx]:.2f}, 跌幅={decline:.2f}%, 评分={best_score:.2f}")
-                    return best_idx, low_prices[best_idx]
-                else:
-                    # 如果没有山峰后的低点，使用最后一个距离为0的点
-                    last_zero_idx = zero_distance_indices[-1]
-                    last_zero_price = low_prices[last_zero_idx]
-                    logger.debug(f"✅ 使用最近一次最低点: 索引={last_zero_idx}, 价格={last_zero_price:.2f}")
-                    return last_zero_idx, last_zero_price
-            
-            # 执行TROUGHBARS算法
+            # 准备数据
+            high_prices = df['high'].values
             low_prices = df['low'].values
-            trough_distances = troughbars(low_prices, zigzag_period)
+            dates = df['date'].values
             
-            # 找到最近一次最低点
-            final_low_idx, final_low_price = find_lowest_price_with_barslast(low_prices, trough_distances)
-            final_low_date = df.loc[final_low_idx, "date"]
+            # 1. 使用ZigZag算法找到所有转折点
+            pivots = self.zigzag(high_prices, low_prices, threshold_pct)
             
-            # 计算从历史最高价的跌幅
-            max_high_idx = df['high'].idxmax()
-            max_high_price = df.loc[max_high_idx, 'high']
-            actual_decline = (max_high_price - final_low_price) / max_high_price * 100
+            stage_lows = []
             
-            logger.debug(f"✅ TROUGHBARS检测到阶段低点: 日期={final_low_date}, "
-                       f"价格={final_low_price:.2f}, 跌幅={actual_decline:.2f}%")
-            
-            # 格式化日期
-            if hasattr(final_low_date, 'strftime'):
-                final_low_date_str = final_low_date.strftime("%Y-%m-%d")
+            if not pivots:
+                logger.warning("⚠️ ZigZag未找到转折点，使用全局最低点")
+                min_idx = df['low'].idxmin()
+                min_price = df.loc[min_idx, 'low']
+                min_date = df.loc[min_idx, 'date']
+                
+                if hasattr(min_date, 'strftime'):
+                    min_date_str = min_date.strftime("%Y-%m-%d")
+                else:
+                    min_date_str = str(min_date)
+                
+                stage_lows = [(min_idx, min_price, min_date_str)]
             else:
-                final_low_date_str = str(final_low_date)
+                # 2. 从ZigZag转折点中筛选出低点（'low'类型）
+                low_pivots = [(idx, price, pivot_type) for idx, price, pivot_type in pivots if pivot_type == 'low']
+                
+                if not low_pivots:
+                    logger.warning("⚠️ ZigZag未找到低点转折，使用全局最低点")
+                    min_idx = df['low'].idxmin()
+                    min_price = df.loc[min_idx, 'low']
+                    min_date = df.loc[min_idx, 'date']
+                else:
+                    # 3. 使用最后一个（最近的）低点转折作为初始阶段低点
+                    idx, price, _ = low_pivots[-1]
+                    low_date = df.loc[idx, 'date']
+                    
+                    logger.debug(f"✅ ZigZag找到 {len(low_pivots)} 个低点转折")
+                    logger.debug(f"✅ ZigZag最近低点: 索引={idx}, 价格={price:.2f}")
+                    
+                    # 4. 优化低点锚定：检查该低点之后是否有更低的价格
+                    # 在该低点之后的所有交易日中查找更低的价格
+                    if idx < len(df) - 1:  # 如果不是最后一个交易日
+                        after_low_df = df.iloc[idx+1:]  # 获取该低点之后的数据
+                        
+                        # 查找之后的最低价
+                        after_min_idx = after_low_df['low'].idxmin()
+                        after_min_price = after_low_df.loc[after_min_idx, 'low']
+                        
+                        # 如果之后有更低的价格，使用该更低价格
+                        if after_min_price < price:
+                            logger.debug(f"🔽 发现更低价格: 原价格={price:.2f}, 新价格={after_min_price:.2f}")
+                            idx = after_min_idx
+                            price = after_min_price
+                            low_date = df.loc[after_min_idx, 'date']
+                            logger.debug(f"✅ 更新锚定低点: 索引={idx}, 日期={low_date}, 价格={price:.2f}")
+                    
+                    min_idx = idx
+                    min_price = price
+                    min_date = low_date
+                
+                # 格式化日期
+                if hasattr(min_date, 'strftime'):
+                    min_date_str = min_date.strftime("%Y-%m-%d")
+                else:
+                    min_date_str = str(min_date)
+                
+                stage_lows = [(min_idx, min_price, min_date_str)]
             
-            # 返回单一低点
-            stage_lows = [(final_low_idx, final_low_price, final_low_date_str)]
-            
-            logger.debug(f"✅ 最终阶段低点: 日期={final_low_date_str}, 价格={final_low_price:.2f}")
+            logger.debug(f"✅ 最终阶段低点: 索引={stage_lows[0][0]}, 日期={stage_lows[0][2]}, 价格={stage_lows[0][1]:.2f}")
             return stage_lows
             
         except Exception as e:
-            logger.error(f"❌ TROUGHBARS阶段低点检测失败: {e}")
+            logger.error(f"❌ ZigZag阶段低点检测失败: {e}")
+            import traceback
+            logger.debug(f"详细错误信息: {traceback.format_exc()}")
+            
             # 备选方案：返回全局最低点
             try:
                 global_min_idx = df['low'].idxmin()
                 global_min_price = df.loc[global_min_idx, 'low']
-                global_min_date = df.loc[global_min_idx, 'date'].strftime('%Y-%m-%d')
-                return [(global_min_idx, global_min_price, global_min_date)]
-            except:
+                global_min_date = df.loc[global_min_idx, 'date']
+                
+                if hasattr(global_min_date, 'strftime'):
+                    global_min_date_str = global_min_date.strftime('%Y-%m-%d')
+                else:
+                    global_min_date_str = str(global_min_date)
+                
+                return [(global_min_idx, global_min_price, global_min_date_str)]
+            except Exception as backup_e:
+                logger.error(f"❌ 备选方案也失败: {backup_e}")
                 return []
     
     def create_unified_chart(self, stock_code: str, stock_name: str, df: pd.DataFrame, 
@@ -449,21 +614,40 @@ class UnifiedLineDrawer:
                     base_price = min(price for _, price, _ in stage_lows)  # 使用最低价作为基准
                     max_price = df_mpf['high'].max()
                     
-                    # 先画原有的百分比线，找出K线覆盖范围内最上方的百分比线
+                    # 先画K线覆盖范围内的百分比线，找出最上方的百分比线
                     visible_percent_lines = []
+                    highest_visible_idx = -1  # 记录最高可见百分比线的索引
+                    
                     for i, percent_str in enumerate(self.percent_list):
                         try:
                             percent = float(percent_str.rstrip('%')) / 100
                             target_price = base_price * (1 + percent)
                             
-                            # 所有百分比线都限制在K线方框内（最高价的100%以内）
-                            if target_price <= max_price:  # 限制在K线最高价以内
+                            # K线覆盖范围内的百分比线
+                            if target_price <= max_price:
                                 visible_percent_lines.append((percent_str, target_price))
+                                highest_visible_idx = i  # 更新最高可见线索引
                                 # 创建水平线数据
                                 hline_data = [target_price] * len(df_mpf)
                                 additional_plots.append(mpf.make_addplot(hline_data, color='hotpink', linestyle='--', width=3, alpha=0.8))
                         except (ValueError, TypeError):
                             continue
+                    
+                    # 在K线覆盖不到的区域再画一根百分比线（如果还有下一根）
+                    if highest_visible_idx >= 0 and highest_visible_idx + 1 < len(self.percent_list):
+                        try:
+                            next_percent_str = self.percent_list[highest_visible_idx + 1]
+                            next_percent = float(next_percent_str.rstrip('%')) / 100
+                            next_target_price = base_price * (1 + next_percent)
+                            
+                            # 画出K线上方的下一根百分比线
+                            hline_data = [next_target_price] * len(df_mpf)
+                            additional_plots.append(mpf.make_addplot(hline_data, color='hotpink', linestyle='--', width=3, alpha=0.8))
+                            visible_percent_lines.append((next_percent_str, next_target_price))
+                            
+                            logger.debug(f"✅ 在K线上方添加额外百分比线: +{next_percent_str}")
+                        except (ValueError, TypeError):
+                            pass
                 
                 
                 # 获取行业信息
@@ -482,9 +666,16 @@ class UnifiedLineDrawer:
                 plt.rcParams['font.sans-serif'] = ['SimHei', 'Arial Unicode MS', 'DejaVu Sans']
                 plt.rcParams['axes.unicode_minus'] = False
                 
-                # 设置mplfinance样式
+                # 设置mplfinance样式 - 中国标准配色：红涨绿跌
                 style = mpf.make_mpf_style(
                     base_mpf_style='charles',
+                    marketcolors=mpf.make_marketcolors(
+                        up='red',        # 上涨为红色
+                        down='green',    # 下跌为绿色
+                        edge='inherit',  # 边框颜色继承蜡烛颜色
+                        wick='inherit',  # 影线颜色继承蜡烛颜色
+                        volume='inherit' # 成交量颜色继承蜡烛颜色
+                    ),
                     gridstyle='-',
                     gridcolor='lightgray',
                     y_on_right=True,
@@ -517,6 +708,43 @@ class UnifiedLineDrawer:
                 # 添加价格标注
                 ax = axes[0]  # 获取主图轴
                 
+                # 计算需要调整的Y轴范围
+                if stage_lows:
+                    base_price = min(price for _, price, _ in stage_lows)
+                    max_price = df_mpf['high'].max()
+                    min_price = df_mpf['low'].min()
+                    
+                    # 计算最高的百分比线价格（包括额外的一根）
+                    highest_percent_price = max_price
+                    highest_visible_idx = -1
+                    
+                    for i, percent_str in enumerate(self.percent_list):
+                        try:
+                            percent = float(percent_str.rstrip('%')) / 100
+                            target_price = base_price * (1 + percent)
+                            if target_price <= max_price:
+                                highest_visible_idx = i
+                                highest_percent_price = target_price
+                        except (ValueError, TypeError):
+                            continue
+                    
+                    # 如果有额外的百分比线，计算其价格
+                    if highest_visible_idx >= 0 and highest_visible_idx + 1 < len(self.percent_list):
+                        try:
+                            next_percent_str = self.percent_list[highest_visible_idx + 1]
+                            next_percent = float(next_percent_str.rstrip('%')) / 100
+                            next_target_price = base_price * (1 + next_percent)
+                            highest_percent_price = next_target_price
+                        except (ValueError, TypeError):
+                            pass
+                    
+                    # 调整Y轴范围，确保最高的百分比线在方框内
+                    # 留出一些上下边距（约5%）
+                    y_margin = (highest_percent_price - min_price) * 0.05
+                    ax.set_ylim(min_price - y_margin, highest_percent_price + y_margin)
+                    
+                    logger.debug(f"📊 调整Y轴范围: {min_price:.2f} - {highest_percent_price:.2f}")
+                
                 # 标注阶段低点价格
                 for i, (idx, price, date_str) in enumerate(stage_lows):
                     ax.text(1.02, price, f'{price:.2f}', 
@@ -529,19 +757,35 @@ class UnifiedLineDrawer:
                     base_price = min(price for _, price, _ in stage_lows)
                     max_price = df_mpf['high'].max()
                     
-                    # 标注K线覆盖范围内的百分比线
-                    for percent_str in self.percent_list:
+                    # 标注K线覆盖范围内的百分比线，并找出最高的
+                    highest_visible_idx = -1
+                    for i, percent_str in enumerate(self.percent_list):
                         try:
                             percent = float(percent_str.rstrip('%')) / 100
                             target_price = base_price * (1 + percent)
                             
-                            if target_price <= max_price:  # 限制在K线最高价以内
+                            if target_price <= max_price:  # K线覆盖范围内
+                                highest_visible_idx = i
                                 ax.text(1.02, target_price, f'+{percent_str}', 
                                        fontsize=18, color='#8B7355', fontweight='bold',
                                        bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.9, edgecolor='#8B7355', linewidth=2),
                                        transform=ax.get_yaxis_transform(), ha='left', va='center')
                         except (ValueError, TypeError):
                             continue
+                    
+                    # 标注K线上方的额外百分比线
+                    if highest_visible_idx >= 0 and highest_visible_idx + 1 < len(self.percent_list):
+                        try:
+                            next_percent_str = self.percent_list[highest_visible_idx + 1]
+                            next_percent = float(next_percent_str.rstrip('%')) / 100
+                            next_target_price = base_price * (1 + next_percent)
+                            
+                            ax.text(1.02, next_target_price, f'+{next_percent_str}', 
+                                   fontsize=18, color='#8B7355', fontweight='bold',
+                                   bbox=dict(boxstyle="round,pad=0.3", facecolor='white', alpha=0.9, edgecolor='#8B7355', linewidth=2),
+                                   transform=ax.get_yaxis_transform(), ha='left', va='center')
+                        except (ValueError, TypeError):
+                            pass
                     
                 
                 # 重新保存带标注的图表
@@ -613,8 +857,19 @@ class UnifiedLineDrawer:
         
         logger.info(f"📊 待处理股票数量: {self.total_count}")
         
+        # 清空并重新创建输出目录
+        if os.path.exists(output_dir):
+            import shutil
+            logger.info(f"🗑️  清空输出目录: {output_dir}")
+            try:
+                shutil.rmtree(output_dir)
+                logger.info(f"✅ 已清空输出目录")
+            except Exception as e:
+                logger.warning(f"⚠️  清空输出目录时出错: {e}")
+        
         # 创建输出目录
         os.makedirs(output_dir, exist_ok=True)
+        logger.info(f"📁 创建输出目录: {output_dir}")
         
         # 多线程处理
         start_time = time.time()
