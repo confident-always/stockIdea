@@ -35,7 +35,7 @@ def load_config(config_file='configs.json'):
         config_file: 配置文件路径
     
     Returns:
-        dict: 包含ADX和PDI配置的字典
+        dict: 包含ADX、PDI和stock_info_filter配置的字典
     """
     try:
         with open(config_file, 'r', encoding='utf-8') as f:
@@ -44,22 +44,26 @@ def load_config(config_file='configs.json'):
         # 提取ADX和PDI过滤配置
         adx_config = config.get('ADXfilteringconfig', {})
         pdi_config = config.get('PDIfilteringconfig', {})
+        stock_info_filter = config.get('stock_info_filter', {})
         
         return {
             'ADX': adx_config,
-            'PDI': pdi_config
+            'PDI': pdi_config,
+            'stock_info_filter': stock_info_filter
         }
     except FileNotFoundError:
         logger.error(f"配置文件 {config_file} 未找到")
         return {
             'ADX': {'active': False},
-            'PDI': {'active': False}
+            'PDI': {'active': False},
+            'stock_info_filter': {'active': False}
         }
     except json.JSONDecodeError as e:
         logger.error(f"配置文件 {config_file} 格式错误: {e}")
         return {
             'ADX': {'active': False},
-            'PDI': {'active': False}
+            'PDI': {'active': False},
+            'stock_info_filter': {'active': False}
         }
 
 def parse_percentage(pct_str):
@@ -93,6 +97,142 @@ def parse_range_percent(range_str):
             return None
     logger.warning(f"未识别的区间配置: {range_str}")
     return None
+
+def parse_number_range(range_str):
+    """解析数值区间配置，返回 (low, high) 元组，或 None 表示不过滤。
+    例如："10-100" => (10.0, 100.0)
+    支持大小写的"none"返回 None。
+    """
+    if range_str is None:
+        return None
+    if isinstance(range_str, str) and range_str.strip().lower() == 'none':
+        return None
+    if isinstance(range_str, str) and '-' in range_str:
+        try:
+            parts = range_str.split('-')
+            if len(parts) != 2:
+                return None
+            low = float(parts[0])
+            high = float(parts[1])
+            return (low, high)
+        except Exception:
+            logger.warning(f"数值区间解析失败: {range_str}")
+            return None
+    logger.warning(f"未识别的数值区间配置: {range_str}")
+    return None
+
+def parse_bool_or_none(value):
+    """解析布尔值或none配置
+    
+    Args:
+        value: 配置值，可以是bool、str等
+    
+    Returns:
+        bool或None: True表示启用过滤，False表示不过滤，None表示不过滤
+    """
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        value_lower = value.strip().lower()
+        if value_lower == 'none' or value_lower == 'false':
+            return None
+        if value_lower == 'true':
+            return True
+    return None
+
+def check_stock_info_filter(stock_name, stock_info_filter_config):
+    """检查股票是否通过基础信息过滤
+    
+    Args:
+        stock_name: 股票名称
+        stock_info_filter_config: 股票信息过滤配置
+    
+    Returns:
+        tuple: (是否通过, 过滤原因)
+    """
+    if not stock_info_filter_config.get('active', False):
+        return True, None
+    
+    # 1. ST股票过滤
+    exclude_st = parse_bool_or_none(stock_info_filter_config.get('exclude_st', 'none'))
+    if exclude_st:
+        if 'ST' in stock_name or 'st' in stock_name.lower():
+            return False, "ST股票"
+    
+    # 注意：市值和市盈率需要从其他数据源获取，这里暂时只实现ST过滤
+    # 市值和市盈率过滤需要在有stock_info数据的地方实现
+    
+    return True, None
+
+def get_stock_info_from_csv(stock_code, stock_name, stock_info_filter_config):
+    """从appendix.json获取股票信息并进行过滤
+    
+    Args:
+        stock_code: 股票代码
+        stock_name: 股票名称
+        stock_info_filter_config: 股票信息过滤配置
+    
+    Returns:
+        tuple: (是否通过, 过滤原因, 股票信息dict)
+    """
+    if not stock_info_filter_config.get('active', False):
+        return True, None, {}
+    
+    # 1. ST股票过滤
+    exclude_st = parse_bool_or_none(stock_info_filter_config.get('exclude_st', 'none'))
+    if exclude_st:
+        if 'ST' in stock_name or 'st' in stock_name.lower():
+            return False, "ST股票", {}
+    
+    # 2. 尝试从appendix.json加载股票信息
+    stock_info = {}
+    try:
+        if os.path.exists('appendix.json'):
+            with open('appendix.json', 'r', encoding='utf-8') as f:
+                appendix_data = json.load(f)
+                stock_info = appendix_data.get(stock_code, {})
+    except Exception as e:
+        logger.debug(f"无法加载appendix.json: {e}")
+    
+    # 3. 市值过滤
+    market_cap_range = parse_number_range(stock_info_filter_config.get('market_cap_range', 'none'))
+    if market_cap_range is not None:
+        market_cap = stock_info.get('market_cap')  # 单位：亿元
+        if market_cap is not None:
+            try:
+                market_cap = float(market_cap)
+                if not (market_cap_range[0] <= market_cap <= market_cap_range[1]):
+                    return False, f"市值{market_cap:.2f}亿不在范围{market_cap_range[0]}-{market_cap_range[1]}亿", stock_info
+            except (ValueError, TypeError):
+                logger.debug(f"股票 {stock_code} 市值数据无效: {market_cap}")
+        else:
+            logger.debug(f"股票 {stock_code} 无市值数据")
+    
+    # 4. 市盈率TTM最小值过滤（过滤低市盈率股票，保留高市盈率和亏损股票）
+    pe_ttm_min_str = stock_info_filter_config.get('pe_ttm_min', 'none')
+    if pe_ttm_min_str is not None and isinstance(pe_ttm_min_str, str) and pe_ttm_min_str.strip().lower() != 'none':
+        try:
+            pe_ttm_min = float(pe_ttm_min_str)
+            pe_ttm = stock_info.get('pe_ttm')  # 市盈率TTM
+            if pe_ttm is not None:
+                try:
+                    pe_ttm_val = float(pe_ttm)
+                    # 过滤条件: 0 < pe_ttm < pe_ttm_min（低估值股票被过滤）
+                    # 保留条件: pe_ttm >= pe_ttm_min 或 pe_ttm <= 0（亏损）
+                    if 0 < pe_ttm_val < pe_ttm_min:
+                        return False, f"市盈率TTM {pe_ttm_val:.2f}低于最小值{pe_ttm_min}", stock_info
+                except (ValueError, TypeError):
+                    logger.debug(f"股票 {stock_code} 市盈率TTM数据无效: {pe_ttm}")
+                    # 数据无效时通过（保守处理）
+            else:
+                logger.debug(f"股票 {stock_code} 无市盈率TTM数据")
+                # 无数据时通过（保守处理）
+        except (ValueError, TypeError):
+            logger.warning(f"市盈率TTM最小值配置无效: {pe_ttm_min_str}")
+    
+    return True, None, stock_info
 
 def find_kline_file(stock_code):
     """查找股票对应的K线数据文件"""
@@ -407,7 +547,7 @@ def calculate_hislow_point_range(kline_df: pd.DataFrame, lookback_months: int | 
         return None
 
 
-def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=0, pre_high_days=10, pre_high_min_range=0, pre_high_max_range=0, hislow_range: tuple | None = None, hislow_lookback_months: int | None = None, target_date=None):
+def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=0, pre_high_days=10, pre_high_min_range=0, pre_high_max_range=0, hislow_range: tuple | None = None, hislow_lookback_months: int | None = None, target_date=None, stock_info_filter_config=None):
     """
     过滤结果文件
     
@@ -422,7 +562,10 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
         pre_high_days: 前高天数N
         pre_high_min_range: 前高最小涨幅阈值K（可以为负值表示跌幅，None表示不过滤）
         pre_high_max_range: 前高最大涨幅阈值（前高价格M到上穿后最高收盘价H的涨幅，可以为负值表示跌幅，None表示不过滤）
+        stock_info_filter_config: 股票信息过滤配置
     """
+    if stock_info_filter_config is None:
+        stock_info_filter_config = {}
     try:
         # 读取结果文件
         df = pd.read_csv(input_file)
@@ -433,7 +576,16 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
         
         for idx, row in df.iterrows():
             original_code = str(row['code'])
+            stock_name = str(row.get('name', ''))
             signal_date = row['date']
+            
+            # 股票信息过滤
+            stock_info_passed, filter_reason, stock_info = get_stock_info_from_csv(
+                original_code, stock_name, stock_info_filter_config
+            )
+            if not stock_info_passed:
+                logger.info(f"股票 {original_code} {stock_name} 被股票信息过滤: {filter_reason}")
+                continue
             
             # 如果指定了target_date，则使用target_date替换原始日期
             if target_date:
@@ -575,7 +727,7 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
     except Exception as e:
         logger.error(f"过滤结果失败: {e}")
 
-def process_single_file(input_file, output_dir, file_type, config, target_date=None):
+def process_single_file(input_file, output_dir, file_type, config, target_date=None, stock_info_filter_config=None):
     """
     处理单个文件的函数，用于并行处理
     
@@ -585,6 +737,7 @@ def process_single_file(input_file, output_dir, file_type, config, target_date=N
         file_type: 文件类型 ('ADX' 或 'PDI')
         config: 配置字典
         target_date: 目标日期，用于修正CSV文件中的日期字段
+        stock_info_filter_config: 股票信息过滤配置
     
     Returns:
         str: 处理结果信息
@@ -607,7 +760,8 @@ def process_single_file(input_file, output_dir, file_type, config, target_date=N
         logger.info(f"开始处理{file_type}文件: {input_file}")
         filter_results(input_file, output_file, range_up, range_down, file_type, 
                      lookback_days, max_range_up, pre_high_days, pre_high_min_range, 
-                     pre_high_max_range, hislow_range, lookback_months, target_date)
+                     pre_high_max_range, hislow_range, lookback_months, target_date, 
+                     stock_info_filter_config)
         
         return f"成功处理 {filename}"
     except Exception as e:
@@ -658,6 +812,30 @@ def main():
     configs = load_config()
     adx_config = configs['ADX']
     pdi_config = configs['PDI']
+    stock_info_filter_config = configs['stock_info_filter']
+    
+    # 打印股票信息过滤配置
+    if stock_info_filter_config.get('active', False):
+        logger.info("=" * 60)
+        logger.info("股票信息过滤配置:")
+        exclude_st = parse_bool_or_none(stock_info_filter_config.get('exclude_st', 'none'))
+        market_cap_range = parse_number_range(stock_info_filter_config.get('market_cap_range', 'none'))
+        
+        # 解析市盈率TTM最小值
+        pe_ttm_min_str = stock_info_filter_config.get('pe_ttm_min', 'none')
+        pe_ttm_min = None
+        if pe_ttm_min_str is not None and isinstance(pe_ttm_min_str, str) and pe_ttm_min_str.strip().lower() != 'none':
+            try:
+                pe_ttm_min = float(pe_ttm_min_str)
+            except (ValueError, TypeError):
+                pass
+        
+        logger.info(f"  - 过滤ST股票: {'是' if exclude_st else '否'}")
+        logger.info(f"  - 市值范围: {'无限制' if market_cap_range is None else f'{market_cap_range[0]}-{market_cap_range[1]}亿元'}")
+        logger.info(f"  - 市盈率TTM最小值: {'无限制' if pe_ttm_min is None else f'{pe_ttm_min}倍（过滤低于此值，保留高于此值和亏损）'}")
+        logger.info("=" * 60)
+    else:
+        logger.info("股票信息过滤未启用")
     
     # 清空并重新创建输出目录
     if os.path.exists(args.output_dir):
@@ -704,7 +882,7 @@ def main():
                    f"历史低点涨幅窗口 {adx_config.get('lookback_months', 120)}月")
         
         for input_file in adx_files:
-            tasks.append((input_file, args.output_dir, 'ADX', adx_config, target_date))
+            tasks.append((input_file, args.output_dir, 'ADX', adx_config, target_date, stock_info_filter_config))
     elif adx_files:
         logger.info("ADX配置未启用，跳过ADX文件处理")
     
@@ -726,7 +904,7 @@ def main():
                    f"历史低点涨幅窗口 {pdi_config.get('lookback_months', 120)}月")
         
         for input_file in pdi_files:
-            tasks.append((input_file, args.output_dir, 'PDI', pdi_config, target_date))
+            tasks.append((input_file, args.output_dir, 'PDI', pdi_config, target_date, stock_info_filter_config))
     elif pdi_files:
         logger.info("PDI配置未启用，跳过PDI文件处理")
     
@@ -740,8 +918,8 @@ def main():
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
         # 提交所有任务
         futures = [
-            executor.submit(process_single_file, input_file, output_dir, file_type, config, target_date)
-            for input_file, output_dir, file_type, config, target_date in tasks
+            executor.submit(process_single_file, input_file, output_dir, file_type, config, target_date, stock_info_filter_config)
+            for input_file, output_dir, file_type, config, target_date, stock_info_filter_config in tasks
         ]
         
         # 使用tqdm显示进度条
