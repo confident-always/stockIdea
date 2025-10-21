@@ -1,6 +1,19 @@
+### 基础层使用
 
-#### 3. 处理指定文件中的股票列表
 ```bash
-# 指定日期的resByFilter目录
-python draw_lines_unified.py --date 2025-10-15 --workers 6
+# 处理指定日期的股票（只生成基础图表）
+cd drawBaseLayerLine
+python draw_lines_base.py --date 2025-10-20 --workers 4
+
+# 输出目录: {date}-drawLineRes/
+```
+
+### 中间层使用
+
+```bash
+# 处理指定日期的股票（生成基础图表 + AnchorM线）
+cd drawBaseLayerLine
+python draw_lines_mid.py --date 2025-10-20 --workers 4
+
+# 输出目录: {date}-drawLineMid/
 ```
