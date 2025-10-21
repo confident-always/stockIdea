@@ -412,13 +412,30 @@ class MidLineDrawer:
         return B_values, K_values
     
     def score_M(self, B_values: List[float], extremes: List[Tuple[float, int]], 
-                match_tolerance_ratio: float) -> Dict:
-        """对某个M值进行评分"""
+                match_tolerance_ratio: float, time_decay_min_weight: float = 0.3) -> Dict:
+        """对某个M值进行评分（含时间衰减因子）
+        
+        Args:
+            B_values: B序列价格列表
+            extremes: List[Tuple[price, idx]] - 价格和索引（距锚定点的天数）
+            match_tolerance_ratio: 匹配容差比例
+            time_decay_min_weight: 时间衰减最小权重 (0-1)，越小衰减越强
+        
+        时间衰减规则:
+            - 锚定点位置（idx=0）: 权重 = 1.0
+            - 最远点（idx=max）: 权重 = time_decay_min_weight
+            - 中间点: 线性插值
+        """
         if not B_values or not extremes:
             return {'avg_score': 0, 'matches_count': 0, 'per_k_matches': []}
         
+        # 创建价格到索引的映射（用于查找时间信息）
+        price_to_idx = {e[0]: e[1] for e in extremes}
         extreme_prices = [e[0] for e in extremes]
         extreme_prices_sorted = sorted(extreme_prices)
+        
+        # 计算时间衰减系数：最远的极值点索引
+        max_idx = max(e[1] for e in extremes) if extremes else 1
         
         scores = []
         per_k_matches = []
@@ -451,9 +468,22 @@ class MidLineDrawer:
             
             k_scores = []
             for e_price in selected_extremes:
+                # 基础匹配得分（价格相似度）
                 r = abs(e_price - B_k) / B_k
-                s_e = 100 * max(0, 1 - min(r / match_tolerance_ratio, 1))
-                k_scores.append(s_e)
+                base_score = 100 * max(0, 1 - min(r / match_tolerance_ratio, 1))
+                
+                # 时间衰减因子：离锚定点越近，权重越高
+                e_idx = price_to_idx.get(e_price, max_idx)
+                if max_idx > 0:
+                    # 时间权重：从 1.0 (锚定点) 线性衰减到 time_decay_min_weight (最远点)
+                    decay_range = 1.0 - time_decay_min_weight
+                    time_weight = 1.0 - decay_range * (e_idx / max_idx)
+                else:
+                    time_weight = 1.0
+                
+                # 最终得分 = 基础得分 × 时间权重
+                final_score = base_score * time_weight
+                k_scores.append(final_score)
             
             if k_scores:
                 avg_k_score = sum(k_scores) / len(k_scores)
@@ -546,6 +576,7 @@ class MidLineDrawer:
             max_k = config.get('max_k', 20)
             max_price = df_after['high'].max()
             match_tolerance = config.get('match_tolerance_ratio', 0.006)
+            time_decay_min_weight = config.get('time_decay_min_weight', 0.3)
             
             M_results = {}
             
@@ -556,7 +587,7 @@ class MidLineDrawer:
                 if not B_values:
                     continue
                 
-                score_result = self.score_M(B_values, extremes, match_tolerance)
+                score_result = self.score_M(B_values, extremes, match_tolerance, time_decay_min_weight)
                 M_results[M_pct] = {
                     'B_values': B_values,
                     'K_values': K_values,

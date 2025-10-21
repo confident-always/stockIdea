@@ -5,6 +5,7 @@
     "anchorMLines": {
         "enabled": true,
         "zigzag_percent": 10,
+        "time_decay_min_weight": 0.3,
         "pivot_window": 3,
         "m_range": {
             "start": 13.0,
