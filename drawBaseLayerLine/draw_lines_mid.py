@@ -379,26 +379,35 @@ class MidLineDrawer:
                           max_price: float) -> Tuple[List[float], List[int]]:
         """生成B序列: B_k = A + (A × M) × k
         
-        在超过最高价后额外生成3根线
+        策略：
+        1. 自动计算需要多少根线才能覆盖到最高价
+        2. 在此基础上再额外生成3根线
+        3. 不受 max_k 限制（忽略该参数）
         """
         N = A * M
+        
+        if N <= 0:  # M值为0或负数，无法生成序列
+            return [], []
+        
+        # 计算覆盖到最高价需要的K值
+        k_to_reach_max = int((max_price - A) / N) + 1
+        
+        # 在覆盖最高价的基础上再加3根线
+        k_final = k_to_reach_max + 3
+        
+        # 安全限制：防止M值过小导致K值过大（例如 > 1000）
+        # 但这个限制很宽松，一般不会触发
+        if k_final > 500:
+            logger.warning(f"⚠️ K值过大({k_final})，M值可能过小({M*100:.1f}%)，限制为500")
+            k_final = 500
+        
         B_values = []
         K_values = []
-        extra_lines_count = 0  # 超过最高价后额外生成的线数
         
-        for k in range(1, max_k + 1):
+        for k in range(1, k_final + 1):
             B_k = A + N * k
-            
-            # 如果超过最高价，计数并在生成3根后停止
-            if B_k > max_price:
-                extra_lines_count += 1
-                B_values.append(B_k)
-                K_values.append(k)
-                if extra_lines_count >= 3:
-                    break
-            else:
-                B_values.append(B_k)
-                K_values.append(k)
+            B_values.append(B_k)
+            K_values.append(k)
         
         return B_values, K_values
     
@@ -484,7 +493,7 @@ class MidLineDrawer:
         return best_M, best_result
     
     def compute_anchor_M_lines(self, df: pd.DataFrame, anchor_low: float, 
-                              anchor_date) -> Optional[Dict]:
+                              anchor_date, stock_code: str = "") -> Optional[Dict]:
         """计算最佳M值与B序列"""
         try:
             config = self.anchor_m_config
@@ -499,7 +508,7 @@ class MidLineDrawer:
             df_after = df[df['date'] > anchor_date].copy()
             
             if len(df_after) < 10:
-                logger.debug(f"⚠️ 锚定日期之后数据不足: {len(df_after)}天")
+                logger.info(f"⚠️ [{stock_code}] 锚定日期之后数据不足: {len(df_after)}天，跳过AnchorM线")
                 return None
             
             zigzag_percent = config.get('zigzag_percent', 10) / 100.0
@@ -509,7 +518,7 @@ class MidLineDrawer:
             turns = self.zigzag(highs_after, lows_after, zigzag_percent)
             
             if not turns:
-                logger.debug(f"⚠️ 锚定日期后未找到ZigZag转折点")
+                logger.info(f"⚠️ [{stock_code}] 锚定日期后未找到ZigZag(10%)转折点，跳过AnchorM线")
                 return None
             
             turn_indices = [t[0] for t in turns]
@@ -520,7 +529,7 @@ class MidLineDrawer:
             )
             
             if not extremes:
-                logger.debug(f"⚠️ 未找到局部极值")
+                logger.info(f"⚠️ [{stock_code}] 未找到局部极值，跳过AnchorM线")
                 return None
             
             m_range = config.get('m_range', {'start': 13.0, 'end': 9.0, 'step': -0.1})
@@ -559,10 +568,25 @@ class MidLineDrawer:
             min_matches = config.get('min_matches', 3)
             prefer_higher_M = config.get('tiebreaker_prefer_higher_M', True)
             
+            # 智能调整最小匹配数：如果锚定点之后数据较少，降低要求
+            # 例如：锚定点后只有6个月数据，可能只有2-3个转折点，这是正常的
+            days_after_anchor = len(df_after)
+            if days_after_anchor < 200:  # 约10个月
+                adjusted_min_matches = max(1, min(2, min_matches))
+                if adjusted_min_matches < min_matches:
+                    logger.info(f"📊 [{stock_code}] 锚定点后数据较少({days_after_anchor}天)，"
+                               f"最小匹配数: {min_matches} → {adjusted_min_matches}")
+                    min_matches = adjusted_min_matches
+            
             best_M, best_result = self.select_best_M(M_results, min_matches, prefer_higher_M)
             
             if best_M is None:
-                logger.debug(f"⚠️ 未找到满足条件的M值(最小匹配数={min_matches})")
+                # 显示所有M值的匹配情况
+                if M_results:
+                    max_matches = max(r['matches_count'] for r in M_results.values())
+                    logger.info(f"⚠️ [{stock_code}] 未找到满足条件的M值(要求>={min_matches}个匹配，实际最多{max_matches}个)，跳过AnchorM线")
+                else:
+                    logger.info(f"⚠️ [{stock_code}] 未找到满足条件的M值(最小匹配数={min_matches})，跳过AnchorM线")
                 return None
             
             logger.debug(f"✅ 最佳M={best_M:.1f}%, 平均分={best_result['avg_score']:.2f}, "
@@ -602,7 +626,7 @@ class MidLineDrawer:
             m_lines_result = None
             if self.anchor_m_config.get('enabled', True):
                 anchor_idx, anchor_low, anchor_date = stage_lows[0]
-                m_lines_result = self.compute_anchor_M_lines(df, anchor_low, anchor_date)
+                m_lines_result = self.compute_anchor_M_lines(df, anchor_low, anchor_date, stock_code)
             
             # 3. 绘制图表
             with matplotlib_lock:
@@ -783,20 +807,35 @@ class MidLineDrawer:
                                         edgecolor=line_color, linewidth=2),
                                transform=ax.get_yaxis_transform(), ha='right', va='center')
                     
-                    # 在图片左上角添加M值信息
+                    # 在图片左上角添加M值信息 - 只显示匹配的B值
                     text_lines = [f"M={best_M:.1f}%"]
-                    B_display = [f'{b:.2f}' for b in B_values[:10]]
-                    if len(B_values) > 10:
-                        B_display.append('...')
-                    text_lines.append(f"B: [{', '.join(B_display)}]")
-                    text_lines.append(f"Score: {m_lines_result['avg_score']:.1f}")
-                    text_lines.append(f"Matches: {m_lines_result['matches_count']}")
+                    
+                    # 提取得分 > 0 的 B 值（与极值点匹配的）
+                    if 'per_k_matches' in m_lines_result:
+                        matched_B = []
+                        for match in m_lines_result['per_k_matches']:
+                            if match.get('score', 0) > 0:
+                                B_k = match['B_k']
+                                score = match['score']
+                                matched_B.append(f"{B_k:.2f}({score:.0f})")
+                                if len(matched_B) >= 10:  # 最多显示10个
+                                    break
+                        
+                        if matched_B:
+                            if len(m_lines_result['per_k_matches']) > len(matched_B):
+                                matched_B.append('...')
+                            text_lines.append(f"Match_B: [{', '.join(matched_B)}]")
+                        else:
+                            text_lines.append(f"Match_B: [无匹配]")
+                    
+                    text_lines.append(f"AvgScore: {m_lines_result['avg_score']:.1f}")
+                    text_lines.append(f"Matches: {m_lines_result['matches_count']}/{len(B_values)}")
                     
                     text_content = '\n'.join(text_lines)
                     ax.text(0.01, 0.98, text_content,
                            transform=ax.transAxes,
-                           fontsize=12, color='purple', fontweight='bold',
-                           bbox=dict(boxstyle="round,pad=0.6", facecolor='white', alpha=0.95, 
+                           fontsize=11, color='purple', fontweight='bold',
+                           bbox=dict(boxstyle="round,pad=0.5", facecolor='white', alpha=0.95, 
                                     edgecolor='purple', linewidth=2.5),
                            ha='left', va='top', family='monospace')
                     
