@@ -427,6 +427,13 @@ class PDISelector:
         self.cross_threshold = cross_threshold
         self.lookback_days = lookback_days
     
+    def _is_valid_dataframe(self, df: pd.DataFrame) -> bool:
+        """检查DataFrame是否有效（非空且包含必要列）"""
+        if df.empty:
+            return False
+        required_columns = {'date', 'open', 'high', 'low', 'close'}
+        return required_columns.issubset(df.columns)
+    
     def _find_recent_pdi_cross_index(self, dmi_data: pd.DataFrame) -> Optional[int]:
         """
         在最近 lookback_days 天内，寻找"PDI 上穿 MDI"的最后一次索引位置：
@@ -489,6 +496,10 @@ class PDISelector:
         picks: List[str] = []
         
         for code, df in data.items():
+            # 先检查DataFrame是否有效
+            if not self._is_valid_dataframe(df):
+                continue
+            
             # 使用完整历史（至 trade_date），确保从数据首日开始计算
             hist = df[df["date"] <= date]
             if len(hist) < self.dmi_period + 1:
@@ -504,6 +515,10 @@ class PDISelector:
         picks: List[Dict[str, Any]] = []
         
         for code, df in data.items():
+            # 先检查DataFrame是否有效
+            if not self._is_valid_dataframe(df):
+                continue
+            
             hist = df[df["date"] <= date]
             if len(hist) < self.dmi_period + 1:
                 continue
@@ -1030,6 +1045,13 @@ class ADXSelector:
         self.cross_threshold = cross_threshold
         self.lookback_days = lookback_days
     
+    def _is_valid_dataframe(self, df: pd.DataFrame) -> bool:
+        """检查DataFrame是否有效（非空且包含必要列）"""
+        if df.empty:
+            return False
+        required_columns = {'date', 'open', 'high', 'low', 'close'}
+        return required_columns.issubset(df.columns)
+    
     def _find_recent_adx_cross_index(self, dmi_data: pd.DataFrame) -> Optional[int]:
         """
         在最近 lookback_days 天内，寻找"ADX 上穿 MDI"的最后一次索引位置：
@@ -1110,6 +1132,10 @@ class ADXSelector:
         picks: List[str] = []
         
         for code, df in data.items():
+            # 先检查DataFrame是否有效
+            if not self._is_valid_dataframe(df):
+                continue
+            
             # 使用完整历史（至 trade_date），确保从数据首日开始计算
             hist = df[df["date"] <= date]
             if len(hist) < self.dmi_period + 1:
@@ -1125,6 +1151,10 @@ class ADXSelector:
         picks: List[Dict[str, Any]] = []
         
         for code, df in data.items():
+            # 先检查DataFrame是否有效
+            if not self._is_valid_dataframe(df):
+                continue
+            
             hist = df[df["date"] <= date]
             if len(hist) < self.dmi_period + 1:
                 continue
