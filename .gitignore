@@ -12,4 +12,6 @@ res/
 
 # 忽略所有PNG文件
 *.png
-**/*.png
+**/*.png.tushare_token
+.tushare_token
+.xueqiu_config

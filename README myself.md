@@ -1,3 +1,7 @@
+```bash
+# 更新到最新交易日数据
+python update_stocklist.py
+
 # 获取所有股票完整历史数据
 ### 运行fetch_kline_akshare
 
@@ -24,8 +28,8 @@ python run_pipeline.py
 
 ### 画线
 ```bash
-python draw_lines_unified.py  --workers 6
+python draw_lines_base.py  --workers 6
 ```
 ```bash
-python draw_lines_unified.py --date 2025-10-18 --workers 6
+python draw_lines_mid.py --date 2025-10-18 --workers 6
 ```

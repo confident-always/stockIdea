@@ -166,13 +166,55 @@ def check_stock_info_filter(stock_name, stock_info_filter_config):
     
     return True, None
 
-def get_stock_info_from_csv(stock_code, stock_name, stock_info_filter_config):
-    """从appendix.json获取股票信息并进行过滤
+def load_stocklist_data():
+    """加载stocklist.csv数据为字典，便于快速查询
+    
+    Returns:
+        dict: 以股票代码为key的字典，包含股票信息
+    """
+    try:
+        if not os.path.exists('stocklist.csv'):
+            logger.warning("未找到stocklist.csv文件")
+            return {}
+        
+        df = pd.read_csv('stocklist.csv')
+        # 使用6位股票代码作为key
+        stocklist_dict = {}
+        for _, row in df.iterrows():
+            code = str(row['symbol']).zfill(6)  # 确保是6位代码
+            stocklist_dict[code] = {
+                'name': row['name'],
+                'pe': row['pe'],
+                'total_share': row['total_share'],  # 总股本（亿股）
+                'total_assets': row['total_assets'],  # 总资产（亿元）
+                'area': row.get('area', ''),
+                'industry': row.get('industry', '')
+            }
+        
+        logger.info(f"✅ 已加载stocklist.csv，共 {len(stocklist_dict)} 只股票")
+        return stocklist_dict
+    except Exception as e:
+        logger.error(f"❌ 加载stocklist.csv失败: {e}")
+        return {}
+
+# 全局变量：在模块加载时读取一次stocklist数据
+_STOCKLIST_DATA = None
+
+def get_stocklist_data():
+    """获取stocklist数据（单例模式）"""
+    global _STOCKLIST_DATA
+    if _STOCKLIST_DATA is None:
+        _STOCKLIST_DATA = load_stocklist_data()
+    return _STOCKLIST_DATA
+
+def get_stock_info_from_csv(stock_code, stock_name, stock_info_filter_config, kline_df=None):
+    """从stocklist.csv获取股票信息并进行过滤
     
     Args:
-        stock_code: 股票代码
+        stock_code: 股票代码（6位）
         stock_name: 股票名称
         stock_info_filter_config: 股票信息过滤配置
+        kline_df: K线数据DataFrame（用于获取当前股价计算市值）
     
     Returns:
         tuple: (是否通过, 过滤原因, 股票信息dict)
@@ -186,51 +228,62 @@ def get_stock_info_from_csv(stock_code, stock_name, stock_info_filter_config):
         if 'ST' in stock_name or 'st' in stock_name.lower():
             return False, "ST股票", {}
     
-    # 2. 尝试从appendix.json加载股票信息
-    stock_info = {}
-    try:
-        if os.path.exists('appendix.json'):
-            with open('appendix.json', 'r', encoding='utf-8') as f:
-                appendix_data = json.load(f)
-                stock_info = appendix_data.get(stock_code, {})
-    except Exception as e:
-        logger.debug(f"无法加载appendix.json: {e}")
+    # 2. 从stocklist.csv加载股票信息
+    stocklist_data = get_stocklist_data()
+    stock_code_6 = str(stock_code).zfill(6)  # 确保是6位代码
+    stock_info = stocklist_data.get(stock_code_6, {})
     
-    # 3. 市值过滤
+    if not stock_info:
+        logger.debug(f"股票 {stock_code} 在stocklist.csv中未找到")
+        # 如果找不到数据，保守处理：允许通过
+        return True, None, {}
+    
+    # 3. 市值过滤（市值 = 总股本 × 当前股价）
     market_cap_range = parse_number_range(stock_info_filter_config.get('market_cap_range', 'none'))
     if market_cap_range is not None:
-        market_cap = stock_info.get('market_cap')  # 单位：亿元
-        if market_cap is not None:
+        total_share = stock_info.get('total_share')  # 总股本（亿股）
+        
+        if total_share is not None and kline_df is not None and not kline_df.empty:
             try:
-                market_cap = float(market_cap)
+                total_share_val = float(total_share)
+                # 获取最后一天的收盘价
+                current_price = float(kline_df['close'].iloc[-1])
+                # 计算市值（亿元）= 总股本（亿股）× 股价（元）
+                market_cap = total_share_val * current_price
+                
                 if not (market_cap_range[0] <= market_cap <= market_cap_range[1]):
                     return False, f"市值{market_cap:.2f}亿不在范围{market_cap_range[0]}-{market_cap_range[1]}亿", stock_info
-            except (ValueError, TypeError):
-                logger.debug(f"股票 {stock_code} 市值数据无效: {market_cap}")
+                
+                logger.debug(f"股票 {stock_code} 市值: {market_cap:.2f}亿元（总股本{total_share_val:.2f}亿股 × 股价{current_price:.2f}元）")
+            except (ValueError, TypeError) as e:
+                logger.debug(f"股票 {stock_code} 市值计算失败: {e}")
         else:
-            logger.debug(f"股票 {stock_code} 无市值数据")
+            logger.debug(f"股票 {stock_code} 无法计算市值（缺少总股本或K线数据）")
     
-    # 4. 市盈率TTM最小值过滤（过滤低市盈率股票，保留高市盈率和亏损股票）
+    # 4. 市盈率最小值过滤（过滤低市盈率股票，保留高市盈率和亏损股票）
     pe_ttm_min_str = stock_info_filter_config.get('pe_ttm_min', 'none')
     if pe_ttm_min_str is not None and isinstance(pe_ttm_min_str, str) and pe_ttm_min_str.strip().lower() != 'none':
         try:
             pe_ttm_min = float(pe_ttm_min_str)
-            pe_ttm = stock_info.get('pe_ttm')  # 市盈率TTM
-            if pe_ttm is not None:
+            pe = stock_info.get('pe')  # 市盈率（动态）
+            
+            if pe is not None:
                 try:
-                    pe_ttm_val = float(pe_ttm)
-                    # 过滤条件: 0 < pe_ttm < pe_ttm_min（低估值股票被过滤）
-                    # 保留条件: pe_ttm >= pe_ttm_min 或 pe_ttm <= 0（亏损）
-                    if 0 < pe_ttm_val < pe_ttm_min:
-                        return False, f"市盈率TTM {pe_ttm_val:.2f}低于最小值{pe_ttm_min}", stock_info
+                    pe_val = float(pe)
+                    # 过滤条件: 0 < pe < pe_ttm_min（低估值股票被过滤）
+                    # 保留条件: pe >= pe_ttm_min 或 pe <= 0（亏损）
+                    if 0 < pe_val < pe_ttm_min:
+                        return False, f"市盈率{pe_val:.2f}低于最小值{pe_ttm_min}", stock_info
+                    
+                    logger.debug(f"股票 {stock_code} 市盈率: {pe_val:.2f}")
                 except (ValueError, TypeError):
-                    logger.debug(f"股票 {stock_code} 市盈率TTM数据无效: {pe_ttm}")
+                    logger.debug(f"股票 {stock_code} 市盈率数据无效: {pe}")
                     # 数据无效时通过（保守处理）
             else:
-                logger.debug(f"股票 {stock_code} 无市盈率TTM数据")
+                logger.debug(f"股票 {stock_code} 无市盈率数据")
                 # 无数据时通过（保守处理）
         except (ValueError, TypeError):
-            logger.warning(f"市盈率TTM最小值配置无效: {pe_ttm_min_str}")
+            logger.warning(f"市盈率最小值配置无效: {pe_ttm_min_str}")
     
     return True, None, stock_info
 
@@ -579,14 +632,6 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
             stock_name = str(row.get('name', ''))
             signal_date = row['date']
             
-            # 股票信息过滤
-            stock_info_passed, filter_reason, stock_info = get_stock_info_from_csv(
-                original_code, stock_name, stock_info_filter_config
-            )
-            if not stock_info_passed:
-                logger.info(f"股票 {original_code} {stock_name} 被股票信息过滤: {filter_reason}")
-                continue
-            
             # 如果指定了target_date，则使用target_date替换原始日期
             if target_date:
                 signal_date = target_date
@@ -618,6 +663,14 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
             # 加载K线数据
             kline_df = load_kline_data(kline_file)
             if kline_df is None:
+                continue
+            
+            # 股票信息过滤（需要K线数据来计算市值）
+            stock_info_passed, filter_reason, stock_info = get_stock_info_from_csv(
+                matched_code, stock_name, stock_info_filter_config, kline_df
+            )
+            if not stock_info_passed:
+                logger.info(f"股票 {matched_code} {stock_name} 被股票信息过滤: {filter_reason}")
                 continue
             
             # 计算价格变化
