@@ -913,6 +913,16 @@ class MidLineDrawer:
                     ax.set_ylim(min_price - y_margin, highest_line_price + y_margin)
                     logger.debug(f"📊 [{stock_code}] Y轴范围: {min_price:.2f} - {highest_line_price:.2f}")
                 
+                # 4.6 绘制最后一个交易日的收盘价横线
+                last_close_price = df_mpf['close'].iloc[-1]
+                ax.axhline(y=last_close_price, color='red', linestyle='-', linewidth=3, alpha=0.8, zorder=3)
+                
+                # 在右侧标注收盘价
+                ax.text(1.02, last_close_price, f'{last_close_price:.2f}', 
+                       fontsize=16, color='red', fontweight='bold',
+                       transform=ax.get_yaxis_transform(), ha='left', va='center')
+                logger.debug(f"📊 [{stock_code}] 最后交易日收盘价横线: {last_close_price:.2f}")
+                
                 # 5. 保存图表
                 plt.savefig(output_file, dpi=200, bbox_inches='tight', facecolor='white', edgecolor='none')
                 plt.close(fig)
