@@ -121,7 +121,7 @@ class MidLineDrawer:
             return default_percents, default_anchor_m
     
     def _load_stock_info(self) -> Dict[str, Dict[str, str]]:
-        """从stocklist.csv加载股票信息（名称和行业）"""
+        """从stocklist.csv加载股票信息（名称、行业、市盈率、总股本）"""
         stock_info = {}
         try:
             possible_paths = ["../stocklist.csv", "stocklist.csv", "./stocklist.csv"]
@@ -137,15 +137,26 @@ class MidLineDrawer:
                     df = pd.read_csv(stocklist_file)
                     logger.info(f"📁 从{stocklist_file}加载股票信息")
                     
-                    if 'symbol' in df.columns and 'name' in df.columns and 'industry' in df.columns:
+                    required_cols = ['symbol', 'name', 'industry', 'pe', 'total_share']
+                    if all(col in df.columns for col in required_cols):
                         for _, row in df.iterrows():
                             code = str(row['symbol']).zfill(6)
                             name = str(row['name'])
                             industry = str(row['industry']) if pd.notna(row['industry']) else "未知行业"
-                            stock_info[code] = {'name': name, 'industry': industry}
+                            pe = row['pe'] if pd.notna(row['pe']) else 0
+                            total_share = row['total_share'] if pd.notna(row['total_share']) else 0
+                            
+                            stock_info[code] = {
+                                'name': name, 
+                                'industry': industry,
+                                'pe': pe,
+                                'total_share': total_share  # 总股本（亿股），用于计算总市值
+                            }
                         
                         logger.info(f"✅ 从stocklist.csv加载股票信息完成，共{len(stock_info)}只股票")
                         return stock_info
+                    else:
+                        logger.warning(f"⚠️ stocklist.csv缺少必要列")
                 except Exception as e:
                     logger.warning(f"⚠️ 读取stocklist.csv失败: {e}")
             
@@ -728,15 +739,43 @@ class MidLineDrawer:
                         except (ValueError, TypeError):
                             pass
                 
-                # 构建标题
+                # 构建标题（包含行业、总市值、市盈率）
                 industry = ""
+                pe_val = 0
+                total_share = 0
+                total_market_cap = 0
+                
                 if stock_code in self.stock_info:
-                    industry = self.stock_info[stock_code].get('industry', '')
+                    info = self.stock_info[stock_code]
+                    industry = info.get('industry', '')
+                    pe_val = float(info.get('pe', 0))
+                    total_share = float(info.get('total_share', 0))
+                    
+                    # 计算总市值 = 总股本（亿股）× 当前股价（元）
+                    if total_share > 0 and len(df_mpf) > 0:
+                        current_price = float(df_mpf['close'].iloc[-1])
+                        total_market_cap = total_share * current_price  # 总市值（亿元）
                 
                 title_parts = [stock_code, stock_name]
+                
+                # 添加行业
                 if industry and industry != "未知行业":
                     title_parts.append(f"({industry})")
-                title = " ".join(title_parts) + " - Stage Low Points Analysis with AnchorM"
+                
+                # 添加总市值
+                if total_market_cap > 0:
+                    if total_market_cap >= 1000:
+                        title_parts.append(f"总市值:{total_market_cap:.0f}亿")
+                    else:
+                        title_parts.append(f"总市值:{total_market_cap:.1f}亿")
+                
+                # 添加市盈率
+                if pe_val > 0:
+                    title_parts.append(f"PE:{pe_val:.2f}")
+                elif pe_val == 0:
+                    title_parts.append("PE:亏损")
+                
+                title = " ".join(title_parts) + " - AnchorM"
                 
                 # 设置样式
                 plt.rcParams['font.sans-serif'] = ['SimHei', 'Arial Unicode MS', 'DejaVu Sans']
