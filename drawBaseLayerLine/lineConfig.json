@@ -4,7 +4,7 @@
     "zigzag_threshold": 0.05,
     "anchorMLines": {
         "enabled": true,
-        "zigzag_percent": 10,
+        "zigzag_percent": 15,
         "time_decay_min_weight": 0.3,
         "pivot_window": 3,
         "m_range": {
@@ -14,7 +14,7 @@
         },
         "max_k": 20,
         "match_tolerance_ratio": 0.006,
-        "min_matches": 3,
+        "min_matches": 1,
         "tiebreaker_prefer_higher_M": true,
         "line_style": {
             "color": "#8A2BE2",

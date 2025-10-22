@@ -362,25 +362,46 @@ class MidLineDrawer:
     # ==================== AnchorM Lines 功能函数 ====================
     
     def get_local_extremes_around_turns(self, highs: np.ndarray, lows: np.ndarray,
-                                       turn_indices: List[int], window: int) -> List[Tuple[float, int]]:
-        """获取ZigZag拐点附近的局部极值"""
+                                       opens: np.ndarray, closes: np.ndarray,
+                                       turns: List[Tuple[int, float, str]], window: int) -> List[Tuple[float, int]]:
+        """获取ZigZag拐点附近的局部极值
+        
+        Args:
+            highs: 最高价数组
+            lows: 最低价数组
+            opens: 开盘价数组（保留参数但不使用）
+            closes: 收盘价数组
+            turns: ZigZag转折点列表 [(index, price, type)]，type为'high'或'low'
+            window: 搜索窗口大小
+        
+        Returns:
+            极值点列表 [(price, index)]
+            
+        重要逻辑：
+            - 当转折点类型为'high'时，只取该转折点附近窗口内的局部最高价
+            - 当转折点类型为'low'时，取窗口内所有收盘价中的最小值
+              （只使用收盘价，不使用开盘价和最低价，收盘价代表当天买卖双方最终共识）
+        """
         extremes = []
         
-        for turn_idx in turn_indices:
+        for turn_idx, turn_price, turn_type in turns:
             start_idx = max(0, turn_idx - window)
             end_idx = min(len(highs), turn_idx + window + 1)
             
-            window_highs = highs[start_idx:end_idx]
-            window_lows = lows[start_idx:end_idx]
-            
-            local_max_idx = start_idx + np.argmax(window_highs)
-            local_max_price = highs[local_max_idx]
-            extremes.append((local_max_price, local_max_idx))
-            
-            local_min_idx = start_idx + np.argmin(window_lows)
-            local_min_price = lows[local_min_idx]
-            extremes.append((local_min_price, local_min_idx))
+            if turn_type == 'high':
+                # 高点转折：只取局部最高价
+                window_highs = highs[start_idx:end_idx]
+                local_max_idx = start_idx + np.argmax(window_highs)
+                local_max_price = highs[local_max_idx]
+                extremes.append((local_max_price, local_max_idx))
+            else:  # turn_type == 'low'
+                # 低点转折：取窗口内所有收盘价的最小值
+                window_closes = closes[start_idx:end_idx]
+                local_min_idx = start_idx + np.argmin(window_closes)
+                local_min_price = closes[local_min_idx]
+                extremes.append((local_min_price, local_min_idx))
         
+        # 去重并排序
         extremes = list(set(extremes))
         extremes.sort(key=lambda x: x[0])
         
@@ -555,6 +576,8 @@ class MidLineDrawer:
             zigzag_percent = config.get('zigzag_percent', 10) / 100.0
             highs_after = df_after['high'].values
             lows_after = df_after['low'].values
+            opens_after = df_after['open'].values
+            closes_after = df_after['close'].values
             
             turns = self.zigzag(highs_after, lows_after, zigzag_percent)
             
@@ -562,11 +585,9 @@ class MidLineDrawer:
                 logger.info(f"⚠️ [{stock_code}] 锚定日期后未找到ZigZag(10%)转折点，跳过AnchorM线")
                 return None
             
-            turn_indices = [t[0] for t in turns]
-            
             pivot_window = config.get('pivot_window', 3)
             extremes = self.get_local_extremes_around_turns(
-                highs_after, lows_after, turn_indices, pivot_window
+                highs_after, lows_after, opens_after, closes_after, turns, pivot_window
             )
             
             if not extremes:
@@ -885,9 +906,10 @@ class MidLineDrawer:
                         matched_B = []
                         for match in m_lines_result['per_k_matches']:
                             if match.get('score', 0) > 0:
+                                k_val = match['k']
                                 B_k = match['B_k']
                                 score = match['score']
-                                matched_B.append(f"{B_k:.2f}({score:.0f})")
+                                matched_B.append(f"k{k_val}:{B_k:.2f}({score:.0f})")
                                 if len(matched_B) >= 10:  # 最多显示10个
                                     break
                         
