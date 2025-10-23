@@ -1,7 +1,15 @@
-```bash
 # 更新到最新交易日数据
+```bash
 python update_stocklist.py
+```
 
+# 股票数据处理流水线使用说明
+```bash
+python run_pipeline.py
+
+
+
+```
 # 获取所有股票完整历史数据
 ### 运行fetch_kline_akshare
 
@@ -19,17 +27,13 @@ python adx_filter.py --workers 6
 python adx_filter.py --input-dir ./20251018-res --output-dir ./20251018-resByFilter --workers 6
 
 ```
-# 股票数据处理流水线使用说明
-
-### 方法一：使用Python脚本 (推荐)
-```bash
-python run_pipeline.py
-```
-
 ### 画线
 ```bash
 python draw_lines_base.py  --workers 6
 ```
 ```bash
 python draw_lines_mid.py --date 2025-10-18 --workers 6
+```
+```bash
+python draw_lines_back.py --date 2025-10-18 --workers 6
 ```

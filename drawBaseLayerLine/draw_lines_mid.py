@@ -1128,9 +1128,9 @@ class MidLineDrawer:
             
             # 3. 生成图表
             if file_prefix and file_prefix != "UNKNOWN":
-                output_file = os.path.join(output_dir, f"{file_prefix}_{stock_code}_{stock_name}.png")
+                output_file = os.path.join(output_dir, f"{file_prefix}_{stock_code}_{stock_name}_1mid.png")
             else:
-                output_file = os.path.join(output_dir, f"{stock_code}_{stock_name}.png")
+                output_file = os.path.join(output_dir, f"{stock_code}_{stock_name}_1mid.png")
             
             success, m_lines_result = self.create_mid_chart(stock_code, stock_name, df, output_file)
             

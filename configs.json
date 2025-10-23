@@ -85,7 +85,7 @@
 
     "//2":"前高价格过滤配置：计算上穿前N天的收盘最高价M，计算上穿后最高收盘价H后的最低收盘价J相对于M的涨幅K",
     "preHighDays": 60,
-    "preHighMinRange": "-2%",
+    "preHighMinRange": "0%",
     "//3":"前高最大涨幅过滤：前高价格M到上穿后最高收盘价H的涨幅，preHighMinRange和preHighMaxRange可以为负值表示跌幅，为none时表示不进行过滤",
     "preHighMaxRange": "15%",
 
@@ -105,7 +105,7 @@
 
     "//2":"前高价格过滤配置：计算上穿前N天的收盘最高价M，计算上穿后最高收盘价H后的最低收盘价J相对于M的涨幅K",
     "preHighDays": 60,
-    "preHighMinRange": "-2%",
+    "preHighMinRange": "0%",
     "//3":"前高最大涨幅过滤：前高价格M到上穿后最高收盘价H的涨幅，preHighMinRange和preHighMaxRange可以为负值表示跌幅，为none时表示不进行过滤",
     "preHighMaxRange": "15%",
 

@@ -1,24 +1,31 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-中间层画线脚本 - 整合基础层功能并添加AnchorM线
-包含完整的基础画线功能 + AnchorM线分析
+中间层画线脚本 - 整合基础层功能并添加AnchorBack线
+包含完整的基础画线功能 + AnchorBack线分析
 
-功能特性：
+核心算法差异:
+- AnchorBack算法: B = A + N × K (加法模型)
+  其中:
+  A = 锚定低点附近5根K线收盘价中的最低值
+  N = 步长参数 (0.23 ~ 0.68, 步长0.01)
+  K = 奇数序列 (1, 3, 5, 7, 9, ...)
+  
+功能特性:
 1. 从resByFilter中提取所有股票数据
 2. 智能数据验证和清洗
 3. ZigZag阶段低点检测
 4. 高质量K线图表绘制（红涨绿跌）
-5. AnchorM线动态优化和绘制
+5. AnchorBack线动态优化和绘制
 6. 多线程批量处理
 7. 完整的错误处理和日志记录
 
-使用方法：
+使用方法:
     # 处理指定日期的股票
-    python draw_lines_mid.py --date 2025-10-20
+    python draw_line_back.py --date 2025-10-20
     
     # 指定线程数
-    python draw_lines_mid.py --date 2025-10-20 --workers 4
+    python draw_line_back.py --date 2025-10-20 --workers 4
 """
 
 import os
@@ -51,7 +58,7 @@ logging.basicConfig(
     format='%(asctime)s [%(levelname)s] [%(threadName)s] %(message)s',
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler('draw_lines_mid.log', encoding='utf-8')
+        logging.FileHandler('draw_line_back.log', encoding='utf-8')
     ]
 )
 logger = logging.getLogger(__name__)
@@ -61,23 +68,23 @@ progress_lock = threading.Lock()
 matplotlib_lock = threading.Lock()
 
 
-class MidLineDrawer:
-    """中间层画线器 - 整合基础层功能并添加AnchorM线"""
+class BackLineDrawer:
+    """中间层画线器 - 整合基础层功能并添加AnchorBack线"""
     
     def __init__(self, config_file: str = "lineConfig.json"):
         """初始化中间层画线器"""
         self.config_file = config_file
-        self.percent_list, self.anchor_m_config = self._load_config()
+        self.percent_list, self.anchor_back_config = self._load_config()
         self.stock_info = self._load_stock_info()
         self.processed_count = 0
         self.total_count = 0
         logger.info(f"✅ 中间层画线器初始化完成")
         logger.info(f"📊 加载{len(self.percent_list)}个百分比配置: {self.percent_list}")
         logger.info(f"📈 加载{len(self.stock_info)}只股票信息")
-        logger.info(f"🔧 AnchorM功能: {'启用' if self.anchor_m_config.get('enabled', True) else '禁用'}")
+        logger.info(f"🔧 AnchorBack功能: {'启用' if self.anchor_back_config.get('enabled', True) else '禁用'}")
     
     def _load_config(self) -> Tuple[List[str], Dict]:
-        """加载配置文件中的百分比数据、ZigZag参数和AnchorM配置"""
+        """加载配置文件中的百分比数据、ZigZag参数和AnchorBack配置"""
         try:
             config_path = Path(self.config_file)
             if not config_path.exists():
@@ -86,39 +93,39 @@ class MidLineDrawer:
                     logger.warning(f"⚠️ 配置文件 {self.config_file} 不存在，使用默认配置")
                     default_percents = ["3%", "16%", "25%", "34%", "50%", "67%", "128%", "228%", "247%", "323%", "457%", "589%", "636%", "770%", "823%", "935%"]
                     self.zigzag_period = 49
-                    default_anchor_m = {
+                    default_anchor_back = {
                         'enabled': True,
-                        'zigzag_percent': 10,
-                        'pivot_window': 3,
-                        'm_range': {'start': 13.0, 'end': 9.0, 'step': -0.1},
-                        'max_k': 20,
+                        'zigzag_percent': 15,
+                        'pivot_window': 5,
+                        'n_range': {'start': 0.23, 'end': 0.68, 'step': 0.01},
+                        'k_list': [1, 3, 5, 7, 9, 11, 13, 15, 17, 19],
                         'match_tolerance_ratio': 0.006,
-                        'min_matches': 3,
-                        'tiebreaker_prefer_higher_M': True,
-                        'line_style': {'color': '#8A2BE2', 'linewidth': 3.0, 'alpha': 0.9},
+                        'min_matches': 1,
+                        'tiebreaker_prefer_higher_N': True,
+                        'line_style': {'color': '#1E90FF', 'linewidth': 3.0, 'alpha': 0.9},
                         'text_style': {'fontsize': 14},
                         'annotate_format': 'K={K} 价格={price}'
                     }
-                    return default_percents, default_anchor_m
+                    return default_percents, default_anchor_back
             
             with open(config_path, 'r', encoding='utf-8') as f:
                 config = json.load(f)
                 percent_dic = config.get('percent_dic', [])
                 self.zigzag_period = config.get('zigzag_period', 49)
-                anchor_m_config = config.get('anchorMLines', {})
+                anchor_back_config = config.get('anchorBackLines', {})
                 
-                if not anchor_m_config:
-                    anchor_m_config = {'enabled': False}
+                if not anchor_back_config:
+                    anchor_back_config = {'enabled': False}
                 
                 logger.info(f"✅ 成功加载配置文件: {config_path}")
                 logger.info(f"🔧 ZigZag周期: {self.zigzag_period}%")
-                return percent_dic, anchor_m_config
+                return percent_dic, anchor_back_config
         except Exception as e:
             logger.error(f"❌ 加载配置文件失败: {e}")
             default_percents = ["3%", "16%", "25%", "34%", "50%", "67%", "128%", "228%", "247%", "323%", "457%", "589%", "636%", "770%", "823%", "935%"]
             self.zigzag_period = 49
-            default_anchor_m = {'enabled': False}
-            return default_percents, default_anchor_m
+            default_anchor_back = {'enabled': False}
+            return default_percents, default_anchor_back
     
     def _load_stock_info(self) -> Dict[str, Dict[str, str]]:
         """从stocklist.csv加载股票信息（名称、行业、市盈率、总股本）"""
@@ -359,7 +366,7 @@ class MidLineDrawer:
                 logger.error(f"❌ 备选方案也失败: {backup_e}")
                 return []
     
-    # ==================== AnchorM Lines 功能函数 ====================
+    # ==================== AnchorBack Lines 功能函数 ====================
     
     def get_local_extremes_around_turns(self, highs: np.ndarray, lows: np.ndarray,
                                        opens: np.ndarray, closes: np.ndarray,
@@ -407,48 +414,64 @@ class MidLineDrawer:
         
         return extremes
     
-    def generate_B_series(self, A: float, M: float, max_k: int, 
-                          max_price: float) -> Tuple[List[float], List[int]]:
-        """生成B序列: B_k = A + (A × M) × k
+    def generate_B_series_back(self, A: float, N: float, k_list: List[int], 
+                               max_price: float) -> Tuple[List[float], List[int]]:
+        """生成B序列: B_k = A + N × K (AnchorBack算法)
         
+        Args:
+            A: 锚定低点价格（5根K线收盘价最低值）
+            N: 步长参数
+            k_list: K值列表（奇数序列，仅用于确定奇数规则）
+            max_price: 数据中的最高价
+            
+        Returns:
+            B_values: B序列价格列表
+            K_values: K值列表
+            
         策略：
-        1. 自动计算需要多少根线才能覆盖到最高价
-        2. 在此基础上再额外生成3根线
-        3. 不受 max_k 限制（忽略该参数）
+        1. 自动计算需要多少个K值才能覆盖到最高价
+        2. 在此基础上再额外生成3个K值
+        3. 不受 k_list 限制（忽略该参数，仅用于确定奇数规则）
         """
-        N = A * M
-        
-        if N <= 0:  # M值为0或负数，无法生成序列
+        if N <= 0:
             return [], []
         
-        # 计算覆盖到最高价需要的K值
-        k_to_reach_max = int((max_price - A) / N) + 1
+        # 计算覆盖到最高价需要的K值（奇数序列）
+        # B_k = A + N × K，当 B_k >= max_price 时，K = (max_price - A) / N
+        k_to_reach_max = int((max_price - A) / N)
         
-        # 在覆盖最高价的基础上再加3根线
-        k_final = k_to_reach_max + 3
+        # 确保K是奇数
+        if k_to_reach_max % 2 == 0:
+            k_to_reach_max += 1
         
-        # 安全限制：防止M值过小导致K值过大（例如 > 1000）
-        # 但这个限制很宽松，一般不会触发
+        # 在覆盖最高价的基础上再加3个奇数（即 +2, +4, +6）
+        k_final = k_to_reach_max + 6
+        
+        # 安全限制：防止N值过小导致K值过大（例如 > 1000）
         if k_final > 500:
-            logger.warning(f"⚠️ K值过大({k_final})，M值可能过小({M*100:.1f}%)，限制为500")
-            k_final = 500
+            logger.warning(f"⚠️ K值过大({k_final})，N值可能过小({N:.2f})，限制为501（最大奇数）")
+            k_final = 501  # 确保是奇数
         
         B_values = []
         K_values = []
         
-        for k in range(1, k_final + 1):
+        # 生成奇数序列：1, 3, 5, 7, 9, ...
+        k = 1
+        while k <= k_final:
             B_k = A + N * k
             B_values.append(B_k)
             K_values.append(k)
+            k += 2  # 每次加2，保持奇数
         
         return B_values, K_values
     
-    def score_M(self, B_values: List[float], extremes: List[Tuple[float, int]], 
+    def score_N(self, B_values: List[float], K_values: List[int], extremes: List[Tuple[float, int]], 
                 match_tolerance_ratio: float, time_decay_min_weight: float = 0.3) -> Dict:
-        """对某个M值进行评分（含时间衰减因子）
+        """对某个N值进行评分（含时间衰减因子）
         
         Args:
             B_values: B序列价格列表
+            K_values: K值列表
             extremes: List[Tuple[price, idx]] - 价格和索引（距锚定点的天数）
             match_tolerance_ratio: 匹配容差比例
             time_decay_min_weight: 时间衰减最小权重 (0-1)，越小衰减越强
@@ -472,7 +495,7 @@ class MidLineDrawer:
         scores = []
         per_k_matches = []
         
-        for k_idx, B_k in enumerate(B_values):
+        for idx, (B_k, k_val) in enumerate(zip(B_values, K_values)):
             upper = None
             lower = None
             
@@ -521,7 +544,7 @@ class MidLineDrawer:
                 avg_k_score = sum(k_scores) / len(k_scores)
                 scores.append(avg_k_score)
                 per_k_matches.append({
-                    'k': k_idx + 1,
+                    'k': k_val,
                     'B_k': B_k,
                     'matched_extremes': selected_extremes,
                     'score': avg_k_score
@@ -536,32 +559,50 @@ class MidLineDrawer:
             'per_k_matches': per_k_matches
         }
     
-    def select_best_M(self, M_results: Dict[float, Dict], min_matches: int,
-                     prefer_higher_M: bool = True) -> Tuple[Optional[float], Optional[Dict]]:
-        """从所有M候选中选择最佳M"""
-        valid_M = {M: result for M, result in M_results.items() 
+    def select_best_N(self, N_results: Dict[float, Dict], min_matches: int,
+                     prefer_higher_N: bool = True) -> Tuple[Optional[float], Optional[Dict]]:
+        """从所有N候选中选择最佳N"""
+        valid_N = {N: result for N, result in N_results.items() 
                    if result['matches_count'] >= min_matches}
         
-        if not valid_M:
+        if not valid_N:
             return None, None
         
-        sorted_M = sorted(valid_M.items(), 
+        sorted_N = sorted(valid_N.items(), 
                          key=lambda x: (x[1]['avg_score'], 
                                        x[1]['matches_count'],
-                                       x[0] if prefer_higher_M else -x[0]),
+                                       x[0] if prefer_higher_N else -x[0]),
                          reverse=True)
         
-        best_M, best_result = sorted_M[0]
-        return best_M, best_result
+        best_N, best_result = sorted_N[0]
+        return best_N, best_result
     
-    def compute_anchor_M_lines(self, df: pd.DataFrame, anchor_low: float, 
-                              anchor_date, stock_code: str = "") -> Optional[Dict]:
-        """计算最佳M值与B序列"""
+    def compute_anchor_back_lines(self, df: pd.DataFrame, anchor_idx: int, anchor_date, 
+                                  stock_code: str = "") -> Optional[Dict]:
+        """计算最佳N值与B序列 (AnchorBack算法)
+        
+        核心算法: B_k = A + N × K
+        其中:
+        - A: 锚定低点附近5根K线收盘价的最低值
+        - N: 步长参数 (0.23 ~ 0.68, 步长0.01)
+        - K: 奇数序列 (1, 3, 5, 7, 9, ...)
+        """
         try:
-            config = self.anchor_m_config
+            config = self.anchor_back_config
             
             if not config.get('enabled', True):
                 return None
+            
+            # 1. 计算锚定点A：锚定低点附近5根K线收盘价的最低值
+            pivot_window = config.get('pivot_window', 5)
+            start_idx = max(0, anchor_idx - pivot_window // 2)
+            end_idx = min(len(df), anchor_idx + pivot_window // 2 + 1)
+            
+            window_data = df.iloc[start_idx:end_idx]
+            anchor_close_price = window_data['close'].min()  # 窗口内最低收盘价
+            anchor_A = float(anchor_close_price)
+            
+            logger.debug(f"🎯 [{stock_code}] 锚定点A={anchor_A:.2f} (窗口[{start_idx}:{end_idx}]内最低收盘价)")
             
             # 确保 anchor_date 是 pd.Timestamp
             if isinstance(anchor_date, str):
@@ -570,10 +611,11 @@ class MidLineDrawer:
             df_after = df[df['date'] > anchor_date].copy()
             
             if len(df_after) < 10:
-                logger.info(f"⚠️ [{stock_code}] 锚定日期之后数据不足: {len(df_after)}天，跳过AnchorM线")
+                logger.info(f"⚠️ [{stock_code}] 锚定日期之后数据不足: {len(df_after)}天，跳过AnchorBack线")
                 return None
             
-            zigzag_percent = config.get('zigzag_percent', 10) / 100.0
+            # 2. 使用配置的ZigZag参数寻找转折点
+            zigzag_percent = config.get('zigzag_percent', 15) / 100.0
             highs_after = df_after['high'].values
             lows_after = df_after['low'].values
             opens_after = df_after['open'].values
@@ -582,45 +624,46 @@ class MidLineDrawer:
             turns = self.zigzag(highs_after, lows_after, zigzag_percent)
             
             if not turns:
-                logger.info(f"⚠️ [{stock_code}] 锚定日期后未找到ZigZag(10%)转折点，跳过AnchorM线")
+                logger.info(f"⚠️ [{stock_code}] 锚定日期后未找到ZigZag转折点，跳过AnchorBack线")
                 return None
             
-            pivot_window = config.get('pivot_window', 3)
+            # 3. 提取局部极值点
+            pivot_window = config.get('pivot_window', 5)
             extremes = self.get_local_extremes_around_turns(
                 highs_after, lows_after, opens_after, closes_after, turns, pivot_window
             )
             
             if not extremes:
-                logger.info(f"⚠️ [{stock_code}] 未找到局部极值，跳过AnchorM线")
+                logger.info(f"⚠️ [{stock_code}] 未找到局部极值，跳过AnchorBack线")
                 return None
             
-            m_range = config.get('m_range', {'start': 13.0, 'end': 9.0, 'step': -0.1})
-            M_start = m_range['start']
-            M_end = m_range['end']
-            M_step = abs(m_range['step'])
+            # 4. 遍历N值范围
+            n_range = config.get('n_range', {'start': 0.23, 'end': 0.68, 'step': 0.01})
+            N_start = n_range['start']
+            N_end = n_range['end']
+            N_step = n_range['step']
             
-            M_values = []
-            M_current = M_start
-            while M_current >= M_end - 0.001:
-                M_values.append(M_current)
-                M_current -= M_step
+            N_values = []
+            N_current = N_start
+            while N_current <= N_end + 0.001:
+                N_values.append(round(N_current, 2))
+                N_current += N_step
             
-            max_k = config.get('max_k', 20)
+            k_list = config.get('k_list', [1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
             max_price = df_after['high'].max()
             match_tolerance = config.get('match_tolerance_ratio', 0.006)
             time_decay_min_weight = config.get('time_decay_min_weight', 0.3)
             
-            M_results = {}
+            N_results = {}
             
-            for M_pct in M_values:
-                M = M_pct / 100.0
-                B_values, K_values = self.generate_B_series(anchor_low, M, max_k, max_price)
+            for N in N_values:
+                B_values, K_values = self.generate_B_series_back(anchor_A, N, k_list, max_price)
                 
                 if not B_values:
                     continue
                 
-                score_result = self.score_M(B_values, extremes, match_tolerance, time_decay_min_weight)
-                M_results[M_pct] = {
+                score_result = self.score_N(B_values, K_values, extremes, match_tolerance, time_decay_min_weight)
+                N_results[N] = {
                     'B_values': B_values,
                     'K_values': K_values,
                     'avg_score': score_result['avg_score'],
@@ -628,55 +671,74 @@ class MidLineDrawer:
                     'per_k_matches': score_result['per_k_matches']
                 }
             
-            min_matches = config.get('min_matches', 3)
-            prefer_higher_M = config.get('tiebreaker_prefer_higher_M', True)
+            # 5. 选择最佳N值（动态调整策略）
+            min_matches = config.get('min_matches', 1)
+            prefer_higher_N = config.get('tiebreaker_prefer_higher_N', True)
             
-            # 智能调整最小匹配数：如果锚定点之后数据较少，降低要求
-            # 例如：锚定点后只有6个月数据，可能只有2-3个转折点，这是正常的
-            days_after_anchor = len(df_after)
-            if days_after_anchor < 200:  # 约10个月
-                adjusted_min_matches = max(1, min(2, min_matches))
-                if adjusted_min_matches < min_matches:
-                    logger.info(f"📊 [{stock_code}] 锚定点后数据较少({days_after_anchor}天)，"
-                               f"最小匹配数: {min_matches} → {adjusted_min_matches}")
-                    min_matches = adjusted_min_matches
+            # 首先尝试获取满足min_matches的最佳N值
+            best_N, best_result = self.select_best_N(N_results, min_matches, prefer_higher_N)
             
-            best_M, best_result = self.select_best_M(M_results, min_matches, prefer_higher_M)
-            
-            if best_M is None:
-                # 显示所有M值的匹配情况
-                if M_results:
-                    max_matches = max(r['matches_count'] for r in M_results.values())
-                    logger.info(f"⚠️ [{stock_code}] 未找到满足条件的M值(要求>={min_matches}个匹配，实际最多{max_matches}个)，跳过AnchorM线")
+            # 动态调整策略：如果匹配数<2，尝试降低N值以获得>=2个匹配
+            if best_N is None or (best_result and best_result['matches_count'] < 2):
+                current_min_matches = best_result['matches_count'] if best_result else 0
+                
+                if N_results:
+                    # 找出所有匹配数>=2的N值
+                    valid_N_ge2 = {N: result for N, result in N_results.items() 
+                                   if result['matches_count'] >= 2}
+                    
+                    if valid_N_ge2:
+                        # 如果有匹配数>=2的N值，选择其中最佳的（优先选择更小的N值）
+                        sorted_N = sorted(valid_N_ge2.items(), 
+                                        key=lambda x: (x[1]['avg_score'], 
+                                                      x[1]['matches_count'],
+                                                      -x[0]),  # 负号表示优先选择更小的N
+                                        reverse=True)
+                        best_N, best_result = sorted_N[0]
+                        logger.info(f"📊 [{stock_code}] 动态调整：降低N值以获得>=2个匹配 → N={best_N:.2f}, 匹配数={best_result['matches_count']}")
+                    else:
+                        # 如果没有匹配数>=2的，至少选择匹配数最多的
+                        sorted_by_matches = sorted(N_results.items(), 
+                                                  key=lambda x: (x[1]['matches_count'], 
+                                                                x[1]['avg_score'],
+                                                                -x[0]),  # 优先小N值
+                                                  reverse=True)
+                        best_N, best_result = sorted_by_matches[0]
+                        if best_result['matches_count'] >= 1:
+                            logger.info(f"📊 [{stock_code}] 动态调整：未找到>=2个匹配，使用最佳结果 → N={best_N:.2f}, 匹配数={best_result['matches_count']}")
+                        else:
+                            logger.info(f"⚠️ [{stock_code}] 所有N值匹配数均<1，跳过AnchorBack线")
+                            return None
                 else:
-                    logger.info(f"⚠️ [{stock_code}] 未找到满足条件的M值(最小匹配数={min_matches})，跳过AnchorM线")
-                return None
+                    logger.info(f"⚠️ [{stock_code}] 未找到任何有效的N值，跳过AnchorBack线")
+                    return None
             
-            logger.debug(f"✅ 最佳M={best_M:.1f}%, 平均分={best_result['avg_score']:.2f}, "
+            logger.debug(f"✅ 最佳N={best_N:.2f}, 平均分={best_result['avg_score']:.2f}, "
                         f"匹配数={best_result['matches_count']}")
             
             return {
-                'best_M': best_M,
+                'best_N': best_N,
                 'B_values': best_result['B_values'],
                 'K_values': best_result['K_values'],
                 'avg_score': best_result['avg_score'],
                 'matches_count': best_result['matches_count'],
                 'per_k_matches': best_result['per_k_matches'],
-                'anchor_low': anchor_low,
+                'anchor_A': anchor_A,
                 'anchor_date': anchor_date,
+                'anchor_idx': anchor_idx,
                 'extremes': extremes
             }
             
         except Exception as e:
-            logger.error(f"❌ 计算AnchorM线失败: {e}")
+            logger.error(f"❌ 计算AnchorBack线失败: {e}")
             import traceback
             logger.debug(traceback.format_exc())
             return None
 
-    def create_mid_chart(self, stock_code: str, stock_name: str, df: pd.DataFrame,
-                         output_file: str) -> Tuple[bool, Optional[Dict]]:
+    def create_back_chart(self, stock_code: str, stock_name: str, df: pd.DataFrame,
+                          output_file: str) -> Tuple[bool, Optional[Dict]]:
         """
-        创建中间层图表：基础K线图 + AnchorM线
+        创建中间层图表：基础K线图 + AnchorBack线
         """
         try:
             # 1. 检测阶段低点
@@ -685,20 +747,30 @@ class MidLineDrawer:
                 logger.warning(f"⚠️ 未检测到阶段低点: {stock_code}")
                 return False, None
             
-            # 2. 计算AnchorM线数据（如果启用）
-            m_lines_result = None
-            if self.anchor_m_config.get('enabled', True):
+            # 2. 计算AnchorBack线数据（如果启用）
+            back_lines_result = None
+            if self.anchor_back_config.get('enabled', True):
                 anchor_idx, anchor_low, anchor_date = stage_lows[0]
-                m_lines_result = self.compute_anchor_M_lines(df, anchor_low, anchor_date, stock_code)
+                back_lines_result = self.compute_anchor_back_lines(df, anchor_idx, anchor_date, stock_code)
             
             # 3. 绘制图表
             with matplotlib_lock:
                 import mplfinance as mpf
                 
-                # 准备数据
+                # 准备数据：确保包含锚定点
                 if stage_lows:
                     lowest_idx, _, _ = stage_lows[0]
-                    df_display = df.iloc[lowest_idx:].copy()
+                    # 如果有AnchorBack结果，需要确保显示范围包含锚定点
+                    start_idx = lowest_idx
+                    if back_lines_result and back_lines_result.get('anchor_idx') is not None:
+                        anchor_idx = back_lines_result['anchor_idx']
+                        pivot_window = self.anchor_back_config.get('pivot_window', 5)
+                        # 向前扩展窗口以包含锚定点
+                        anchor_start = max(0, anchor_idx - pivot_window // 2)
+                        start_idx = min(start_idx, anchor_start)
+                        logger.debug(f"📊 [{stock_code}] 调整显示起点: {lowest_idx} → {start_idx} (包含锚定点)")
+                    
+                    df_display = df.iloc[start_idx:].copy()
                 else:
                     df_display = df.copy()
                 
@@ -796,10 +868,10 @@ class MidLineDrawer:
                 elif pe_val == 0:
                     title_parts.append("PE:亏损")
                 
-                title = " ".join(title_parts) + " - AnchorM"
+                title = " ".join(title_parts) + " - AnchorBack"
                 
                 # 设置样式
-                plt.rcParams['font.sans-serif'] = ['SimHei', 'Arial Unicode MS', 'DejaVu Sans']
+                plt.rcParams['font.sans-serif'] = ['Heiti TC', 'PingFang HK', 'Arial Unicode MS', 'DejaVu Sans']
                 plt.rcParams['axes.unicode_minus'] = False
                 
                 style = mpf.make_mpf_style(
@@ -810,7 +882,7 @@ class MidLineDrawer:
                     gridstyle='-', gridcolor='lightgray', y_on_right=True,
                     facecolor='white', edgecolor='black', figcolor='white',
                     rc={'font.size': 12, 'axes.titlesize': 20, 'axes.labelsize': 14, 
-                        'font.sans-serif': ['SimHei', 'Arial Unicode MS', 'DejaVu Sans'],
+                        'font.sans-serif': ['Heiti TC', 'PingFang HK', 'Arial Unicode MS', 'DejaVu Sans'],
                         'axes.unicode_minus': False}
                 )
                 
@@ -824,9 +896,6 @@ class MidLineDrawer:
                 )
                 
                 ax = axes[0]
-                
-                # 调整Y轴范围（需要在绘制AnchorM线之后调整）
-                # 先暂时不设置，等绘制完AnchorM线后再统一设置
                 
                 # 标注阶段低点价格
                 for i, (idx, price, date_str) in enumerate(stage_lows):
@@ -870,22 +939,24 @@ class MidLineDrawer:
                         except (ValueError, TypeError):
                             pass
                 
-                # 4. 添加AnchorM线
-                if m_lines_result:
-                    best_M = m_lines_result['best_M']
-                    B_values = m_lines_result['B_values']
-                    K_values = m_lines_result['K_values']
+                # 4. 添加AnchorBack线并标注锚定低点
+                if back_lines_result:
+                    best_N = back_lines_result['best_N']
+                    B_values = back_lines_result['B_values']
+                    K_values = back_lines_result['K_values']
+                    anchor_A = back_lines_result['anchor_A']
+                    anchor_idx = back_lines_result['anchor_idx']
                     
-                    line_style = self.anchor_m_config.get('line_style', {})
-                    line_color = line_style.get('color', '#8A2BE2')
+                    line_style = self.anchor_back_config.get('line_style', {})
+                    line_color = line_style.get('color', '#1E90FF')
                     line_width = line_style.get('linewidth', 3.0)
                     line_alpha = line_style.get('alpha', 0.9)
                     
-                    text_style = self.anchor_m_config.get('text_style', {})
+                    text_style = self.anchor_back_config.get('text_style', {})
                     text_fontsize = text_style.get('fontsize', 14)
-                    annotate_format = self.anchor_m_config.get('annotate_format', 'K={K} 价格={price}')
+                    annotate_format = self.anchor_back_config.get('annotate_format', 'K={K} 价格={price}')
                     
-                    # 绘制紫色横线
+                    # 绘制蓝色横线
                     for k_val, B_k_price in zip(K_values, B_values):
                         ax.axhline(y=B_k_price, color=line_color, 
                                   linestyle='-', linewidth=line_width, 
@@ -898,42 +969,79 @@ class MidLineDrawer:
                                         edgecolor=line_color, linewidth=2),
                                transform=ax.get_yaxis_transform(), ha='right', va='center')
                     
-                    # 在图片左上角添加M值信息 - 只显示匹配的B值
-                    text_lines = [f"M={best_M:.1f}%"]
+                    # 标注锚定低点（最低收盘价）
+                    if stage_lows:
+                        # 获取锚定点的日期（使用原始df）
+                        pivot_window = self.anchor_back_config.get('pivot_window', 5)
+                        start_idx = max(0, anchor_idx - pivot_window // 2)
+                        end_idx = min(len(df), anchor_idx + pivot_window // 2 + 1)
+                        
+                        # 找到窗口内的最低收盘价及其索引
+                        window_data = df.iloc[start_idx:end_idx]
+                        min_close_idx = window_data['close'].idxmin()
+                        anchor_close_price = df.loc[min_close_idx, 'close']
+                        anchor_close_date = df.loc[min_close_idx, 'date']
+                        
+                        # 检查锚定点日期是否在显示范围内（df_mpf已经设置了date为索引）
+                        anchor_date_dt = pd.to_datetime(anchor_close_date)
+                        
+                        if anchor_date_dt in df_mpf.index:
+                            # 绘制红色圆点（提高zorder确保在最上层）
+                            ax.plot(anchor_date_dt, anchor_close_price, 
+                                   marker='o', markersize=15, color='red', 
+                                   markeredgecolor='white', markeredgewidth=2,
+                                   zorder=10)
+                            
+                            # 添加带箭头的标注（使用英文避免中文乱码）
+                            ax.annotate(f'Anchor\n{anchor_close_price:.2f}',
+                                       xy=(anchor_date_dt, anchor_close_price),
+                                       xytext=(15, -40),
+                                       textcoords='offset points',
+                                       fontsize=13, color='red', fontweight='bold',
+                                       bbox=dict(boxstyle='round,pad=0.6', 
+                                               facecolor='yellow', edgecolor='red', linewidth=2.5),
+                                       arrowprops=dict(arrowstyle='->', color='red', lw=3),
+                                       zorder=10)
+                            logger.info(f"✅ [{stock_code}] 标注锚定点: 日期={anchor_date_dt}, 价格={anchor_close_price:.2f}")
+                        else:
+                            logger.warning(f"⚠️ [{stock_code}] 锚定点日期 {anchor_date_dt} 不在显示范围内，跳过标注")
+                    
+                    # 在图片左上角添加N值信息 - 只显示匹配的B值
+                    text_lines = [f"N={best_N:.2f}"]
                     
                     # 提取得分 > 0 的 B 值（与极值点匹配的）
-                    if 'per_k_matches' in m_lines_result:
+                    if 'per_k_matches' in back_lines_result:
                         matched_B = []
-                        for match in m_lines_result['per_k_matches']:
+                        for match in back_lines_result['per_k_matches']:
                             if match.get('score', 0) > 0:
                                 k_val = match['k']
                                 B_k = match['B_k']
                                 score = match['score']
-                                matched_B.append(f"k{k_val}:{B_k:.2f}({score:.0f})")
+                                matched_B.append(f"K{k_val}:{B_k:.2f}({score:.0f})")
                                 if len(matched_B) >= 10:  # 最多显示10个
                                     break
                         
                         if matched_B:
-                            if len(m_lines_result['per_k_matches']) > len(matched_B):
+                            if len(back_lines_result['per_k_matches']) > len(matched_B):
                                 matched_B.append('...')
                             text_lines.append(f"Match_B: [{', '.join(matched_B)}]")
                         else:
                             text_lines.append(f"Match_B: [无匹配]")
                     
-                    text_lines.append(f"AvgScore: {m_lines_result['avg_score']:.1f}")
-                    text_lines.append(f"Matches: {m_lines_result['matches_count']}/{len(B_values)}")
+                    text_lines.append(f"AvgScore: {back_lines_result['avg_score']:.1f}")
+                    text_lines.append(f"Matches: {back_lines_result['matches_count']}/{len(B_values)}")
                     
                     text_content = '\n'.join(text_lines)
                     ax.text(0.01, 0.98, text_content,
                            transform=ax.transAxes,
-                           fontsize=11, color='purple', fontweight='bold',
+                           fontsize=11, color='#1E90FF', fontweight='bold',
                            bbox=dict(boxstyle="round,pad=0.5", facecolor='white', alpha=0.95, 
-                                    edgecolor='purple', linewidth=2.5),
+                                    edgecolor='#1E90FF', linewidth=2.5),
                            ha='left', va='top', family='monospace')
                     
-                    logger.info(f"✅ [{stock_code}] 绘制AnchorM线: M={best_M:.1f}%, {len(B_values)}条线")
+                    logger.info(f"✅ [{stock_code}] 绘制AnchorBack线: N={best_N:.2f}, {len(B_values)}条线")
                 
-                # 4.5 统一调整Y轴范围（考虑百分比线和AnchorM线）
+                # 4.5 统一调整Y轴范围（考虑百分比线和AnchorBack线）
                 if stage_lows:
                     base_price = min(price for _, price, _ in stage_lows)
                     max_price = df_mpf['high'].max()
@@ -963,11 +1071,11 @@ class MidLineDrawer:
                         except (ValueError, TypeError):
                             pass
                     
-                    # 考虑AnchorM线的最高价格
+                    # 考虑AnchorBack线的最高价格
                     highest_line_price = highest_percent_price
-                    if m_lines_result and m_lines_result['B_values']:
-                        highest_m_price = max(m_lines_result['B_values'])
-                        highest_line_price = max(highest_percent_price, highest_m_price)
+                    if back_lines_result and back_lines_result['B_values']:
+                        highest_back_price = max(back_lines_result['B_values'])
+                        highest_line_price = max(highest_percent_price, highest_back_price)
                     
                     # 设置Y轴范围，确保所有线都可见
                     y_margin = (highest_line_price - min_price) * 0.05
@@ -1007,7 +1115,7 @@ class MidLineDrawer:
                     file_size = os.path.getsize(output_file)
                     if file_size > 1000:
                         logger.debug(f"✅ 图表生成成功: {output_file} ({file_size} bytes)")
-                        return True, m_lines_result
+                        return True, back_lines_result
                     else:
                         logger.warning(f"⚠️ 生成的图片文件过小: {output_file} ({file_size} bytes)")
                         return False, None
@@ -1031,9 +1139,9 @@ class MidLineDrawer:
         """处理指定的股票列表"""
         if output_dir is None:
             current_date = datetime.now().strftime('%Y%m%d')
-            output_dir = f'{current_date}-drawLineMid'
+            output_dir = f'{current_date}-drawLineBack'
         
-        logger.info(f"🚀 开始处理股票列表（中间层）")
+        logger.info(f"🚀 开始处理股票列表（中间层 - AnchorBack）")
         logger.info(f"📁 数据目录: {data_dir}")
         logger.info(f"📁 输出目录: {output_dir}")
         logger.info(f"🧵 线程数: {workers}")
@@ -1128,31 +1236,31 @@ class MidLineDrawer:
             
             # 3. 生成图表
             if file_prefix and file_prefix != "UNKNOWN":
-                output_file = os.path.join(output_dir, f"{file_prefix}_{stock_code}_{stock_name}.png")
+                output_file = os.path.join(output_dir, f"{file_prefix}_{stock_code}_{stock_name}_2back.png")
             else:
-                output_file = os.path.join(output_dir, f"{stock_code}_{stock_name}.png")
+                output_file = os.path.join(output_dir, f"{stock_code}_{stock_name}_2back.png")
             
-            success, m_lines_result = self.create_mid_chart(stock_code, stock_name, df, output_file)
+            success, back_lines_result = self.create_back_chart(stock_code, stock_name, df, output_file)
             
             if success:
                 result['success'] = True
                 
-                # 添加AnchorM线结果
-                if m_lines_result:
-                    result['anchorMLines'] = {
-                        'best_M': m_lines_result['best_M'],
-                        'avg_score': m_lines_result['avg_score'],
-                        'matches_count': m_lines_result['matches_count'],
-                        'B_values': m_lines_result['B_values'][:10],
-                        'anchor_low': m_lines_result['anchor_low'],
-                        'anchor_date': str(m_lines_result['anchor_date'])
+                # 添加AnchorBack线结果
+                if back_lines_result:
+                    result['anchorBackLines'] = {
+                        'best_N': back_lines_result['best_N'],
+                        'avg_score': back_lines_result['avg_score'],
+                        'matches_count': back_lines_result['matches_count'],
+                        'B_values': back_lines_result['B_values'][:10],
+                        'anchor_A': back_lines_result['anchor_A'],
+                        'anchor_date': str(back_lines_result['anchor_date'])
                     }
                 
                 # 更新进度
                 with progress_lock:
                     self.processed_count += 1
-                    m_info = f", M={m_lines_result['best_M']:.1f}%" if m_lines_result else ""
-                    logger.info(f"✅ [{self.processed_count}/{self.total_count}] {stock_code} {stock_name}{m_info}")
+                    n_info = f", N={back_lines_result['best_N']:.2f}" if back_lines_result else ""
+                    logger.info(f"✅ [{self.processed_count}/{self.total_count}] {stock_code} {stock_name}{n_info}")
             else:
                 result['error'] = "图表创建失败"
             
@@ -1168,18 +1276,18 @@ class MidLineDrawer:
 def main():
     """主函数"""
     parser = argparse.ArgumentParser(
-        description="中间层画线脚本 - 基础图表 + AnchorM线",
+        description="中间层画线脚本 - 基础图表 + AnchorBack线",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 使用示例:
   # 处理当前日期的resByFilter中的股票
-  python draw_lines_mid.py
+  python draw_line_back.py
   
   # 处理指定日期的resByFilter中的股票
-  python draw_lines_mid.py --date 2025-10-20
+  python draw_line_back.py --date 2025-10-20
   
   # 指定线程数
-  python draw_lines_mid.py --date 2025-10-20 --workers 6
+  python draw_line_back.py --date 2025-10-20 --workers 6
         """
     )
     
@@ -1204,7 +1312,7 @@ def main():
         date_str = current_date
     
     # 创建中间层画线器
-    drawer = MidLineDrawer()
+    drawer = BackLineDrawer()
     
     # 读取指定日期的resByFilter中的股票
     filter_dir = f"../{date_str}-resByFilter"
@@ -1272,7 +1380,7 @@ def main():
     logger.info(f"📋 去重后共有 {len(stock_list)} 只股票")
     
     # 生成输出目录
-    output_dir = f"{date_str}-drawLineMid"
+    output_dir = f"{date_str}-drawLineBack"
     
     # 批量处理股票列表
     drawer.process_stock_list(stock_list, output_dir, "../data", args.workers)
@@ -1282,3 +1390,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
