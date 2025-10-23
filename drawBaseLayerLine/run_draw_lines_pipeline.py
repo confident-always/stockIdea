@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-画线流水线脚本 - 同时运行 draw_lines_mid.py 和 draw_lines_back.py
+画线流水线脚本 - 先后运行 draw_lines_mid.py 和 draw_lines_back.py
 将两种算法的结果输出到同一个目录，通过文件名后缀区分
 
 功能特性：
-1. 同时运行 AnchorM 和 AnchorBack 两种算法
+1. 按顺序运行 AnchorM 和 AnchorBack 两种算法
 2. 统一输出目录：{日期}-drawLine
 3. 文件命名规则：
    - AnchorM: {前缀}_{代码}_{股票名}_1mid.png
    - AnchorBack: {前缀}_{代码}_{股票名}_2back.png
-4. 并行处理，提高效率
-5. 统一的日志和结果汇总
+4. 通过subprocess调用独立脚本，确保配置和逻辑完全独立
+5. 自动重命名和合并输出文件
 
 使用方法：
     # 处理指定日期的股票
@@ -23,27 +23,18 @@
 
 import os
 import sys
-import json
-import pandas as pd
-import numpy as np
-from pathlib import Path
-from typing import List, Dict, Tuple, Optional
+import subprocess
 import logging
-from datetime import datetime
+import shutil
 import glob
+from datetime import datetime
+from pathlib import Path
 import argparse
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import threading
-import time
-
-# 导入两个画线器（使用别名区分）
-from draw_lines_mid import MidLineDrawer as AnchorMDrawer
-from draw_lines_back import MidLineDrawer as AnchorBackDrawer
 
 # 配置日志
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] [%(threadName)s] %(message)s',
+    format='%(asctime)s [%(levelname)s] %(message)s',
     handlers=[
         logging.StreamHandler(),
         logging.FileHandler('run_draw_lines_pipeline.log', encoding='utf-8')
@@ -51,209 +42,146 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# 线程锁
-progress_lock = threading.Lock()
 
-
-class DrawLinesPipeline:
-    """画线流水线 - 同时运行两种算法"""
+def run_script_with_params(script_name: str, date: str, workers: int, script_type: str) -> tuple:
+    """
+    运行指定的画线脚本
     
-    def __init__(self):
-        """初始化流水线"""
-        self.mid_drawer = AnchorMDrawer()
-        self.back_drawer = AnchorBackDrawer()
-        self.processed_count = 0
-        self.total_count = 0
-        logger.info(f"✅ 画线流水线初始化完成")
-    
-    def process_single_stock(self, stock_code: str, stock_name: str, 
-                           output_dir: str, data_dir: str, file_prefix: str = "") -> dict:
-        """处理单只股票 - 同时生成两种算法的图表"""
-        start_time = time.time()
-        result = {
-            'stock_code': stock_code,
-            'stock_name': stock_name,
-            'mid_success': False,
-            'back_success': False,
-            'elapsed_time': 0,
-            'mid_error': None,
-            'back_error': None
-        }
+    Args:
+        script_name: 脚本名称
+        date: 日期参数（YYYY-MM-DD格式）
+        workers: 线程数
+        script_type: 脚本类型（'mid' 或 'back'）
         
-        try:
-            # 1. 加载数据（只加载一次，两种算法共用）
-            df = self.mid_drawer.validate_and_load_data(stock_code, data_dir)
-            if df is None:
-                result['mid_error'] = "数据加载失败"
-                result['back_error'] = "数据加载失败"
-                return result
-            
-            # 2. 创建输出目录
-            os.makedirs(output_dir, exist_ok=True)
-            
-            # 3. 生成 AnchorM 图表（1mid）
-            if file_prefix and file_prefix != "UNKNOWN":
-                mid_output_file = os.path.join(output_dir, f"{file_prefix}_{stock_code}_{stock_name}_1mid.png")
-            else:
-                mid_output_file = os.path.join(output_dir, f"{stock_code}_{stock_name}_1mid.png")
-            
-            try:
-                mid_success, mid_lines_result = self.mid_drawer.create_mid_chart(
-                    stock_code, stock_name, df.copy(), mid_output_file
-                )
-                result['mid_success'] = mid_success
-                
-                if mid_success and mid_lines_result:
-                    result['anchorMLines'] = {
-                        'best_M': mid_lines_result['best_M'],
-                        'avg_score': mid_lines_result['avg_score'],
-                        'matches_count': mid_lines_result['matches_count']
-                    }
-            except Exception as e:
-                result['mid_error'] = str(e)
-                logger.error(f"❌ AnchorM图表创建失败 {stock_code}: {e}")
-            
-            # 4. 生成 AnchorBack 图表（2back）
-            if file_prefix and file_prefix != "UNKNOWN":
-                back_output_file = os.path.join(output_dir, f"{file_prefix}_{stock_code}_{stock_name}_2back.png")
-            else:
-                back_output_file = os.path.join(output_dir, f"{stock_code}_{stock_name}_2back.png")
-            
-            try:
-                back_success, back_lines_result = self.back_drawer.create_mid_chart(
-                    stock_code, stock_name, df.copy(), back_output_file
-                )
-                result['back_success'] = back_success
-                
-                if back_success and back_lines_result:
-                    # draw_lines_back.py 返回的也是 M 值（因为它还使用 AnchorM 的结构）
-                    result['anchorBackLines'] = {
-                        'best_M': back_lines_result.get('best_M', 0),
-                        'avg_score': back_lines_result.get('avg_score', 0),
-                        'matches_count': back_lines_result.get('matches_count', 0)
-                    }
-            except Exception as e:
-                result['back_error'] = str(e)
-                logger.error(f"❌ AnchorBack图表创建失败 {stock_code}: {e}")
-            
-            # 5. 更新进度
-            with progress_lock:
-                self.processed_count += 1
-                status_parts = []
-                if result['mid_success']:
-                    m_val = result.get('anchorMLines', {}).get('best_M', 0)
-                    status_parts.append(f"Mid:M={m_val:.1f}%")
-                else:
-                    status_parts.append("Mid:失败")
-                
-                if result['back_success']:
-                    m_val_back = result.get('anchorBackLines', {}).get('best_M', 0)
-                    status_parts.append(f"Back:M={m_val_back:.1f}%")
-                else:
-                    status_parts.append("Back:失败")
-                
-                status = " | ".join(status_parts)
-                logger.info(f"✅ [{self.processed_count}/{self.total_count}] {stock_code} {stock_name} - {status}")
-            
-        except Exception as e:
-            result['mid_error'] = str(e)
-            result['back_error'] = str(e)
-            logger.error(f"❌ 处理股票失败 {stock_code}: {e}")
-        finally:
-            result['elapsed_time'] = time.time() - start_time
-        
-        return result
+    Returns:
+        tuple: (是否成功, 输出目录)
+    """
+    logger.info(f"")
+    logger.info(f"{'='*80}")
+    logger.info(f"🚀 开始运行脚本: {script_name}")
+    logger.info(f"📅 日期: {date}")
+    logger.info(f"🧵 线程数: {workers}")
+    logger.info(f"{'='*80}")
     
-    def process_stock_list(self, stock_list: List[Tuple[str, str, str, str]], 
-                          output_dir: str, data_dir: str = "../data", workers: int = 4):
-        """处理股票列表"""
-        logger.info(f"🚀 开始画线流水线处理")
-        logger.info(f"📁 数据目录: {data_dir}")
+    try:
+        # 构建命令
+        cmd = [
+            sys.executable,  # Python解释器
+            script_name,
+            '--date', date,
+            '--workers', str(workers)
+        ]
+        
+        logger.info(f"💻 执行命令: {' '.join(cmd)}")
+        
+        # 运行脚本
+        result = subprocess.run(
+            cmd,
+            cwd=os.path.dirname(os.path.abspath(__file__)),
+            capture_output=True,
+            text=True,
+            encoding='utf-8'
+        )
+        
+        # 输出标准输出
+        if result.stdout:
+            for line in result.stdout.strip().split('\n'):
+                if line.strip():
+                    logger.info(f"  {line}")
+        
+        # 输出标准错误
+        if result.stderr:
+            for line in result.stderr.strip().split('\n'):
+                if line.strip():
+                    logger.warning(f"  ⚠️ {line}")
+        
+        # 检查返回码
+        if result.returncode != 0:
+            logger.error(f"❌ 脚本 {script_name} 执行失败，返回码: {result.returncode}")
+            return False, None
+        
+        # 推断输出目录
+        date_obj = datetime.strptime(date, '%Y-%m-%d')
+        date_str = date_obj.strftime('%Y%m%d')
+        
+        # 根据脚本类型确定输出目录
+        if script_type == 'mid':
+            output_dir = f"{date_str}-drawLineMid"
+        elif script_type == 'back':
+            output_dir = f"{date_str}-drawLineBack"
+        else:
+            output_dir = f"{date_str}-drawLineRes"
+        
+        logger.info(f"✅ 脚本 {script_name} 执行成功")
         logger.info(f"📁 输出目录: {output_dir}")
-        logger.info(f"🧵 线程数: {workers}")
-        logger.info(f"📊 算法: AnchorM (紫色) + AnchorBack (蓝色)")
+        return True, output_dir
         
-        if not stock_list:
-            logger.error("❌ 股票列表为空")
-            return
-        
-        self.total_count = len(stock_list)
-        self.processed_count = 0
-        
-        logger.info(f"📊 待处理股票数量: {self.total_count}")
-        logger.info(f"📊 预计生成图片数量: {self.total_count * 2} 张")
-        
-        # 清空并重新创建输出目录
-        if os.path.exists(output_dir):
-            import shutil
-            logger.info(f"🗑️  清空输出目录: {output_dir}")
-            try:
-                shutil.rmtree(output_dir)
-                logger.info(f"✅ 已清空输出目录")
-            except Exception as e:
-                logger.warning(f"⚠️  清空输出目录时出错: {e}")
-        
-        os.makedirs(output_dir, exist_ok=True)
-        logger.info(f"📁 创建输出目录: {output_dir}")
-        
-        # 多线程处理
-        start_time = time.time()
-        results = []
-        
-        with ThreadPoolExecutor(max_workers=workers) as executor:
-            future_to_stock = {
-                executor.submit(self.process_single_stock, code, name, output_dir, data_dir, file_prefix): 
-                (code, name, industry, file_prefix)
-                for code, name, industry, file_prefix in stock_list
-            }
-            
-            for future in as_completed(future_to_stock):
-                result = future.result()
-                results.append(result)
-        
-        # 统计结果
-        total_time = time.time() - start_time
-        mid_success_count = sum(1 for r in results if r['mid_success'])
-        back_success_count = sum(1 for r in results if r['back_success'])
-        both_success_count = sum(1 for r in results if r['mid_success'] and r['back_success'])
-        
-        logger.info(f"")
-        logger.info(f"🎉 画线流水线处理完成!")
-        logger.info(f"📊 总计股票: {len(results)}只")
-        logger.info(f"✅ AnchorM成功: {mid_success_count}只 ({mid_success_count/len(results)*100:.1f}%)")
-        logger.info(f"✅ AnchorBack成功: {back_success_count}只 ({back_success_count/len(results)*100:.1f}%)")
-        logger.info(f"✅ 两种算法都成功: {both_success_count}只 ({both_success_count/len(results)*100:.1f}%)")
-        logger.info(f"⏱️ 总耗时: {total_time:.2f}秒")
-        logger.info(f"⚡ 平均速度: {len(results)/total_time:.2f}只/秒")
-        
-        # 保存处理结果
-        results_file = os.path.join(output_dir, "pipeline_results.json")
+    except Exception as e:
+        logger.error(f"❌ 运行脚本 {script_name} 时发生异常: {e}")
+        return False, None
+
+
+def move_files(source_dir: str, target_dir: str):
+    """
+    将源目录的文件移动到目标目录（文件已经有正确的后缀）
+    
+    Args:
+        source_dir: 源目录
+        target_dir: 目标目录
+    """
+    if not os.path.exists(source_dir):
+        logger.warning(f"⚠️ 源目录不存在: {source_dir}")
+        return 0
+    
+    # 创建目标目录
+    os.makedirs(target_dir, exist_ok=True)
+    
+    # 查找所有PNG文件
+    png_files = glob.glob(os.path.join(source_dir, "*.png"))
+    
+    if not png_files:
+        logger.warning(f"⚠️ 源目录 {source_dir} 中没有PNG文件")
+        return 0
+    
+    logger.info(f"📦 移动 {len(png_files)} 个图片文件...")
+    
+    moved_count = 0
+    for png_file in png_files:
         try:
-            with open(results_file, 'w', encoding='utf-8') as f:
-                json.dump(results, f, ensure_ascii=False, indent=2)
-            logger.info(f"📄 处理结果已保存: {results_file}")
+            # 获取文件名（不含路径）
+            base_name = os.path.basename(png_file)
+            
+            # 目标文件路径
+            target_file = os.path.join(target_dir, base_name)
+            
+            # 移动文件
+            shutil.move(png_file, target_file)
+            moved_count += 1
+            
         except Exception as e:
-            logger.error(f"❌ 保存结果失败: {e}")
-        
-        # 显示失败的股票
-        failed_stocks = [r for r in results if not (r['mid_success'] or r['back_success'])]
-        if failed_stocks:
-            logger.warning(f"⚠️ 完全失败的股票（两种算法都失败）:")
-            for r in failed_stocks[:10]:
-                logger.warning(f"   {r['stock_code']} {r['stock_name']}")
-            if len(failed_stocks) > 10:
-                logger.warning(f"   ... 还有{len(failed_stocks)-10}只股票完全失败")
-        
-        # 显示部分失败的股票
-        partial_failed = [r for r in results if (r['mid_success'] ^ r['back_success'])]
-        if partial_failed:
-            logger.warning(f"⚠️ 部分成功的股票（只有一种算法成功）: {len(partial_failed)}只")
+            logger.error(f"❌ 移动文件 {png_file} 失败: {e}")
+    
+    logger.info(f"✅ 已移动 {moved_count} 个文件到 {target_dir}")
+    
+    # 删除源目录（如果为空）
+    try:
+        if os.path.exists(source_dir):
+            remaining_files = os.listdir(source_dir)
+            if not remaining_files:
+                os.rmdir(source_dir)
+                logger.info(f"🗑️  已删除空目录: {source_dir}")
+            else:
+                logger.info(f"📁 保留目录（还有 {len(remaining_files)} 个其他文件）: {source_dir}")
+    except Exception as e:
+        logger.warning(f"⚠️ 删除目录 {source_dir} 失败: {e}")
+    
+    return moved_count
 
 
 def main():
     """主函数"""
     parser = argparse.ArgumentParser(
-        description="画线流水线脚本 - 同时运行 AnchorM 和 AnchorBack",
+        description="画线流水线脚本 - 先后运行 AnchorM 和 AnchorBack",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 使用示例:
@@ -274,10 +202,8 @@ def main():
         """
     )
     
-    current_date = datetime.now().strftime('%Y%m%d')
-    
     parser.add_argument('--date', type=str, 
-                       help='日期参数，格式为YYYY-MM-DD，用于构建resByFilter目录')
+                       help='日期参数，格式为YYYY-MM-DD')
     parser.add_argument('--workers', type=int, default=4,
                        help='并发处理的线程数 (默认: 4)')
     
@@ -285,92 +211,98 @@ def main():
     
     # 处理日期参数
     if args.date:
+        date_str = args.date
         try:
-            date_obj = datetime.strptime(args.date, '%Y-%m-%d')
-            date_str = date_obj.strftime('%Y%m%d')
+            # 验证日期格式
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+            date_num = date_obj.strftime('%Y%m%d')
         except ValueError:
-            logger.error(f"❌ 日期格式错误: {args.date}，请使用YYYY-MM-DD格式")
+            logger.error(f"❌ 日期格式错误: {date_str}，请使用YYYY-MM-DD格式")
             sys.exit(1)
     else:
-        date_str = current_date
+        date_str = datetime.now().strftime('%Y-%m-%d')
+        date_num = datetime.now().strftime('%Y%m%d')
     
-    # 创建流水线
-    pipeline = DrawLinesPipeline()
+    # 最终输出目录
+    final_output_dir = f"{date_num}-drawLine"
     
-    # 读取指定日期的resByFilter中的股票
-    filter_dir = f"../{date_str}-resByFilter"
-    if not os.path.exists(filter_dir):
-        logger.error(f"❌ 目录不存在: {filter_dir}")
-        logger.info(f"💡 提示：请确保存在 {filter_dir} 目录")
-        sys.exit(1)
+    logger.info(f"")
+    logger.info(f"{'='*80}")
+    logger.info(f"🎬 画线流水线启动")
+    logger.info(f"📅 处理日期: {date_str}")
+    logger.info(f"🧵 线程数: {args.workers}")
+    logger.info(f"📁 最终输出目录: {final_output_dir}")
+    logger.info(f"{'='*80}")
     
-    # 查找所有CSV文件
-    csv_files = glob.glob(os.path.join(filter_dir, "*.csv"))
-    if not csv_files:
-        logger.error(f"❌ 在目录 {filter_dir} 中未找到CSV文件")
-        sys.exit(1)
-    
-    logger.info(f"📁 找到 {len(csv_files)} 个CSV文件")
-    
-    # 读取所有CSV文件中的股票，并去重
-    all_stocks = {}
-    
-    for file_path in csv_files:
-        logger.info(f"📄 读取文件: {file_path}")
+    # 清空最终输出目录
+    if os.path.exists(final_output_dir):
+        logger.info(f"🗑️  清空输出目录: {final_output_dir}")
         try:
-            df = pd.read_csv(file_path)
-            
-            # 从文件名提取前缀
-            file_name = os.path.basename(file_path)
-            file_prefix = ""
-            
-            import re
-            patterns = [
-                (r'^ADX(\d+)', 'ADX'),
-                (r'^PDI(\d+)', 'PDI'),
-                (r'ADX(\d+)', 'ADX'),
-                (r'PDI(\d+)', 'PDI')
-            ]
-            
-            for pattern, prefix_type in patterns:
-                match = re.search(pattern, file_name.upper())
-                if match:
-                    file_prefix = f"{prefix_type}{match.group(1)}"
-                    break
-            
-            logger.info(f"📊 文件类型: {file_prefix}")
-            
-            # 提取股票信息
-            for _, row in df.iterrows():
-                code = str(row.get('code', ''))
-                name = str(row.get('name', code))
-                industry = str(row.get('industry', '未知行业'))
-                
-                if code:
-                    normalized_code = code.zfill(6)
-                    if normalized_code not in all_stocks:
-                        all_stocks[normalized_code] = (normalized_code, name, industry, file_prefix)
-                        
+            shutil.rmtree(final_output_dir)
         except Exception as e:
-            logger.error(f"❌ 读取文件 {file_path} 失败: {e}")
-            continue
+            logger.warning(f"⚠️ 清空目录失败: {e}")
     
-    if not all_stocks:
-        logger.error(f"❌ 未读取到有效的股票数据")
+    # 创建最终输出目录
+    os.makedirs(final_output_dir, exist_ok=True)
+    
+    # 步骤1：运行 draw_lines_mid.py (AnchorM算法)
+    success_mid, mid_output_dir = run_script_with_params(
+        'draw_lines_mid.py',
+        date_str,
+        args.workers,
+        'mid'
+    )
+    
+    if not success_mid:
+        logger.error(f"❌ AnchorM 脚本执行失败，流水线中止")
         sys.exit(1)
     
-    stock_list = list(all_stocks.values())
-    logger.info(f"📋 去重后共有 {len(stock_list)} 只股票")
+    # 移动 AnchorM 的输出文件（文件已经有 _1mid 后缀）
+    mid_moved = 0
+    if mid_output_dir:
+        logger.info(f"")
+        logger.info(f"📦 处理 AnchorM 输出文件...")
+        mid_moved = move_files(mid_output_dir, final_output_dir)
     
-    # 生成统一输出目录
-    output_dir = f"{date_str}-drawLine"
+    # 步骤2：运行 draw_lines_back.py (AnchorBack算法)
+    success_back, back_output_dir = run_script_with_params(
+        'draw_lines_back.py',
+        date_str,
+        args.workers,
+        'back'
+    )
     
-    # 批量处理股票列表
-    pipeline.process_stock_list(stock_list, output_dir, "../data", args.workers)
+    if not success_back:
+        logger.error(f"❌ AnchorBack 脚本执行失败")
+        sys.exit(1)
     
-    logger.info("🎉 流水线执行完成!")
+    # 移动 AnchorBack 的输出文件（文件已经有 _2back 后缀）
+    back_moved = 0
+    if back_output_dir:
+        logger.info(f"")
+        logger.info(f"📦 处理 AnchorBack 输出文件...")
+        back_moved = move_files(back_output_dir, final_output_dir)
+    
+    # 统计最终结果
+    logger.info(f"")
+    logger.info(f"{'='*80}")
+    logger.info(f"📊 统计最终输出...")
+    
+    final_files = glob.glob(os.path.join(final_output_dir, "*.png"))
+    mid_files = [f for f in final_files if '_1mid.png' in f]
+    back_files = [f for f in final_files if '_2back.png' in f]
+    
+    logger.info(f"✅ AnchorM (1mid): 移动了 {mid_moved} 个文件")
+    logger.info(f"✅ AnchorBack (2back): 移动了 {back_moved} 个文件")
+    logger.info(f"📁 最终目录中的文件:")
+    logger.info(f"   - _1mid.png: {len(mid_files)} 张")
+    logger.info(f"   - _2back.png: {len(back_files)} 张")
+    logger.info(f"   - 总计: {len(final_files)} 张")
+    logger.info(f"📁 输出目录: {final_output_dir}")
+    logger.info(f"{'='*80}")
+    logger.info(f"🎉 画线流水线全部完成!")
+    logger.info(f"{'='*80}")
 
 
 if __name__ == "__main__":
     main()
-

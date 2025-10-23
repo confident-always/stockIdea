@@ -1,3 +1,9 @@
+# 画线流水线
+```bash
+python run_draw_lines_pipeline.py --date 2025-10-22 --workers 4
+# 输出目录: {date}-drawLine/
+```
+
 ### 基础层使用
 
 ```bash
@@ -22,4 +28,5 @@ python draw_lines_mid.py --date 2025-10-20 --workers 4
 # 指定线程数（加快处理速度）
 ```bash
 python draw_lines_back.py --date 2025-10-22 --workers 4
+# 输出目录: {date}-drawLineBack/
 ```

@@ -7,9 +7,12 @@ python update_stocklist.py
 ```bash
 python run_pipeline.py
 
-
-
+# 画线流水线
+```bash
+python run_draw_lines_pipeline.py --date 2025-10-22 --workers 4
+# 输出目录: {date}-drawLine/
 ```
+
 # 获取所有股票完整历史数据
 ### 运行fetch_kline_akshare
 
