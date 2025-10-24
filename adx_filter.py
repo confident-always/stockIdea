@@ -600,7 +600,7 @@ def calculate_hislow_point_range(kline_df: pd.DataFrame, lookback_months: int | 
         return None
 
 
-def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=0, pre_high_days=10, pre_high_min_range=0, pre_high_max_range=0, hislow_range: tuple | None = None, hislow_lookback_months: int | None = None, target_date=None, stock_info_filter_config=None):
+def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=None, pre_high_days=10, pre_high_min_range=None, pre_high_max_range=None, hislow_range: tuple | None = None, hislow_lookback_months: int | None = None, current_range_filter: tuple | None = None, pre_high_current_range_filter: tuple | None = None, target_date=None, stock_info_filter_config=None):
     """
     过滤结果文件
     
@@ -615,6 +615,11 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
         pre_high_days: 前高天数N
         pre_high_min_range: 前高最小涨幅阈值K（可以为负值表示跌幅，None表示不过滤）
         pre_high_max_range: 前高最大涨幅阈值（前高价格M到上穿后最高收盘价H的涨幅，可以为负值表示跌幅，None表示不过滤）
+        hislow_range: 历史低点涨幅范围（tuple (min, max)，None表示不过滤）
+        hislow_lookback_months: 历史低点涨幅回看月数
+        current_range_filter: 当前涨幅范围（tuple (min, max)，None表示不过滤）
+        pre_high_current_range_filter: 前高当前涨幅范围（tuple (min, max)，None表示不过滤）
+        target_date: 目标日期，用于修正CSV文件中的日期字段
         stock_info_filter_config: 股票信息过滤配置
     """
     if stock_info_filter_config is None:
@@ -716,7 +721,13 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
             # 4. 新增的前高最大涨幅过滤条件（pre_high_max_range可以为负值表示跌幅，None表示不过滤）
             pre_high_max_ok = pre_high_max_range is None or pre_high_metrics['pre_high_max_range'] <= pre_high_max_range
             
-            if up_ok and down_ok and crossover_ok and pre_high_ok and pre_high_max_ok and hislow_ok:
+            # 5. 当前涨幅过滤（枢轴点到最后一日的涨幅，None表示不过滤）
+            current_range_ok = current_range_filter is None or (current_range_filter[0] <= current_range <= current_range_filter[1])
+            
+            # 6. 前高当前涨幅过滤（前高价格到最后一日的涨幅，None表示不过滤）
+            pre_high_current_ok = pre_high_current_range_filter is None or (pre_high_current_range_filter[0] <= pre_high_metrics['pre_high_current_range'] <= pre_high_current_range_filter[1])
+            
+            if up_ok and down_ok and crossover_ok and pre_high_ok and pre_high_max_ok and hislow_ok and current_range_ok and pre_high_current_ok:
                 # 创建新的行数据，包含原有字段和新增的字段
                 new_row = row.copy()
                 new_row['code'] = matched_code  # 使用从data文件夹中匹配到的代码
@@ -748,6 +759,7 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
                            f"枢轴点价格 {base_price:.2f}, 当前涨幅 {current_range:.2%}, 最大涨幅 {max_up_pct:.2%}, 最小涨幅 {max_down_pct:.2%}, "
                            f"上穿期间最大涨幅 {crossover_max_range:.2%}, "
                            f"前高价格 {pre_high_metrics['pre_high_price']:.2f}, "
+                           f"前高当前涨幅 {pre_high_metrics['pre_high_current_range']:.2%}, "
                            f"前高最小涨幅 {pre_high_metrics['pre_high_min_range']:.2%}, "
                            f"前高最大涨幅 {pre_high_metrics['pre_high_max_range']:.2%}, "
                            f"历史低点涨幅({hislow_lookback_months}月) {'' if hislow_pct is None else f'{hislow_pct:.2%}'} "
@@ -756,7 +768,9 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
                            f"上穿期间涨幅不足: {crossover_max_range < max_range_up if max_range_up is not None else False}, "
                            f"前高最小涨幅不足: {pre_high_metrics['pre_high_min_range'] < pre_high_min_range if pre_high_min_range is not None else False}, "
                            f"前高最大涨幅超限: {pre_high_metrics['pre_high_max_range'] > pre_high_max_range if pre_high_max_range is not None else False}, "
-                           f"历史低点涨幅不在区间: {False if hislow_range is None or hislow_pct is None else not (hislow_range[0] <= hislow_pct <= hislow_range[1])})")
+                           f"历史低点涨幅不在区间: {False if hislow_range is None or hislow_pct is None else not (hislow_range[0] <= hislow_pct <= hislow_range[1])}, "
+                           f"当前涨幅不在区间: {False if current_range_filter is None else not (current_range_filter[0] <= current_range <= current_range_filter[1])}, "
+                           f"前高当前涨幅不在区间: {False if pre_high_current_range_filter is None else not (pre_high_current_range_filter[0] <= pre_high_metrics['pre_high_current_range'] <= pre_high_current_range_filter[1])})")
         
         # 保存过滤结果
         if filtered_results:
@@ -809,12 +823,15 @@ def process_single_file(input_file, output_dir, file_type, config, target_date=N
         pre_high_max_range = parse_percentage(config.get('preHighMaxRange', '0%'))
         hislow_range = parse_range_percent(config.get('HisLowPointRange', 'none'))
         lookback_months = config.get('lookback_months', 120)
+        current_range_filter = parse_range_percent(config.get('currentRangeFilter', 'none'))
+        pre_high_current_range_filter = parse_range_percent(config.get('preHighCurrentRangeFilter', 'none'))
         
         logger.info(f"开始处理{file_type}文件: {input_file}")
         filter_results(input_file, output_file, range_up, range_down, file_type, 
                      lookback_days, max_range_up, pre_high_days, pre_high_min_range, 
-                     pre_high_max_range, hislow_range, lookback_months, target_date, 
-                     stock_info_filter_config)
+                     pre_high_max_range, hislow_range, lookback_months, 
+                     current_range_filter, pre_high_current_range_filter,
+                     target_date, stock_info_filter_config)
         
         return f"成功处理 {filename}"
     except Exception as e:
@@ -925,6 +942,8 @@ def main():
         adx_pre_high_min_range = parse_percentage(adx_config.get('preHighMinRange', '0%'))
         adx_pre_high_max_range = parse_percentage(adx_config.get('preHighMaxRange', '0%'))
         adx_hislow_range = parse_range_percent(adx_config.get('HisLowPointRange', 'none'))
+        adx_current_range_filter = parse_range_percent(adx_config.get('currentRangeFilter', 'none'))
+        adx_pre_high_current_range_filter = parse_range_percent(adx_config.get('preHighCurrentRangeFilter', 'none'))
         
         logger.info(f"ADX过滤配置: 最大涨幅 {'none' if adx_range_up is None else f'{adx_range_up:.2%}'}, "
                    f"最大跌幅 {'none' if adx_range_down is None else f'{adx_range_down:.2%}'}, "
@@ -932,7 +951,9 @@ def main():
                    f"前高天数 {adx_config.get('preHighDays', 10)}, 前高最小涨幅阈值 {'none' if adx_pre_high_min_range is None else f'{adx_pre_high_min_range:.2%}'}, "
                    f"前高最大涨幅阈值 {'none' if adx_pre_high_max_range is None else f'{adx_pre_high_max_range:.2%}'}, "
                    f"历史低点涨幅区间 {'none' if adx_hislow_range is None else f'{adx_hislow_range[0]:.2%}-{adx_hislow_range[1]:.2%}'}, "
-                   f"历史低点涨幅窗口 {adx_config.get('lookback_months', 120)}月")
+                   f"历史低点涨幅窗口 {adx_config.get('lookback_months', 120)}月, "
+                   f"当前涨幅区间 {'none' if adx_current_range_filter is None else f'{adx_current_range_filter[0]:.2%}-{adx_current_range_filter[1]:.2%}'}, "
+                   f"前高当前涨幅区间 {'none' if adx_pre_high_current_range_filter is None else f'{adx_pre_high_current_range_filter[0]:.2%}-{adx_pre_high_current_range_filter[1]:.2%}'}")
         
         for input_file in adx_files:
             tasks.append((input_file, args.output_dir, 'ADX', adx_config, target_date, stock_info_filter_config))
@@ -947,6 +968,8 @@ def main():
         pdi_pre_high_min_range = parse_percentage(pdi_config.get('preHighMinRange', '0%'))
         pdi_pre_high_max_range = parse_percentage(pdi_config.get('preHighMaxRange', '0%'))
         pdi_hislow_range = parse_range_percent(pdi_config.get('HisLowPointRange', 'none'))
+        pdi_current_range_filter = parse_range_percent(pdi_config.get('currentRangeFilter', 'none'))
+        pdi_pre_high_current_range_filter = parse_range_percent(pdi_config.get('preHighCurrentRangeFilter', 'none'))
         
         logger.info(f"PDI过滤配置: 最大涨幅 {'none' if pdi_range_up is None else f'{pdi_range_up:.2%}'}, "
                    f"最大跌幅 {'none' if pdi_range_down is None else f'{pdi_range_down:.2%}'}, "
@@ -954,7 +977,9 @@ def main():
                    f"前高天数 {pdi_config.get('preHighDays', 10)}, 前高最小涨幅阈值 {'none' if pdi_pre_high_min_range is None else f'{pdi_pre_high_min_range:.2%}'}, "
                    f"前高最大涨幅阈值 {'none' if pdi_pre_high_max_range is None else f'{pdi_pre_high_max_range:.2%}'}, "
                    f"历史低点涨幅区间 {'none' if pdi_hislow_range is None else f'{pdi_hislow_range[0]:.2%}-{pdi_hislow_range[1]:.2%}'}, "
-                   f"历史低点涨幅窗口 {pdi_config.get('lookback_months', 120)}月")
+                   f"历史低点涨幅窗口 {pdi_config.get('lookback_months', 120)}月, "
+                   f"当前涨幅区间 {'none' if pdi_current_range_filter is None else f'{pdi_current_range_filter[0]:.2%}-{pdi_current_range_filter[1]:.2%}'}, "
+                   f"前高当前涨幅区间 {'none' if pdi_pre_high_current_range_filter is None else f'{pdi_pre_high_current_range_filter[0]:.2%}-{pdi_pre_high_current_range_filter[1]:.2%}'}")
         
         for input_file in pdi_files:
             tasks.append((input_file, args.output_dir, 'PDI', pdi_config, target_date, stock_info_filter_config))
