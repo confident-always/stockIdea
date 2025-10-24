@@ -2,16 +2,19 @@
 # -*- coding: utf-8 -*-
 """
 画线流水线脚本 - 先后运行 draw_lines_mid.py 和 draw_lines_back.py
-将两种算法的结果输出到同一个目录，通过文件名后缀区分
+将两种算法的结果输出到同一个汇总目录，保留各自的原始输出目录
 
 功能特性：
 1. 按顺序运行 AnchorM 和 AnchorBack 两种算法
-2. 统一输出目录：{日期}-drawLine
+2. 三个输出目录：
+   - {日期}-drawLineMid: AnchorM原始输出
+   - {日期}-drawLineBack: AnchorBack原始输出
+   - {日期}-drawLine: 汇总目录（包含所有文件）
 3. 文件命名规则：
    - AnchorM: {前缀}_{代码}_{股票名}_1mid.png
    - AnchorBack: {前缀}_{代码}_{股票名}_2back.png
 4. 通过subprocess调用独立脚本，确保配置和逻辑完全独立
-5. 自动重命名和合并输出文件
+5. 复制文件到汇总目录，保留原始文件
 
 使用方法：
     # 处理指定日期的股票
@@ -121,13 +124,16 @@ def run_script_with_params(script_name: str, date: str, workers: int, script_typ
         return False, None
 
 
-def move_files(source_dir: str, target_dir: str):
+def copy_files(source_dir: str, target_dir: str):
     """
-    将源目录的文件移动到目标目录（文件已经有正确的后缀）
+    将源目录的文件复制到目标目录（保留原文件，文件已经有正确的后缀）
     
     Args:
         source_dir: 源目录
         target_dir: 目标目录
+    
+    Returns:
+        int: 复制的文件数量
     """
     if not os.path.exists(source_dir):
         logger.warning(f"⚠️ 源目录不存在: {source_dir}")
@@ -143,9 +149,9 @@ def move_files(source_dir: str, target_dir: str):
         logger.warning(f"⚠️ 源目录 {source_dir} 中没有PNG文件")
         return 0
     
-    logger.info(f"📦 移动 {len(png_files)} 个图片文件...")
+    logger.info(f"📦 复制 {len(png_files)} 个图片文件...")
     
-    moved_count = 0
+    copied_count = 0
     for png_file in png_files:
         try:
             # 获取文件名（不含路径）
@@ -154,28 +160,17 @@ def move_files(source_dir: str, target_dir: str):
             # 目标文件路径
             target_file = os.path.join(target_dir, base_name)
             
-            # 移动文件
-            shutil.move(png_file, target_file)
-            moved_count += 1
+            # 复制文件（保留原文件）
+            shutil.copy2(png_file, target_file)
+            copied_count += 1
             
         except Exception as e:
-            logger.error(f"❌ 移动文件 {png_file} 失败: {e}")
+            logger.error(f"❌ 复制文件 {png_file} 失败: {e}")
     
-    logger.info(f"✅ 已移动 {moved_count} 个文件到 {target_dir}")
+    logger.info(f"✅ 已复制 {copied_count} 个文件到 {target_dir}")
+    logger.info(f"📁 源目录保留: {source_dir}")
     
-    # 删除源目录（如果为空）
-    try:
-        if os.path.exists(source_dir):
-            remaining_files = os.listdir(source_dir)
-            if not remaining_files:
-                os.rmdir(source_dir)
-                logger.info(f"🗑️  已删除空目录: {source_dir}")
-            else:
-                logger.info(f"📁 保留目录（还有 {len(remaining_files)} 个其他文件）: {source_dir}")
-    except Exception as e:
-        logger.warning(f"⚠️ 删除目录 {source_dir} 失败: {e}")
-    
-    return moved_count
+    return copied_count
 
 
 def main():
@@ -257,12 +252,12 @@ def main():
         logger.error(f"❌ AnchorM 脚本执行失败，流水线中止")
         sys.exit(1)
     
-    # 移动 AnchorM 的输出文件（文件已经有 _1mid 后缀）
-    mid_moved = 0
+    # 复制 AnchorM 的输出文件到汇总目录（文件已经有 _1mid 后缀）
+    mid_copied = 0
     if mid_output_dir:
         logger.info(f"")
-        logger.info(f"📦 处理 AnchorM 输出文件...")
-        mid_moved = move_files(mid_output_dir, final_output_dir)
+        logger.info(f"📦 复制 AnchorM 输出文件到汇总目录...")
+        mid_copied = copy_files(mid_output_dir, final_output_dir)
     
     # 步骤2：运行 draw_lines_back.py (AnchorBack算法)
     success_back, back_output_dir = run_script_with_params(
@@ -276,12 +271,12 @@ def main():
         logger.error(f"❌ AnchorBack 脚本执行失败")
         sys.exit(1)
     
-    # 移动 AnchorBack 的输出文件（文件已经有 _2back 后缀）
-    back_moved = 0
+    # 复制 AnchorBack 的输出文件到汇总目录（文件已经有 _2back 后缀）
+    back_copied = 0
     if back_output_dir:
         logger.info(f"")
-        logger.info(f"📦 处理 AnchorBack 输出文件...")
-        back_moved = move_files(back_output_dir, final_output_dir)
+        logger.info(f"📦 复制 AnchorBack 输出文件到汇总目录...")
+        back_copied = copy_files(back_output_dir, final_output_dir)
     
     # 统计最终结果
     logger.info(f"")
@@ -292,13 +287,22 @@ def main():
     mid_files = [f for f in final_files if '_1mid.png' in f]
     back_files = [f for f in final_files if '_2back.png' in f]
     
-    logger.info(f"✅ AnchorM (1mid): 移动了 {mid_moved} 个文件")
-    logger.info(f"✅ AnchorBack (2back): 移动了 {back_moved} 个文件")
-    logger.info(f"📁 最终目录中的文件:")
+    logger.info(f"")
+    logger.info(f"✅ AnchorM (1mid): 已复制 {mid_copied} 个文件")
+    logger.info(f"   源目录: {mid_output_dir if mid_output_dir else 'N/A'}")
+    logger.info(f"")
+    logger.info(f"✅ AnchorBack (2back): 已复制 {back_copied} 个文件")
+    logger.info(f"   源目录: {back_output_dir if back_output_dir else 'N/A'}")
+    logger.info(f"")
+    logger.info(f"📁 汇总目录中的文件:")
     logger.info(f"   - _1mid.png: {len(mid_files)} 张")
     logger.info(f"   - _2back.png: {len(back_files)} 张")
     logger.info(f"   - 总计: {len(final_files)} 张")
-    logger.info(f"📁 输出目录: {final_output_dir}")
+    logger.info(f"")
+    logger.info(f"📂 所有输出目录:")
+    logger.info(f"   - AnchorM原始输出: {mid_output_dir if mid_output_dir else 'N/A'}")
+    logger.info(f"   - AnchorBack原始输出: {back_output_dir if back_output_dir else 'N/A'}")
+    logger.info(f"   - 汇总目录: {final_output_dir}")
     logger.info(f"{'='*80}")
     logger.info(f"🎉 画线流水线全部完成!")
     logger.info(f"{'='*80}")
