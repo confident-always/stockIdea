@@ -3,6 +3,14 @@
 python run_draw_lines_pipeline.py --date 2025-10-22 --workers 4
 # 输出目录: {date}-drawLine/
 ```
+# 处理指定股票
+```bash
+# 处理多个股票
+python draw_lines_mid.py --codes 000001 600000 002603
+python draw_lines_back.py --codes 000001 600000 002603
+# 指定线程数
+python run_draw_lines_pipeline.py --codes 000001 600000 002603 --workers 2
+```
 
 ### 基础层使用
 

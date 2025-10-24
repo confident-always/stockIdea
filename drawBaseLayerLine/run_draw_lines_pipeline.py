@@ -46,7 +46,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def run_script_with_params(script_name: str, date: str, workers: int, script_type: str) -> tuple:
+def run_script_with_params(script_name: str, date: str, workers: int, script_type: str, codes: list = None) -> tuple:
     """
     运行指定的画线脚本
     
@@ -55,6 +55,7 @@ def run_script_with_params(script_name: str, date: str, workers: int, script_typ
         date: 日期参数（YYYY-MM-DD格式）
         workers: 线程数
         script_type: 脚本类型（'mid' 或 'back'）
+        codes: 股票代码列表（可选）
         
     Returns:
         tuple: (是否成功, 输出目录)
@@ -64,6 +65,8 @@ def run_script_with_params(script_name: str, date: str, workers: int, script_typ
     logger.info(f"🚀 开始运行脚本: {script_name}")
     logger.info(f"📅 日期: {date}")
     logger.info(f"🧵 线程数: {workers}")
+    if codes:
+        logger.info(f"📊 股票代码: {', '.join(codes)}")
     logger.info(f"{'='*80}")
     
     try:
@@ -74,6 +77,10 @@ def run_script_with_params(script_name: str, date: str, workers: int, script_typ
             '--date', date,
             '--workers', str(workers)
         ]
+        
+        # 如果指定了股票代码，添加到命令中
+        if codes:
+            cmd.extend(['--codes'] + codes)
         
         logger.info(f"💻 执行命令: {' '.join(cmd)}")
         
@@ -188,12 +195,18 @@ def main():
   
   # 指定线程数
   python run_draw_lines_pipeline.py --date 2025-10-22 --workers 6
+  
+  # 处理指定股票代码
+  python run_draw_lines_pipeline.py --codes 000001 600000 002603
 
 输出说明:
   输出目录: {日期}-drawLine/
-  文件命名:
+  文件命名（从resByFilter）:
     - AnchorM图表: {前缀}_{代码}_{股票名}_1mid.png
     - AnchorBack图表: {前缀}_{代码}_{股票名}_2back.png
+  文件命名（指定codes）:
+    - AnchorM图表: {代码}_{股票名}_1mid.png
+    - AnchorBack图表: {代码}_{股票名}_2back.png
         """
     )
     
@@ -201,6 +214,8 @@ def main():
                        help='日期参数，格式为YYYY-MM-DD')
     parser.add_argument('--workers', type=int, default=4,
                        help='并发处理的线程数 (默认: 4)')
+    parser.add_argument('--codes', nargs='+', type=str,
+                       help='股票代码列表，多个代码用空格分隔（如：000001 600000）')
     
     args = parser.parse_args()
     
@@ -245,7 +260,8 @@ def main():
         'draw_lines_mid.py',
         date_str,
         args.workers,
-        'mid'
+        'mid',
+        args.codes
     )
     
     if not success_mid:
@@ -264,7 +280,8 @@ def main():
         'draw_lines_back.py',
         date_str,
         args.workers,
-        'back'
+        'back',
+        args.codes
     )
     
     if not success_back:

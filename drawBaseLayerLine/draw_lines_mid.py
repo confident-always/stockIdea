@@ -1180,6 +1180,9 @@ def main():
   
   # 指定线程数
   python draw_lines_mid.py --date 2025-10-20 --workers 6
+  
+  # 处理指定股票代码
+  python draw_lines_mid.py --codes 000001 600000 002603
         """
     )
     
@@ -1189,6 +1192,8 @@ def main():
                        help='日期参数，格式为YYYY-MM-DD，用于构建resByFilter目录')
     parser.add_argument('--workers', type=int, default=4,
                        help='并发处理的线程数 (默认: 4)')
+    parser.add_argument('--codes', nargs='+', type=str,
+                       help='股票代码列表，多个代码用空格分隔（如：000001 600000）')
     
     args = parser.parse_args()
     
@@ -1206,76 +1211,119 @@ def main():
     # 创建中间层画线器
     drawer = MidLineDrawer()
     
-    # 读取指定日期的resByFilter中的股票
-    filter_dir = f"../{date_str}-resByFilter"
-    if not os.path.exists(filter_dir):
-        logger.error(f"❌ 目录不存在: {filter_dir}")
-        logger.info(f"💡 提示：请确保存在 {filter_dir} 目录")
-        sys.exit(1)
-    
-    # 查找所有CSV文件
-    csv_files = glob.glob(os.path.join(filter_dir, "*.csv"))
-    if not csv_files:
-        logger.error(f"❌ 在目录 {filter_dir} 中未找到CSV文件")
-        sys.exit(1)
-    
-    logger.info(f"📁 找到 {len(csv_files)} 个CSV文件")
-    
-    # 读取所有CSV文件中的股票，并去重
-    all_stocks = {}
-    
-    for file_path in csv_files:
-        logger.info(f"📄 读取文件: {file_path}")
-        try:
-            df = pd.read_csv(file_path)
+    # 如果指定了股票代码，直接从data目录读取
+    if args.codes:
+        logger.info(f"📊 处理指定的股票代码: {', '.join(args.codes)}")
+        stock_list = []
+        
+        # 读取stocklist.csv获取股票名称和行业信息
+        stocklist_path = "../stocklist.csv"
+        stock_info_dict = {}
+        if os.path.exists(stocklist_path):
+            try:
+                stocklist_df = pd.read_csv(stocklist_path)
+                for _, row in stocklist_df.iterrows():
+                    code = str(row.get('symbol', '')).zfill(6)
+                    name = str(row.get('name', code))
+                    industry = str(row.get('industry', '未知行业'))
+                    stock_info_dict[code] = (name, industry)
+                logger.info(f"✅ 已加载 {len(stock_info_dict)} 只股票的基础信息")
+            except Exception as e:
+                logger.warning(f"⚠️ 读取stocklist.csv失败: {e}")
+        
+        # 处理每个股票代码
+        for code in args.codes:
+            normalized_code = code.zfill(6)
             
-            # 从文件名提取前缀
-            file_name = os.path.basename(file_path)
-            file_prefix = ""
+            # 获取股票名称和行业
+            if normalized_code in stock_info_dict:
+                name, industry = stock_info_dict[normalized_code]
+            else:
+                name = normalized_code
+                industry = "未知行业"
+                logger.warning(f"⚠️ 未找到股票 {normalized_code} 的基础信息，使用默认值")
             
-            import re
-            patterns = [
-                (r'^ADX(\d+)', 'ADX'),
-                (r'^PDI(\d+)', 'PDI'),
-                (r'ADX(\d+)', 'ADX'),
-                (r'PDI(\d+)', 'PDI')
-            ]
-            
-            for pattern, prefix_type in patterns:
-                match = re.search(pattern, file_name.upper())
-                if match:
-                    file_prefix = f"{prefix_type}{match.group(1)}"
-                    break
-            
-            logger.info(f"📊 文件类型: {file_prefix}")
-            
-            # 提取股票信息
-            for _, row in df.iterrows():
-                code = str(row.get('code', ''))
-                name = str(row.get('name', code))
-                industry = str(row.get('industry', '未知行业'))
+            stock_list.append((normalized_code, name, industry, ""))
+        
+        logger.info(f"📋 共有 {len(stock_list)} 只股票待处理")
+        
+        # 生成输出目录
+        output_dir = f"{date_str}-drawLineMid"
+        
+        # 批量处理股票列表
+        drawer.process_stock_list(stock_list, output_dir, "../data", args.workers)
+        
+    else:
+        # 原有逻辑：从resByFilter读取股票
+        filter_dir = f"../{date_str}-resByFilter"
+        if not os.path.exists(filter_dir):
+            logger.error(f"❌ 目录不存在: {filter_dir}")
+            logger.info(f"💡 提示：请确保存在 {filter_dir} 目录，或使用 --codes 参数指定股票代码")
+            sys.exit(1)
+        
+        # 查找所有CSV文件
+        csv_files = glob.glob(os.path.join(filter_dir, "*.csv"))
+        if not csv_files:
+            logger.error(f"❌ 在目录 {filter_dir} 中未找到CSV文件")
+            sys.exit(1)
+        
+        logger.info(f"📁 找到 {len(csv_files)} 个CSV文件")
+        
+        # 读取所有CSV文件中的股票，并去重
+        all_stocks = {}
+        
+        for file_path in csv_files:
+            logger.info(f"📄 读取文件: {file_path}")
+            try:
+                df = pd.read_csv(file_path)
                 
-                if code:
-                    normalized_code = code.zfill(6)
-                    if normalized_code not in all_stocks:
-                        all_stocks[normalized_code] = (normalized_code, name, industry, file_prefix)
-                        
-        except Exception as e:
-            logger.error(f"❌ 读取文件 {file_path} 失败: {e}")
-            continue
-    
-    if not all_stocks:
-        logger.error(f"❌ 未读取到有效的股票数据")
-        sys.exit(1)
-    
-    stock_list = list(all_stocks.values())
-    logger.info(f"📋 去重后共有 {len(stock_list)} 只股票")
-    
-    # 生成输出目录
-    output_dir = f"{date_str}-drawLineMid"
-    
-    # 批量处理股票列表
-    drawer.process_stock_list(stock_list, output_dir, "../data", args.workers)
+                # 从文件名提取前缀
+                file_name = os.path.basename(file_path)
+                file_prefix = ""
+                
+                import re
+                patterns = [
+                    (r'^ADX(\d+)', 'ADX'),
+                    (r'^PDI(\d+)', 'PDI'),
+                    (r'ADX(\d+)', 'ADX'),
+                    (r'PDI(\d+)', 'PDI')
+                ]
+                
+                for pattern, prefix_type in patterns:
+                    match = re.search(pattern, file_name.upper())
+                    if match:
+                        file_prefix = f"{prefix_type}{match.group(1)}"
+                        break
+                
+                logger.info(f"📊 文件类型: {file_prefix}")
+                
+                # 提取股票信息
+                for _, row in df.iterrows():
+                    code = str(row.get('code', ''))
+                    name = str(row.get('name', code))
+                    industry = str(row.get('industry', '未知行业'))
+                    
+                    if code:
+                        normalized_code = code.zfill(6)
+                        if normalized_code not in all_stocks:
+                            all_stocks[normalized_code] = (normalized_code, name, industry, file_prefix)
+                            
+            except Exception as e:
+                logger.error(f"❌ 读取文件 {file_path} 失败: {e}")
+                continue
+        
+        if not all_stocks:
+            logger.error(f"❌ 未读取到有效的股票数据")
+            sys.exit(1)
+        
+        stock_list = list(all_stocks.values())
+        logger.info(f"📋 去重后共有 {len(stock_list)} 只股票")
+        
+        # 生成输出目录
+        output_dir = f"{date_str}-drawLineMid"
+        
+        # 批量处理股票列表
+        drawer.process_stock_list(stock_list, output_dir, "../data", args.workers)
     
     logger.info("🎉 程序执行完成!")
 
