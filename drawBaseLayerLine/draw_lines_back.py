@@ -58,7 +58,7 @@ logging.basicConfig(
     format='%(asctime)s [%(levelname)s] [%(threadName)s] %(message)s',
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler('draw_line_back.log', encoding='utf-8')
+        logging.FileHandler('draw_lines_back.log', encoding='utf-8')
     ]
 )
 logger = logging.getLogger(__name__)
@@ -66,8 +66,6 @@ logger = logging.getLogger(__name__)
 # 线程锁
 progress_lock = threading.Lock()
 matplotlib_lock = threading.Lock()
-
-
 class BackLineDrawer:
     """中间层画线器 - 整合基础层功能并添加AnchorBack线"""
     

@@ -3,7 +3,7 @@
     "stock_code": "601061",
     "stock_name": "中信金属",
     "success": true,
-    "elapsed_time": 1.2701482772827148,
+    "elapsed_time": 1.3754029273986816,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.37,
@@ -29,7 +29,7 @@
     "stock_code": "002278",
     "stock_name": "神开股份",
     "success": true,
-    "elapsed_time": 2.4354360103607178,
+    "elapsed_time": 2.7558350563049316,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.53,
@@ -52,35 +52,10 @@
     }
   },
   {
-    "stock_code": "000599",
-    "stock_name": "青岛双星",
-    "success": true,
-    "elapsed_time": 3.5588250160217285,
-    "error": null,
-    "anchorBackLines": {
-      "best_N": 0.29,
-      "avg_score": 17.039347248871113,
-      "matches_count": 2,
-      "B_values": [
-        3.47,
-        4.05,
-        4.63,
-        5.21,
-        5.79,
-        6.37,
-        6.949999999999999,
-        7.529999999999999,
-        8.11
-      ],
-      "anchor_A": 3.18,
-      "anchor_date": "2024-07-25 00:00:00"
-    }
-  },
-  {
     "stock_code": "600801",
     "stock_name": "华新水泥",
     "success": true,
-    "elapsed_time": 4.845525026321411,
+    "elapsed_time": 4.1722941398620605,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.46,
@@ -103,10 +78,35 @@
     }
   },
   {
+    "stock_code": "000599",
+    "stock_name": "青岛双星",
+    "success": true,
+    "elapsed_time": 5.64880895614624,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 17.039347248871113,
+      "matches_count": 2,
+      "B_values": [
+        3.47,
+        4.05,
+        4.63,
+        5.21,
+        5.79,
+        6.37,
+        6.949999999999999,
+        7.529999999999999,
+        8.11
+      ],
+      "anchor_A": 3.18,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
     "stock_code": "002028",
     "stock_name": "思源电气",
     "success": true,
-    "elapsed_time": 5.066022872924805,
+    "elapsed_time": 5.884251832962036,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.68,
@@ -132,7 +132,7 @@
     "stock_code": "000807",
     "stock_name": "云铝股份",
     "success": true,
-    "elapsed_time": 5.1173388957977295,
+    "elapsed_time": 5.830487012863159,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.65,
@@ -158,7 +158,7 @@
     "stock_code": "600499",
     "stock_name": "科达制造",
     "success": true,
-    "elapsed_time": 5.128561019897461,
+    "elapsed_time": 5.813215970993042,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.43,
@@ -184,7 +184,7 @@
     "stock_code": "600783",
     "stock_name": "鲁信创投",
     "success": true,
-    "elapsed_time": 4.933572769165039,
+    "elapsed_time": 5.663036823272705,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.64,
@@ -209,7 +209,7 @@
     "stock_code": "603698",
     "stock_name": "航天工程",
     "success": true,
-    "elapsed_time": 4.572618007659912,
+    "elapsed_time": 5.222235918045044,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.6,
@@ -235,7 +235,7 @@
     "stock_code": "002728",
     "stock_name": "特一药业",
     "success": true,
-    "elapsed_time": 4.482999086380005,
+    "elapsed_time": 5.068841934204102,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.44,
@@ -260,7 +260,7 @@
     "stock_code": "603967",
     "stock_name": "中创物流",
     "success": true,
-    "elapsed_time": 4.626290321350098,
+    "elapsed_time": 4.9226531982421875,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.37,
@@ -286,7 +286,7 @@
     "stock_code": "000593",
     "stock_name": "德龙汇能",
     "success": true,
-    "elapsed_time": 4.605496644973755,
+    "elapsed_time": 4.698160886764526,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.63,
@@ -309,7 +309,7 @@
     "stock_code": "601628",
     "stock_name": "中国人寿",
     "success": true,
-    "elapsed_time": 4.818053722381592,
+    "elapsed_time": 4.825798988342285,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.37,
@@ -335,7 +335,7 @@
     "stock_code": "000816",
     "stock_name": "智慧农业",
     "success": true,
-    "elapsed_time": 4.798169136047363,
+    "elapsed_time": 4.8064329624176025,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.46,
@@ -358,7 +358,7 @@
     "stock_code": "000792",
     "stock_name": "盐湖股份",
     "success": true,
-    "elapsed_time": 4.795083045959473,
+    "elapsed_time": 4.786412715911865,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.29,
@@ -384,7 +384,7 @@
     "stock_code": "001231",
     "stock_name": "农心科技",
     "success": true,
-    "elapsed_time": 4.888268947601318,
+    "elapsed_time": 4.846416711807251,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.58,
@@ -410,7 +410,7 @@
     "stock_code": "603810",
     "stock_name": "丰山集团",
     "success": true,
-    "elapsed_time": 4.701667070388794,
+    "elapsed_time": 4.694582939147949,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.62,
@@ -436,7 +436,7 @@
     "stock_code": "001218",
     "stock_name": "丽臣实业",
     "success": true,
-    "elapsed_time": 4.750089168548584,
+    "elapsed_time": 4.741386890411377,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.28,
@@ -462,7 +462,7 @@
     "stock_code": "001333",
     "stock_name": "光华股份",
     "success": true,
-    "elapsed_time": 4.616976737976074,
+    "elapsed_time": 4.6772332191467285,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.59,
@@ -488,7 +488,7 @@
     "stock_code": "603233",
     "stock_name": "大参林",
     "success": true,
-    "elapsed_time": 4.537539005279541,
+    "elapsed_time": 4.625226259231567,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.51,
@@ -514,7 +514,7 @@
     "stock_code": "603856",
     "stock_name": "东宏股份",
     "success": true,
-    "elapsed_time": 4.528020143508911,
+    "elapsed_time": 4.6611328125,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.38,
@@ -540,7 +540,7 @@
     "stock_code": "000987",
     "stock_name": "越秀资本",
     "success": true,
-    "elapsed_time": 4.464261770248413,
+    "elapsed_time": 4.5744829177856445,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.36,
@@ -566,7 +566,7 @@
     "stock_code": "002790",
     "stock_name": "瑞尔特",
     "success": true,
-    "elapsed_time": 4.3894946575164795,
+    "elapsed_time": 4.525521993637085,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.3,
@@ -591,7 +591,7 @@
     "stock_code": "603272",
     "stock_name": "联翔股份",
     "success": true,
-    "elapsed_time": 4.450978755950928,
+    "elapsed_time": 4.5962560176849365,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.59,
@@ -617,7 +617,7 @@
     "stock_code": "603355",
     "stock_name": "莱克电气",
     "success": true,
-    "elapsed_time": 4.47215723991394,
+    "elapsed_time": 4.685128927230835,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.55,
@@ -643,7 +643,7 @@
     "stock_code": "002192",
     "stock_name": "融捷股份",
     "success": true,
-    "elapsed_time": 4.50136399269104,
+    "elapsed_time": 4.7665510177612305,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.61,
@@ -669,7 +669,7 @@
     "stock_code": "002497",
     "stock_name": "雅化集团",
     "success": true,
-    "elapsed_time": 4.660054922103882,
+    "elapsed_time": 4.975036859512329,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.23,
@@ -695,7 +695,7 @@
     "stock_code": "000680",
     "stock_name": "山推股份",
     "success": true,
-    "elapsed_time": 4.71474027633667,
+    "elapsed_time": 4.955651044845581,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.5,
@@ -721,7 +721,7 @@
     "stock_code": "002787",
     "stock_name": "华源控股",
     "success": true,
-    "elapsed_time": 4.657075881958008,
+    "elapsed_time": 4.840360879898071,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.54,
@@ -747,7 +747,7 @@
     "stock_code": "002836",
     "stock_name": "新宏泽",
     "success": true,
-    "elapsed_time": 4.705885171890259,
+    "elapsed_time": 4.822528123855591,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.31,
@@ -773,7 +773,7 @@
     "stock_code": "002663",
     "stock_name": "普邦股份",
     "success": true,
-    "elapsed_time": 4.522010803222656,
+    "elapsed_time": 4.54603123664856,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.67,
@@ -794,7 +794,7 @@
     "stock_code": "601068",
     "stock_name": "中铝国际",
     "success": true,
-    "elapsed_time": 4.43323016166687,
+    "elapsed_time": 4.58647608757019,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.31,
@@ -818,7 +818,7 @@
     "stock_code": "603071",
     "stock_name": "物产环能",
     "success": true,
-    "elapsed_time": 4.380150079727173,
+    "elapsed_time": 4.531944990158081,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.45,
@@ -842,7 +842,7 @@
     "stock_code": "002348",
     "stock_name": "高乐股份",
     "success": true,
-    "elapsed_time": 4.275944948196411,
+    "elapsed_time": 4.44779634475708,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.26,
@@ -865,7 +865,7 @@
     "stock_code": "605098",
     "stock_name": "行动教育",
     "success": true,
-    "elapsed_time": 4.486233711242676,
+    "elapsed_time": 4.696190118789673,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.61,
@@ -891,7 +891,7 @@
     "stock_code": "000155",
     "stock_name": "川能动力",
     "success": true,
-    "elapsed_time": 4.452225923538208,
+    "elapsed_time": 4.679134130477905,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.43,
@@ -917,7 +917,7 @@
     "stock_code": "003816",
     "stock_name": "中国广核",
     "success": true,
-    "elapsed_time": 4.447420835494995,
+    "elapsed_time": 4.715559005737305,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.25,
@@ -942,7 +942,7 @@
     "stock_code": "000655",
     "stock_name": "金岭矿业",
     "success": true,
-    "elapsed_time": 4.500931978225708,
+    "elapsed_time": 4.859297037124634,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.36,
@@ -968,7 +968,7 @@
     "stock_code": "600630",
     "stock_name": "龙头股份",
     "success": true,
-    "elapsed_time": 4.297749996185303,
+    "elapsed_time": 4.91068696975708,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.49,
@@ -991,7 +991,7 @@
     "stock_code": "603378",
     "stock_name": "亚士创能",
     "success": true,
-    "elapsed_time": 4.329892158508301,
+    "elapsed_time": 4.83298921585083,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.64,
@@ -1013,7 +1013,7 @@
     "stock_code": "605008",
     "stock_name": "长鸿高科",
     "success": true,
-    "elapsed_time": 4.4227540493011475,
+    "elapsed_time": 4.8741137981414795,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.61,
@@ -1039,7 +1039,7 @@
     "stock_code": "600025",
     "stock_name": "华能水电",
     "success": true,
-    "elapsed_time": 4.518487930297852,
+    "elapsed_time": 4.886683225631714,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.62,
@@ -1065,7 +1065,7 @@
     "stock_code": "603759",
     "stock_name": "海天股份",
     "success": true,
-    "elapsed_time": 4.54585337638855,
+    "elapsed_time": 4.614649057388306,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.43,
@@ -1089,7 +1089,7 @@
     "stock_code": "002671",
     "stock_name": "龙泉股份",
     "success": true,
-    "elapsed_time": 4.595370054244995,
+    "elapsed_time": 4.615152835845947,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.43,
@@ -1112,7 +1112,7 @@
     "stock_code": "600026",
     "stock_name": "中远海能",
     "success": true,
-    "elapsed_time": 4.467587947845459,
+    "elapsed_time": 4.470729112625122,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.65,
@@ -1134,7 +1134,7 @@
     "stock_code": "000899",
     "stock_name": "赣能股份",
     "success": true,
-    "elapsed_time": 4.377375841140747,
+    "elapsed_time": 4.398299694061279,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.34,
@@ -1160,7 +1160,7 @@
     "stock_code": "002608",
     "stock_name": "江苏国信",
     "success": true,
-    "elapsed_time": 4.403515815734863,
+    "elapsed_time": 4.393115043640137,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.34,
@@ -1185,7 +1185,7 @@
     "stock_code": "601015",
     "stock_name": "陕西黑猫",
     "success": true,
-    "elapsed_time": 4.272916078567505,
+    "elapsed_time": 4.334356069564819,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.45,
@@ -1207,7 +1207,7 @@
     "stock_code": "600395",
     "stock_name": "盘江股份",
     "success": true,
-    "elapsed_time": 4.255370616912842,
+    "elapsed_time": 4.318630933761597,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.41,
@@ -1228,7 +1228,7 @@
     "stock_code": "600546",
     "stock_name": "山煤国际",
     "success": true,
-    "elapsed_time": 4.22567081451416,
+    "elapsed_time": 4.194841146469116,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.62,
@@ -1250,7 +1250,7 @@
     "stock_code": "601088",
     "stock_name": "中国神华",
     "success": true,
-    "elapsed_time": 4.566887140274048,
+    "elapsed_time": 4.66225790977478,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.52,
@@ -1276,7 +1276,7 @@
     "stock_code": "601225",
     "stock_name": "陕西煤业",
     "success": true,
-    "elapsed_time": 5.066241979598999,
+    "elapsed_time": 5.295077800750732,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.57,
@@ -1302,7 +1302,7 @@
     "stock_code": "601898",
     "stock_name": "XD中煤能",
     "success": true,
-    "elapsed_time": 5.312352895736694,
+    "elapsed_time": 5.628799915313721,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.32,
@@ -1328,7 +1328,7 @@
     "stock_code": "603817",
     "stock_name": "海峡环保",
     "success": true,
-    "elapsed_time": 5.280343055725098,
+    "elapsed_time": 5.865720987319946,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.6,
@@ -1350,7 +1350,7 @@
     "stock_code": "002546",
     "stock_name": "新联电子",
     "success": true,
-    "elapsed_time": 4.980912923812866,
+    "elapsed_time": 5.557961940765381,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.36,
@@ -1376,7 +1376,7 @@
     "stock_code": "603778",
     "stock_name": "国晟科技",
     "success": true,
-    "elapsed_time": 4.489720106124878,
+    "elapsed_time": 4.978252649307251,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.66,
@@ -1398,7 +1398,7 @@
     "stock_code": "000417",
     "stock_name": "合百集团",
     "success": true,
-    "elapsed_time": 4.33424711227417,
+    "elapsed_time": 4.770940780639648,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.38,
@@ -1423,7 +1423,7 @@
     "stock_code": "601111",
     "stock_name": "中国国航",
     "success": true,
-    "elapsed_time": 4.363858222961426,
+    "elapsed_time": 4.659853935241699,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.23,
@@ -1449,7 +1449,7 @@
     "stock_code": "603558",
     "stock_name": "健盛集团",
     "success": true,
-    "elapsed_time": 4.276136875152588,
+    "elapsed_time": 4.638008117675781,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.67,
@@ -1474,7 +1474,7 @@
     "stock_code": "000833",
     "stock_name": "粤桂股份",
     "success": true,
-    "elapsed_time": 4.338547229766846,
+    "elapsed_time": 4.684077024459839,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.34,
@@ -1500,7 +1500,7 @@
     "stock_code": "601518",
     "stock_name": "吉林高速",
     "success": true,
-    "elapsed_time": 4.264503240585327,
+    "elapsed_time": 4.617361068725586,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.36,
@@ -1521,7 +1521,7 @@
     "stock_code": "603232",
     "stock_name": "格尔软件",
     "success": true,
-    "elapsed_time": 4.336513042449951,
+    "elapsed_time": 4.706614971160889,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.48,
@@ -1547,7 +1547,7 @@
     "stock_code": "603356",
     "stock_name": "华菱精工",
     "success": true,
-    "elapsed_time": 4.375068187713623,
+    "elapsed_time": 4.640372037887573,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.26,
@@ -1573,7 +1573,7 @@
     "stock_code": "002135",
     "stock_name": "东南网架",
     "success": true,
-    "elapsed_time": 4.315262079238892,
+    "elapsed_time": 4.552070140838623,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.43,
@@ -1595,7 +1595,7 @@
     "stock_code": "002478",
     "stock_name": "常宝股份",
     "success": true,
-    "elapsed_time": 4.369697093963623,
+    "elapsed_time": 4.664247035980225,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.57,
@@ -1618,7 +1618,7 @@
     "stock_code": "600558",
     "stock_name": "大西洋",
     "success": true,
-    "elapsed_time": 4.275709867477417,
+    "elapsed_time": 4.468337297439575,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.44,
@@ -1642,7 +1642,7 @@
     "stock_code": "002171",
     "stock_name": "楚江新材",
     "success": true,
-    "elapsed_time": 4.269608974456787,
+    "elapsed_time": 4.450617074966431,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.45,
@@ -1668,7 +1668,7 @@
     "stock_code": "002578",
     "stock_name": "闽发铝业",
     "success": true,
-    "elapsed_time": 4.384604215621948,
+    "elapsed_time": 4.47945499420166,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.53,
@@ -1689,7 +1689,7 @@
     "stock_code": "003030",
     "stock_name": "祖名股份",
     "success": true,
-    "elapsed_time": 4.470726251602173,
+    "elapsed_time": 4.6727519035339355,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.37,
@@ -1715,7 +1715,7 @@
     "stock_code": "001229",
     "stock_name": "魅视科技",
     "success": true,
-    "elapsed_time": 4.504278182983398,
+    "elapsed_time": 4.755833148956299,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.52,
@@ -1741,7 +1741,7 @@
     "stock_code": "002483",
     "stock_name": "润邦股份",
     "success": true,
-    "elapsed_time": 4.497547149658203,
+    "elapsed_time": 4.8119871616363525,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.44,
@@ -1766,7 +1766,7 @@
     "stock_code": "603331",
     "stock_name": "百达精工",
     "success": true,
-    "elapsed_time": 4.45407509803772,
+    "elapsed_time": 4.889534950256348,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.34,
@@ -1792,7 +1792,7 @@
     "stock_code": "002682",
     "stock_name": "龙洲股份",
     "success": true,
-    "elapsed_time": 4.347620964050293,
+    "elapsed_time": 4.605496883392334,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.55,
@@ -1814,7 +1814,7 @@
     "stock_code": "000692",
     "stock_name": "惠天热电",
     "success": true,
-    "elapsed_time": 4.437360048294067,
+    "elapsed_time": 4.610393762588501,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.41,
@@ -1837,7 +1837,7 @@
     "stock_code": "600917",
     "stock_name": "重庆燃气",
     "success": true,
-    "elapsed_time": 4.423965930938721,
+    "elapsed_time": 4.645352125167847,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.28,
@@ -1860,7 +1860,7 @@
     "stock_code": "000636",
     "stock_name": "风华高科",
     "success": true,
-    "elapsed_time": 4.405831813812256,
+    "elapsed_time": 4.607345104217529,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.57,
@@ -1886,7 +1886,7 @@
     "stock_code": "603186",
     "stock_name": "华正新材",
     "success": true,
-    "elapsed_time": 4.821646690368652,
+    "elapsed_time": 4.900239706039429,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.31,
@@ -1912,7 +1912,7 @@
     "stock_code": "600251",
     "stock_name": "冠农股份",
     "success": true,
-    "elapsed_time": 4.687309980392456,
+    "elapsed_time": 4.821082830429077,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.61,
@@ -1934,7 +1934,7 @@
     "stock_code": "001217",
     "stock_name": "华尔泰",
     "success": true,
-    "elapsed_time": 4.736344814300537,
+    "elapsed_time": 4.736893892288208,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.64,
@@ -1960,7 +1960,7 @@
     "stock_code": "002895",
     "stock_name": "川恒股份",
     "success": true,
-    "elapsed_time": 4.818830728530884,
+    "elapsed_time": 4.8423590660095215,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.5,
@@ -1986,7 +1986,7 @@
     "stock_code": "002337",
     "stock_name": "赛象科技",
     "success": true,
-    "elapsed_time": 4.498676061630249,
+    "elapsed_time": 4.586924076080322,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.28,
@@ -2012,7 +2012,7 @@
     "stock_code": "002016",
     "stock_name": "世荣兆业",
     "success": true,
-    "elapsed_time": 4.537128925323486,
+    "elapsed_time": 4.612671852111816,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.38,
@@ -2038,7 +2038,7 @@
     "stock_code": "600185",
     "stock_name": "珠免集团",
     "success": true,
-    "elapsed_time": 4.559525012969971,
+    "elapsed_time": 4.844651937484741,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.24,
@@ -2064,7 +2064,7 @@
     "stock_code": "600683",
     "stock_name": "京投发展",
     "success": true,
-    "elapsed_time": 4.501115083694458,
+    "elapsed_time": 4.7437920570373535,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.31,
@@ -2087,7 +2087,7 @@
     "stock_code": "600716",
     "stock_name": "凤凰股份",
     "success": true,
-    "elapsed_time": 4.395878791809082,
+    "elapsed_time": 4.697338819503784,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.68,
@@ -2108,7 +2108,7 @@
     "stock_code": "002119",
     "stock_name": "康强电子",
     "success": true,
-    "elapsed_time": 4.484456777572632,
+    "elapsed_time": 4.787174940109253,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.58,
@@ -2134,7 +2134,7 @@
     "stock_code": "605111",
     "stock_name": "新洁能",
     "success": true,
-    "elapsed_time": 4.5508458614349365,
+    "elapsed_time": 4.591637134552002,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.59,
@@ -2160,7 +2160,7 @@
     "stock_code": "600064",
     "stock_name": "南京高科",
     "success": true,
-    "elapsed_time": 4.50794529914856,
+    "elapsed_time": 4.5795509815216064,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.23,
@@ -2186,7 +2186,7 @@
     "stock_code": "002631",
     "stock_name": "德尔未来",
     "success": true,
-    "elapsed_time": 4.570465087890625,
+    "elapsed_time": 4.649955987930298,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.23,
@@ -2212,7 +2212,7 @@
     "stock_code": "003011",
     "stock_name": "海象新材",
     "success": true,
-    "elapsed_time": 4.52535605430603,
+    "elapsed_time": 4.702836036682129,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.57,
@@ -2238,7 +2238,7 @@
     "stock_code": "603313",
     "stock_name": "梦百合",
     "success": true,
-    "elapsed_time": 4.374331712722778,
+    "elapsed_time": 4.59788703918457,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.56,
@@ -2262,7 +2262,7 @@
     "stock_code": "001259",
     "stock_name": "利仁科技",
     "success": true,
-    "elapsed_time": 4.5066750049591064,
+    "elapsed_time": 4.717465877532959,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.3,
@@ -2288,7 +2288,7 @@
     "stock_code": "600060",
     "stock_name": "海信视像",
     "success": true,
-    "elapsed_time": 4.550964832305908,
+    "elapsed_time": 4.709139108657837,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.44,
@@ -2314,7 +2314,7 @@
     "stock_code": "002701",
     "stock_name": "奥瑞金",
     "success": true,
-    "elapsed_time": 4.474216938018799,
+    "elapsed_time": 4.524307012557983,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.6,
@@ -2336,7 +2336,7 @@
     "stock_code": "003003",
     "stock_name": "天元股份",
     "success": true,
-    "elapsed_time": 4.618901252746582,
+    "elapsed_time": 4.660536050796509,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.32,
@@ -2362,7 +2362,7 @@
     "stock_code": "000090",
     "stock_name": "天健集团",
     "success": true,
-    "elapsed_time": 4.538655996322632,
+    "elapsed_time": 4.458911418914795,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.3,
@@ -2384,7 +2384,7 @@
     "stock_code": "000498",
     "stock_name": "山东路桥",
     "success": true,
-    "elapsed_time": 4.4026780128479,
+    "elapsed_time": 4.50393009185791,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.62,
@@ -2405,7 +2405,7 @@
     "stock_code": "002949",
     "stock_name": "华阳国际",
     "success": true,
-    "elapsed_time": 4.517946004867554,
+    "elapsed_time": 4.632367134094238,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.53,
@@ -2431,7 +2431,7 @@
     "stock_code": "603017",
     "stock_name": "中衡设计",
     "success": true,
-    "elapsed_time": 4.385491132736206,
+    "elapsed_time": 4.543623924255371,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.54,
@@ -2455,7 +2455,7 @@
     "stock_code": "603183",
     "stock_name": "建研院",
     "success": true,
-    "elapsed_time": 4.398383140563965,
+    "elapsed_time": 4.5427751541137695,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.54,
@@ -2476,7 +2476,7 @@
     "stock_code": "002188",
     "stock_name": "中天服务",
     "success": true,
-    "elapsed_time": 4.442464113235474,
+    "elapsed_time": 4.402660846710205,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.66,
@@ -2498,7 +2498,7 @@
     "stock_code": "001300",
     "stock_name": "三柏硕",
     "success": true,
-    "elapsed_time": 4.441072225570679,
+    "elapsed_time": 4.422290325164795,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.23,
@@ -2524,7 +2524,7 @@
     "stock_code": "600022",
     "stock_name": "山东钢铁",
     "success": true,
-    "elapsed_time": 4.3766701221466064,
+    "elapsed_time": 4.319093942642212,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.52,
@@ -2544,7 +2544,7 @@
     "stock_code": "600177",
     "stock_name": "雅戈尔",
     "success": true,
-    "elapsed_time": 4.337656259536743,
+    "elapsed_time": 4.375157117843628,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.31,
@@ -2570,7 +2570,7 @@
     "stock_code": "603608",
     "stock_name": "天创时尚",
     "success": true,
-    "elapsed_time": 4.4524312019348145,
+    "elapsed_time": 4.458863019943237,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.41,
@@ -2596,7 +2596,7 @@
     "stock_code": "603808",
     "stock_name": "歌力思",
     "success": true,
-    "elapsed_time": 4.3523619174957275,
+    "elapsed_time": 4.349769115447998,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.25,
@@ -2622,7 +2622,7 @@
     "stock_code": "002931",
     "stock_name": "锋龙股份",
     "success": true,
-    "elapsed_time": 4.522397994995117,
+    "elapsed_time": 4.598872184753418,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.38,
@@ -2648,7 +2648,7 @@
     "stock_code": "603172",
     "stock_name": "万丰股份",
     "success": true,
-    "elapsed_time": 4.553618907928467,
+    "elapsed_time": 4.69097113609314,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.64,
@@ -2674,7 +2674,7 @@
     "stock_code": "000883",
     "stock_name": "湖北能源",
     "success": true,
-    "elapsed_time": 4.450989007949829,
+    "elapsed_time": 4.665798187255859,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.41,
@@ -2698,7 +2698,7 @@
     "stock_code": "600686",
     "stock_name": "XD金龙汽",
     "success": true,
-    "elapsed_time": 4.484614849090576,
+    "elapsed_time": 4.726333856582642,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.23,
@@ -2724,7 +2724,7 @@
     "stock_code": "002813",
     "stock_name": "路畅科技",
     "success": true,
-    "elapsed_time": 4.497163772583008,
+    "elapsed_time": 4.821716070175171,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.49,
@@ -2750,7 +2750,7 @@
     "stock_code": "600469",
     "stock_name": "风神股份",
     "success": true,
-    "elapsed_time": 4.457358121871948,
+    "elapsed_time": 4.893896102905273,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.32,
@@ -2776,7 +2776,7 @@
     "stock_code": "000543",
     "stock_name": "皖能电力",
     "success": true,
-    "elapsed_time": 4.5114099979400635,
+    "elapsed_time": 4.936988115310669,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.48,
@@ -2802,7 +2802,7 @@
     "stock_code": "600578",
     "stock_name": "京能电力",
     "success": true,
-    "elapsed_time": 4.466766119003296,
+    "elapsed_time": 5.23058009147644,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.48,
@@ -2824,7 +2824,7 @@
     "stock_code": "600188",
     "stock_name": "兖矿能源",
     "success": true,
-    "elapsed_time": 4.429115056991577,
+    "elapsed_time": 5.0371129512786865,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.39,
@@ -2848,7 +2848,7 @@
     "stock_code": "600508",
     "stock_name": "上海能源",
     "success": true,
-    "elapsed_time": 4.555238962173462,
+    "elapsed_time": 4.935274124145508,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.32,
@@ -2874,7 +2874,7 @@
     "stock_code": "601918",
     "stock_name": "新集能源",
     "success": true,
-    "elapsed_time": 4.651233911514282,
+    "elapsed_time": 5.011741876602173,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.63,
@@ -2900,7 +2900,7 @@
     "stock_code": "002318",
     "stock_name": "久立特材",
     "success": true,
-    "elapsed_time": 5.0250489711761475,
+    "elapsed_time": 5.027353048324585,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.67,
@@ -2926,7 +2926,7 @@
     "stock_code": "600133",
     "stock_name": "东湖高新",
     "success": true,
-    "elapsed_time": 4.975451946258545,
+    "elapsed_time": 5.036822080612183,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.66,
@@ -2951,7 +2951,7 @@
     "stock_code": "600874",
     "stock_name": "创业环保",
     "success": true,
-    "elapsed_time": 4.814625024795532,
+    "elapsed_time": 5.038055181503296,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.35,
@@ -2973,7 +2973,7 @@
     "stock_code": "603568",
     "stock_name": "伟明环保",
     "success": true,
-    "elapsed_time": 4.728476285934448,
+    "elapsed_time": 5.156485080718994,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.36,
@@ -2999,7 +2999,7 @@
     "stock_code": "600067",
     "stock_name": "冠城新材",
     "success": true,
-    "elapsed_time": 4.3863208293914795,
+    "elapsed_time": 4.783401012420654,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.36,
@@ -3022,7 +3022,7 @@
     "stock_code": "600847",
     "stock_name": "万里股份",
     "success": true,
-    "elapsed_time": 4.404632091522217,
+    "elapsed_time": 4.82699179649353,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.62,
@@ -3048,7 +3048,7 @@
     "stock_code": "601012",
     "stock_name": "隆基绿能",
     "success": true,
-    "elapsed_time": 4.582697868347168,
+    "elapsed_time": 4.924093961715698,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.52,
@@ -3074,7 +3074,7 @@
     "stock_code": "603097",
     "stock_name": "江苏华辰",
     "success": true,
-    "elapsed_time": 4.562147855758667,
+    "elapsed_time": 4.916308164596558,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.37,
@@ -3100,7 +3100,7 @@
     "stock_code": "600938",
     "stock_name": "中国海油",
     "success": true,
-    "elapsed_time": 4.6676647663116455,
+    "elapsed_time": 5.131108999252319,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.41,
@@ -3126,7 +3126,7 @@
     "stock_code": "000159",
     "stock_name": "国际实业",
     "success": true,
-    "elapsed_time": 4.596177339553833,
+    "elapsed_time": 4.972702980041504,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.31,
@@ -3149,7 +3149,7 @@
     "stock_code": "603025",
     "stock_name": "大豪科技",
     "success": true,
-    "elapsed_time": 4.516018867492676,
+    "elapsed_time": 4.908634185791016,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.38,
@@ -3175,7 +3175,7 @@
     "stock_code": "000632",
     "stock_name": "三木集团",
     "success": true,
-    "elapsed_time": 4.4457478523254395,
+    "elapsed_time": 4.691216707229614,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.51,
@@ -3197,7 +3197,7 @@
     "stock_code": "600724",
     "stock_name": "宁波富达",
     "success": true,
-    "elapsed_time": 4.278464078903198,
+    "elapsed_time": 4.596519947052002,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.23,
@@ -3220,7 +3220,7 @@
     "stock_code": "002811",
     "stock_name": "郑中设计",
     "success": true,
-    "elapsed_time": 4.426705837249756,
+    "elapsed_time": 4.85579514503479,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.41,
@@ -3246,7 +3246,7 @@
     "stock_code": "002689",
     "stock_name": "远大智能",
     "success": true,
-    "elapsed_time": 4.347264051437378,
+    "elapsed_time": 4.869103193283081,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.51,
@@ -3269,7 +3269,7 @@
     "stock_code": "601766",
     "stock_name": "中国中车",
     "success": true,
-    "elapsed_time": 4.446944952011108,
+    "elapsed_time": 4.933064937591553,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.38,
@@ -3294,7 +3294,7 @@
     "stock_code": "600235",
     "stock_name": "民丰特纸",
     "success": true,
-    "elapsed_time": 4.649430751800537,
+    "elapsed_time": 4.949108839035034,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.55,
@@ -3317,7 +3317,7 @@
     "stock_code": "000778",
     "stock_name": "新兴铸管",
     "success": true,
-    "elapsed_time": 4.464064121246338,
+    "elapsed_time": 4.699855089187622,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.44,
@@ -3338,7 +3338,7 @@
     "stock_code": "600497",
     "stock_name": "驰宏锌锗",
     "success": true,
-    "elapsed_time": 4.4631171226501465,
+    "elapsed_time": 4.6629638671875,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.43,
@@ -3362,7 +3362,7 @@
     "stock_code": "000612",
     "stock_name": "焦作万方",
     "success": true,
-    "elapsed_time": 4.433121681213379,
+    "elapsed_time": 4.674231052398682,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.31,
@@ -3388,7 +3388,7 @@
     "stock_code": "002996",
     "stock_name": "顺博合金",
     "success": true,
-    "elapsed_time": 4.262099981307983,
+    "elapsed_time": 4.5759758949279785,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.29,
@@ -3413,7 +3413,7 @@
     "stock_code": "601600",
     "stock_name": "中国铝业",
     "success": true,
-    "elapsed_time": 4.414416790008545,
+    "elapsed_time": 4.651344060897827,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.6,
@@ -3437,7 +3437,7 @@
     "stock_code": "601677",
     "stock_name": "明泰铝业",
     "success": true,
-    "elapsed_time": 4.450417995452881,
+    "elapsed_time": 4.863948106765747,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.41,
@@ -3463,7 +3463,7 @@
     "stock_code": "601288",
     "stock_name": "农业银行",
     "success": true,
-    "elapsed_time": 4.4253411293029785,
+    "elapsed_time": 4.962427854537964,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.45,
@@ -3489,7 +3489,7 @@
     "stock_code": "603391",
     "stock_name": "力聚热能",
     "success": true,
-    "elapsed_time": 4.52455472946167,
+    "elapsed_time": 5.158545017242432,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.62,
@@ -3515,7 +3515,7 @@
     "stock_code": "000620",
     "stock_name": "盈新发展",
     "success": true,
-    "elapsed_time": 4.40749716758728,
+    "elapsed_time": 5.145522832870483,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.51,
@@ -3536,7 +3536,7 @@
     "stock_code": "002064",
     "stock_name": "华峰化学",
     "success": true,
-    "elapsed_time": 4.352946996688843,
+    "elapsed_time": 5.094732046127319,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.57,
@@ -3559,7 +3559,7 @@
     "stock_code": "600846",
     "stock_name": "同济科技",
     "success": true,
-    "elapsed_time": 4.402612924575806,
+    "elapsed_time": 4.9472150802612305,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.54,
@@ -3585,7 +3585,7 @@
     "stock_code": "002633",
     "stock_name": "申科股份",
     "success": true,
-    "elapsed_time": 4.321081161499023,
+    "elapsed_time": 4.91281795501709,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.68,
@@ -3611,7 +3611,7 @@
     "stock_code": "002054",
     "stock_name": "德美化工",
     "success": true,
-    "elapsed_time": 4.328447103500366,
+    "elapsed_time": 5.031580924987793,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.49,
@@ -3636,7 +3636,7 @@
     "stock_code": "600769",
     "stock_name": "祥龙电业",
     "success": true,
-    "elapsed_time": 4.373044013977051,
+    "elapsed_time": 4.883130788803101,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.57,
@@ -3662,7 +3662,7 @@
     "stock_code": "601872",
     "stock_name": "招商轮船",
     "success": true,
-    "elapsed_time": 4.403012990951538,
+    "elapsed_time": 4.984292030334473,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.33,
@@ -3688,7 +3688,7 @@
     "stock_code": "600157",
     "stock_name": "永泰能源",
     "success": true,
-    "elapsed_time": 4.336075067520142,
+    "elapsed_time": 4.775901794433594,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.45,
@@ -3709,7 +3709,7 @@
     "stock_code": "002829",
     "stock_name": "星网宇达",
     "success": true,
-    "elapsed_time": 4.449938058853149,
+    "elapsed_time": 4.694706916809082,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.62,
@@ -3735,7 +3735,7 @@
     "stock_code": "000586",
     "stock_name": "汇源通信",
     "success": true,
-    "elapsed_time": 4.460802793502808,
+    "elapsed_time": 4.728218078613281,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.38,
@@ -3761,7 +3761,7 @@
     "stock_code": "601168",
     "stock_name": "西部矿业",
     "success": true,
-    "elapsed_time": 4.495010137557983,
+    "elapsed_time": 4.787171840667725,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.37,
@@ -3787,7 +3787,7 @@
     "stock_code": "000933",
     "stock_name": "神火股份",
     "success": true,
-    "elapsed_time": 4.74287223815918,
+    "elapsed_time": 5.135745048522949,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.64,
@@ -3813,7 +3813,7 @@
     "stock_code": "002128",
     "stock_name": "电投能源",
     "success": true,
-    "elapsed_time": 4.801246881484985,
+    "elapsed_time": 5.367403984069824,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.68,
@@ -3839,7 +3839,7 @@
     "stock_code": "001336",
     "stock_name": "楚环科技",
     "success": true,
-    "elapsed_time": 4.841655969619751,
+    "elapsed_time": 5.323294162750244,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.33,
@@ -3865,7 +3865,7 @@
     "stock_code": "000019",
     "stock_name": "深粮控股",
     "success": true,
-    "elapsed_time": 4.657421112060547,
+    "elapsed_time": 5.215421915054321,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.68,
@@ -3886,7 +3886,7 @@
     "stock_code": "002238",
     "stock_name": "天威视讯",
     "success": true,
-    "elapsed_time": 4.4604811668396,
+    "elapsed_time": 4.907630205154419,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.26,
@@ -3912,7 +3912,7 @@
     "stock_code": "600640",
     "stock_name": "国脉文化",
     "success": true,
-    "elapsed_time": 4.321928024291992,
+    "elapsed_time": 4.584179162979126,
     "error": null,
     "anchorBackLines": {
       "best_N": 0.35,

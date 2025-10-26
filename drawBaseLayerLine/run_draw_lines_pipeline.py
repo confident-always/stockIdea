@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-画线流水线脚本 - 先后运行 draw_lines_mid.py 和 draw_lines_back.py
-将两种算法的结果输出到同一个汇总目录，保留各自的原始输出目录
+画线流水线脚本 - 运行 draw_lines_mid.py、draw_lines_back.py 和 draw_lines_all.py
+将三种算法的结果输出到同一个汇总目录，保留各自的原始输出目录
 
 功能特性：
-1. 按顺序运行 AnchorM 和 AnchorBack 两种算法
-2. 三个输出目录：
+1. 按顺序运行三种算法：
+   - AnchorM算法（紫色线）
+   - AnchorBack算法（蓝色线）
+   - ALL算法（紫色+蓝色线）
+2. 四个输出目录：
    - {日期}-drawLineMid: AnchorM原始输出
    - {日期}-drawLineBack: AnchorBack原始输出
+   - {日期}-drawLineAll: ALL原始输出
    - {日期}-drawLine: 汇总目录（包含所有文件）
 3. 文件命名规则：
    - AnchorM: {前缀}_{代码}_{股票名}_1mid.png
    - AnchorBack: {前缀}_{代码}_{股票名}_2back.png
+   - ALL: {前缀}_{代码}_{股票名}_3all.png
 4. 通过subprocess调用独立脚本，确保配置和逻辑完全独立
 5. 复制文件到汇总目录，保留原始文件
 
@@ -54,7 +59,7 @@ def run_script_with_params(script_name: str, date: str, workers: int, script_typ
         script_name: 脚本名称
         date: 日期参数（YYYY-MM-DD格式）
         workers: 线程数
-        script_type: 脚本类型（'mid' 或 'back'）
+        script_type: 脚本类型（'mid'、'back' 或 'all'）
         codes: 股票代码列表（可选）
         
     Returns:
@@ -119,6 +124,8 @@ def run_script_with_params(script_name: str, date: str, workers: int, script_typ
             output_dir = f"{date_str}-drawLineMid"
         elif script_type == 'back':
             output_dir = f"{date_str}-drawLineBack"
+        elif script_type == 'all':
+            output_dir = f"{date_str}-drawLineAll"
         else:
             output_dir = f"{date_str}-drawLineRes"
         
@@ -183,7 +190,7 @@ def copy_files(source_dir: str, target_dir: str):
 def main():
     """主函数"""
     parser = argparse.ArgumentParser(
-        description="画线流水线脚本 - 先后运行 AnchorM 和 AnchorBack",
+        description="画线流水线脚本 - 先后运行 AnchorM、AnchorBack 和 ALL",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 使用示例:
@@ -204,9 +211,11 @@ def main():
   文件命名（从resByFilter）:
     - AnchorM图表: {前缀}_{代码}_{股票名}_1mid.png
     - AnchorBack图表: {前缀}_{代码}_{股票名}_2back.png
+    - ALL图表: {前缀}_{代码}_{股票名}_3all.png
   文件命名（指定codes）:
     - AnchorM图表: {代码}_{股票名}_1mid.png
     - AnchorBack图表: {代码}_{股票名}_2back.png
+    - ALL图表: {代码}_{股票名}_3all.png
         """
     )
     
@@ -295,6 +304,26 @@ def main():
         logger.info(f"📦 复制 AnchorBack 输出文件到汇总目录...")
         back_copied = copy_files(back_output_dir, final_output_dir)
     
+    # 步骤3：运行 draw_lines_all.py (ALL算法)
+    success_all, all_output_dir = run_script_with_params(
+        'draw_lines_all.py',
+        date_str,
+        args.workers,
+        'all',
+        args.codes
+    )
+    
+    if not success_all:
+        logger.error(f"❌ ALL 脚本执行失败")
+        sys.exit(1)
+    
+    # 复制 ALL 的输出文件到汇总目录（文件已经有 _3all 后缀）
+    all_copied = 0
+    if all_output_dir:
+        logger.info(f"")
+        logger.info(f"📦 复制 ALL 输出文件到汇总目录...")
+        all_copied = copy_files(all_output_dir, final_output_dir)
+    
     # 统计最终结果
     logger.info(f"")
     logger.info(f"{'='*80}")
@@ -303,6 +332,7 @@ def main():
     final_files = glob.glob(os.path.join(final_output_dir, "*.png"))
     mid_files = [f for f in final_files if '_1mid.png' in f]
     back_files = [f for f in final_files if '_2back.png' in f]
+    all_files = [f for f in final_files if '_3all.png' in f]
     
     logger.info(f"")
     logger.info(f"✅ AnchorM (1mid): 已复制 {mid_copied} 个文件")
@@ -311,14 +341,19 @@ def main():
     logger.info(f"✅ AnchorBack (2back): 已复制 {back_copied} 个文件")
     logger.info(f"   源目录: {back_output_dir if back_output_dir else 'N/A'}")
     logger.info(f"")
+    logger.info(f"✅ ALL (3all): 已复制 {all_copied} 个文件")
+    logger.info(f"   源目录: {all_output_dir if all_output_dir else 'N/A'}")
+    logger.info(f"")
     logger.info(f"📁 汇总目录中的文件:")
     logger.info(f"   - _1mid.png: {len(mid_files)} 张")
     logger.info(f"   - _2back.png: {len(back_files)} 张")
+    logger.info(f"   - _3all.png: {len(all_files)} 张")
     logger.info(f"   - 总计: {len(final_files)} 张")
     logger.info(f"")
     logger.info(f"📂 所有输出目录:")
     logger.info(f"   - AnchorM原始输出: {mid_output_dir if mid_output_dir else 'N/A'}")
     logger.info(f"   - AnchorBack原始输出: {back_output_dir if back_output_dir else 'N/A'}")
+    logger.info(f"   - ALL原始输出: {all_output_dir if all_output_dir else 'N/A'}")
     logger.info(f"   - 汇总目录: {final_output_dir}")
     logger.info(f"{'='*80}")
     logger.info(f"🎉 画线流水线全部完成!")

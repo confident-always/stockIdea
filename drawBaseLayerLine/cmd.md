@@ -11,6 +11,15 @@ python draw_lines_back.py --codes 000001 600000 002603
 # 指定线程数
 python run_draw_lines_pipeline.py --codes 000001 600000 002603 --workers 2
 ```
+### 组合画线
+```bash
+# 处理指定日期（会自动生成mid图片）
+cd drawBaseLayerLine
+python draw_lines_all.py --date 2025-10-25
+
+# 处理指定股票代码
+python draw_lines_all.py --codes 000001 600000 --workers 2
+```
 
 ### 基础层使用
 
