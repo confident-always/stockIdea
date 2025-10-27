@@ -1153,18 +1153,12 @@ class BackLineDrawer:
         
         logger.info(f"📊 待处理股票数量: {self.total_count}")
         
-        # 清空并重新创建输出目录
-        if os.path.exists(output_dir):
-            import shutil
-            logger.info(f"🗑️  清空输出目录: {output_dir}")
-            try:
-                shutil.rmtree(output_dir)
-                logger.info(f"✅ 已清空输出目录")
-            except Exception as e:
-                logger.warning(f"⚠️  清空输出目录时出错: {e}")
-        
+        # 创建输出目录（覆盖模式，不清空）
         os.makedirs(output_dir, exist_ok=True)
-        logger.info(f"📁 创建输出目录: {output_dir}")
+        if os.path.exists(output_dir) and os.listdir(output_dir):
+            logger.info(f"📁 输出目录已存在: {output_dir}（将覆盖同名文件）")
+        else:
+            logger.info(f"📁 创建输出目录: {output_dir}")
         
         # 多线程处理
         start_time = time.time()

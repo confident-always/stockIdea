@@ -253,16 +253,12 @@ def main():
     logger.info(f"📁 最终输出目录: {final_output_dir}")
     logger.info(f"{'='*80}")
     
-    # 清空最终输出目录
-    if os.path.exists(final_output_dir):
-        logger.info(f"🗑️  清空输出目录: {final_output_dir}")
-        try:
-            shutil.rmtree(final_output_dir)
-        except Exception as e:
-            logger.warning(f"⚠️ 清空目录失败: {e}")
-    
-    # 创建最终输出目录
+    # 创建最终输出目录（覆盖模式，不清空）
     os.makedirs(final_output_dir, exist_ok=True)
+    if os.path.exists(final_output_dir) and os.listdir(final_output_dir):
+        logger.info(f"📁 输出目录已存在: {final_output_dir}（将覆盖同名文件）")
+    else:
+        logger.info(f"📁 创建输出目录: {final_output_dir}")
     
     # 步骤1：运行 draw_lines_mid.py (AnchorM算法)
     success_mid, mid_output_dir = run_script_with_params(

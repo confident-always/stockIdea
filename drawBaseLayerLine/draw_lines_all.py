@@ -493,27 +493,51 @@ def draw_all_for_stock(mid_drawer: MidLineDrawer,
         return False
 
 
-def get_stock_list_from_csv(csv_files: list) -> Dict[str, str]:
-    """从CSV文件中提取股票代码和名称"""
+def get_stock_list_from_csv(csv_files: list) -> Dict[str, tuple]:
+    """从CSV文件内容中提取股票代码、名称和前缀
+    
+    Returns:
+        Dict[str, tuple]: {股票代码: (股票名称, 前缀)}
+    """
     stock_dict = {}
     
     for csv_file in csv_files:
         try:
-            base_name = os.path.basename(csv_file)
-            parts = base_name.replace('.csv', '').split('_')
+            logger.info(f"📄 读取文件: {csv_file}")
+            df = pd.read_csv(csv_file)
             
-            if len(parts) >= 2:
-                # 格式：ADX39_000001_股票名称.csv 或 000001_股票名称.csv
-                if parts[0].startswith(('ADX', 'PDI')):
-                    code = parts[1]
-                    name = '_'.join(parts[2:]) if len(parts) > 2 else parts[1]
-                else:
-                    code = parts[0]
-                    name = '_'.join(parts[1:]) if len(parts) > 1 else parts[0]
+            # 从文件名提取前缀
+            file_name = os.path.basename(csv_file)
+            file_prefix = ""
+            
+            import re
+            patterns = [
+                (r'^ADX(\d+)', 'ADX'),
+                (r'^PDI(\d+)', 'PDI'),
+                (r'ADX(\d+)', 'ADX'),
+                (r'PDI(\d+)', 'PDI')
+            ]
+            
+            for pattern, prefix_type in patterns:
+                match = re.search(pattern, file_name.upper())
+                if match:
+                    file_prefix = f"{prefix_type}{match.group(1)}"
+                    break
+            
+            logger.info(f"📊 文件类型: {file_prefix}")
+            
+            # 从CSV内容中提取股票信息
+            for _, row in df.iterrows():
+                code = str(row.get('code', ''))
+                name = str(row.get('name', code))
                 
-                stock_dict[code] = name
+                if code:
+                    normalized_code = code.zfill(6)
+                    if normalized_code not in stock_dict:
+                        stock_dict[normalized_code] = (name, file_prefix)
+                        
         except Exception as e:
-            logger.warning(f"⚠️ 解析文件名失败: {csv_file}, {e}")
+            logger.warning(f"⚠️ 读取文件失败: {csv_file}, {e}")
             continue
     
     return stock_dict
@@ -544,23 +568,22 @@ def main():
     # 输出目录
     output_dir = f"{date_str}-drawLineAll"
     
-    # 创建输出目录（清除旧文件）
-    if os.path.exists(output_dir):
-        logger.info(f"🗑️  清除旧文件夹: {output_dir}")
-        import shutil
-        shutil.rmtree(output_dir)
+    # 创建输出目录（覆盖模式，不清空）
     os.makedirs(output_dir, exist_ok=True)
-    logger.info(f"📁 创建输出目录: {output_dir}")
+    if os.path.exists(output_dir) and os.listdir(output_dir):
+        logger.info(f"📁 输出目录已存在: {output_dir}（将覆盖同名文件）")
+    else:
+        logger.info(f"📁 创建输出目录: {output_dir}")
     
     # 获取需要处理的股票列表
     if args.codes:
-        # 从指定代码获取股票列表
+        # 从指定代码获取股票列表（无前缀）
         stock_dict = {}
         for code in args.codes:
             # 优先从stock_info中获取股票名称
             if code in mid_drawer.stock_info:
                 name = mid_drawer.stock_info[code].get('name', code)
-                stock_dict[code] = name
+                stock_dict[code] = (name, "")  # 无前缀
             else:
                 # 其次从CSV文件名中提取股票名称
                 csv_files = glob.glob(f"../data/{code}*.csv")
@@ -569,12 +592,12 @@ def main():
                     base_name = os.path.basename(csv_file)
                     parts = base_name.replace('.csv', '').split('_')
                     name = '_'.join(parts[1:]) if len(parts) > 1 else code
-                    stock_dict[code] = name
+                    stock_dict[code] = (name, "")  # 无前缀
                 else:
-                    stock_dict[code] = code
+                    stock_dict[code] = (code, "")  # 无前缀
     else:
-        # 从resByFilter目录获取股票列表
-        filter_dir = f"../../{date_str}-resByFilter"
+        # 从resByFilter目录获取股票列表（带前缀）
+        filter_dir = f"../{date_str}-resByFilter"
         if not os.path.exists(filter_dir):
             logger.error(f"❌ 找不到目录: {filter_dir}")
             return
@@ -596,13 +619,16 @@ def main():
     success_count = 0
     failed_count = 0
     
-    for code, name in stock_dict.items():
+    for code, (name, prefix) in stock_dict.items():
         logger.info(f"\n{'='*60}")
-        logger.info(f"📈 [{code}] {name}")
+        logger.info(f"📈 [{code}] {name}" + (f" ({prefix})" if prefix else ""))
         logger.info(f"{'='*60}")
         
-        # 构造输出文件路径
-        output_file = os.path.join(output_dir, f"{code}_{name}_3all.png")
+        # 构造输出文件路径（带前缀）
+        if prefix:
+            output_file = os.path.join(output_dir, f"{prefix}_{code}_{name}_3all.png")
+        else:
+            output_file = os.path.join(output_dir, f"{code}_{name}_3all.png")
         
         # 绘制ALL图
         if draw_all_for_stock(mid_drawer, back_drawer, code, name, output_file):
