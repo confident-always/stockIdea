@@ -9,7 +9,7 @@ python run_draw_lines_pipeline.py --date 2025-10-22 --workers 4
 python draw_lines_mid.py --codes 000001 600000 002603
 python draw_lines_back.py --codes 000001 600000 002603
 # 指定线程数
-python run_draw_lines_pipeline.py --codes 000001 600000 002603 --workers 2
+python run_draw_lines_pipeline.py --codes 600118 --workers 2
 ```
 ### 组合画线
 ```bash
