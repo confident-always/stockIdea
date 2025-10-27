@@ -338,20 +338,37 @@ def draw_all_for_stock(mid_drawer: MidLineDrawer,
             
             # 绘制蓝色横线（使用axhline确保价格对齐准确）
             for k_val, B_k_price in zip(B_K_values, B_B_values):
-                # 延长蓝线:从左边界外开始(-0.01)到右边界外结束(1.02)
-                ax.axhline(y=B_k_price, color=b_line_color, 
-                          linestyle='-', linewidth=2.0, 
-                          alpha=b_line_alpha, zorder=2.5,
-                          xmin=-0.01, xmax=1.5)
-                
                 label_text = b_annotate_format.replace('{K}', str(k_val)).replace('{price}', f'{B_k_price:.2f}')
-                # 缩小蓝线标签字体: fontsize从14减小到10
-                # 标签移到最左边: ha='left'表示左对齐,x=-0.09表示在图表左边界外
+                
+                # 先绘制标签(在最左边)
+                # 设置zorder=10确保蓝色标签显示在紫色标签上面
                 ax.text(-0.15, B_k_price, label_text,
                        fontsize=10, color=b_line_color, fontweight='bold',
                        bbox=dict(boxstyle="round,pad=0.3", facecolor='lightcyan', alpha=0.85, 
                                 edgecolor=b_line_color, linewidth=1.5),
-                       transform=ax.get_yaxis_transform(), ha='left', va='center')
+                       transform=ax.get_yaxis_transform(), ha='left', va='center', zorder=10)
+                
+                # 获取图表的x轴范围,用于计算连接线位置
+                xlim = ax.get_xlim()
+                x_range = xlim[1] - xlim[0]
+                
+                # 计算连接线和主蓝线的精确位置
+                # 标签框右端约在xlim[0] - 0.04 * x_range位置
+                x_label_end = xlim[0]- 0.085 * x_range  
+                # 主蓝线从xlim[0]开始(图表左边界)
+                x_chart_start = xlim[0]
+                
+                # 绘制连接线:从标签框右端到图表左边界,完全连接
+                ax.plot([x_label_end, x_chart_start], [B_k_price, B_k_price], 
+                       color=b_line_color, linestyle='-', linewidth=2.0, 
+                       alpha=b_line_alpha, zorder=10, clip_on=False)
+                
+                # 绘制主蓝线:从图表左边界到右边界外延长
+                # 使用plot绘制主蓝线,从图表左边界开始延伸到右边外
+                x_main_end = xlim[1] + 0.02* x_range  # 延伸到右边界外
+                ax.plot([x_chart_start, x_main_end], [B_k_price, B_k_price], 
+                       color=b_line_color, linestyle='-', linewidth=2.0, 
+                       alpha=b_line_alpha, zorder=2.4, clip_on=False)
             
             # 在图片右上角添加N值信息
             text_lines = [f"N={best_N:.2f}"]
