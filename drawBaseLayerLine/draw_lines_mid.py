@@ -1060,7 +1060,7 @@ class MidLineDrawer:
         
         with ThreadPoolExecutor(max_workers=workers) as executor:
             future_to_stock = {
-                executor.submit(self._process_single_stock, code, name, output_dir, data_dir, file_prefix): (code, name, industry, file_prefix)
+                executor.submit(self._process_single_stock, code, name, output_dir, data_dir, file_prefix, industry): (code, name, industry, file_prefix)
                 for code, name, industry, file_prefix in stock_list
             }
             
@@ -1099,7 +1099,8 @@ class MidLineDrawer:
                 logger.warning(f"   ... 还有{len(failed_stocks)-10}只股票失败")
 
     def _process_single_stock(self, stock_code: str, stock_name: str, 
-                           output_dir: str, data_dir: str, file_prefix: str = "") -> dict:
+                           output_dir: str, data_dir: str, file_prefix: str = "", industry: str = "未知行业") -> dict:
+                           
         """处理单只股票（内部方法）"""
         start_time = time.time()
         result = {

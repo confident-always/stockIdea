@@ -1,0 +1,3173 @@
+[
+  {
+    "stock_code": "000997",
+    "stock_name": "新 大 陆",
+    "success": false,
+    "elapsed_time": 0.032234907150268555,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600285",
+    "stock_name": "羚锐制药",
+    "success": false,
+    "elapsed_time": 0.03450894355773926,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600202",
+    "stock_name": "哈空调",
+    "success": false,
+    "elapsed_time": 0.03543400764465332,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600215",
+    "stock_name": "派斯林",
+    "success": false,
+    "elapsed_time": 0.03633999824523926,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603836",
+    "stock_name": "海程邦达",
+    "success": false,
+    "elapsed_time": 0.007826805114746094,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603533",
+    "stock_name": "掌阅科技",
+    "success": false,
+    "elapsed_time": 0.012987852096557617,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001228",
+    "stock_name": "永泰运",
+    "success": false,
+    "elapsed_time": 0.010783910751342773,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600180",
+    "stock_name": "瑞茂通",
+    "success": false,
+    "elapsed_time": 0.013181924819946289,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "003031",
+    "stock_name": "中瓷电子",
+    "success": false,
+    "elapsed_time": 0.008686065673828125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000733",
+    "stock_name": "振华科技",
+    "success": false,
+    "elapsed_time": 0.020400047302246094,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600237",
+    "stock_name": "铜峰电子",
+    "success": false,
+    "elapsed_time": 0.02110886573791504,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000692",
+    "stock_name": "惠天热电",
+    "success": false,
+    "elapsed_time": 0.025672197341918945,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000007",
+    "stock_name": "全新好",
+    "success": false,
+    "elapsed_time": 0.01772308349609375,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002215",
+    "stock_name": "诺 普 信",
+    "success": false,
+    "elapsed_time": 0.012198925018310547,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603585",
+    "stock_name": "苏利股份",
+    "success": false,
+    "elapsed_time": 0.01473379135131836,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002643",
+    "stock_name": "万润股份",
+    "success": false,
+    "elapsed_time": 0.014144182205200195,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000952",
+    "stock_name": "广济药业",
+    "success": false,
+    "elapsed_time": 0.017744064331054688,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603260",
+    "stock_name": "合盛硅业",
+    "success": false,
+    "elapsed_time": 0.011568784713745117,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605399",
+    "stock_name": "晨光新材",
+    "success": false,
+    "elapsed_time": 0.010167837142944336,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000838",
+    "stock_name": "财信发展",
+    "success": false,
+    "elapsed_time": 0.016698837280273438,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002390",
+    "stock_name": "信邦制药",
+    "success": false,
+    "elapsed_time": 0.0149688720703125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600716",
+    "stock_name": "凤凰股份",
+    "success": false,
+    "elapsed_time": 0.018323898315429688,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "003026",
+    "stock_name": "中晶科技",
+    "success": false,
+    "elapsed_time": 0.007289886474609375,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600272",
+    "stock_name": "开开实业",
+    "success": false,
+    "elapsed_time": 0.017852306365966797,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603615",
+    "stock_name": "茶花股份",
+    "success": false,
+    "elapsed_time": 0.008234977722167969,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002489",
+    "stock_name": "浙江永强",
+    "success": false,
+    "elapsed_time": 0.010981082916259766,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001259",
+    "stock_name": "利仁科技",
+    "success": false,
+    "elapsed_time": 0.009601116180419922,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002701",
+    "stock_name": "奥瑞金",
+    "success": false,
+    "elapsed_time": 0.011117696762084961,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002752",
+    "stock_name": "昇兴股份",
+    "success": false,
+    "elapsed_time": 0.010941028594970703,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600060",
+    "stock_name": "海信视像",
+    "success": false,
+    "elapsed_time": 0.017026185989379883,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603499",
+    "stock_name": "翔港科技",
+    "success": false,
+    "elapsed_time": 0.009533405303955078,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600880",
+    "stock_name": "博瑞传播",
+    "success": false,
+    "elapsed_time": 0.017991065979003906,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600039",
+    "stock_name": "四川路桥",
+    "success": false,
+    "elapsed_time": 0.016857147216796875,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002238",
+    "stock_name": "天威视讯",
+    "success": false,
+    "elapsed_time": 0.013784170150756836,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002188",
+    "stock_name": "中天服务",
+    "success": false,
+    "elapsed_time": 0.013942956924438477,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002285",
+    "stock_name": "世联行",
+    "success": false,
+    "elapsed_time": 0.01674675941467285,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600455",
+    "stock_name": "博通股份",
+    "success": false,
+    "elapsed_time": 0.018195390701293945,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002003",
+    "stock_name": "伟星股份",
+    "success": false,
+    "elapsed_time": 0.01596975326538086,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600679",
+    "stock_name": "上海凤凰",
+    "success": false,
+    "elapsed_time": 0.022265195846557617,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002931",
+    "stock_name": "锋龙股份",
+    "success": false,
+    "elapsed_time": 0.009430885314941406,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600137",
+    "stock_name": "浪莎股份",
+    "success": false,
+    "elapsed_time": 0.017670154571533203,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603033",
+    "stock_name": "三维股份",
+    "success": false,
+    "elapsed_time": 0.011135101318359375,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001319",
+    "stock_name": "铭科精技",
+    "success": false,
+    "elapsed_time": 0.008984804153442383,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000605",
+    "stock_name": "渤海股份",
+    "success": false,
+    "elapsed_time": 0.014399051666259766,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002328",
+    "stock_name": "新朋股份",
+    "success": false,
+    "elapsed_time": 0.01145792007446289,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002766",
+    "stock_name": "索菱股份",
+    "success": false,
+    "elapsed_time": 0.010215997695922852,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002806",
+    "stock_name": "华锋股份",
+    "success": false,
+    "elapsed_time": 0.009389162063598633,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002863",
+    "stock_name": "今飞凯达",
+    "success": false,
+    "elapsed_time": 0.009449243545532227,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600469",
+    "stock_name": "风神股份",
+    "success": false,
+    "elapsed_time": 0.013969898223876953,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601799",
+    "stock_name": "星宇股份",
+    "success": false,
+    "elapsed_time": 0.016905784606933594,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601918",
+    "stock_name": "新集能源",
+    "success": false,
+    "elapsed_time": 0.015944957733154297,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000825",
+    "stock_name": "太钢不锈",
+    "success": false,
+    "elapsed_time": 0.01669025421142578,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002318",
+    "stock_name": "久立特材",
+    "success": false,
+    "elapsed_time": 0.011580228805541992,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002358",
+    "stock_name": "森源电气",
+    "success": false,
+    "elapsed_time": 0.01325082778930664,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600796",
+    "stock_name": "钱江生化",
+    "success": false,
+    "elapsed_time": 0.019993066787719727,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000012",
+    "stock_name": "南 玻Ａ",
+    "success": false,
+    "elapsed_time": 0.018969058990478516,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600560",
+    "stock_name": "金自天正",
+    "success": false,
+    "elapsed_time": 0.014944076538085938,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603583",
+    "stock_name": "捷昌驱动",
+    "success": false,
+    "elapsed_time": 0.00972294807434082,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601616",
+    "stock_name": "广电电气",
+    "success": false,
+    "elapsed_time": 0.012759208679199219,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600847",
+    "stock_name": "万里股份",
+    "success": false,
+    "elapsed_time": 0.017550230026245117,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601857",
+    "stock_name": "中国石油",
+    "success": false,
+    "elapsed_time": 0.014116048812866211,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001269",
+    "stock_name": "欧晶科技",
+    "success": false,
+    "elapsed_time": 0.005908966064453125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605086",
+    "stock_name": "龙高股份",
+    "success": false,
+    "elapsed_time": 0.006566047668457031,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603727",
+    "stock_name": "博迈科",
+    "success": false,
+    "elapsed_time": 0.01129913330078125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002293",
+    "stock_name": "罗莱生活",
+    "success": false,
+    "elapsed_time": 0.014384269714355469,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600084",
+    "stock_name": "中信尼雅",
+    "success": false,
+    "elapsed_time": 0.018413066864013672,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002397",
+    "stock_name": "梦洁股份",
+    "success": false,
+    "elapsed_time": 0.01382899284362793,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000632",
+    "stock_name": "三木集团",
+    "success": false,
+    "elapsed_time": 0.016045808792114258,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "003005",
+    "stock_name": "竞业达",
+    "success": false,
+    "elapsed_time": 0.011303901672363281,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002331",
+    "stock_name": "皖通科技",
+    "success": false,
+    "elapsed_time": 0.015785932540893555,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603927",
+    "stock_name": "中科软",
+    "success": false,
+    "elapsed_time": 0.01341700553894043,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000548",
+    "stock_name": "湖南投资",
+    "success": false,
+    "elapsed_time": 0.01987314224243164,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002367",
+    "stock_name": "康力电梯",
+    "success": false,
+    "elapsed_time": 0.014207839965820312,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603356",
+    "stock_name": "华菱精工",
+    "success": false,
+    "elapsed_time": 0.010264158248901367,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600131",
+    "stock_name": "国网信通",
+    "success": false,
+    "elapsed_time": 0.017705202102661133,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600477",
+    "stock_name": "杭萧钢构",
+    "success": false,
+    "elapsed_time": 0.0109100341796875,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600235",
+    "stock_name": "民丰特纸",
+    "success": false,
+    "elapsed_time": 0.01778101921081543,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002807",
+    "stock_name": "江阴银行",
+    "success": false,
+    "elapsed_time": 0.011088848114013672,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601665",
+    "stock_name": "齐鲁银行",
+    "success": false,
+    "elapsed_time": 0.00802302360534668,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601658",
+    "stock_name": "邮储银行",
+    "success": false,
+    "elapsed_time": 0.010004997253417969,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601077",
+    "stock_name": "渝农商行",
+    "success": false,
+    "elapsed_time": 0.010482072830200195,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601009",
+    "stock_name": "南京银行",
+    "success": false,
+    "elapsed_time": 0.012516021728515625,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603345",
+    "stock_name": "安井食品",
+    "success": false,
+    "elapsed_time": 0.007794857025146484,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001366",
+    "stock_name": "播恩集团",
+    "success": false,
+    "elapsed_time": 0.006986856460571289,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002891",
+    "stock_name": "中宠股份",
+    "success": false,
+    "elapsed_time": 0.008539199829101562,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002696",
+    "stock_name": "百洋股份",
+    "success": false,
+    "elapsed_time": 0.01001119613647461,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001336",
+    "stock_name": "楚环科技",
+    "success": false,
+    "elapsed_time": 0.007731914520263672,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605555",
+    "stock_name": "德昌股份",
+    "success": false,
+    "elapsed_time": 0.009692907333374023,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603172",
+    "stock_name": "万丰股份",
+    "success": false,
+    "elapsed_time": 0.008996963500976562,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002494",
+    "stock_name": "华斯股份",
+    "success": false,
+    "elapsed_time": 0.012495040893554688,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002198",
+    "stock_name": "嘉应制药",
+    "success": false,
+    "elapsed_time": 0.01626420021057129,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601666",
+    "stock_name": "平煤股份",
+    "success": false,
+    "elapsed_time": 0.010616064071655273,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603105",
+    "stock_name": "芯能科技",
+    "success": false,
+    "elapsed_time": 0.012542963027954102,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600919",
+    "stock_name": "江苏银行",
+    "success": false,
+    "elapsed_time": 0.01479792594909668,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000159",
+    "stock_name": "国际实业",
+    "success": false,
+    "elapsed_time": 0.016440153121948242,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601939",
+    "stock_name": "建设银行",
+    "success": false,
+    "elapsed_time": 0.012968063354492188,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601963",
+    "stock_name": "重庆银行",
+    "success": false,
+    "elapsed_time": 0.010662078857421875,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603391",
+    "stock_name": "力聚热能",
+    "success": false,
+    "elapsed_time": 0.0068819522857666016,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603131",
+    "stock_name": "上海沪工",
+    "success": false,
+    "elapsed_time": 0.010750293731689453,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002534",
+    "stock_name": "西子洁能",
+    "success": false,
+    "elapsed_time": 0.012108087539672852,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002728",
+    "stock_name": "特一药业",
+    "success": false,
+    "elapsed_time": 0.009635210037231445,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603611",
+    "stock_name": "诺力股份",
+    "success": false,
+    "elapsed_time": 0.013714790344238281,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002654",
+    "stock_name": "万润科技",
+    "success": false,
+    "elapsed_time": 0.012746095657348633,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600057",
+    "stock_name": "厦门象屿",
+    "success": false,
+    "elapsed_time": 0.012887954711914062,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001287",
+    "stock_name": "中电港",
+    "success": false,
+    "elapsed_time": 0.01079702377319336,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603296",
+    "stock_name": "华勤技术",
+    "success": false,
+    "elapsed_time": 0.007968902587890625,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603328",
+    "stock_name": "依顿电子",
+    "success": false,
+    "elapsed_time": 0.01019597053527832,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600982",
+    "stock_name": "宁波能源",
+    "success": false,
+    "elapsed_time": 0.014561176300048828,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002785",
+    "stock_name": "万里石",
+    "success": false,
+    "elapsed_time": 0.01032400131225586,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603192",
+    "stock_name": "汇得科技",
+    "success": false,
+    "elapsed_time": 0.012099981307983398,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000031",
+    "stock_name": "大悦城",
+    "success": false,
+    "elapsed_time": 0.017115354537963867,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002391",
+    "stock_name": "长青股份",
+    "success": false,
+    "elapsed_time": 0.014674186706542969,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002185",
+    "stock_name": "华天科技",
+    "success": false,
+    "elapsed_time": 0.011668920516967773,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600667",
+    "stock_name": "太极实业",
+    "success": false,
+    "elapsed_time": 0.022567272186279297,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600745",
+    "stock_name": "闻泰科技",
+    "success": false,
+    "elapsed_time": 0.020938873291015625,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000567",
+    "stock_name": "海德股份",
+    "success": false,
+    "elapsed_time": 0.02090597152709961,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600053",
+    "stock_name": "九鼎投资",
+    "success": false,
+    "elapsed_time": 0.016511917114257812,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603272",
+    "stock_name": "联翔股份",
+    "success": false,
+    "elapsed_time": 0.007585048675537109,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603038",
+    "stock_name": "华立股份",
+    "success": false,
+    "elapsed_time": 0.016659021377563477,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600120",
+    "stock_name": "浙江东方",
+    "success": false,
+    "elapsed_time": 0.020364999771118164,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000762",
+    "stock_name": "西藏矿业",
+    "success": false,
+    "elapsed_time": 0.019555091857910156,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002497",
+    "stock_name": "雅化集团",
+    "success": false,
+    "elapsed_time": 0.014236211776733398,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601399",
+    "stock_name": "国机重装",
+    "success": false,
+    "elapsed_time": 0.011679887771606445,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002756",
+    "stock_name": "永兴材料",
+    "success": false,
+    "elapsed_time": 0.015257120132446289,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002663",
+    "stock_name": "普邦股份",
+    "success": false,
+    "elapsed_time": 0.013232946395874023,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605598",
+    "stock_name": "上海港湾",
+    "success": false,
+    "elapsed_time": 0.012273788452148438,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600820",
+    "stock_name": "隧道股份",
+    "success": false,
+    "elapsed_time": 0.021892070770263672,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601888",
+    "stock_name": "中国中免",
+    "success": false,
+    "elapsed_time": 0.018052101135253906,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605008",
+    "stock_name": "长鸿高科",
+    "success": false,
+    "elapsed_time": 0.015761852264404297,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002633",
+    "stock_name": "申科股份",
+    "success": false,
+    "elapsed_time": 0.017934799194335938,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600897",
+    "stock_name": "厦门空港",
+    "success": false,
+    "elapsed_time": 0.030365943908691406,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600769",
+    "stock_name": "祥龙电业",
+    "success": false,
+    "elapsed_time": 0.01758408546447754,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600428",
+    "stock_name": "中远海特",
+    "success": false,
+    "elapsed_time": 0.016125202178955078,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601872",
+    "stock_name": "招商轮船",
+    "success": false,
+    "elapsed_time": 0.014623165130615234,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000901",
+    "stock_name": "航天科技",
+    "success": false,
+    "elapsed_time": 0.01413726806640625,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002284",
+    "stock_name": "亚太股份",
+    "success": false,
+    "elapsed_time": 0.012626886367797852,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002454",
+    "stock_name": "松芝股份",
+    "success": false,
+    "elapsed_time": 0.010202884674072266,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601326",
+    "stock_name": "秦港股份",
+    "success": false,
+    "elapsed_time": 0.00985407829284668,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600795",
+    "stock_name": "国电电力",
+    "success": false,
+    "elapsed_time": 0.013758182525634766,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601011",
+    "stock_name": "宝泰隆",
+    "success": false,
+    "elapsed_time": 0.015192031860351562,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600740",
+    "stock_name": "山西焦化",
+    "success": false,
+    "elapsed_time": 0.022415876388549805,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600508",
+    "stock_name": "上海能源",
+    "success": false,
+    "elapsed_time": 0.0163421630859375,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600758",
+    "stock_name": "辽宁能源",
+    "success": false,
+    "elapsed_time": 0.011921167373657227,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002533",
+    "stock_name": "金杯电工",
+    "success": false,
+    "elapsed_time": 0.011374711990356445,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603191",
+    "stock_name": "望变电气",
+    "success": false,
+    "elapsed_time": 0.01028895378112793,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601001",
+    "stock_name": "晋控煤业",
+    "success": false,
+    "elapsed_time": 0.012697219848632812,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002546",
+    "stock_name": "新联电子",
+    "success": false,
+    "elapsed_time": 0.011579275131225586,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002829",
+    "stock_name": "星网宇达",
+    "success": false,
+    "elapsed_time": 0.008677959442138672,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002963",
+    "stock_name": "豪尔赛",
+    "success": false,
+    "elapsed_time": 0.009234905242919922,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002811",
+    "stock_name": "郑中设计",
+    "success": false,
+    "elapsed_time": 0.010991096496582031,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000679",
+    "stock_name": "大连友谊",
+    "success": false,
+    "elapsed_time": 0.013608932495117188,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600909",
+    "stock_name": "华安证券",
+    "success": false,
+    "elapsed_time": 0.010016918182373047,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601198",
+    "stock_name": "东兴证券",
+    "success": false,
+    "elapsed_time": 0.009714841842651367,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002373",
+    "stock_name": "千方科技",
+    "success": false,
+    "elapsed_time": 0.010262727737426758,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000828",
+    "stock_name": "东莞控股",
+    "success": false,
+    "elapsed_time": 0.01483011245727539,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603232",
+    "stock_name": "格尔软件",
+    "success": false,
+    "elapsed_time": 0.011077880859375,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000688",
+    "stock_name": "国城矿业",
+    "success": false,
+    "elapsed_time": 0.014133930206298828,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002171",
+    "stock_name": "楚江新材",
+    "success": false,
+    "elapsed_time": 0.012459993362426758,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601600",
+    "stock_name": "中国铝业",
+    "success": false,
+    "elapsed_time": 0.013762950897216797,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000612",
+    "stock_name": "焦作万方",
+    "success": false,
+    "elapsed_time": 0.019176006317138672,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600191",
+    "stock_name": "华资实业",
+    "success": false,
+    "elapsed_time": 0.016110897064208984,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001223",
+    "stock_name": "欧克科技",
+    "success": false,
+    "elapsed_time": 0.005997180938720703,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002100",
+    "stock_name": "天康生物",
+    "success": false,
+    "elapsed_time": 0.01407313346862793,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001288",
+    "stock_name": "运机集团",
+    "success": false,
+    "elapsed_time": 0.00605010986328125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002523",
+    "stock_name": "天桥起重",
+    "success": false,
+    "elapsed_time": 0.009786128997802734,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002255",
+    "stock_name": "海陆重工",
+    "success": false,
+    "elapsed_time": 0.012666940689086914,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002073",
+    "stock_name": "软控股份",
+    "success": false,
+    "elapsed_time": 0.01339411735534668,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002595",
+    "stock_name": "豪迈科技",
+    "success": false,
+    "elapsed_time": 0.011751890182495117,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002639",
+    "stock_name": "雪人集团",
+    "success": false,
+    "elapsed_time": 0.01268911361694336,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603966",
+    "stock_name": "法兰泰克",
+    "success": false,
+    "elapsed_time": 0.011101961135864258,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603901",
+    "stock_name": "永创智能",
+    "success": false,
+    "elapsed_time": 0.012853145599365234,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000590",
+    "stock_name": "启迪药业",
+    "success": false,
+    "elapsed_time": 0.016988039016723633,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603998",
+    "stock_name": "方盛制药",
+    "success": false,
+    "elapsed_time": 0.015295982360839844,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002603",
+    "stock_name": "以岭药业",
+    "success": false,
+    "elapsed_time": 0.017021894454956055,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002424",
+    "stock_name": "贵州百灵",
+    "success": false,
+    "elapsed_time": 0.018960237503051758,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002624",
+    "stock_name": "完美世界",
+    "success": false,
+    "elapsed_time": 0.012018203735351562,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002682",
+    "stock_name": "龙洲股份",
+    "success": false,
+    "elapsed_time": 0.01882481575012207,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601601",
+    "stock_name": "中国太保",
+    "success": false,
+    "elapsed_time": 0.024536848068237305,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000823",
+    "stock_name": "超声电子",
+    "success": false,
+    "elapsed_time": 0.02663898468017578,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000636",
+    "stock_name": "风华高科",
+    "success": false,
+    "elapsed_time": 0.03136420249938965,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002137",
+    "stock_name": "实益达",
+    "success": false,
+    "elapsed_time": 0.016150951385498047,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002273",
+    "stock_name": "水晶光电",
+    "success": false,
+    "elapsed_time": 0.015400886535644531,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002384",
+    "stock_name": "东山精密",
+    "success": false,
+    "elapsed_time": 0.013213157653808594,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002436",
+    "stock_name": "兴森科技",
+    "success": false,
+    "elapsed_time": 0.015487909317016602,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002782",
+    "stock_name": "可立克",
+    "success": false,
+    "elapsed_time": 0.014536142349243164,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002841",
+    "stock_name": "视源股份",
+    "success": false,
+    "elapsed_time": 0.01231694221496582,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002897",
+    "stock_name": "意华股份",
+    "success": false,
+    "elapsed_time": 0.012897968292236328,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002913",
+    "stock_name": "奥士康",
+    "success": false,
+    "elapsed_time": 0.012788057327270508,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002938",
+    "stock_name": "鹏鼎控股",
+    "success": false,
+    "elapsed_time": 0.011417150497436523,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002993",
+    "stock_name": "奥海科技",
+    "success": false,
+    "elapsed_time": 0.011943340301513672,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600552",
+    "stock_name": "凯盛科技",
+    "success": false,
+    "elapsed_time": 0.015590190887451172,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603267",
+    "stock_name": "鸿远电子",
+    "success": false,
+    "elapsed_time": 0.010229110717773438,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603678",
+    "stock_name": "火炬电子",
+    "success": false,
+    "elapsed_time": 0.011059999465942383,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603920",
+    "stock_name": "世运电路",
+    "success": false,
+    "elapsed_time": 0.009863853454589844,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605058",
+    "stock_name": "澳弘电子",
+    "success": false,
+    "elapsed_time": 0.011215925216674805,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603989",
+    "stock_name": "艾华集团",
+    "success": false,
+    "elapsed_time": 0.012793302536010742,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000797",
+    "stock_name": "中国武夷",
+    "success": false,
+    "elapsed_time": 0.01985621452331543,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002377",
+    "stock_name": "国创高新",
+    "success": false,
+    "elapsed_time": 0.017729997634887695,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002141",
+    "stock_name": "贤丰控股",
+    "success": false,
+    "elapsed_time": 0.015259981155395508,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000735",
+    "stock_name": "罗 牛 山",
+    "success": false,
+    "elapsed_time": 0.017102718353271484,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603739",
+    "stock_name": "蔚蓝生物",
+    "success": false,
+    "elapsed_time": 0.011701822280883789,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600251",
+    "stock_name": "冠农股份",
+    "success": false,
+    "elapsed_time": 0.019093990325927734,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000902",
+    "stock_name": "新洋丰",
+    "success": false,
+    "elapsed_time": 0.018969058990478516,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000422",
+    "stock_name": "湖北宜化",
+    "success": false,
+    "elapsed_time": 0.020899057388305664,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600141",
+    "stock_name": "兴发集团",
+    "success": false,
+    "elapsed_time": 0.019954204559326172,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600331",
+    "stock_name": "宏达股份",
+    "success": false,
+    "elapsed_time": 0.01509404182434082,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600486",
+    "stock_name": "扬农化工",
+    "success": false,
+    "elapsed_time": 0.016492605209350586,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600470",
+    "stock_name": "六国化工",
+    "success": false,
+    "elapsed_time": 0.01728510856628418,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603999",
+    "stock_name": "读者传媒",
+    "success": false,
+    "elapsed_time": 0.01006317138671875,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600551",
+    "stock_name": "时代出版",
+    "success": false,
+    "elapsed_time": 0.012840986251831055,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002246",
+    "stock_name": "北化股份",
+    "success": false,
+    "elapsed_time": 0.017103910446166992,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600267",
+    "stock_name": "海正药业",
+    "success": false,
+    "elapsed_time": 0.01997971534729004,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000566",
+    "stock_name": "海南海药",
+    "success": false,
+    "elapsed_time": 0.021308183670043945,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000510",
+    "stock_name": "新金路",
+    "success": false,
+    "elapsed_time": 0.02209615707397461,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002669",
+    "stock_name": "康达新材",
+    "success": false,
+    "elapsed_time": 0.012612104415893555,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600935",
+    "stock_name": "华塑股份",
+    "success": false,
+    "elapsed_time": 0.012274980545043945,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002386",
+    "stock_name": "天原股份",
+    "success": false,
+    "elapsed_time": 0.016865015029907227,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600378",
+    "stock_name": "昊华科技",
+    "success": false,
+    "elapsed_time": 0.01435399055480957,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002998",
+    "stock_name": "优彩资源",
+    "success": false,
+    "elapsed_time": 0.00823211669921875,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601208",
+    "stock_name": "东材科技",
+    "success": false,
+    "elapsed_time": 0.011288166046142578,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603010",
+    "stock_name": "万盛股份",
+    "success": false,
+    "elapsed_time": 0.011902093887329102,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603977",
+    "stock_name": "国泰集团",
+    "success": false,
+    "elapsed_time": 0.013556957244873047,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601233",
+    "stock_name": "桐昆股份",
+    "success": false,
+    "elapsed_time": 0.014280080795288086,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600409",
+    "stock_name": "三友化工",
+    "success": false,
+    "elapsed_time": 0.01728510856628418,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000863",
+    "stock_name": "三湘印象",
+    "success": false,
+    "elapsed_time": 0.01667499542236328,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600638",
+    "stock_name": "新黄浦",
+    "success": false,
+    "elapsed_time": 0.01869678497314453,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002950",
+    "stock_name": "奥美医疗",
+    "success": false,
+    "elapsed_time": 0.010962247848510742,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600692",
+    "stock_name": "亚通股份",
+    "success": false,
+    "elapsed_time": 0.022697925567626953,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600683",
+    "stock_name": "京投发展",
+    "success": false,
+    "elapsed_time": 0.025599956512451172,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600530",
+    "stock_name": "交大昂立",
+    "success": false,
+    "elapsed_time": 0.017826080322265625,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603233",
+    "stock_name": "大参林",
+    "success": false,
+    "elapsed_time": 0.013758182525634766,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603375",
+    "stock_name": "盛景微",
+    "success": false,
+    "elapsed_time": 0.0110931396484375,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603939",
+    "stock_name": "益丰药房",
+    "success": false,
+    "elapsed_time": 0.01447296142578125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603160",
+    "stock_name": "汇顶科技",
+    "success": false,
+    "elapsed_time": 0.014478921890258789,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000151",
+    "stock_name": "中成股份",
+    "success": false,
+    "elapsed_time": 0.017999887466430664,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600278",
+    "stock_name": "东方创业",
+    "success": false,
+    "elapsed_time": 0.016131877899169922,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600725",
+    "stock_name": "云维股份",
+    "success": false,
+    "elapsed_time": 0.015485763549804688,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600463",
+    "stock_name": "空港股份",
+    "success": false,
+    "elapsed_time": 0.018068313598632812,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603150",
+    "stock_name": "万朗磁塑",
+    "success": false,
+    "elapsed_time": 0.01014089584350586,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603212",
+    "stock_name": "赛伍技术",
+    "success": false,
+    "elapsed_time": 0.013343095779418945,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603806",
+    "stock_name": "福斯特",
+    "success": false,
+    "elapsed_time": 0.011422872543334961,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600639",
+    "stock_name": "浦东金桥",
+    "success": false,
+    "elapsed_time": 0.023957014083862305,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600901",
+    "stock_name": "江苏金租",
+    "success": false,
+    "elapsed_time": 0.012042045593261719,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "003011",
+    "stock_name": "海象新材",
+    "success": false,
+    "elapsed_time": 0.013252973556518555,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601996",
+    "stock_name": "丰林集团",
+    "success": false,
+    "elapsed_time": 0.011497020721435547,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000415",
+    "stock_name": "渤海租赁",
+    "success": false,
+    "elapsed_time": 0.01887798309326172,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "003023",
+    "stock_name": "彩虹集团",
+    "success": false,
+    "elapsed_time": 0.010341167449951172,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002677",
+    "stock_name": "浙江美大",
+    "success": false,
+    "elapsed_time": 0.011240959167480469,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000016",
+    "stock_name": "深康佳Ａ",
+    "success": false,
+    "elapsed_time": 0.015306711196899414,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002860",
+    "stock_name": "星帅尔",
+    "success": false,
+    "elapsed_time": 0.012662887573242188,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605376",
+    "stock_name": "博迁新材",
+    "success": false,
+    "elapsed_time": 0.00924992561340332,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002842",
+    "stock_name": "翔鹭钨业",
+    "success": false,
+    "elapsed_time": 0.01099395751953125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002428",
+    "stock_name": "云南锗业",
+    "success": false,
+    "elapsed_time": 0.01247096061706543,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600301",
+    "stock_name": "华锡有色",
+    "success": false,
+    "elapsed_time": 0.01954197883605957,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605305",
+    "stock_name": "中际联合",
+    "success": false,
+    "elapsed_time": 0.012130022048950195,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002535",
+    "stock_name": "林州重机",
+    "success": false,
+    "elapsed_time": 0.014400005340576172,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000917",
+    "stock_name": "电广传媒",
+    "success": false,
+    "elapsed_time": 0.019884109497070312,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002291",
+    "stock_name": "遥望科技",
+    "success": false,
+    "elapsed_time": 0.01794886589050293,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002831",
+    "stock_name": "裕同科技",
+    "success": false,
+    "elapsed_time": 0.01582813262939453,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600210",
+    "stock_name": "紫江企业",
+    "success": false,
+    "elapsed_time": 0.016465187072753906,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601515",
+    "stock_name": "东峰集团",
+    "success": false,
+    "elapsed_time": 0.012159109115600586,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001316",
+    "stock_name": "润贝航科",
+    "success": false,
+    "elapsed_time": 0.011000871658325195,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601968",
+    "stock_name": "宝钢包装",
+    "success": false,
+    "elapsed_time": 0.018023014068603516,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603129",
+    "stock_name": "春风动力",
+    "success": false,
+    "elapsed_time": 0.014575004577636719,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600640",
+    "stock_name": "国脉文化",
+    "success": false,
+    "elapsed_time": 0.020896196365356445,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603766",
+    "stock_name": "隆鑫通用",
+    "success": false,
+    "elapsed_time": 0.02002882957458496,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002899",
+    "stock_name": "英派斯",
+    "success": false,
+    "elapsed_time": 0.014678001403808594,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002348",
+    "stock_name": "高乐股份",
+    "success": false,
+    "elapsed_time": 0.020514965057373047,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603307",
+    "stock_name": "扬州金泉",
+    "success": false,
+    "elapsed_time": 0.00899195671081543,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600730",
+    "stock_name": "中国高科",
+    "success": false,
+    "elapsed_time": 0.03493189811706543,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002218",
+    "stock_name": "拓日新能",
+    "success": false,
+    "elapsed_time": 0.022485017776489258,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "003816",
+    "stock_name": "中国广核",
+    "success": false,
+    "elapsed_time": 0.018990039825439453,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603099",
+    "stock_name": "长白山",
+    "success": false,
+    "elapsed_time": 0.017390966415405273,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001209",
+    "stock_name": "洪兴股份",
+    "success": false,
+    "elapsed_time": 0.013287782669067383,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000898",
+    "stock_name": "鞍钢股份",
+    "success": false,
+    "elapsed_time": 0.020975828170776367,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600022",
+    "stock_name": "山东钢铁",
+    "success": false,
+    "elapsed_time": 0.018651962280273438,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600010",
+    "stock_name": "包钢股份",
+    "success": false,
+    "elapsed_time": 0.022098064422607422,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002780",
+    "stock_name": "三夫户外",
+    "success": false,
+    "elapsed_time": 0.012586832046508789,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002731",
+    "stock_name": "萃华珠宝",
+    "success": false,
+    "elapsed_time": 0.01959705352783203,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603808",
+    "stock_name": "歌力思",
+    "success": false,
+    "elapsed_time": 0.015421152114868164,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600612",
+    "stock_name": "老凤祥",
+    "success": false,
+    "elapsed_time": 0.02377176284790039,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603958",
+    "stock_name": "哈森股份",
+    "success": false,
+    "elapsed_time": 0.021716833114624023,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002248",
+    "stock_name": "华东数控",
+    "success": false,
+    "elapsed_time": 0.02007293701171875,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002559",
+    "stock_name": "亚威股份",
+    "success": false,
+    "elapsed_time": 0.015123128890991211,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000410",
+    "stock_name": "沈阳机床",
+    "success": false,
+    "elapsed_time": 0.030349016189575195,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001379",
+    "stock_name": "腾达科技",
+    "success": false,
+    "elapsed_time": 0.013288021087646484,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002342",
+    "stock_name": "巨力索具",
+    "success": false,
+    "elapsed_time": 0.01597905158996582,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000530",
+    "stock_name": "冰山冷热",
+    "success": false,
+    "elapsed_time": 0.02350902557373047,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002438",
+    "stock_name": "江苏神通",
+    "success": false,
+    "elapsed_time": 0.02208089828491211,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002823",
+    "stock_name": "凯中精密",
+    "success": false,
+    "elapsed_time": 0.017006635665893555,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002760",
+    "stock_name": "凤形股份",
+    "success": false,
+    "elapsed_time": 0.021832942962646484,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600114",
+    "stock_name": "东睦股份",
+    "success": false,
+    "elapsed_time": 0.01682281494140625,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605566",
+    "stock_name": "福莱蒽特",
+    "success": false,
+    "elapsed_time": 0.007831811904907227,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600343",
+    "stock_name": "航天动力",
+    "success": false,
+    "elapsed_time": 0.023834943771362305,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601002",
+    "stock_name": "晋亿实业",
+    "success": false,
+    "elapsed_time": 0.021595001220703125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000722",
+    "stock_name": "湖南发展",
+    "success": false,
+    "elapsed_time": 0.02952885627746582,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600505",
+    "stock_name": "西昌电力",
+    "success": false,
+    "elapsed_time": 0.02544879913330078,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601083",
+    "stock_name": "锦江航运",
+    "success": false,
+    "elapsed_time": 0.01460719108581543,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603167",
+    "stock_name": "渤海轮渡",
+    "success": false,
+    "elapsed_time": 0.015781164169311523,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603565",
+    "stock_name": "中谷物流",
+    "success": false,
+    "elapsed_time": 0.018826961517333984,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002363",
+    "stock_name": "隆基机械",
+    "success": false,
+    "elapsed_time": 0.01747894287109375,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600303",
+    "stock_name": "曙光股份",
+    "success": false,
+    "elapsed_time": 0.025037050247192383,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002813",
+    "stock_name": "路畅科技",
+    "success": false,
+    "elapsed_time": 0.012179136276245117,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000887",
+    "stock_name": "中鼎股份",
+    "success": false,
+    "elapsed_time": 0.028545141220092773,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600933",
+    "stock_name": "爱柯迪",
+    "success": false,
+    "elapsed_time": 0.016819238662719727,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603306",
+    "stock_name": "华懋科技",
+    "success": false,
+    "elapsed_time": 0.011744022369384766,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603006",
+    "stock_name": "联明股份",
+    "success": false,
+    "elapsed_time": 0.016552209854125977,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603917",
+    "stock_name": "合力科技",
+    "success": false,
+    "elapsed_time": 0.013825178146362305,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601991",
+    "stock_name": "大唐发电",
+    "success": false,
+    "elapsed_time": 0.014602899551391602,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600097",
+    "stock_name": "开创国际",
+    "success": false,
+    "elapsed_time": 0.02205801010131836,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000899",
+    "stock_name": "赣能股份",
+    "success": false,
+    "elapsed_time": 0.01896500587463379,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000531",
+    "stock_name": "穗恒运Ａ",
+    "success": false,
+    "elapsed_time": 0.020437002182006836,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601101",
+    "stock_name": "昊华能源",
+    "success": false,
+    "elapsed_time": 0.015918970108032227,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000983",
+    "stock_name": "山西焦煤",
+    "success": false,
+    "elapsed_time": 0.018165111541748047,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000708",
+    "stock_name": "中信特钢",
+    "success": false,
+    "elapsed_time": 0.01723790168762207,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000803",
+    "stock_name": "山高环能",
+    "success": false,
+    "elapsed_time": 0.02066493034362793,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601865",
+    "stock_name": "福莱特",
+    "success": false,
+    "elapsed_time": 0.009083986282348633,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002201",
+    "stock_name": "九鼎新材",
+    "success": false,
+    "elapsed_time": 0.015690088272094727,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605006",
+    "stock_name": "山东玻纤",
+    "success": false,
+    "elapsed_time": 0.009810924530029297,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600586",
+    "stock_name": "金晶科技",
+    "success": false,
+    "elapsed_time": 0.01588606834411621,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002967",
+    "stock_name": "广电计量",
+    "success": false,
+    "elapsed_time": 0.010869979858398438,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002416",
+    "stock_name": "爱施德",
+    "success": false,
+    "elapsed_time": 0.011862993240356445,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001208",
+    "stock_name": "华菱线缆",
+    "success": false,
+    "elapsed_time": 0.011690855026245117,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001283",
+    "stock_name": "豪鹏科技",
+    "success": false,
+    "elapsed_time": 0.007395029067993164,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000534",
+    "stock_name": "万泽股份",
+    "success": false,
+    "elapsed_time": 0.023211002349853516,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002459",
+    "stock_name": "晶澳科技",
+    "success": false,
+    "elapsed_time": 0.012914180755615234,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002506",
+    "stock_name": "协鑫集成",
+    "success": false,
+    "elapsed_time": 0.0133819580078125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600478",
+    "stock_name": "科力远",
+    "success": false,
+    "elapsed_time": 0.015942096710205078,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600416",
+    "stock_name": "湘电股份",
+    "success": false,
+    "elapsed_time": 0.01660299301147461,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601567",
+    "stock_name": "三星医疗",
+    "success": false,
+    "elapsed_time": 0.016396045684814453,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600732",
+    "stock_name": "爱旭股份",
+    "success": false,
+    "elapsed_time": 0.019150972366333008,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603218",
+    "stock_name": "日月股份",
+    "success": false,
+    "elapsed_time": 0.012509822845458984,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603016",
+    "stock_name": "新宏泰",
+    "success": false,
+    "elapsed_time": 0.01339101791381836,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603320",
+    "stock_name": "迪贝电气",
+    "success": false,
+    "elapsed_time": 0.008337020874023438,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603778",
+    "stock_name": "国晟科技",
+    "success": false,
+    "elapsed_time": 0.01114201545715332,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603897",
+    "stock_name": "长城科技",
+    "success": false,
+    "elapsed_time": 0.01080012321472168,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001359",
+    "stock_name": "平安电工",
+    "success": false,
+    "elapsed_time": 0.008452892303466797,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600712",
+    "stock_name": "南宁百货",
+    "success": false,
+    "elapsed_time": 0.018932342529296875,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600256",
+    "stock_name": "广汇能源",
+    "success": false,
+    "elapsed_time": 0.01504373550415039,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600838",
+    "stock_name": "上海九百",
+    "success": false,
+    "elapsed_time": 0.021023035049438477,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603612",
+    "stock_name": "索通发展",
+    "success": false,
+    "elapsed_time": 0.009348869323730469,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603365",
+    "stock_name": "水星家纺",
+    "success": false,
+    "elapsed_time": 0.010643959045410156,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600149",
+    "stock_name": "廊坊发展",
+    "success": false,
+    "elapsed_time": 0.0187990665435791,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "003009",
+    "stock_name": "中天火箭",
+    "success": false,
+    "elapsed_time": 0.014199018478393555,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600724",
+    "stock_name": "宁波富达",
+    "success": false,
+    "elapsed_time": 0.020907163619995117,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600879",
+    "stock_name": "航天电子",
+    "success": false,
+    "elapsed_time": 0.01901078224182129,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605123",
+    "stock_name": "派克新材",
+    "success": false,
+    "elapsed_time": 0.009217023849487305,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002482",
+    "stock_name": "广田集团",
+    "success": false,
+    "elapsed_time": 0.01471710205078125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600150",
+    "stock_name": "中国船舶",
+    "success": false,
+    "elapsed_time": 0.02795696258544922,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600685",
+    "stock_name": "中船防务",
+    "success": false,
+    "elapsed_time": 0.029485702514648438,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600958",
+    "stock_name": "东方证券",
+    "success": false,
+    "elapsed_time": 0.011896133422851562,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600621",
+    "stock_name": "华鑫股份",
+    "success": false,
+    "elapsed_time": 0.02461099624633789,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601995",
+    "stock_name": "中金公司",
+    "success": false,
+    "elapsed_time": 0.011796951293945312,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600012",
+    "stock_name": "皖通高速",
+    "success": false,
+    "elapsed_time": 0.019149065017700195,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "003029",
+    "stock_name": "吉大正元",
+    "success": false,
+    "elapsed_time": 0.014468669891357422,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000034",
+    "stock_name": "神州数码",
+    "success": false,
+    "elapsed_time": 0.02168893814086914,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000158",
+    "stock_name": "常山北明",
+    "success": false,
+    "elapsed_time": 0.0232241153717041,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603990",
+    "stock_name": "麦迪科技",
+    "success": false,
+    "elapsed_time": 0.012620925903320312,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002151",
+    "stock_name": "北斗星通",
+    "success": false,
+    "elapsed_time": 0.015374898910522461,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002792",
+    "stock_name": "通宇通讯",
+    "success": false,
+    "elapsed_time": 0.016275882720947266,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000586",
+    "stock_name": "汇源通信",
+    "success": false,
+    "elapsed_time": 0.01863884925842285,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603803",
+    "stock_name": "瑞斯康达",
+    "success": false,
+    "elapsed_time": 0.011801958084106445,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002132",
+    "stock_name": "恒星科技",
+    "success": false,
+    "elapsed_time": 0.016192197799682617,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002593",
+    "stock_name": "日上集团",
+    "success": false,
+    "elapsed_time": 0.017464160919189453,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000778",
+    "stock_name": "新兴铸管",
+    "success": false,
+    "elapsed_time": 0.022496938705444336,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002114",
+    "stock_name": "罗平锌电",
+    "success": false,
+    "elapsed_time": 0.0169217586517334,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603132",
+    "stock_name": "金徽股份",
+    "success": false,
+    "elapsed_time": 0.012682914733886719,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600338",
+    "stock_name": "西藏珠峰",
+    "success": false,
+    "elapsed_time": 0.018583059310913086,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603271",
+    "stock_name": "永杰新材",
+    "success": false,
+    "elapsed_time": 0.006154060363769531,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600361",
+    "stock_name": "创新新材",
+    "success": false,
+    "elapsed_time": 0.021473169326782227,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600615",
+    "stock_name": "鑫源智造",
+    "success": false,
+    "elapsed_time": 0.02449798583984375,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601187",
+    "stock_name": "厦门银行",
+    "success": false,
+    "elapsed_time": 0.012501001358032227,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002956",
+    "stock_name": "西麦食品",
+    "success": false,
+    "elapsed_time": 0.00941777229309082,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002702",
+    "stock_name": "海欣食品",
+    "success": false,
+    "elapsed_time": 0.014276266098022461,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002925",
+    "stock_name": "盈趣科技",
+    "success": false,
+    "elapsed_time": 0.01578998565673828,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600499",
+    "stock_name": "科达制造",
+    "success": false,
+    "elapsed_time": 0.024305105209350586,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600262",
+    "stock_name": "北方股份",
+    "success": false,
+    "elapsed_time": 0.029906272888183594,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600783",
+    "stock_name": "鲁信创投",
+    "success": false,
+    "elapsed_time": 0.02660512924194336,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600561",
+    "stock_name": "江西长运",
+    "success": false,
+    "elapsed_time": 0.018353939056396484,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600989",
+    "stock_name": "宝丰能源",
+    "success": false,
+    "elapsed_time": 0.013273000717163086,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002337",
+    "stock_name": "赛象科技",
+    "success": false,
+    "elapsed_time": 0.015416860580444336,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000683",
+    "stock_name": "博源化工",
+    "success": false,
+    "elapsed_time": 0.021437883377075195,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002430",
+    "stock_name": "杭氧股份",
+    "success": false,
+    "elapsed_time": 0.01762986183166504,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605358",
+    "stock_name": "立昂微",
+    "success": false,
+    "elapsed_time": 0.012151002883911133,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000965",
+    "stock_name": "天保基建",
+    "success": false,
+    "elapsed_time": 0.017679214477539062,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600239",
+    "stock_name": "云南城投",
+    "success": false,
+    "elapsed_time": 0.014500141143798828,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603856",
+    "stock_name": "东宏股份",
+    "success": false,
+    "elapsed_time": 0.014065980911254883,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002961",
+    "stock_name": "瑞达期货",
+    "success": false,
+    "elapsed_time": 0.01170492172241211,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000987",
+    "stock_name": "越秀资本",
+    "success": false,
+    "elapsed_time": 0.02001500129699707,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600336",
+    "stock_name": "澳柯玛",
+    "success": false,
+    "elapsed_time": 0.019162893295288086,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603355",
+    "stock_name": "莱克电气",
+    "success": false,
+    "elapsed_time": 0.012475967407226562,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000657",
+    "stock_name": "中钨高新",
+    "success": false,
+    "elapsed_time": 0.016476869583129883,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600169",
+    "stock_name": "太原重工",
+    "success": false,
+    "elapsed_time": 0.020260095596313477,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002400",
+    "stock_name": "省广集团",
+    "success": false,
+    "elapsed_time": 0.021398067474365234,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603071",
+    "stock_name": "物产环能",
+    "success": false,
+    "elapsed_time": 0.014429807662963867,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000011",
+    "stock_name": "深物业A",
+    "success": false,
+    "elapsed_time": 0.020225048065185547,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605098",
+    "stock_name": "行动教育",
+    "success": false,
+    "elapsed_time": 0.011398077011108398,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605099",
+    "stock_name": "共创草坪",
+    "success": false,
+    "elapsed_time": 0.011663198471069336,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000155",
+    "stock_name": "川能动力",
+    "success": false,
+    "elapsed_time": 0.013074874877929688,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600569",
+    "stock_name": "安阳钢铁",
+    "success": false,
+    "elapsed_time": 0.01605391502380371,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601969",
+    "stock_name": "海南矿业",
+    "success": false,
+    "elapsed_time": 0.014027118682861328,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002205",
+    "stock_name": "国统股份",
+    "success": false,
+    "elapsed_time": 0.016253948211669922,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600236",
+    "stock_name": "桂冠电力",
+    "success": false,
+    "elapsed_time": 0.02118992805480957,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601992",
+    "stock_name": "金隅集团",
+    "success": false,
+    "elapsed_time": 0.012267827987670898,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002596",
+    "stock_name": "海南瑞泽",
+    "success": false,
+    "elapsed_time": 0.019047021865844727,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600960",
+    "stock_name": "渤海汽车",
+    "success": false,
+    "elapsed_time": 0.013792753219604492,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002870",
+    "stock_name": "香山股份",
+    "success": false,
+    "elapsed_time": 0.017313241958618164,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603037",
+    "stock_name": "凯众股份",
+    "success": false,
+    "elapsed_time": 0.013779878616333008,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000582",
+    "stock_name": "北部湾港",
+    "success": false,
+    "elapsed_time": 0.016803741455078125,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600023",
+    "stock_name": "浙能电力",
+    "success": false,
+    "elapsed_time": 0.014286994934082031,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600578",
+    "stock_name": "京能电力",
+    "success": false,
+    "elapsed_time": 0.01504206657409668,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600546",
+    "stock_name": "山煤国际",
+    "success": false,
+    "elapsed_time": 0.019570112228393555,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601225",
+    "stock_name": "陕西煤业",
+    "success": false,
+    "elapsed_time": 0.01646113395690918,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601898",
+    "stock_name": "XD中煤能",
+    "success": false,
+    "elapsed_time": 0.013961076736450195,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600133",
+    "stock_name": "东湖高新",
+    "success": false,
+    "elapsed_time": 0.01888108253479004,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603568",
+    "stock_name": "伟明环保",
+    "success": false,
+    "elapsed_time": 0.013147830963134766,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002452",
+    "stock_name": "长高电新",
+    "success": false,
+    "elapsed_time": 0.013010025024414062,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002531",
+    "stock_name": "天顺风能",
+    "success": false,
+    "elapsed_time": 0.011667966842651367,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603097",
+    "stock_name": "江苏华辰",
+    "success": false,
+    "elapsed_time": 0.009634017944335938,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601179",
+    "stock_name": "中国西电",
+    "success": false,
+    "elapsed_time": 0.014468908309936523,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603688",
+    "stock_name": "石英股份",
+    "success": false,
+    "elapsed_time": 0.013741254806518555,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600693",
+    "stock_name": "东百集团",
+    "success": false,
+    "elapsed_time": 0.01881098747253418,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600029",
+    "stock_name": "南方航空",
+    "success": false,
+    "elapsed_time": 0.016440153121948242,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601111",
+    "stock_name": "中国国航",
+    "success": false,
+    "elapsed_time": 0.01442098617553711,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "003041",
+    "stock_name": "真爱美家",
+    "success": false,
+    "elapsed_time": 0.011316061019897461,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002935",
+    "stock_name": "天奥电子",
+    "success": false,
+    "elapsed_time": 0.011330127716064453,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000686",
+    "stock_name": "东北证券",
+    "success": false,
+    "elapsed_time": 0.02066183090209961,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002474",
+    "stock_name": "榕基软件",
+    "success": false,
+    "elapsed_time": 0.015256166458129883,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601377",
+    "stock_name": "兴业证券",
+    "success": false,
+    "elapsed_time": 0.02038288116455078,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000555",
+    "stock_name": "神州信息",
+    "success": false,
+    "elapsed_time": 0.020467042922973633,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002689",
+    "stock_name": "远大智能",
+    "success": false,
+    "elapsed_time": 0.014129877090454102,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002478",
+    "stock_name": "常宝股份",
+    "success": false,
+    "elapsed_time": 0.012994050979614258,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000889",
+    "stock_name": "中嘉博创",
+    "success": false,
+    "elapsed_time": 0.015417098999023438,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600558",
+    "stock_name": "大西洋",
+    "success": false,
+    "elapsed_time": 0.017309188842773438,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605118",
+    "stock_name": "力鼎光电",
+    "success": false,
+    "elapsed_time": 0.01152801513671875,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000751",
+    "stock_name": "锌业股份",
+    "success": false,
+    "elapsed_time": 0.014729022979736328,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603186",
+    "stock_name": "华正新材",
+    "success": false,
+    "elapsed_time": 0.015948057174682617,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002181",
+    "stock_name": "粤 传 媒",
+    "success": false,
+    "elapsed_time": 0.013649940490722656,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "001258",
+    "stock_name": "立新能源",
+    "success": false,
+    "elapsed_time": 0.009138822555541992,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603316",
+    "stock_name": "诚邦股份",
+    "success": false,
+    "elapsed_time": 0.01113128662109375,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "003016",
+    "stock_name": "欣贺股份",
+    "success": false,
+    "elapsed_time": 0.011902809143066406,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605100",
+    "stock_name": "华丰股份",
+    "success": false,
+    "elapsed_time": 0.012438058853149414,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "603758",
+    "stock_name": "秦安股份",
+    "success": false,
+    "elapsed_time": 0.010888099670410156,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000600",
+    "stock_name": "建投能源",
+    "success": false,
+    "elapsed_time": 0.020034074783325195,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "601015",
+    "stock_name": "陕西黑猫",
+    "success": false,
+    "elapsed_time": 0.011328935623168945,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600792",
+    "stock_name": "云煤能源",
+    "success": false,
+    "elapsed_time": 0.017013072967529297,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002658",
+    "stock_name": "雪迪龙",
+    "success": false,
+    "elapsed_time": 0.011845827102661133,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002759",
+    "stock_name": "天际股份",
+    "success": false,
+    "elapsed_time": 0.010582923889160156,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "002850",
+    "stock_name": "科达利",
+    "success": false,
+    "elapsed_time": 0.013349294662475586,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000922",
+    "stock_name": "佳电股份",
+    "success": false,
+    "elapsed_time": 0.019090890884399414,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "605287",
+    "stock_name": "德才股份",
+    "success": false,
+    "elapsed_time": 0.008643150329589844,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "600268",
+    "stock_name": "国电南自",
+    "success": false,
+    "elapsed_time": 0.01697993278503418,
+    "error": "name 'industry' is not defined"
+  },
+  {
+    "stock_code": "000807",
+    "stock_name": "云铝股份",
+    "success": false,
+    "elapsed_time": 0.009366035461425781,
+    "error": "name 'industry' is not defined"
+  }
+]
