@@ -494,11 +494,11 @@ def draw_all_for_stock(mid_drawer: MidLineDrawer,
 
 
 def get_stock_list_from_csv(csv_files: list) -> Dict[str, tuple]:
-    """从CSV文件内容中提取股票代码、名称和前缀
+    """从CSV文件内容中提取股票代码、名称、行业和前缀
     去重规则:同一股票在多个CSV中出现时,保留前缀数字小的(优先级高)
     
     Returns:
-        Dict[str, tuple]: {股票代码: (股票名称, 前缀)}
+        Dict[str, tuple]: {股票代码: (股票名称, 行业, 前缀)}
     """
     # 定义前缀优先级函数(数字越小优先级越高)
     def get_prefix_priority(prefix):
@@ -540,22 +540,23 @@ def get_stock_list_from_csv(csv_files: list) -> Dict[str, tuple]:
             for _, row in df.iterrows():
                 code = str(row.get('code', ''))
                 name = str(row.get('name', code))
+                industry = str(row.get('industry', '未知行业'))
                 
                 if code:
                     normalized_code = code.zfill(6)
                     # 如果股票已存在,比较优先级,保留数字小的前缀
                     if normalized_code in stock_dict:
-                        existing_prefix = stock_dict[normalized_code][1]
+                        existing_prefix = stock_dict[normalized_code][2]
                         current_priority = get_prefix_priority(file_prefix)
                         existing_priority = get_prefix_priority(existing_prefix)
                         
                         if current_priority < existing_priority:
                             # 当前前缀优先级更高,替换
-                            stock_dict[normalized_code] = (name, file_prefix)
+                            stock_dict[normalized_code] = (name, industry, file_prefix)
                             logger.info(f"  📌 [{normalized_code}] {name}: 使用{file_prefix}替换{existing_prefix}(优先级更高)")
                     else:
                         # 股票不存在,直接添加
-                        stock_dict[normalized_code] = (name, file_prefix)
+                        stock_dict[normalized_code] = (name, industry, file_prefix)
                         
         except Exception as e:
             logger.warning(f"⚠️ 读取文件失败: {csv_file}, {e}")
@@ -601,10 +602,11 @@ def main():
         # 从指定代码获取股票列表（无前缀）
         stock_dict = {}
         for code in args.codes:
-            # 优先从stock_info中获取股票名称
+            # 优先从stock_info中获取股票名称和行业
             if code in mid_drawer.stock_info:
                 name = mid_drawer.stock_info[code].get('name', code)
-                stock_dict[code] = (name, "")  # 无前缀
+                industry = mid_drawer.stock_info[code].get('industry', '未知行业')
+                stock_dict[code] = (name, industry, "")  # 无前缀
             else:
                 # 其次从CSV文件名中提取股票名称
                 csv_files = glob.glob(f"../data/{code}*.csv")
@@ -613,9 +615,9 @@ def main():
                     base_name = os.path.basename(csv_file)
                     parts = base_name.replace('.csv', '').split('_')
                     name = '_'.join(parts[1:]) if len(parts) > 1 else code
-                    stock_dict[code] = (name, "")  # 无前缀
+                    stock_dict[code] = (name, "未知行业", "")  # 无前缀
                 else:
-                    stock_dict[code] = (code, "")  # 无前缀
+                    stock_dict[code] = (code, "未知行业", "")  # 无前缀
     else:
         # 从resByFilter目录获取股票列表（带前缀）
         filter_dir = f"../{date_str}-resByFilter"
@@ -640,15 +642,17 @@ def main():
     success_count = 0
     failed_count = 0
     
-    for code, (name, prefix) in stock_dict.items():
+    for code, (name, industry, prefix) in stock_dict.items():
         logger.info(f"\n{'='*60}")
-        logger.info(f"📈 [{code}] {name}" + (f" ({prefix})" if prefix else ""))
+        logger.info(f"📈 [{code}] {name} ({industry})" + (f" [{prefix}]" if prefix else ""))
         logger.info(f"{'='*60}")
         
-        # 构造输出文件路径（带前缀）
+        # 构造输出文件路径（带前缀和行业）
         if prefix:
-            output_file = os.path.join(output_dir, f"{prefix}_{code}_{name}_3all.png")
+            # 格式: {前缀}_{行业}_{股票名称}_{股票代码}_3all.png
+            output_file = os.path.join(output_dir, f"{prefix}_{industry}_{name}_{code}_3all.png")
         else:
+            # 无前缀时: {股票代码}_{股票名称}_3all.png
             output_file = os.path.join(output_dir, f"{code}_{name}_3all.png")
         
         # 绘制ALL图

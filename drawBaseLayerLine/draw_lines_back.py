@@ -1228,8 +1228,10 @@ class BackLineDrawer:
             
             # 3. 生成图表
             if file_prefix and file_prefix != "UNKNOWN":
-                output_file = os.path.join(output_dir, f"{file_prefix}_{stock_code}_{stock_name}_2back.png")
+                # 格式: {前缀}_{行业}_{股票名称}_{股票代码}_2back.png
+                output_file = os.path.join(output_dir, f"{file_prefix}_{industry}_{stock_name}_{stock_code}_2back.png")
             else:
+                # 无前缀时: {股票代码}_{股票名称}_2back.png
                 output_file = os.path.join(output_dir, f"{stock_code}_{stock_name}_2back.png")
             
             success, back_lines_result = self.create_back_chart(stock_code, stock_name, df, output_file)
