@@ -1369,8 +1369,17 @@ def main():
         
         logger.info(f"📁 找到 {len(csv_files)} 个CSV文件")
         
-        # 读取所有CSV文件中的股票，并去重
-        all_stocks = {}
+        # 定义前缀优先级函数(数字越小优先级越高)
+        def get_prefix_priority(prefix):
+            """提取前缀中的数字,数字越小优先级越高"""
+            import re
+            match = re.search(r'(\d+)', prefix)
+            if match:
+                return int(match.group(1))
+            return 999  # 没有数字的前缀优先级最低
+        
+        # 读取所有CSV文件中的股票，并去重(保留优先级最高的前缀)
+        all_stocks = {}  # 使用字典去重，key为股票代码, value为(code, name, industry, prefix)
         
         for file_path in csv_files:
             logger.info(f"📄 读取文件: {file_path}")
@@ -1405,7 +1414,18 @@ def main():
                     
                     if code:
                         normalized_code = code.zfill(6)
-                        if normalized_code not in all_stocks:
+                        # 如果股票已存在,比较优先级,保留数字小的前缀
+                        if normalized_code in all_stocks:
+                            existing_prefix = all_stocks[normalized_code][3]
+                            current_priority = get_prefix_priority(file_prefix)
+                            existing_priority = get_prefix_priority(existing_prefix)
+                            
+                            if current_priority < existing_priority:
+                                # 当前前缀优先级更高,替换
+                                all_stocks[normalized_code] = (normalized_code, name, industry, file_prefix)
+                                logger.info(f"  📌 [{normalized_code}] {name}: 使用{file_prefix}替换{existing_prefix}(优先级更高)")
+                        else:
+                            # 股票不存在,直接添加
                             all_stocks[normalized_code] = (normalized_code, name, industry, file_prefix)
                             
             except Exception as e:

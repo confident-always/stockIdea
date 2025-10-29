@@ -495,10 +495,20 @@ def draw_all_for_stock(mid_drawer: MidLineDrawer,
 
 def get_stock_list_from_csv(csv_files: list) -> Dict[str, tuple]:
     """从CSV文件内容中提取股票代码、名称和前缀
+    去重规则:同一股票在多个CSV中出现时,保留前缀数字小的(优先级高)
     
     Returns:
         Dict[str, tuple]: {股票代码: (股票名称, 前缀)}
     """
+    # 定义前缀优先级函数(数字越小优先级越高)
+    def get_prefix_priority(prefix):
+        """提取前缀中的数字,数字越小优先级越高"""
+        import re
+        match = re.search(r'(\d+)', prefix)
+        if match:
+            return int(match.group(1))
+        return 999  # 没有数字的前缀优先级最低
+    
     stock_dict = {}
     
     for csv_file in csv_files:
@@ -533,7 +543,18 @@ def get_stock_list_from_csv(csv_files: list) -> Dict[str, tuple]:
                 
                 if code:
                     normalized_code = code.zfill(6)
-                    if normalized_code not in stock_dict:
+                    # 如果股票已存在,比较优先级,保留数字小的前缀
+                    if normalized_code in stock_dict:
+                        existing_prefix = stock_dict[normalized_code][1]
+                        current_priority = get_prefix_priority(file_prefix)
+                        existing_priority = get_prefix_priority(existing_prefix)
+                        
+                        if current_priority < existing_priority:
+                            # 当前前缀优先级更高,替换
+                            stock_dict[normalized_code] = (name, file_prefix)
+                            logger.info(f"  📌 [{normalized_code}] {name}: 使用{file_prefix}替换{existing_prefix}(优先级更高)")
+                    else:
+                        # 股票不存在,直接添加
                         stock_dict[normalized_code] = (name, file_prefix)
                         
         except Exception as e:

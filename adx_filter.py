@@ -75,25 +75,64 @@ def parse_percentage(pct_str):
     return 0.0
 
 def parse_range_percent(range_str):
-    """解析形如 "A-B%" 的区间百分比配置，返回 (A, B) 的浮点区间（按比例值），或 None 表示不过滤。
+    """解析形如 "A-B%" 或 "A%-B%" 的区间百分比配置，返回 (A, B) 的浮点区间（按比例值），或 None 表示不过滤。
     例如："16-600%" => (0.16, 6.0)
+          "0%-15%" => (0.0, 0.15)
+          "-1%-10%" => (-0.01, 0.10)
     支持大小写的"none"返回 None。
     """
     if range_str is None:
         return None
     if isinstance(range_str, str) and range_str.strip().lower() == 'none':
         return None
-    if isinstance(range_str, str) and range_str.endswith('%') and '-' in range_str:
+    if isinstance(range_str, str) and '-' in range_str:
         try:
-            body = range_str[:-1]
-            parts = body.split('-')
-            if len(parts) != 2:
+            # 移除所有%符号，然后按-分割
+            # 处理负数的情况："-1%-10%" 需要特殊处理
+            cleaned = range_str.replace('%', '')
+            
+            # 找到所有'-'的位置
+            dash_positions = [i for i, c in enumerate(cleaned) if c == '-']
+            
+            if len(dash_positions) == 0:
                 return None
-            low = float(parts[0]) / 100.0
-            high = float(parts[1]) / 100.0
+            elif len(dash_positions) == 1:
+                # 只有一个'-'，直接分割
+                parts = cleaned.split('-')
+                if len(parts) != 2:
+                    return None
+                low = float(parts[0]) / 100.0
+                high = float(parts[1]) / 100.0
+            elif len(dash_positions) == 2:
+                # 两个'-'，可能是 "-1-10" 或 "1--10" 的情况
+                if dash_positions[0] == 0:
+                    # 第一个是负号，如"-1-10"
+                    parts = cleaned[1:].split('-')
+                    if len(parts) != 2:
+                        return None
+                    low = -float(parts[0]) / 100.0
+                    high = float(parts[1]) / 100.0
+                else:
+                    # 第二个是负号，如"1--10"
+                    parts = [cleaned[:dash_positions[1]], cleaned[dash_positions[1]+1:]]
+                    low = float(parts[0]) / 100.0
+                    high = -float(parts[1]) / 100.0
+            elif len(dash_positions) == 3:
+                # 三个'-'，两个都是负数，如"-1--10"
+                # 第一个'-'是第一个数的负号，第二个'-'是分隔符，第三个'-'是第二个数的负号
+                if dash_positions[0] == 0:
+                    # 格式如 "-1--10"
+                    mid_dash = dash_positions[1]
+                    low = -float(cleaned[1:mid_dash]) / 100.0
+                    high = -float(cleaned[mid_dash+2:]) / 100.0
+                else:
+                    return None
+            else:
+                return None
+            
             return (low, high)
-        except Exception:
-            logger.warning(f"区间百分比解析失败: {range_str}")
+        except Exception as e:
+            logger.warning(f"区间百分比解析失败: {range_str}, 错误: {e}")
             return None
     logger.warning(f"未识别的区间配置: {range_str}")
     return None
@@ -487,10 +526,10 @@ def calculate_price_change_after_signal(kline_df, signal_date):
         # base_price = (signal_row['high'] + signal_row['low'] + 2 * signal_row['close']) / 4
       
         #或者使用信号日期当天的收盘价作为枢轴点价格
-        base_price = signal_row['close']
+        # base_price = signal_row['close']
         
         # 或者使用信号日期当天的开盘价作为枢轴点价格
-        # base_price = signal_row['open']
+        base_price = signal_row['open']
 
 
         # 获取信号日期后的所有数据（不包含信号日当天）
@@ -542,10 +581,13 @@ def calculate_current_range_from_base(kline_df, signal_date):
         if signal_day_data.empty:
             logger.warning(f"未找到信号日期 {signal_date} 的K线数据")
             return 0.0
-        
-        # 使用信号日期当天的(最高价+最低价+2*收盘价)/4作为枢轴点价格
         signal_row = signal_day_data.iloc[0]
-        base_price = (signal_row['high'] + signal_row['low'] + 2 * signal_row['close']) / 4
+
+        # 使用信号日期当天的(最高价+最低价+2*收盘价)/4作为枢轴点价格
+        # base_price = (signal_row['high'] + signal_row['low'] + 2 * signal_row['close']) / 4
+
+        # 或者使用信号日期当天的开盘价作为枢轴点价格
+        base_price = signal_row['open']
         
         # 检查信号日期是否为最后一天
         future_data = kline_df[kline_df['date'] > signal_date]
