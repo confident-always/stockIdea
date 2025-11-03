@@ -413,66 +413,66 @@ class BackLineDrawer:
         return extremes
     
     def generate_B_series_back(self, A: float, N: float, k_list: List[int], 
-                               max_price: float) -> Tuple[List[float], List[int]]:
-        """生成B序列: B_k = A + N × K (AnchorBack算法)
+                               max_price: float, m_base: int = 1) -> Tuple[List[float], List[int]]:
+        """生成B序列: B_k = A + N × M，其中 M = m_base × K (AnchorBack算法)
         
         Args:
-            A: 锚定低点价格（5根K线收盘价最低值）
+            A: 锚定低点价格
             N: 步长参数
-            k_list: K值列表（奇数序列，仅用于确定奇数规则）
+            k_list: K值列表（已废弃）
             max_price: 数据中的最高价
+            m_base: M基数（1, 3, 5, 7, 9, ..., 53）
             
         Returns:
             B_values: B序列价格列表
-            K_values: K值列表
+            M_values: M值列表（用于标注，M = m_base × K）
             
-        策略：
-        1. 自动计算需要多少个K值才能覆盖到最高价
-        2. 在此基础上再额外生成3个K值
-        3. 不受 k_list 限制（忽略该参数，仅用于确定奇数规则）
+        示例：
+            m_base=3: K=[1,2,3,4,5], M=[3,6,9,12,15]
         """
-        if N <= 0:
+        if N <= 0 or m_base <= 0:
             return [], []
         
-        # 计算覆盖到最高价需要的K值（奇数序列）
-        # B_k = A + N × K，当 B_k >= max_price 时，K = (max_price - A) / N
-        k_to_reach_max = int((max_price - A) / N)
+        # 计算覆盖到最高价需要的K值
+        # B_k = A + N × M = A + N × (m_base × K)
+        # 当 B_k >= max_price 时，K = (max_price - A) / (N × m_base)
+        k_to_reach_max = int((max_price - A) / (N * m_base))
         
-        # 确保K是奇数
-        if k_to_reach_max % 2 == 0:
-            k_to_reach_max += 1
+        # 在覆盖最高价的基础上再加3个K值
+        k_final = k_to_reach_max + 3
         
-        # 在覆盖最高价的基础上再加3个奇数（即 +2, +4, +6）
-        k_final = k_to_reach_max + 6
+        # 安全限制
+        if k_final > 100:
+            k_final = 100
         
-        # 安全限制：防止N值过小导致K值过大（例如 > 1000）
-        if k_final > 500:
-            logger.warning(f"⚠️ K值过大({k_final})，N值可能过小({N:.2f})，限制为501（最大奇数）")
-            k_final = 501  # 确保是奇数
+        # 至少生成5个点
+        if k_final < 5:
+            k_final = 5
         
         B_values = []
-        K_values = []
+        M_values = []
         
-        # 生成奇数序列：1, 3, 5, 7, 9, ...
-        k = 1
-        while k <= k_final:
-            B_k = A + N * k
+        # 生成连续整数序列：K = 1, 2, 3, 4, 5, ...
+        for k in range(1, k_final + 1):
+            M = m_base * k
+            B_k = A + N * M
             B_values.append(B_k)
-            K_values.append(k)
-            k += 2  # 每次加2，保持奇数
+            M_values.append(M)
         
-        return B_values, K_values
+        return B_values, M_values
     
     def score_N(self, B_values: List[float], K_values: List[int], extremes: List[Tuple[float, int]], 
-                match_tolerance_ratio: float, time_decay_min_weight: float = 0.3) -> Dict:
+                match_tolerance_ratio: float, time_decay_min_weight: float = 0.3,
+                match_display_threshold: float = 0.004) -> Dict:
         """对某个N值进行评分（含时间衰减因子）
         
         Args:
             B_values: B序列价格列表
             K_values: K值列表
             extremes: List[Tuple[price, idx]] - 价格和索引（距锚定点的天数）
-            match_tolerance_ratio: 匹配容差比例
+            match_tolerance_ratio: 匹配容差比例（用于计算得分）
             time_decay_min_weight: 时间衰减最小权重 (0-1)，越小衰减越强
+            match_display_threshold: Match数组显示阈值，只有价格误差小于此值的才纳入Match数组
         
         时间衰减规则:
             - 锚定点位置（idx=0）: 权重 = 1.0
@@ -540,14 +540,19 @@ class BackLineDrawer:
             
             if k_scores:
                 avg_k_score = sum(k_scores) / len(k_scores)
-                scores.append(avg_k_score)
-                per_k_matches.append({
-                    'k': k_val,
-                    'B_k': B_k,
-                    'matched_extremes': selected_extremes,
-                    'score': avg_k_score
-                })
+                
+                # 检查是否满足Match数组的严格阈值（最小价格误差）
+                min_price_error = min(abs(e_price - B_k) / B_k for e_price in selected_extremes)
+                if min_price_error < match_display_threshold:
+                    scores.append(avg_k_score)
+                    per_k_matches.append({
+                        'k': k_val,
+                        'B_k': B_k,
+                        'matched_extremes': selected_extremes,
+                        'score': avg_k_score
+                    })
         
+        # 只计算纳入Match数组的k值的平均得分
         avg_score = sum(scores) / len(scores) if scores else 0
         matches_count = len([s for s in scores if s > 0])
         
@@ -648,26 +653,74 @@ class BackLineDrawer:
                 N_current += N_step
             
             k_list = config.get('k_list', [1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
+            m_base_max = config.get('m_base_max', 53)
+            m_base_list = list(range(1, m_base_max + 1, 2))  # 1, 3, 5, 7, ..., 53
             max_price = df_after['high'].max()
             match_tolerance = config.get('match_tolerance_ratio', 0.006)
+            match_display_threshold = config.get('match_display_threshold', 0.004)
             time_decay_min_weight = config.get('time_decay_min_weight', 0.3)
             
-            N_results = {}
+            # 遍历所有N和M基数的组合（优化：跳过M×N > A的无效组合）
+            all_results = {}
+            total_combinations = len(N_values) * len(m_base_list)
+            skipped_count = 0
+            
+            logger.info(f"🔍 [{stock_code}] 搜索空间: {len(N_values)}个N值 × {len(m_base_list)}个M基数 = {total_combinations}个组合")
             
             for N in N_values:
-                B_values, K_values = self.generate_B_series_back(anchor_A, N, k_list, max_price)
-                
-                if not B_values:
-                    continue
-                
-                score_result = self.score_N(B_values, K_values, extremes, match_tolerance, time_decay_min_weight)
-                N_results[N] = {
-                    'B_values': B_values,
-                    'K_values': K_values,
-                    'avg_score': score_result['avg_score'],
-                    'matches_count': score_result['matches_count'],
-                    'per_k_matches': score_result['per_k_matches']
-                }
+                for m_base in m_base_list:
+                    # 优化：如果 M×N > A，则第一条线的价格 B_1 = A + N×(m_base×1) = A + N×m_base > 2A
+                    # 这意味着所有线都会远离锚定价格，跳过此组合
+                    if N * m_base > anchor_A:
+                        skipped_count += 1
+                        continue
+                    
+                    # 生成B序列和M值
+                    B_values, M_values = self.generate_B_series_back(
+                        anchor_A, N, k_list, max_price, m_base
+                    )
+                    
+                    if not B_values:
+                        continue
+                    
+                    # 计算得分（使用虚拟的K值列表用于兼容）
+                    dummy_k_values = list(range(1, len(B_values) + 1))
+                    score_result = self.score_N(
+                        B_values, dummy_k_values, extremes, 
+                        match_tolerance, time_decay_min_weight, match_display_threshold
+                    )
+                    
+                    # 保存结果
+                    result_key = (N, m_base)
+                    all_results[result_key] = {
+                        'B_values': B_values,
+                        'M_values': M_values,
+                        'm_base': m_base,
+                        'avg_score': score_result['avg_score'],
+                        'matches_count': score_result['matches_count'],
+                        'per_k_matches': score_result['per_k_matches']
+                    }
+            
+            if skipped_count > 0:
+                logger.info(f"⚡ [{stock_code}] 优化：跳过{skipped_count}个无效组合（M×N > A={anchor_A:.2f}），"
+                           f"实际计算{len(all_results)}个组合")
+            
+            # 选择平均得分最高的组合
+            if not all_results:
+                logger.warning(f"⚠️ [{stock_code}] 未找到任何有效组合")
+                return None
+            
+            # 优先选择匹配数>=2且得分最高的，否则选得分最高的
+            best_combo = max(all_results.items(), 
+                           key=lambda x: (x[1]['matches_count'] >= 2, x[1]['avg_score']))
+            best_key, best_result = best_combo
+            best_N, best_m_base = best_key
+            
+            logger.info(f"📊 [{stock_code}] 最佳组合: N={best_N}, M基数={best_m_base}, "
+                       f"得分={best_result['avg_score']:.1f}, 匹配数={best_result['matches_count']}")
+            
+            # 为了兼容后续代码，构造N_results
+            N_results = {best_N: best_result}
             
             # 5. 选择最佳N值（动态调整策略）
             min_matches = config.get('min_matches', 1)
@@ -711,13 +764,14 @@ class BackLineDrawer:
                     logger.info(f"⚠️ [{stock_code}] 未找到任何有效的N值，跳过AnchorBack线")
                     return None
             
-            logger.debug(f"✅ 最佳N={best_N:.2f}, 平均分={best_result['avg_score']:.2f}, "
-                        f"匹配数={best_result['matches_count']}")
+            logger.debug(f"✅ 最佳N={best_N:.2f}, M基数={best_result.get('m_base', '?')}, "
+                        f"平均分={best_result['avg_score']:.2f}, 匹配数={best_result['matches_count']}")
             
             return {
                 'best_N': best_N,
                 'B_values': best_result['B_values'],
-                'K_values': best_result['K_values'],
+                'M_values': best_result.get('M_values', []),
+                'm_base': best_result.get('m_base', 1),
                 'avg_score': best_result['avg_score'],
                 'matches_count': best_result['matches_count'],
                 'per_k_matches': best_result['per_k_matches'],
@@ -941,7 +995,8 @@ class BackLineDrawer:
                 if back_lines_result:
                     best_N = back_lines_result['best_N']
                     B_values = back_lines_result['B_values']
-                    K_values = back_lines_result['K_values']
+                    M_values = back_lines_result.get('M_values', [])
+                    m_base = back_lines_result.get('m_base', 1)
                     anchor_A = back_lines_result['anchor_A']
                     anchor_idx = back_lines_result['anchor_idx']
                     
@@ -952,15 +1007,15 @@ class BackLineDrawer:
                     
                     text_style = self.anchor_back_config.get('text_style', {})
                     text_fontsize = text_style.get('fontsize', 14)
-                    annotate_format = self.anchor_back_config.get('annotate_format', 'K={K} 价格={price}')
+                    annotate_format = self.anchor_back_config.get('annotate_format', 'M={M} 价格={price}')
                     
                     # 绘制蓝色横线
-                    for k_val, B_k_price in zip(K_values, B_values):
+                    for m_val, B_k_price in zip(M_values, B_values):
                         ax.axhline(y=B_k_price, color=line_color, 
                                   linestyle='-', linewidth=line_width, 
                                   alpha=line_alpha, zorder=2.5)
                         
-                        label_text = annotate_format.replace('{K}', str(k_val)).replace('{price}', f'{B_k_price:.2f}')
+                        label_text = annotate_format.replace('{M}', str(m_val)).replace('{price}', f'{B_k_price:.2f}')
                         ax.text(-0.02, B_k_price, label_text,
                                fontsize=text_fontsize, color=line_color, fontweight='bold',
                                bbox=dict(boxstyle="round,pad=0.4", facecolor='white', alpha=0.85, 
@@ -1037,7 +1092,7 @@ class BackLineDrawer:
                                     edgecolor='#1E90FF', linewidth=2.5),
                            ha='left', va='top', family='monospace')
                     
-                    logger.info(f"✅ [{stock_code}] 绘制AnchorBack线: N={best_N:.2f}, {len(B_values)}条线")
+                    logger.info(f"✅ [{stock_code}] 绘制AnchorBack线: N={best_N:.2f}, M基数={m_base}, {len(B_values)}条线")
                 
                 # 4.5 统一调整Y轴范围（考虑百分比线和AnchorBack线）
                 if stage_lows:

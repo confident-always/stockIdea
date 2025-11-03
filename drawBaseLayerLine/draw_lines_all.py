@@ -325,7 +325,7 @@ def draw_all_for_stock(mid_drawer: MidLineDrawer,
         if back_data:
             best_N = back_data['best_N']
             B_B_values = back_data['B_values']
-            B_K_values = back_data['K_values']
+            B_M_values = back_data.get('M_values', [])
             
             b_line_style = back_drawer.anchor_back_config.get('line_style', {})
             b_line_color = b_line_style.get('color', '#1E90FF')
@@ -334,11 +334,11 @@ def draw_all_for_stock(mid_drawer: MidLineDrawer,
             
             b_text_style = back_drawer.anchor_back_config.get('text_style', {})
             b_text_fontsize = b_text_style.get('fontsize', 14)
-            b_annotate_format = back_drawer.anchor_back_config.get('annotate_format', 'K={K} 价格={price}')
+            b_annotate_format = back_drawer.anchor_back_config.get('annotate_format', 'M={M} 价格={price}')
             
             # 绘制蓝色横线（使用axhline确保价格对齐准确）
-            for k_val, B_k_price in zip(B_K_values, B_B_values):
-                label_text = b_annotate_format.replace('{K}', str(k_val)).replace('{price}', f'{B_k_price:.2f}')
+            for m_val, B_k_price in zip(B_M_values, B_B_values):
+                label_text = b_annotate_format.replace('{M}', str(m_val)).replace('{price}', f'{B_k_price:.2f}')
                 
                 # 先绘制标签(在最左边)
                 # 设置zorder=10确保蓝色标签显示在紫色标签上面

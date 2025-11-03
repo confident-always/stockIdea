@@ -444,14 +444,16 @@ class MidLineDrawer:
         return B_values, K_values
     
     def score_M(self, B_values: List[float], extremes: List[Tuple[float, int]], 
-                match_tolerance_ratio: float, time_decay_min_weight: float = 0.3) -> Dict:
+                match_tolerance_ratio: float, time_decay_min_weight: float = 0.3,
+                match_display_threshold: float = 0.004) -> Dict:
         """对某个M值进行评分（含时间衰减因子）
         
         Args:
             B_values: B序列价格列表
             extremes: List[Tuple[price, idx]] - 价格和索引（距锚定点的天数）
-            match_tolerance_ratio: 匹配容差比例
+            match_tolerance_ratio: 匹配容差比例（用于计算得分）
             time_decay_min_weight: 时间衰减最小权重 (0-1)，越小衰减越强
+            match_display_threshold: Match数组显示阈值，只有价格误差小于此值的才纳入Match数组
         
         时间衰减规则:
             - 锚定点位置（idx=0）: 权重 = 1.0
@@ -519,14 +521,19 @@ class MidLineDrawer:
             
             if k_scores:
                 avg_k_score = sum(k_scores) / len(k_scores)
-                scores.append(avg_k_score)
-                per_k_matches.append({
-                    'k': k_idx + 1,
-                    'B_k': B_k,
-                    'matched_extremes': selected_extremes,
-                    'score': avg_k_score
-                })
+                
+                # 检查是否满足Match数组的严格阈值（最小价格误差）
+                min_price_error = min(abs(e_price - B_k) / B_k for e_price in selected_extremes)
+                if min_price_error < match_display_threshold:
+                    scores.append(avg_k_score)
+                    per_k_matches.append({
+                        'k': k_idx + 1,
+                        'B_k': B_k,
+                        'matched_extremes': selected_extremes,
+                        'score': avg_k_score
+                    })
         
+        # 只计算纳入Match数组的k值的平均得分
         avg_score = sum(scores) / len(scores) if scores else 0
         matches_count = len([s for s in scores if s > 0])
         
@@ -608,6 +615,7 @@ class MidLineDrawer:
             max_k = config.get('max_k', 20)
             max_price = df_after['high'].max()
             match_tolerance = config.get('match_tolerance_ratio', 0.006)
+            match_display_threshold = config.get('match_display_threshold', 0.004)
             time_decay_min_weight = config.get('time_decay_min_weight', 0.3)
             
             M_results = {}
@@ -619,7 +627,7 @@ class MidLineDrawer:
                 if not B_values:
                     continue
                 
-                score_result = self.score_M(B_values, extremes, match_tolerance, time_decay_min_weight)
+                score_result = self.score_M(B_values, extremes, match_tolerance, time_decay_min_weight, match_display_threshold)
                 M_results[M_pct] = {
                     'B_values': B_values,
                     'K_values': K_values,

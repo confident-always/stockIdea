@@ -27,7 +27,7 @@ python select_stock.py --data-dir ./data --config ./configs.json --meta-workers 
 ```bash
 python adx_filter.py --workers 6
 
-python adx_filter.py --input-dir ./20251028-res --output-dir ./20251028-resByFilter --workers 6
+python adx_filter.py --input-dir ./20251031-res --output-dir ./20251031-resByFilter --workers 6
 
 ```
 ### 画线
