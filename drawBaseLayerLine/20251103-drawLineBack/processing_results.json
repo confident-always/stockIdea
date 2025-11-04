@@ -1,0 +1,8278 @@
+[
+  {
+    "stock_code": "603391",
+    "stock_name": "力聚热能",
+    "success": true,
+    "elapsed_time": 1.723550796508789,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.28,
+      "avg_score": 4.974600938796976,
+      "matches_count": 3,
+      "B_values": [
+        35.56,
+        35.84,
+        36.120000000000005,
+        36.4,
+        36.68,
+        36.96,
+        37.24,
+        37.52,
+        37.800000000000004,
+        38.08
+      ],
+      "anchor_A": 35.28,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603901",
+    "stock_name": "永创智能",
+    "success": true,
+    "elapsed_time": 3.0255789756774902,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.41,
+      "avg_score": 22.19153592487902,
+      "matches_count": 2,
+      "B_values": [
+        5.95,
+        6.36,
+        6.77,
+        7.18,
+        7.59,
+        8.0,
+        8.41,
+        8.82,
+        9.23,
+        9.64
+      ],
+      "anchor_A": 5.54,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603131",
+    "stock_name": "上海沪工",
+    "success": true,
+    "elapsed_time": 4.246685028076172,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.35,
+      "avg_score": 13.343407866439383,
+      "matches_count": 3,
+      "B_values": [
+        10.760000000000002,
+        11.81,
+        12.860000000000001,
+        13.91,
+        14.96,
+        16.01,
+        17.060000000000002,
+        18.11,
+        19.16,
+        20.21
+      ],
+      "anchor_A": 9.71,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002728",
+    "stock_name": "特一药业",
+    "success": true,
+    "elapsed_time": 5.4344727993011475,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.59,
+      "avg_score": 19.57774251430003,
+      "matches_count": 2,
+      "B_values": [
+        7.46,
+        8.05,
+        8.64,
+        9.23,
+        9.82,
+        10.41,
+        11.0,
+        11.59,
+        12.18,
+        12.77
+      ],
+      "anchor_A": 6.87,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600057",
+    "stock_name": "厦门象屿",
+    "success": true,
+    "elapsed_time": 4.950124979019165,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.59,
+      "avg_score": 31.063045030164723,
+      "matches_count": 2,
+      "B_values": [
+        4.23,
+        4.82,
+        5.41,
+        6.0,
+        6.59,
+        7.18,
+        7.77,
+        8.36,
+        8.95,
+        9.54
+      ],
+      "anchor_A": 3.64,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001287",
+    "stock_name": "中电港",
+    "success": true,
+    "elapsed_time": 4.877232313156128,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 19.98919802125784,
+      "matches_count": 2,
+      "B_values": [
+        17.0,
+        18.75,
+        20.5,
+        22.25,
+        24.0,
+        25.75,
+        27.5,
+        29.25,
+        31.0,
+        32.75
+      ],
+      "anchor_A": 15.25,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002885",
+    "stock_name": "京泉华",
+    "success": true,
+    "elapsed_time": 4.999199151992798,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.34,
+      "avg_score": 14.100018380950244,
+      "matches_count": 2,
+      "B_values": [
+        10.34,
+        10.68,
+        11.02,
+        11.36,
+        11.7,
+        12.04,
+        12.38,
+        12.72,
+        13.06,
+        13.4
+      ],
+      "anchor_A": 10.0,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603933",
+    "stock_name": "睿能科技",
+    "success": true,
+    "elapsed_time": 5.060266017913818,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.63,
+      "avg_score": 22.678323768531815,
+      "matches_count": 2,
+      "B_values": [
+        8.43,
+        9.06,
+        9.69,
+        10.32,
+        10.95,
+        11.58,
+        12.21,
+        12.84,
+        13.469999999999999,
+        14.1
+      ],
+      "anchor_A": 7.8,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605258",
+    "stock_name": "协和电子",
+    "success": true,
+    "elapsed_time": 5.145875930786133,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.64,
+      "avg_score": 43.46376776046853,
+      "matches_count": 2,
+      "B_values": [
+        17.24,
+        20.439999999999998,
+        23.64,
+        26.84,
+        30.04,
+        33.239999999999995,
+        36.44,
+        39.64,
+        42.84,
+        46.04
+      ],
+      "anchor_A": 14.04,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002043",
+    "stock_name": "兔 宝 宝",
+    "success": true,
+    "elapsed_time": 5.074374198913574,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.32,
+      "avg_score": 21.458925767984617,
+      "matches_count": 2,
+      "B_values": [
+        6.640000000000001,
+        8.24,
+        9.84,
+        11.440000000000001,
+        13.04,
+        14.64,
+        16.240000000000002,
+        17.84,
+        19.44,
+        21.04
+      ],
+      "anchor_A": 5.04,
+      "anchor_date": "2019-01-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000735",
+    "stock_name": "罗 牛 山",
+    "success": true,
+    "elapsed_time": 4.874398946762085,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.49,
+      "avg_score": 29.75765273083053,
+      "matches_count": 2,
+      "B_values": [
+        4.7,
+        5.1899999999999995,
+        5.68,
+        6.17,
+        6.66,
+        7.15,
+        7.64,
+        8.129999999999999,
+        8.620000000000001,
+        9.11
+      ],
+      "anchor_A": 4.21,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000792",
+    "stock_name": "盐湖股份",
+    "success": true,
+    "elapsed_time": 4.8457701206207275,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.41,
+      "avg_score": 29.140481436224977,
+      "matches_count": 2,
+      "B_values": [
+        8.459999999999999,
+        11.329999999999998,
+        14.2,
+        17.07,
+        19.939999999999998,
+        22.81,
+        25.68,
+        28.549999999999997,
+        31.419999999999998,
+        34.29
+      ],
+      "anchor_A": 5.59,
+      "anchor_date": "2019-08-15 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002370",
+    "stock_name": "亚太药业",
+    "success": true,
+    "elapsed_time": 4.811397075653076,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.3,
+      "avg_score": 12.018968047013432,
+      "matches_count": 2,
+      "B_values": [
+        2.57,
+        2.87,
+        3.17,
+        3.4699999999999998,
+        3.77,
+        4.07,
+        4.37,
+        4.67,
+        4.97,
+        5.27
+      ],
+      "anchor_A": 2.27,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002386",
+    "stock_name": "天原股份",
+    "success": true,
+    "elapsed_time": 4.807398080825806,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.3,
+      "avg_score": 10.171351594661694,
+      "matches_count": 2,
+      "B_values": [
+        3.92,
+        4.22,
+        4.52,
+        4.82,
+        5.12,
+        5.42,
+        5.720000000000001,
+        6.02,
+        6.32,
+        6.62
+      ],
+      "anchor_A": 3.62,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002748",
+    "stock_name": "世龙实业",
+    "success": true,
+    "elapsed_time": 4.873860120773315,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 14.681885137371841,
+      "matches_count": 3,
+      "B_values": [
+        5.65,
+        6.52,
+        7.390000000000001,
+        8.26,
+        9.129999999999999,
+        10.0,
+        10.870000000000001,
+        11.739999999999998,
+        12.61,
+        13.48
+      ],
+      "anchor_A": 4.78,
+      "anchor_date": "2021-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603067",
+    "stock_name": "振华股份",
+    "success": true,
+    "elapsed_time": 4.778696775436401,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 17.31113454467394,
+      "matches_count": 2,
+      "B_values": [
+        9.780000000000001,
+        14.530000000000001,
+        19.28,
+        24.03,
+        28.78,
+        33.53,
+        38.28
+      ],
+      "anchor_A": 5.03,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002208",
+    "stock_name": "合肥城建",
+    "success": true,
+    "elapsed_time": 4.720148086547852,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 22.207619311112673,
+      "matches_count": 2,
+      "B_values": [
+        4.78,
+        5.53,
+        6.28,
+        7.03,
+        7.78,
+        8.530000000000001,
+        9.280000000000001,
+        10.030000000000001,
+        10.780000000000001,
+        11.530000000000001
+      ],
+      "anchor_A": 4.03,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600641",
+    "stock_name": "万业企业",
+    "success": true,
+    "elapsed_time": 4.811059951782227,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.63,
+      "avg_score": 24.292144030596717,
+      "matches_count": 2,
+      "B_values": [
+        9.950000000000001,
+        10.58,
+        11.21,
+        11.84,
+        12.47,
+        13.100000000000001,
+        13.73,
+        14.36,
+        14.99,
+        15.620000000000001
+      ],
+      "anchor_A": 9.32,
+      "anchor_date": "2024-09-10 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002950",
+    "stock_name": "奥美医疗",
+    "success": true,
+    "elapsed_time": 4.778646945953369,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.4,
+      "avg_score": 18.604920474606523,
+      "matches_count": 2,
+      "B_values": [
+        6.78,
+        7.18,
+        7.58,
+        7.98,
+        8.379999999999999,
+        8.780000000000001,
+        9.18,
+        9.58,
+        9.98,
+        10.379999999999999
+      ],
+      "anchor_A": 6.38,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002213",
+    "stock_name": "大为股份",
+    "success": true,
+    "elapsed_time": 4.753870010375977,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 24.75500309469777,
+      "matches_count": 2,
+      "B_values": [
+        12.5,
+        18.5,
+        24.5,
+        30.5,
+        36.5,
+        42.5
+      ],
+      "anchor_A": 6.5,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600667",
+    "stock_name": "太极实业",
+    "success": true,
+    "elapsed_time": 4.681516885757446,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 25.191864558114567,
+      "matches_count": 2,
+      "B_values": [
+        4.050000000000001,
+        5.4,
+        6.750000000000001,
+        8.100000000000001,
+        9.45,
+        10.8,
+        12.150000000000002,
+        13.5,
+        14.850000000000001,
+        16.2
+      ],
+      "anchor_A": 2.7,
+      "anchor_date": "2013-06-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002091",
+    "stock_name": "江苏国泰",
+    "success": true,
+    "elapsed_time": 4.550348997116089,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 25.700404626036164,
+      "matches_count": 2,
+      "B_values": [
+        6.17,
+        7.779999999999999,
+        9.39,
+        11.0,
+        12.61,
+        14.219999999999999,
+        15.830000000000002,
+        17.44,
+        19.05,
+        20.66
+      ],
+      "anchor_A": 4.56,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000567",
+    "stock_name": "海德股份",
+    "success": true,
+    "elapsed_time": 4.640563011169434,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.26,
+      "avg_score": 34.88852711074955,
+      "matches_count": 2,
+      "B_values": [
+        4.779999999999999,
+        5.039999999999999,
+        5.3,
+        5.56,
+        5.819999999999999,
+        6.08,
+        6.34,
+        6.6,
+        6.859999999999999,
+        7.119999999999999
+      ],
+      "anchor_A": 4.52,
+      "anchor_date": "2024-09-10 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600120",
+    "stock_name": "浙江东方",
+    "success": true,
+    "elapsed_time": 4.79167103767395,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 21.565114029194287,
+      "matches_count": 2,
+      "B_values": [
+        3.43,
+        3.74,
+        4.05,
+        4.36,
+        4.67,
+        4.98,
+        5.29,
+        5.6,
+        5.91,
+        6.220000000000001
+      ],
+      "anchor_A": 3.12,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603272",
+    "stock_name": "联翔股份",
+    "success": true,
+    "elapsed_time": 4.920386075973511,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.51,
+      "avg_score": 13.671673786122442,
+      "matches_count": 2,
+      "B_values": [
+        8.27,
+        8.78,
+        9.29,
+        9.8,
+        10.309999999999999,
+        10.82,
+        11.33,
+        11.84,
+        12.35,
+        12.86
+      ],
+      "anchor_A": 7.76,
+      "anchor_date": "2024-07-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002290",
+    "stock_name": "禾盛新材",
+    "success": true,
+    "elapsed_time": 5.051476955413818,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.58,
+      "avg_score": 9.108774547901389,
+      "matches_count": 2,
+      "B_values": [
+        6.01,
+        7.749999999999999,
+        9.489999999999998,
+        11.229999999999999,
+        12.969999999999999,
+        14.709999999999999,
+        16.45,
+        18.189999999999998,
+        19.93,
+        21.669999999999998
+      ],
+      "anchor_A": 4.27,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000762",
+    "stock_name": "西藏矿业",
+    "success": true,
+    "elapsed_time": 5.113526105880737,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 4.158186237668686,
+      "matches_count": 2,
+      "B_values": [
+        18.3,
+        18.55,
+        18.8,
+        19.05,
+        19.3,
+        19.55,
+        19.8,
+        20.05,
+        20.3,
+        20.55
+      ],
+      "anchor_A": 18.05,
+      "anchor_date": "2025-04-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002192",
+    "stock_name": "融捷股份",
+    "success": true,
+    "elapsed_time": 5.2602410316467285,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 17.775276448847418,
+      "matches_count": 3,
+      "B_values": [
+        26.91,
+        27.14,
+        27.37,
+        27.6,
+        27.83,
+        28.06,
+        28.29,
+        28.52,
+        28.75,
+        28.98
+      ],
+      "anchor_A": 26.68,
+      "anchor_date": "2025-04-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002497",
+    "stock_name": "雅化集团",
+    "success": true,
+    "elapsed_time": 5.262789964675903,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.37,
+      "avg_score": 18.200352103401116,
+      "matches_count": 2,
+      "B_values": [
+        8.389999999999999,
+        8.76,
+        9.129999999999999,
+        9.5,
+        9.87,
+        10.239999999999998,
+        10.61,
+        10.98,
+        11.35,
+        11.719999999999999
+      ],
+      "anchor_A": 8.02,
+      "anchor_date": "2024-08-23 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002756",
+    "stock_name": "永兴材料",
+    "success": true,
+    "elapsed_time": 5.591858863830566,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 11.001345981481299,
+      "matches_count": 4,
+      "B_values": [
+        29.900000000000002,
+        30.130000000000003,
+        30.360000000000003,
+        30.590000000000003,
+        30.82,
+        31.05,
+        31.28,
+        31.51,
+        31.740000000000002,
+        31.970000000000002
+      ],
+      "anchor_A": 29.67,
+      "anchor_date": "2025-04-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002663",
+    "stock_name": "普邦股份",
+    "success": true,
+    "elapsed_time": 5.384490966796875,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.32,
+      "avg_score": 2.6616918712361075,
+      "matches_count": 2,
+      "B_values": [
+        1.52,
+        1.8399999999999999,
+        2.16,
+        2.48,
+        2.8,
+        3.12,
+        3.4400000000000004
+      ],
+      "anchor_A": 1.2,
+      "anchor_date": "2024-06-24 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601611",
+    "stock_name": "中国核建",
+    "success": true,
+    "elapsed_time": 5.173164129257202,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.28,
+      "avg_score": 23.412927640509963,
+      "matches_count": 2,
+      "B_values": [
+        7.49,
+        8.89,
+        10.29,
+        11.690000000000001,
+        13.09,
+        14.49,
+        15.89,
+        17.29,
+        18.69
+      ],
+      "anchor_A": 6.09,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605598",
+    "stock_name": "上海港湾",
+    "success": true,
+    "elapsed_time": 5.096128940582275,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 14.592358297166342,
+      "matches_count": 2,
+      "B_values": [
+        15.53,
+        16.61,
+        17.689999999999998,
+        18.77,
+        19.849999999999998,
+        20.93,
+        22.009999999999998,
+        23.09,
+        24.169999999999998,
+        25.25
+      ],
+      "anchor_A": 14.45,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002513",
+    "stock_name": "蓝丰生化",
+    "success": true,
+    "elapsed_time": 4.730098009109497,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.46,
+      "avg_score": 10.59371997215505,
+      "matches_count": 4,
+      "B_values": [
+        3.81,
+        4.2700000000000005,
+        4.73,
+        5.19,
+        5.65,
+        6.11,
+        6.57,
+        7.03,
+        7.49,
+        7.950000000000001
+      ],
+      "anchor_A": 3.35,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601888",
+    "stock_name": "中国中免",
+    "success": true,
+    "elapsed_time": 4.759583950042725,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 48.80420348213112,
+      "matches_count": 2,
+      "B_values": [
+        56.879999999999995,
+        60.0,
+        63.12,
+        66.24,
+        69.36,
+        72.47999999999999,
+        75.6,
+        78.72,
+        81.84,
+        84.96
+      ],
+      "anchor_A": 53.76,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600897",
+    "stock_name": "厦门空港",
+    "success": true,
+    "elapsed_time": 4.7330732345581055,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.26,
+      "avg_score": 26.89666748630864,
+      "matches_count": 2,
+      "B_values": [
+        10.05,
+        13.43,
+        16.810000000000002,
+        20.189999999999998,
+        23.57,
+        26.950000000000003,
+        30.33,
+        33.71,
+        37.09,
+        40.470000000000006
+      ],
+      "anchor_A": 6.67,
+      "anchor_date": "2005-06-02 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002633",
+    "stock_name": "申科股份",
+    "success": true,
+    "elapsed_time": 4.689888000488281,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 14.113807657287992,
+      "matches_count": 2,
+      "B_values": [
+        6.84,
+        8.29,
+        9.739999999999998,
+        11.19,
+        12.639999999999999,
+        14.09,
+        15.54,
+        16.99,
+        18.439999999999998,
+        19.889999999999997
+      ],
+      "anchor_A": 5.39,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002054",
+    "stock_name": "德美化工",
+    "success": true,
+    "elapsed_time": 4.5597639083862305,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.67,
+      "avg_score": 30.69852371575381,
+      "matches_count": 2,
+      "B_values": [
+        6.1899999999999995,
+        8.2,
+        10.21,
+        12.22,
+        14.23,
+        16.240000000000002
+      ],
+      "anchor_A": 4.18,
+      "anchor_date": "2018-10-12 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605008",
+    "stock_name": "长鸿高科",
+    "success": true,
+    "elapsed_time": 4.551869869232178,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.38,
+      "avg_score": 23.041553642901743,
+      "matches_count": 2,
+      "B_values": [
+        11.3,
+        13.96,
+        16.62,
+        19.28,
+        21.94,
+        24.6,
+        27.26
+      ],
+      "anchor_A": 8.64,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000672",
+    "stock_name": "上峰水泥",
+    "success": true,
+    "elapsed_time": 4.713985919952393,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 9.999999999999998,
+      "matches_count": 1,
+      "B_values": [
+        6.329999999999999,
+        6.64,
+        6.949999999999999,
+        7.26,
+        7.569999999999999,
+        7.879999999999999,
+        8.19,
+        8.5,
+        8.809999999999999,
+        9.12
+      ],
+      "anchor_A": 6.02,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002284",
+    "stock_name": "亚太股份",
+    "success": true,
+    "elapsed_time": 4.737003803253174,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 13.632850562194383,
+      "matches_count": 2,
+      "B_values": [
+        6.16,
+        8.32,
+        10.48,
+        12.64,
+        14.799999999999999,
+        16.96,
+        19.119999999999997
+      ],
+      "anchor_A": 4.0,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000600",
+    "stock_name": "建投能源",
+    "success": true,
+    "elapsed_time": 4.955952882766724,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.26,
+      "avg_score": 17.384757024973887,
+      "matches_count": 2,
+      "B_values": [
+        3.88,
+        4.140000000000001,
+        4.4,
+        4.66,
+        4.92,
+        5.18,
+        5.44,
+        5.7,
+        5.96,
+        6.220000000000001
+      ],
+      "anchor_A": 3.62,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600795",
+    "stock_name": "国电电力",
+    "success": true,
+    "elapsed_time": 5.126238107681274,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.47,
+      "avg_score": 12.22340088588847,
+      "matches_count": 2,
+      "B_values": [
+        2.27,
+        2.74,
+        3.21,
+        3.6799999999999997,
+        4.1499999999999995,
+        4.62,
+        5.09,
+        5.56,
+        6.029999999999999,
+        6.499999999999999
+      ],
+      "anchor_A": 1.8,
+      "anchor_date": "2020-05-22 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600403",
+    "stock_name": "大有能源",
+    "success": true,
+    "elapsed_time": 4.952376127243042,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 18.10585991377665,
+      "matches_count": 2,
+      "B_values": [
+        3.56,
+        4.8100000000000005,
+        6.0600000000000005,
+        7.3100000000000005,
+        8.56,
+        9.81,
+        11.06,
+        12.31,
+        13.56
+      ],
+      "anchor_A": 2.31,
+      "anchor_date": "2024-09-11 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603556",
+    "stock_name": "海兴电力",
+    "success": true,
+    "elapsed_time": 5.005008935928345,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.28,
+      "avg_score": 25.299617175945365,
+      "matches_count": 2,
+      "B_values": [
+        12.31,
+        14.27,
+        16.23,
+        18.19,
+        20.15,
+        22.11,
+        24.07,
+        26.03,
+        27.990000000000002,
+        29.950000000000003
+      ],
+      "anchor_A": 10.35,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001301",
+    "stock_name": "尚太科技",
+    "success": true,
+    "elapsed_time": 4.9426398277282715,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 16.552609634624144,
+      "matches_count": 2,
+      "B_values": [
+        29.02,
+        34.54,
+        40.06,
+        45.58,
+        51.099999999999994,
+        56.62,
+        62.14,
+        67.66,
+        73.18,
+        78.69999999999999
+      ],
+      "anchor_A": 23.5,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601126",
+    "stock_name": "四方股份",
+    "success": true,
+    "elapsed_time": 4.9246437549591064,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 13.238398027159425,
+      "matches_count": 2,
+      "B_values": [
+        6.11,
+        7.720000000000001,
+        9.33,
+        10.940000000000001,
+        12.55,
+        14.16,
+        15.770000000000001,
+        17.380000000000003,
+        18.990000000000002,
+        20.6
+      ],
+      "anchor_A": 4.5,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601179",
+    "stock_name": "中国西电",
+    "success": true,
+    "elapsed_time": 5.004008054733276,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.52,
+      "avg_score": 14.25796269727408,
+      "matches_count": 2,
+      "B_values": [
+        3.65,
+        4.17,
+        4.6899999999999995,
+        5.21,
+        5.73,
+        6.25,
+        6.77,
+        7.29,
+        7.81,
+        8.33
+      ],
+      "anchor_A": 3.13,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601218",
+    "stock_name": "吉鑫科技",
+    "success": true,
+    "elapsed_time": 4.904641151428223,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.59,
+      "avg_score": 37.3563829787234,
+      "matches_count": 2,
+      "B_values": [
+        2.67,
+        3.26,
+        3.85,
+        4.4399999999999995,
+        5.029999999999999,
+        5.62,
+        6.21,
+        6.8,
+        7.39,
+        7.9799999999999995
+      ],
+      "anchor_A": 2.08,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601615",
+    "stock_name": "明阳智能",
+    "success": true,
+    "elapsed_time": 4.871918201446533,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.58,
+      "avg_score": 18.039859090025193,
+      "matches_count": 3,
+      "B_values": [
+        8.76,
+        9.34,
+        9.92,
+        10.5,
+        11.08,
+        11.66,
+        12.239999999999998,
+        12.82,
+        13.399999999999999,
+        13.98
+      ],
+      "anchor_A": 8.18,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603778",
+    "stock_name": "国晟科技",
+    "success": true,
+    "elapsed_time": 4.678339719772339,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.47,
+      "avg_score": 31.499999999999996,
+      "matches_count": 2,
+      "B_values": [
+        3.1399999999999997,
+        3.61,
+        4.08,
+        4.55,
+        5.02,
+        5.49,
+        5.96,
+        6.43,
+        6.8999999999999995
+      ],
+      "anchor_A": 2.67,
+      "anchor_date": "2025-04-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600516",
+    "stock_name": "方大炭素",
+    "success": true,
+    "elapsed_time": 4.567592144012451,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 6.251874062968594,
+      "matches_count": 1,
+      "B_values": [
+        4.39,
+        4.96,
+        5.529999999999999,
+        6.1,
+        6.67,
+        7.24,
+        7.81
+      ],
+      "anchor_A": 3.82,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603558",
+    "stock_name": "健盛集团",
+    "success": true,
+    "elapsed_time": 4.542273044586182,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 26.00639097744381,
+      "matches_count": 2,
+      "B_values": [
+        8.0,
+        8.75,
+        9.5,
+        10.25,
+        11.0,
+        11.75,
+        12.5,
+        13.25,
+        14.0,
+        14.75
+      ],
+      "anchor_A": 7.25,
+      "anchor_date": "2018-10-12 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002196",
+    "stock_name": "方正电机",
+    "success": true,
+    "elapsed_time": 4.524630069732666,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.53,
+      "avg_score": 23.11205252904465,
+      "matches_count": 2,
+      "B_values": [
+        4.54,
+        5.07,
+        5.6,
+        6.13,
+        6.66,
+        7.1899999999999995,
+        7.72,
+        8.25,
+        8.780000000000001,
+        9.31
+      ],
+      "anchor_A": 4.01,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002829",
+    "stock_name": "星网宇达",
+    "success": true,
+    "elapsed_time": 4.5794148445129395,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 27.516141680447245,
+      "matches_count": 2,
+      "B_values": [
+        15.459999999999999,
+        19.06,
+        22.659999999999997,
+        26.259999999999998,
+        29.86,
+        33.459999999999994,
+        37.06
+      ],
+      "anchor_A": 11.86,
+      "anchor_date": "2024-07-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002811",
+    "stock_name": "郑中设计",
+    "success": true,
+    "elapsed_time": 4.7044501304626465,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 16.152233025977797,
+      "matches_count": 2,
+      "B_values": [
+        5.67,
+        6.390000000000001,
+        7.11,
+        7.83,
+        8.55,
+        9.27,
+        9.99,
+        10.71,
+        11.43,
+        12.149999999999999
+      ],
+      "anchor_A": 4.95,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002963",
+    "stock_name": "豪尔赛",
+    "success": true,
+    "elapsed_time": 4.694209098815918,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 17.015801691046974,
+      "matches_count": 2,
+      "B_values": [
+        9.45,
+        10.8,
+        12.15,
+        13.5,
+        14.85,
+        16.200000000000003,
+        17.55,
+        18.9,
+        20.25,
+        21.6
+      ],
+      "anchor_A": 8.1,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000555",
+    "stock_name": "神州信息",
+    "success": true,
+    "elapsed_time": 4.631302833557129,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.32,
+      "avg_score": 18.55836317580271,
+      "matches_count": 2,
+      "B_values": [
+        10.23,
+        13.11,
+        15.99,
+        18.869999999999997,
+        21.75,
+        24.630000000000003,
+        27.509999999999998
+      ],
+      "anchor_A": 7.35,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603232",
+    "stock_name": "格尔软件",
+    "success": true,
+    "elapsed_time": 4.773179054260254,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.58,
+      "avg_score": 14.406538340667955,
+      "matches_count": 3,
+      "B_values": [
+        8.72,
+        9.3,
+        9.88,
+        10.46,
+        11.040000000000001,
+        11.620000000000001,
+        12.2,
+        12.780000000000001,
+        13.36,
+        13.940000000000001
+      ],
+      "anchor_A": 8.14,
+      "anchor_date": "2024-02-07 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603878",
+    "stock_name": "武进不锈",
+    "success": true,
+    "elapsed_time": 4.702785015106201,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.43,
+      "avg_score": 23.31359300476949,
+      "matches_count": 2,
+      "B_values": [
+        5.27,
+        5.7,
+        6.13,
+        6.56,
+        6.99,
+        7.42,
+        7.85,
+        8.28,
+        8.71,
+        9.14
+      ],
+      "anchor_A": 4.84,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000688",
+    "stock_name": "国城矿业",
+    "success": true,
+    "elapsed_time": 4.995455026626587,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 15.063117874225432,
+      "matches_count": 4,
+      "B_values": [
+        2.05,
+        2.98,
+        3.91,
+        4.84,
+        5.7700000000000005,
+        6.7,
+        7.63,
+        8.559999999999999,
+        9.489999999999998,
+        10.420000000000002
+      ],
+      "anchor_A": 1.12,
+      "anchor_date": "2006-04-28 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000612",
+    "stock_name": "焦作万方",
+    "success": true,
+    "elapsed_time": 4.991194009780884,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.34,
+      "avg_score": 32.178948220327406,
+      "matches_count": 2,
+      "B_values": [
+        4.46,
+        5.48,
+        6.5,
+        7.52,
+        8.540000000000001,
+        9.56,
+        10.58,
+        11.6,
+        12.620000000000001,
+        13.64
+      ],
+      "anchor_A": 3.44,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002160",
+    "stock_name": "常铝股份",
+    "success": true,
+    "elapsed_time": 4.841844081878662,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.28,
+      "avg_score": 9.842676866887702,
+      "matches_count": 2,
+      "B_values": [
+        3.04,
+        3.32,
+        3.5999999999999996,
+        3.88,
+        4.16,
+        4.4399999999999995,
+        4.72,
+        5.0,
+        5.28,
+        5.5600000000000005
+      ],
+      "anchor_A": 2.76,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601600",
+    "stock_name": "中国铝业",
+    "success": true,
+    "elapsed_time": 4.803046941757202,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 15.347296223404607,
+      "matches_count": 2,
+      "B_values": [
+        4.02,
+        5.27,
+        6.52,
+        7.77,
+        9.02,
+        10.27,
+        11.52,
+        12.77,
+        14.02
+      ],
+      "anchor_A": 2.77,
+      "anchor_date": "2020-04-28 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603876",
+    "stock_name": "鼎胜新材",
+    "success": true,
+    "elapsed_time": 4.607306957244873,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 11.511235593922974,
+      "matches_count": 2,
+      "B_values": [
+        7.960000000000001,
+        8.190000000000001,
+        8.42,
+        8.65,
+        8.88,
+        9.110000000000001,
+        9.34,
+        9.57,
+        9.8,
+        10.030000000000001
+      ],
+      "anchor_A": 7.73,
+      "anchor_date": "2025-04-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600191",
+    "stock_name": "华资实业",
+    "success": true,
+    "elapsed_time": 4.657737970352173,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.37,
+      "avg_score": 20.67964313179027,
+      "matches_count": 2,
+      "B_values": [
+        4.27,
+        6.12,
+        7.97,
+        9.82,
+        11.67,
+        13.52
+      ],
+      "anchor_A": 2.42,
+      "anchor_date": "2021-05-10 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603755",
+    "stock_name": "日辰股份",
+    "success": true,
+    "elapsed_time": 4.826050043106079,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.62,
+      "avg_score": 13.157068914292491,
+      "matches_count": 2,
+      "B_values": [
+        16.01,
+        16.63,
+        17.25,
+        17.87,
+        18.490000000000002,
+        19.11,
+        19.73,
+        20.35,
+        20.97,
+        21.59
+      ],
+      "anchor_A": 15.39,
+      "anchor_date": "2024-02-07 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600100",
+    "stock_name": "同方股份",
+    "success": true,
+    "elapsed_time": 4.880194902420044,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.51,
+      "avg_score": 25.223181329899273,
+      "matches_count": 3,
+      "B_values": [
+        4.45,
+        4.96,
+        5.47,
+        5.98,
+        6.49,
+        7.0,
+        7.51,
+        8.02,
+        8.53,
+        9.04
+      ],
+      "anchor_A": 3.94,
+      "anchor_date": "2022-10-11 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001223",
+    "stock_name": "欧克科技",
+    "success": true,
+    "elapsed_time": 4.811981201171875,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.35,
+      "avg_score": 34.0242097314833,
+      "matches_count": 2,
+      "B_values": [
+        36.099999999999994,
+        42.05,
+        48.0,
+        53.949999999999996,
+        59.89999999999999,
+        65.85,
+        71.8
+      ],
+      "anchor_A": 30.15,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001288",
+    "stock_name": "运机集团",
+    "success": true,
+    "elapsed_time": 4.896754741668701,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 22.736236029333423,
+      "matches_count": 2,
+      "B_values": [
+        14.33,
+        16.490000000000002,
+        18.65,
+        20.810000000000002,
+        22.97,
+        25.13,
+        27.29,
+        29.450000000000003,
+        31.61,
+        33.769999999999996
+      ],
+      "anchor_A": 12.17,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002255",
+    "stock_name": "海陆重工",
+    "success": true,
+    "elapsed_time": 4.726691961288452,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.32,
+      "avg_score": 12.663178027619889,
+      "matches_count": 2,
+      "B_values": [
+        3.54,
+        4.5,
+        5.46,
+        6.42,
+        7.38,
+        8.34,
+        9.3,
+        10.26,
+        11.22,
+        12.18
+      ],
+      "anchor_A": 2.58,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002523",
+    "stock_name": "天桥起重",
+    "success": true,
+    "elapsed_time": 4.6969311237335205,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 14.386321400625972,
+      "matches_count": 2,
+      "B_values": [
+        2.22,
+        2.45,
+        2.68,
+        2.91,
+        3.14,
+        3.37,
+        3.6,
+        3.83,
+        4.0600000000000005,
+        4.29
+      ],
+      "anchor_A": 1.99,
+      "anchor_date": "2021-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002595",
+    "stock_name": "豪迈科技",
+    "success": true,
+    "elapsed_time": 4.826746225357056,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.64,
+      "avg_score": 16.63084690856592,
+      "matches_count": 2,
+      "B_values": [
+        14.31,
+        16.23,
+        18.15,
+        20.07,
+        21.990000000000002,
+        23.91,
+        25.83,
+        27.75,
+        29.67,
+        31.59
+      ],
+      "anchor_A": 12.39,
+      "anchor_date": "2018-10-12 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600444",
+    "stock_name": "国机通用",
+    "success": true,
+    "elapsed_time": 4.736114978790283,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 19.464644842257073,
+      "matches_count": 2,
+      "B_values": [
+        10.1,
+        12.27,
+        14.44,
+        16.61,
+        18.78,
+        20.95,
+        23.119999999999997,
+        25.29,
+        27.46
+      ],
+      "anchor_A": 7.93,
+      "anchor_date": "2021-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600783",
+    "stock_name": "鲁信创投",
+    "success": true,
+    "elapsed_time": 4.801315069198608,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 48.93972778397803,
+      "matches_count": 2,
+      "B_values": [
+        9.129999999999999,
+        10.059999999999999,
+        10.989999999999998,
+        11.919999999999998,
+        12.85,
+        13.78,
+        14.709999999999999,
+        15.639999999999999,
+        16.57,
+        17.5
+      ],
+      "anchor_A": 8.2,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603638",
+    "stock_name": "艾迪精密",
+    "success": true,
+    "elapsed_time": 4.81346321105957,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 19.745990614046008,
+      "matches_count": 2,
+      "B_values": [
+        14.299999999999999,
+        14.99,
+        15.68,
+        16.37,
+        17.06,
+        17.75,
+        18.439999999999998,
+        19.13,
+        19.82,
+        20.509999999999998
+      ],
+      "anchor_A": 13.61,
+      "anchor_date": "2024-02-02 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002603",
+    "stock_name": "以岭药业",
+    "success": true,
+    "elapsed_time": 4.724708795547485,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 26.371005639097856,
+      "matches_count": 2,
+      "B_values": [
+        13.2,
+        13.56,
+        13.92,
+        14.28,
+        14.64,
+        15.0,
+        15.36,
+        15.719999999999999,
+        16.08,
+        16.439999999999998
+      ],
+      "anchor_A": 12.84,
+      "anchor_date": "2025-04-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002919",
+    "stock_name": "名臣健康",
+    "success": true,
+    "elapsed_time": 4.775375843048096,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.47,
+      "avg_score": 34.808093217769745,
+      "matches_count": 2,
+      "B_values": [
+        10.8,
+        11.27,
+        11.74,
+        12.21,
+        12.68,
+        13.15,
+        13.620000000000001,
+        14.09,
+        14.559999999999999,
+        15.03
+      ],
+      "anchor_A": 10.33,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600556",
+    "stock_name": "天下秀",
+    "success": true,
+    "elapsed_time": 4.805660963058472,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 26.799447104423184,
+      "matches_count": 3,
+      "B_values": [
+        3.55,
+        3.8,
+        4.05,
+        4.3,
+        4.55,
+        4.8,
+        5.05,
+        5.3,
+        5.55,
+        5.8
+      ],
+      "anchor_A": 3.3,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001228",
+    "stock_name": "永泰运",
+    "success": true,
+    "elapsed_time": 4.734400987625122,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 18.709089185259934,
+      "matches_count": 2,
+      "B_values": [
+        19.12,
+        21.73,
+        24.34,
+        26.950000000000003,
+        29.560000000000002,
+        32.17,
+        34.78
+      ],
+      "anchor_A": 16.51,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600180",
+    "stock_name": "瑞茂通",
+    "success": true,
+    "elapsed_time": 4.686173915863037,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 7.057291666666658,
+      "matches_count": 2,
+      "B_values": [
+        3.7,
+        3.95,
+        4.2,
+        4.45,
+        4.7,
+        4.95,
+        5.2,
+        5.45,
+        5.7,
+        5.95
+      ],
+      "anchor_A": 3.45,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600654",
+    "stock_name": "中安科",
+    "success": true,
+    "elapsed_time": 4.668298959732056,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.3,
+      "avg_score": 13.708893142066692,
+      "matches_count": 2,
+      "B_values": [
+        1.45,
+        1.75,
+        2.05,
+        2.3499999999999996,
+        2.65,
+        2.9499999999999997,
+        3.25,
+        3.55,
+        3.8499999999999996,
+        4.15
+      ],
+      "anchor_A": 1.15,
+      "anchor_date": "2019-11-01 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603836",
+    "stock_name": "海程邦达",
+    "success": true,
+    "elapsed_time": 4.587459087371826,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 39.067859090633675,
+      "matches_count": 2,
+      "B_values": [
+        10.27,
+        10.84,
+        11.41,
+        11.979999999999999,
+        12.549999999999999,
+        13.12,
+        13.69,
+        14.259999999999998,
+        14.829999999999998,
+        15.399999999999999
+      ],
+      "anchor_A": 9.7,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000593",
+    "stock_name": "德龙汇能",
+    "success": true,
+    "elapsed_time": 4.7294762134552,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.26,
+      "avg_score": 21.385365853658584,
+      "matches_count": 2,
+      "B_values": [
+        4.18,
+        4.4399999999999995,
+        4.7,
+        4.96,
+        5.22,
+        5.48,
+        5.74,
+        6.0,
+        6.26,
+        6.52
+      ],
+      "anchor_A": 3.92,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000509",
+    "stock_name": "华塑控股",
+    "success": true,
+    "elapsed_time": 4.865545988082886,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.39,
+      "avg_score": 24.09244870664304,
+      "matches_count": 2,
+      "B_values": [
+        1.31,
+        1.7000000000000002,
+        2.09,
+        2.48,
+        2.87,
+        3.26,
+        3.65,
+        4.04,
+        4.430000000000001,
+        4.82
+      ],
+      "anchor_A": 0.92,
+      "anchor_date": "2020-05-20 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000636",
+    "stock_name": "风华高科",
+    "success": true,
+    "elapsed_time": 4.9039788246154785,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.66,
+      "avg_score": 14.04608835791581,
+      "matches_count": 2,
+      "B_values": [
+        9.77,
+        10.43,
+        11.09,
+        11.75,
+        12.41,
+        13.07,
+        13.73,
+        14.39,
+        15.05,
+        15.71
+      ],
+      "anchor_A": 9.11,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002636",
+    "stock_name": "金安国纪",
+    "success": true,
+    "elapsed_time": 4.957274913787842,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 14.303357069150774,
+      "matches_count": 2,
+      "B_values": [
+        5.6899999999999995,
+        6.619999999999999,
+        7.55,
+        8.48,
+        9.41,
+        10.34,
+        11.27,
+        12.2,
+        13.129999999999999,
+        14.06
+      ],
+      "anchor_A": 4.76,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002782",
+    "stock_name": "可立克",
+    "success": true,
+    "elapsed_time": 4.8123579025268555,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.61,
+      "avg_score": 44.65424501607567,
+      "matches_count": 2,
+      "B_values": [
+        12.5,
+        16.77,
+        21.04,
+        25.31,
+        29.58,
+        33.85
+      ],
+      "anchor_A": 8.23,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002841",
+    "stock_name": "视源股份",
+    "success": true,
+    "elapsed_time": 4.75400185585022,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 30.4760178219557,
+      "matches_count": 2,
+      "B_values": [
+        30.11,
+        33.1,
+        36.09,
+        39.08,
+        42.07,
+        45.06,
+        48.05,
+        51.040000000000006,
+        54.03
+      ],
+      "anchor_A": 27.12,
+      "anchor_date": "2024-07-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603186",
+    "stock_name": "华正新材",
+    "success": true,
+    "elapsed_time": 4.748103857040405,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 20.11580355182344,
+      "matches_count": 2,
+      "B_values": [
+        17.62,
+        19.78,
+        21.94,
+        24.1,
+        26.259999999999998,
+        28.42,
+        30.58,
+        32.74,
+        34.9,
+        37.06
+      ],
+      "anchor_A": 15.46,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605058",
+    "stock_name": "澳弘电子",
+    "success": true,
+    "elapsed_time": 4.769574165344238,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.3,
+      "avg_score": 19.17296062950392,
+      "matches_count": 2,
+      "B_values": [
+        13.57,
+        14.469999999999999,
+        15.37,
+        16.27,
+        17.17,
+        18.07,
+        18.97,
+        19.869999999999997,
+        20.77,
+        21.67
+      ],
+      "anchor_A": 12.67,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000007",
+    "stock_name": "全新好",
+    "success": true,
+    "elapsed_time": 4.863967180252075,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.65,
+      "avg_score": 35.645651025088945,
+      "matches_count": 2,
+      "B_values": [
+        3.17,
+        3.8200000000000003,
+        4.470000000000001,
+        5.12,
+        5.77,
+        6.42,
+        7.07,
+        7.720000000000001,
+        8.370000000000001,
+        9.02
+      ],
+      "anchor_A": 2.52,
+      "anchor_date": "2021-02-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600201",
+    "stock_name": "生物股份",
+    "success": true,
+    "elapsed_time": 4.849142074584961,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 9.999999999999801,
+      "matches_count": 1,
+      "B_values": [
+        6.0,
+        6.33,
+        6.66,
+        6.99,
+        7.32,
+        7.65,
+        7.98,
+        8.31,
+        8.64,
+        8.97
+      ],
+      "anchor_A": 5.67,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600251",
+    "stock_name": "冠农股份",
+    "success": true,
+    "elapsed_time": 4.8486621379852295,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 21.956131871144873,
+      "matches_count": 3,
+      "B_values": [
+        5.4399999999999995,
+        6.16,
+        6.88,
+        7.6,
+        8.32,
+        9.04,
+        9.76,
+        10.48,
+        11.2,
+        11.919999999999998
+      ],
+      "anchor_A": 4.72,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000902",
+    "stock_name": "新洋丰",
+    "success": true,
+    "elapsed_time": 4.8958258628845215,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 38.479697979867666,
+      "matches_count": 2,
+      "B_values": [
+        7.0600000000000005,
+        7.63,
+        8.2,
+        8.77,
+        9.34,
+        9.91,
+        10.48,
+        11.05,
+        11.620000000000001,
+        12.19
+      ],
+      "anchor_A": 6.49,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001231",
+    "stock_name": "农心科技",
+    "success": true,
+    "elapsed_time": 4.916447877883911,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.3,
+      "avg_score": 16.54662586865983,
+      "matches_count": 2,
+      "B_values": [
+        12.3,
+        13.2,
+        14.1,
+        15.0,
+        15.9,
+        16.8,
+        17.7,
+        18.6,
+        19.5,
+        20.4
+      ],
+      "anchor_A": 11.4,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000766",
+    "stock_name": "通化金马",
+    "success": true,
+    "elapsed_time": 4.964671850204468,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.51,
+      "avg_score": 10.343045533951097,
+      "matches_count": 2,
+      "B_values": [
+        4.39,
+        5.92,
+        7.449999999999999,
+        8.98,
+        10.51,
+        12.04,
+        13.57,
+        15.1,
+        16.63,
+        18.16
+      ],
+      "anchor_A": 2.86,
+      "anchor_date": "2021-01-14 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000510",
+    "stock_name": "新金路",
+    "success": true,
+    "elapsed_time": 4.986212253570557,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 14.62063534796059,
+      "matches_count": 2,
+      "B_values": [
+        2.92,
+        3.21,
+        3.5,
+        3.79,
+        4.08,
+        4.369999999999999,
+        4.66,
+        4.949999999999999,
+        5.24,
+        5.529999999999999
+      ],
+      "anchor_A": 2.63,
+      "anchor_date": "2024-06-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001218",
+    "stock_name": "丽臣实业",
+    "success": true,
+    "elapsed_time": 4.913350820541382,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.55,
+      "avg_score": 17.27355707720961,
+      "matches_count": 2,
+      "B_values": [
+        13.38,
+        13.93,
+        14.48,
+        15.030000000000001,
+        15.58,
+        16.13,
+        16.68,
+        17.23,
+        17.78,
+        18.33
+      ],
+      "anchor_A": 12.83,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002643",
+    "stock_name": "万润股份",
+    "success": true,
+    "elapsed_time": 4.92103385925293,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 31.434704849222882,
+      "matches_count": 2,
+      "B_values": [
+        8.92,
+        11.08,
+        13.239999999999998,
+        15.4,
+        17.56,
+        19.72,
+        21.88,
+        24.04,
+        26.199999999999996,
+        28.36
+      ],
+      "anchor_A": 6.76,
+      "anchor_date": "2018-06-21 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002825",
+    "stock_name": "纳尔股份",
+    "success": true,
+    "elapsed_time": 4.781003952026367,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.51,
+      "avg_score": 23.907246552876195,
+      "matches_count": 2,
+      "B_values": [
+        6.62,
+        8.15,
+        9.68,
+        11.21,
+        12.74,
+        14.27,
+        15.8,
+        17.33
+      ],
+      "anchor_A": 5.09,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600078",
+    "stock_name": "澄星股份",
+    "success": true,
+    "elapsed_time": 4.67549204826355,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.47,
+      "avg_score": 10.959003344328455,
+      "matches_count": 2,
+      "B_values": [
+        5.27,
+        5.74,
+        6.21,
+        6.68,
+        7.1499999999999995,
+        7.619999999999999,
+        8.09,
+        8.559999999999999,
+        9.03,
+        9.5
+      ],
+      "anchor_A": 4.8,
+      "anchor_date": "2025-04-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600378",
+    "stock_name": "昊华科技",
+    "success": true,
+    "elapsed_time": 4.976919889450073,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.52,
+      "avg_score": 13.57450466957207,
+      "matches_count": 4,
+      "B_values": [
+        6.01,
+        8.61,
+        11.21,
+        13.81,
+        16.41,
+        19.01,
+        21.61,
+        24.21,
+        26.810000000000002,
+        29.41
+      ],
+      "anchor_A": 3.41,
+      "anchor_date": "2008-11-07 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600935",
+    "stock_name": "华塑股份",
+    "success": true,
+    "elapsed_time": 4.840047121047974,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 83.51145038167938,
+      "matches_count": 1,
+      "B_values": [
+        2.25,
+        2.4899999999999998,
+        2.7299999999999995,
+        2.9699999999999998,
+        3.21,
+        3.4499999999999997,
+        3.6899999999999995,
+        3.9299999999999997
+      ],
+      "anchor_A": 2.01,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603010",
+    "stock_name": "万盛股份",
+    "success": true,
+    "elapsed_time": 4.944302082061768,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 33.98646307720601,
+      "matches_count": 2,
+      "B_values": [
+        8.549999999999999,
+        8.91,
+        9.27,
+        9.629999999999999,
+        9.989999999999998,
+        10.35,
+        10.709999999999999,
+        11.07,
+        11.43,
+        11.79
+      ],
+      "anchor_A": 8.19,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603192",
+    "stock_name": "汇得科技",
+    "success": true,
+    "elapsed_time": 5.118754148483276,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 16.444332246617122,
+      "matches_count": 2,
+      "B_values": [
+        12.65,
+        14.3,
+        15.95,
+        17.6,
+        19.25,
+        20.9,
+        22.55,
+        24.200000000000003,
+        25.85,
+        27.5
+      ],
+      "anchor_A": 11.0,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603938",
+    "stock_name": "三孚股份",
+    "success": true,
+    "elapsed_time": 4.861743927001953,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.43,
+      "avg_score": 22.146092894653748,
+      "matches_count": 2,
+      "B_values": [
+        9.879999999999999,
+        10.309999999999999,
+        10.739999999999998,
+        11.17,
+        11.6,
+        12.03,
+        12.459999999999999,
+        12.889999999999999,
+        13.32,
+        13.75
+      ],
+      "anchor_A": 9.45,
+      "anchor_date": "2024-08-23 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000852",
+    "stock_name": "石化机械",
+    "success": true,
+    "elapsed_time": 4.8983519077301025,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.59,
+      "avg_score": 18.844647788833775,
+      "matches_count": 2,
+      "B_values": [
+        5.68,
+        7.45,
+        9.219999999999999,
+        10.99,
+        12.76,
+        14.53
+      ],
+      "anchor_A": 3.91,
+      "anchor_date": "2021-02-02 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002337",
+    "stock_name": "赛象科技",
+    "success": true,
+    "elapsed_time": 4.785722970962524,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 22.71202124043844,
+      "matches_count": 2,
+      "B_values": [
+        4.52,
+        6.41,
+        8.3,
+        10.190000000000001,
+        12.080000000000002
+      ],
+      "anchor_A": 2.63,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600683",
+    "stock_name": "京投发展",
+    "success": true,
+    "elapsed_time": 4.556656837463379,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 32.70207788559475,
+      "matches_count": 2,
+      "B_values": [
+        5.01,
+        6.66,
+        8.31,
+        9.96,
+        11.61,
+        13.26
+      ],
+      "anchor_A": 3.36,
+      "anchor_date": "2021-07-30 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600716",
+    "stock_name": "凤凰股份",
+    "success": true,
+    "elapsed_time": 4.45884370803833,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 19.407402711593758,
+      "matches_count": 2,
+      "B_values": [
+        2.7199999999999998,
+        2.96,
+        3.2,
+        3.44,
+        3.6799999999999997,
+        3.92,
+        4.16,
+        4.4,
+        4.640000000000001,
+        4.88
+      ],
+      "anchor_A": 2.48,
+      "anchor_date": "2024-08-23 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002390",
+    "stock_name": "信邦制药",
+    "success": true,
+    "elapsed_time": 4.5568461418151855,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.49,
+      "avg_score": 42.13956335441751,
+      "matches_count": 2,
+      "B_values": [
+        3.38,
+        3.87,
+        4.36,
+        4.85,
+        5.34,
+        5.83
+      ],
+      "anchor_A": 2.89,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603122",
+    "stock_name": "合富中国",
+    "success": true,
+    "elapsed_time": 4.628949880599976,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 19.608725691630877,
+      "matches_count": 2,
+      "B_values": [
+        5.38,
+        5.949999999999999,
+        6.52,
+        7.09,
+        7.659999999999999,
+        8.23,
+        8.799999999999999,
+        9.37,
+        9.94,
+        10.509999999999998
+      ],
+      "anchor_A": 4.81,
+      "anchor_date": "2024-07-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603233",
+    "stock_name": "大参林",
+    "success": true,
+    "elapsed_time": 4.853024005889893,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 11.433967313912097,
+      "matches_count": 2,
+      "B_values": [
+        12.24,
+        12.47,
+        12.7,
+        12.93,
+        13.16,
+        13.39,
+        13.62,
+        13.85,
+        14.08,
+        14.31
+      ],
+      "anchor_A": 12.01,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603160",
+    "stock_name": "汇顶科技",
+    "success": true,
+    "elapsed_time": 4.969473123550415,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 24.5045689865874,
+      "matches_count": 2,
+      "B_values": [
+        47.089999999999996,
+        49.519999999999996,
+        51.949999999999996,
+        54.379999999999995,
+        56.809999999999995,
+        59.239999999999995,
+        61.67,
+        64.1,
+        66.53,
+        68.96
+      ],
+      "anchor_A": 44.66,
+      "anchor_date": "2022-10-11 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000626",
+    "stock_name": "远大控股",
+    "success": true,
+    "elapsed_time": 4.908322095870972,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.53,
+      "avg_score": 8.72395515982864,
+      "matches_count": 2,
+      "B_values": [
+        4.57,
+        5.1,
+        5.63,
+        6.16,
+        6.69,
+        7.220000000000001,
+        7.75,
+        8.280000000000001,
+        8.81,
+        9.34
+      ],
+      "anchor_A": 4.04,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600278",
+    "stock_name": "东方创业",
+    "success": true,
+    "elapsed_time": 4.925016164779663,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.32,
+      "avg_score": 34.0632530120481,
+      "matches_count": 2,
+      "B_values": [
+        5.46,
+        5.779999999999999,
+        6.1,
+        6.42,
+        6.74,
+        7.06,
+        7.38,
+        7.699999999999999,
+        8.02,
+        8.34
+      ],
+      "anchor_A": 5.14,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600639",
+    "stock_name": "浦东金桥",
+    "success": true,
+    "elapsed_time": 4.7121617794036865,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 9.055891238670712,
+      "matches_count": 1,
+      "B_values": [
+        9.82,
+        10.39,
+        10.96,
+        11.53,
+        12.1,
+        12.67,
+        13.24,
+        13.809999999999999,
+        14.379999999999999
+      ],
+      "anchor_A": 9.25,
+      "anchor_date": "2024-09-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002084",
+    "stock_name": "海鸥住工",
+    "success": true,
+    "elapsed_time": 4.616408109664917,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.43,
+      "avg_score": 31.13300492610837,
+      "matches_count": 2,
+      "B_values": [
+        2.56,
+        2.9899999999999998,
+        3.42,
+        3.8499999999999996,
+        4.279999999999999,
+        4.71,
+        5.14,
+        5.57,
+        6.0,
+        6.43
+      ],
+      "anchor_A": 2.13,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002790",
+    "stock_name": "瑞尔特",
+    "success": true,
+    "elapsed_time": 4.53779411315918,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 22.87300601612752,
+      "matches_count": 2,
+      "B_values": [
+        7.890000000000001,
+        10.88,
+        13.870000000000001,
+        16.86,
+        19.85
+      ],
+      "anchor_A": 4.9,
+      "anchor_date": "2021-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002853",
+    "stock_name": "皮阿诺",
+    "success": true,
+    "elapsed_time": 4.619350910186768,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 30.946858046050636,
+      "matches_count": 2,
+      "B_values": [
+        6.68,
+        6.99,
+        7.3,
+        7.61,
+        7.92,
+        8.23,
+        8.54,
+        8.85,
+        9.16,
+        9.47
+      ],
+      "anchor_A": 6.37,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "003011",
+    "stock_name": "海象新材",
+    "success": true,
+    "elapsed_time": 4.696624994277954,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.37,
+      "avg_score": 17.396680324670157,
+      "matches_count": 3,
+      "B_values": [
+        12.399999999999999,
+        13.509999999999998,
+        14.62,
+        15.729999999999999,
+        16.84,
+        17.95,
+        19.06,
+        20.169999999999998,
+        21.28,
+        22.39
+      ],
+      "anchor_A": 11.29,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601996",
+    "stock_name": "丰林集团",
+    "success": true,
+    "elapsed_time": 4.584243297576904,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 17.849677328843857,
+      "matches_count": 2,
+      "B_values": [
+        2.1999999999999997,
+        2.7699999999999996,
+        3.34,
+        3.9099999999999997,
+        4.4799999999999995
+      ],
+      "anchor_A": 1.63,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002668",
+    "stock_name": "TCL智家",
+    "success": true,
+    "elapsed_time": 4.765557050704956,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.68,
+      "avg_score": 13.293075715716228,
+      "matches_count": 3,
+      "B_values": [
+        3.9200000000000004,
+        4.6000000000000005,
+        5.28,
+        5.960000000000001,
+        6.640000000000001,
+        7.32,
+        8.0,
+        8.68,
+        9.36,
+        10.040000000000001
+      ],
+      "anchor_A": 3.24,
+      "anchor_date": "2019-02-01 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002677",
+    "stock_name": "浙江美大",
+    "success": true,
+    "elapsed_time": 4.655344247817993,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 8.56486796785307,
+      "matches_count": 1,
+      "B_values": [
+        6.55,
+        6.789999999999999,
+        7.029999999999999,
+        7.27,
+        7.51,
+        7.75,
+        7.989999999999999,
+        8.23,
+        8.469999999999999,
+        8.709999999999999
+      ],
+      "anchor_A": 6.31,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600060",
+    "stock_name": "海信视像",
+    "success": true,
+    "elapsed_time": 4.753844976425171,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.58,
+      "avg_score": 13.888486215463999,
+      "matches_count": 3,
+      "B_values": [
+        9.18,
+        10.92,
+        12.66,
+        14.399999999999999,
+        16.14,
+        17.88,
+        19.62,
+        21.36,
+        23.099999999999998,
+        24.84
+      ],
+      "anchor_A": 7.44,
+      "anchor_date": "2019-08-15 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603355",
+    "stock_name": "莱克电气",
+    "success": true,
+    "elapsed_time": 4.903105974197388,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.34,
+      "avg_score": 26.457043671456294,
+      "matches_count": 2,
+      "B_values": [
+        17.75,
+        18.77,
+        19.79,
+        20.810000000000002,
+        21.830000000000002,
+        22.85,
+        23.87,
+        24.89,
+        25.910000000000004,
+        26.93
+      ],
+      "anchor_A": 16.73,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605555",
+    "stock_name": "德昌股份",
+    "success": true,
+    "elapsed_time": 4.732282876968384,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 22.98928644277432,
+      "matches_count": 2,
+      "B_values": [
+        22.34,
+        30.619999999999997,
+        38.9,
+        47.18,
+        55.46
+      ],
+      "anchor_A": 14.06,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000657",
+    "stock_name": "中钨高新",
+    "success": true,
+    "elapsed_time": 4.8133368492126465,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 10.460827008779408,
+      "matches_count": 2,
+      "B_values": [
+        6.8,
+        8.55,
+        10.3,
+        12.05,
+        13.8,
+        15.55,
+        17.3,
+        19.05,
+        20.8,
+        22.55
+      ],
+      "anchor_A": 5.05,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000969",
+    "stock_name": "安泰科技",
+    "success": true,
+    "elapsed_time": 4.703593969345093,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.37,
+      "avg_score": 14.814693414687223,
+      "matches_count": 2,
+      "B_values": [
+        5.99,
+        7.84,
+        9.69,
+        11.54,
+        13.39,
+        15.239999999999998,
+        17.09,
+        18.94,
+        20.79,
+        22.64
+      ],
+      "anchor_A": 4.14,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600169",
+    "stock_name": "太原重工",
+    "success": true,
+    "elapsed_time": 4.552014112472534,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.39,
+      "avg_score": 17.590909090909093,
+      "matches_count": 2,
+      "B_values": [
+        2.21,
+        2.6,
+        2.99,
+        3.38,
+        3.7700000000000005,
+        4.16,
+        4.55
+      ],
+      "anchor_A": 1.82,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605305",
+    "stock_name": "中际联合",
+    "success": true,
+    "elapsed_time": 4.5859880447387695,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.61,
+      "avg_score": 26.843487913266554,
+      "matches_count": 2,
+      "B_values": [
+        24.84,
+        29.11,
+        33.38,
+        37.65,
+        41.92,
+        46.19,
+        50.46,
+        54.73
+      ],
+      "anchor_A": 20.57,
+      "anchor_date": "2024-08-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000917",
+    "stock_name": "电广传媒",
+    "success": true,
+    "elapsed_time": 4.481848239898682,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.49,
+      "avg_score": 18.920499442448257,
+      "matches_count": 2,
+      "B_values": [
+        5.26,
+        6.73,
+        8.2,
+        9.67,
+        11.14,
+        12.61,
+        14.079999999999998
+      ],
+      "anchor_A": 3.79,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002701",
+    "stock_name": "奥瑞金",
+    "success": true,
+    "elapsed_time": 4.506561994552612,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 12.607133010358865,
+      "matches_count": 2,
+      "B_values": [
+        3.98,
+        4.27,
+        4.56,
+        4.85,
+        5.14,
+        5.43,
+        5.72,
+        6.01,
+        6.3,
+        6.59
+      ],
+      "anchor_A": 3.69,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002787",
+    "stock_name": "华源控股",
+    "success": true,
+    "elapsed_time": 4.641019105911255,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.52,
+      "avg_score": 25.797612153763474,
+      "matches_count": 2,
+      "B_values": [
+        5.1,
+        5.62,
+        6.140000000000001,
+        6.66,
+        7.18,
+        7.7,
+        8.22,
+        8.74,
+        9.26,
+        9.780000000000001
+      ],
+      "anchor_A": 4.58,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002831",
+    "stock_name": "裕同科技",
+    "success": true,
+    "elapsed_time": 4.643495798110962,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 42.67711308742651,
+      "matches_count": 2,
+      "B_values": [
+        21.03,
+        24.15,
+        27.27,
+        30.39,
+        33.51,
+        36.629999999999995,
+        39.75,
+        42.870000000000005,
+        45.989999999999995
+      ],
+      "anchor_A": 17.91,
+      "anchor_date": "2019-06-10 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002836",
+    "stock_name": "新宏泽",
+    "success": true,
+    "elapsed_time": 4.743412971496582,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.41,
+      "avg_score": 16.749916226857682,
+      "matches_count": 3,
+      "B_values": [
+        4.87,
+        5.28,
+        5.6899999999999995,
+        6.1,
+        6.51,
+        6.92,
+        7.33,
+        7.74,
+        8.15,
+        8.559999999999999
+      ],
+      "anchor_A": 4.46,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600210",
+    "stock_name": "紫江企业",
+    "success": true,
+    "elapsed_time": 4.69274115562439,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.37,
+      "avg_score": 28.74675532353979,
+      "matches_count": 2,
+      "B_values": [
+        3.88,
+        4.99,
+        6.1,
+        7.209999999999999,
+        8.32,
+        9.43,
+        10.54,
+        11.649999999999999,
+        12.76,
+        13.87
+      ],
+      "anchor_A": 2.77,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600039",
+    "stock_name": "四川路桥",
+    "success": true,
+    "elapsed_time": 4.714126110076904,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.37,
+      "avg_score": 17.640307887749206,
+      "matches_count": 2,
+      "B_values": [
+        5.58,
+        8.17,
+        10.76,
+        13.35,
+        15.94,
+        18.53,
+        21.119999999999997
+      ],
+      "anchor_A": 2.99,
+      "anchor_date": "2018-06-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601068",
+    "stock_name": "中铝国际",
+    "success": true,
+    "elapsed_time": 4.774768114089966,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.41,
+      "avg_score": 21.829720528370842,
+      "matches_count": 6,
+      "B_values": [
+        3.19,
+        3.5999999999999996,
+        4.01,
+        4.42,
+        4.83,
+        5.24,
+        5.6499999999999995,
+        6.06,
+        6.47,
+        6.879999999999999
+      ],
+      "anchor_A": 2.78,
+      "anchor_date": "2021-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600640",
+    "stock_name": "国脉文化",
+    "success": true,
+    "elapsed_time": 4.661463975906372,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.51,
+      "avg_score": 20.63410757717478,
+      "matches_count": 3,
+      "B_values": [
+        9.459999999999999,
+        10.99,
+        12.52,
+        14.05,
+        15.58,
+        17.11,
+        18.64,
+        20.17,
+        21.7
+      ],
+      "anchor_A": 7.93,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002188",
+    "stock_name": "中天服务",
+    "success": true,
+    "elapsed_time": 4.667427062988281,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 18.626304644598587,
+      "matches_count": 2,
+      "B_values": [
+        3.0,
+        3.8699999999999997,
+        4.74,
+        5.609999999999999,
+        6.4799999999999995,
+        7.35,
+        8.219999999999999,
+        9.09,
+        9.959999999999999,
+        10.829999999999998
+      ],
+      "anchor_A": 2.13,
+      "anchor_date": "2021-01-15 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002968",
+    "stock_name": "新大正",
+    "success": true,
+    "elapsed_time": 4.593725919723511,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.67,
+      "avg_score": 18.280944753753403,
+      "matches_count": 2,
+      "B_values": [
+        9.13,
+        11.14,
+        13.15,
+        15.16,
+        17.17,
+        19.18
+      ],
+      "anchor_A": 7.12,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603766",
+    "stock_name": "隆鑫通用",
+    "success": true,
+    "elapsed_time": 4.658698081970215,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.5,
+      "avg_score": 15.353610654496128,
+      "matches_count": 2,
+      "B_values": [
+        3.42,
+        3.92,
+        4.42,
+        4.92,
+        5.42,
+        5.92,
+        6.42,
+        6.92,
+        7.42,
+        7.92
+      ],
+      "anchor_A": 2.92,
+      "anchor_date": "2021-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002348",
+    "stock_name": "高乐股份",
+    "success": true,
+    "elapsed_time": 4.6357741355896,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.43,
+      "avg_score": 22.96963751554409,
+      "matches_count": 2,
+      "B_values": [
+        2.9299999999999997,
+        4.22,
+        5.51,
+        6.8,
+        8.09
+      ],
+      "anchor_A": 1.64,
+      "anchor_date": "2021-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603307",
+    "stock_name": "扬州金泉",
+    "success": true,
+    "elapsed_time": 4.734551906585693,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 23.558656436408622,
+      "matches_count": 2,
+      "B_values": [
+        27.57,
+        28.439999999999998,
+        29.31,
+        30.18,
+        31.049999999999997,
+        31.919999999999998,
+        32.79,
+        33.66,
+        34.53,
+        35.4
+      ],
+      "anchor_A": 26.7,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "003816",
+    "stock_name": "中国广核",
+    "success": true,
+    "elapsed_time": 4.739546060562134,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 12.402198168991813,
+      "matches_count": 2,
+      "B_values": [
+        2.77,
+        3.02,
+        3.27,
+        3.52,
+        3.77,
+        4.02,
+        4.27,
+        4.52,
+        4.77,
+        5.02
+      ],
+      "anchor_A": 2.52,
+      "anchor_date": "2021-07-30 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600022",
+    "stock_name": "山东钢铁",
+    "success": true,
+    "elapsed_time": 4.598822116851807,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.32,
+      "avg_score": 66.04294478527608,
+      "matches_count": 1,
+      "B_values": [
+        1.45,
+        1.77,
+        2.09,
+        2.41,
+        2.73
+      ],
+      "anchor_A": 1.13,
+      "anchor_date": "2024-06-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002486",
+    "stock_name": "嘉麟杰",
+    "success": true,
+    "elapsed_time": 4.608864068984985,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.38,
+      "avg_score": 3.231922170359871,
+      "matches_count": 2,
+      "B_values": [
+        1.7400000000000002,
+        2.12,
+        2.5,
+        2.88,
+        3.26,
+        3.6400000000000006,
+        4.0200000000000005,
+        4.4
+      ],
+      "anchor_A": 1.36,
+      "anchor_date": "2024-06-24 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002612",
+    "stock_name": "朗姿股份",
+    "success": true,
+    "elapsed_time": 4.6191651821136475,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 23.229111266611138,
+      "matches_count": 2,
+      "B_values": [
+        13.08,
+        13.83,
+        14.58,
+        15.33,
+        16.08,
+        16.83,
+        17.58,
+        18.33,
+        19.08,
+        19.83
+      ],
+      "anchor_A": 12.33,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002780",
+    "stock_name": "三夫户外",
+    "success": true,
+    "elapsed_time": 4.676159858703613,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.43,
+      "avg_score": 30.26740791722002,
+      "matches_count": 2,
+      "B_values": [
+        8.719999999999999,
+        9.149999999999999,
+        9.579999999999998,
+        10.01,
+        10.44,
+        10.87,
+        11.299999999999999,
+        11.729999999999999,
+        12.16,
+        12.59
+      ],
+      "anchor_A": 8.29,
+      "anchor_date": "2024-07-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603808",
+    "stock_name": "歌力思",
+    "success": true,
+    "elapsed_time": 4.730641841888428,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.34,
+      "avg_score": 22.69975993468276,
+      "matches_count": 2,
+      "B_values": [
+        6.17,
+        6.51,
+        6.85,
+        7.19,
+        7.53,
+        7.87,
+        8.21,
+        8.55,
+        8.89,
+        9.23
+      ],
+      "anchor_A": 5.83,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000410",
+    "stock_name": "沈阳机床",
+    "success": true,
+    "elapsed_time": 4.991431951522827,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.46,
+      "avg_score": 15.03773830527148,
+      "matches_count": 3,
+      "B_values": [
+        3.31,
+        3.77,
+        4.23,
+        4.69,
+        5.15,
+        5.61,
+        6.07,
+        6.53,
+        6.99,
+        7.450000000000001
+      ],
+      "anchor_A": 2.85,
+      "anchor_date": "2021-02-02 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002248",
+    "stock_name": "华东数控",
+    "success": true,
+    "elapsed_time": 4.896662950515747,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.67,
+      "avg_score": 36.98705109733616,
+      "matches_count": 2,
+      "B_values": [
+        7.369999999999999,
+        10.719999999999999,
+        14.07,
+        17.42,
+        20.77
+      ],
+      "anchor_A": 4.02,
+      "anchor_date": "2021-02-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001379",
+    "stock_name": "腾达科技",
+    "success": true,
+    "elapsed_time": 4.830215930938721,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.43,
+      "avg_score": 48.4174859330299,
+      "matches_count": 2,
+      "B_values": [
+        15.59,
+        18.6,
+        21.61,
+        24.619999999999997,
+        27.63,
+        30.64,
+        33.65,
+        36.66,
+        39.67,
+        42.68
+      ],
+      "anchor_A": 12.58,
+      "anchor_date": "2024-07-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002184",
+    "stock_name": "海得控制",
+    "success": true,
+    "elapsed_time": 4.7421369552612305,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 44.761181399325054,
+      "matches_count": 2,
+      "B_values": [
+        12.120000000000001,
+        16.41,
+        20.700000000000003,
+        24.990000000000002,
+        29.28,
+        33.57
+      ],
+      "anchor_A": 7.83,
+      "anchor_date": "2024-08-28 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002438",
+    "stock_name": "江苏神通",
+    "success": true,
+    "elapsed_time": 4.499326229095459,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.3,
+      "avg_score": 28.476228225996476,
+      "matches_count": 2,
+      "B_values": [
+        7.5,
+        10.2,
+        12.899999999999999,
+        15.599999999999998,
+        18.3,
+        21.0,
+        23.7,
+        26.4
+      ],
+      "anchor_A": 4.8,
+      "anchor_date": "2018-10-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603188",
+    "stock_name": "亚邦股份",
+    "success": true,
+    "elapsed_time": 4.488376140594482,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.3,
+      "avg_score": 37.04347826086956,
+      "matches_count": 2,
+      "B_values": [
+        2.34,
+        2.64,
+        2.94,
+        3.24,
+        3.54,
+        3.84,
+        4.140000000000001,
+        4.4399999999999995,
+        4.74,
+        5.04
+      ],
+      "anchor_A": 2.04,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603823",
+    "stock_name": "百合花",
+    "success": true,
+    "elapsed_time": 4.6084818840026855,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.59,
+      "avg_score": 21.080676622856917,
+      "matches_count": 3,
+      "B_values": [
+        6.62,
+        7.21,
+        7.800000000000001,
+        8.39,
+        8.98,
+        9.57,
+        10.16,
+        10.75,
+        11.34,
+        11.93
+      ],
+      "anchor_A": 6.03,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000685",
+    "stock_name": "中山公用",
+    "success": true,
+    "elapsed_time": 4.739095211029053,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 12.266359961734581,
+      "matches_count": 3,
+      "B_values": [
+        6.48,
+        6.75,
+        7.02,
+        7.29,
+        7.5600000000000005,
+        7.83,
+        8.1,
+        8.370000000000001,
+        8.64,
+        8.91
+      ],
+      "anchor_A": 6.21,
+      "anchor_date": "2018-10-16 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600168",
+    "stock_name": "武汉控股",
+    "success": true,
+    "elapsed_time": 4.776886940002441,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 13.391226364660008,
+      "matches_count": 3,
+      "B_values": [
+        3.88,
+        4.12,
+        4.36,
+        4.6,
+        4.84,
+        5.08,
+        5.32,
+        5.5600000000000005,
+        5.800000000000001,
+        6.04
+      ],
+      "anchor_A": 3.64,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603759",
+    "stock_name": "海天股份",
+    "success": true,
+    "elapsed_time": 4.821455955505371,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 17.40330707400598,
+      "matches_count": 2,
+      "B_values": [
+        5.7700000000000005,
+        6.1000000000000005,
+        6.430000000000001,
+        6.760000000000001,
+        7.090000000000001,
+        7.42,
+        7.75,
+        8.08,
+        8.41,
+        8.74
+      ],
+      "anchor_A": 5.44,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600802",
+    "stock_name": "福建水泥",
+    "success": true,
+    "elapsed_time": 4.7171759605407715,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.44,
+      "avg_score": 24.040780141844028,
+      "matches_count": 2,
+      "B_values": [
+        3.06,
+        3.5,
+        3.9400000000000004,
+        4.38,
+        4.82,
+        5.26,
+        5.7,
+        6.140000000000001,
+        6.58,
+        7.0200000000000005
+      ],
+      "anchor_A": 2.62,
+      "anchor_date": "2024-08-23 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601083",
+    "stock_name": "锦江航运",
+    "success": true,
+    "elapsed_time": 4.754163026809692,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 9.125874125873986,
+      "matches_count": 1,
+      "B_values": [
+        8.55,
+        8.780000000000001,
+        9.01,
+        9.24,
+        9.47,
+        9.700000000000001,
+        9.93,
+        10.16,
+        10.39,
+        10.620000000000001
+      ],
+      "anchor_A": 8.32,
+      "anchor_date": "2024-09-10 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603167",
+    "stock_name": "渤海轮渡",
+    "success": true,
+    "elapsed_time": 4.790754079818726,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.4,
+      "avg_score": 15.099411496943716,
+      "matches_count": 2,
+      "B_values": [
+        6.99,
+        7.39,
+        7.79,
+        8.19,
+        8.59,
+        8.99,
+        9.39,
+        9.79,
+        10.19,
+        10.59
+      ],
+      "anchor_A": 6.59,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600686",
+    "stock_name": "XD金龙汽",
+    "success": true,
+    "elapsed_time": 4.787808895111084,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.51,
+      "avg_score": 19.860894046596584,
+      "matches_count": 2,
+      "B_values": [
+        6.1000000000000005,
+        7.630000000000001,
+        9.16,
+        10.690000000000001,
+        12.22,
+        13.75,
+        15.280000000000001,
+        16.810000000000002,
+        18.34,
+        19.87
+      ],
+      "anchor_A": 4.57,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000338",
+    "stock_name": "潍柴动力",
+    "success": true,
+    "elapsed_time": 4.695946216583252,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 18.222660204942866,
+      "matches_count": 2,
+      "B_values": [
+        11.559999999999999,
+        16.49,
+        21.419999999999998,
+        26.349999999999998,
+        31.279999999999998,
+        36.21
+      ],
+      "anchor_A": 6.63,
+      "anchor_date": "2017-07-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002806",
+    "stock_name": "华锋股份",
+    "success": true,
+    "elapsed_time": 4.589918851852417,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.42,
+      "avg_score": 24.259869704723823,
+      "matches_count": 2,
+      "B_values": [
+        7.38,
+        8.64,
+        9.9,
+        11.16,
+        12.42,
+        13.68,
+        14.940000000000001,
+        16.2,
+        17.46
+      ],
+      "anchor_A": 6.12,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600626",
+    "stock_name": "申达股份",
+    "success": true,
+    "elapsed_time": 4.588424205780029,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 12.832481558209766,
+      "matches_count": 3,
+      "B_values": [
+        2.54,
+        2.83,
+        3.12,
+        3.41,
+        3.7,
+        3.9899999999999998,
+        4.279999999999999,
+        4.57,
+        4.859999999999999,
+        5.15
+      ],
+      "anchor_A": 2.25,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603190",
+    "stock_name": "亚通精工",
+    "success": true,
+    "elapsed_time": 4.538362264633179,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.61,
+      "avg_score": 25.844731590910623,
+      "matches_count": 2,
+      "B_values": [
+        19.41,
+        20.02,
+        20.630000000000003,
+        21.240000000000002,
+        21.85,
+        22.46,
+        23.07,
+        23.68,
+        24.29,
+        24.9
+      ],
+      "anchor_A": 18.8,
+      "anchor_date": "2025-04-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603917",
+    "stock_name": "合力科技",
+    "success": true,
+    "elapsed_time": 4.5997772216796875,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 29.407073266328897,
+      "matches_count": 2,
+      "B_values": [
+        10.93,
+        12.08,
+        13.23,
+        14.379999999999999,
+        15.53,
+        16.68,
+        17.83,
+        18.98,
+        20.13
+      ],
+      "anchor_A": 9.78,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000531",
+    "stock_name": "穗恒运Ａ",
+    "success": true,
+    "elapsed_time": 4.514079332351685,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.38,
+      "avg_score": 41.51436950146627,
+      "matches_count": 2,
+      "B_values": [
+        6.57,
+        9.23,
+        11.89,
+        14.55,
+        17.21,
+        19.87
+      ],
+      "anchor_A": 3.91,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000543",
+    "stock_name": "皖能电力",
+    "success": true,
+    "elapsed_time": 4.471484184265137,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.26,
+      "avg_score": 14.918703801548181,
+      "matches_count": 3,
+      "B_values": [
+        4.23,
+        5.01,
+        5.79,
+        6.57,
+        7.3500000000000005,
+        8.129999999999999,
+        8.91,
+        9.690000000000001,
+        10.47,
+        11.25
+      ],
+      "anchor_A": 3.45,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000899",
+    "stock_name": "赣能股份",
+    "success": true,
+    "elapsed_time": 4.510428190231323,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.37,
+      "avg_score": 25.91389482486296,
+      "matches_count": 2,
+      "B_values": [
+        4.79,
+        5.9,
+        7.01,
+        8.12,
+        9.23,
+        10.34,
+        11.45,
+        12.559999999999999,
+        13.67,
+        14.78
+      ],
+      "anchor_A": 3.68,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600578",
+    "stock_name": "京能电力",
+    "success": true,
+    "elapsed_time": 4.527637004852295,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.37,
+      "avg_score": 20.611372440509232,
+      "matches_count": 2,
+      "B_values": [
+        2.98,
+        3.3499999999999996,
+        3.7199999999999998,
+        4.09,
+        4.46,
+        4.83,
+        5.199999999999999,
+        5.57,
+        5.9399999999999995
+      ],
+      "anchor_A": 2.61,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600792",
+    "stock_name": "云煤能源",
+    "success": true,
+    "elapsed_time": 4.560947895050049,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.39,
+      "avg_score": 13.65415682209737,
+      "matches_count": 2,
+      "B_values": [
+        3.84,
+        5.01,
+        6.18,
+        7.35,
+        8.52,
+        9.690000000000001
+      ],
+      "anchor_A": 2.67,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601011",
+    "stock_name": "宝泰隆",
+    "success": true,
+    "elapsed_time": 4.563997030258179,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 28.88427464008859,
+      "matches_count": 2,
+      "B_values": [
+        1.7,
+        1.95,
+        2.2,
+        2.45,
+        2.7,
+        2.95,
+        3.2,
+        3.45,
+        3.7,
+        3.95
+      ],
+      "anchor_A": 1.45,
+      "anchor_date": "2024-07-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601015",
+    "stock_name": "陕西黑猫",
+    "success": true,
+    "elapsed_time": 4.5278990268707275,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.44,
+      "avg_score": 10.202404683420651,
+      "matches_count": 2,
+      "B_values": [
+        3.0,
+        3.44,
+        3.88,
+        4.32,
+        4.76,
+        5.2,
+        5.640000000000001,
+        6.08
+      ],
+      "anchor_A": 2.56,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601898",
+    "stock_name": "XD中煤能",
+    "success": true,
+    "elapsed_time": 4.6137449741363525,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.51,
+      "avg_score": 15.30719625634882,
+      "matches_count": 2,
+      "B_values": [
+        5.22,
+        6.75,
+        8.28,
+        9.81,
+        11.34,
+        12.87,
+        14.4,
+        15.93,
+        17.46,
+        18.990000000000002
+      ],
+      "anchor_A": 3.69,
+      "anchor_date": "2020-05-22 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601918",
+    "stock_name": "新集能源",
+    "success": true,
+    "elapsed_time": 4.852926254272461,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 13.66360035652694,
+      "matches_count": 3,
+      "B_values": [
+        2.61,
+        2.88,
+        3.15,
+        3.42,
+        3.69,
+        3.96,
+        4.23,
+        4.5,
+        4.77,
+        5.04
+      ],
+      "anchor_A": 2.34,
+      "anchor_date": "2020-06-12 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000708",
+    "stock_name": "中信特钢",
+    "success": true,
+    "elapsed_time": 4.9047300815582275,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 19.636003201607082,
+      "matches_count": 2,
+      "B_values": [
+        6.88,
+        10.12,
+        13.36,
+        16.599999999999998,
+        19.84,
+        23.08,
+        26.32,
+        29.56,
+        32.8,
+        36.04
+      ],
+      "anchor_A": 3.64,
+      "anchor_date": "2008-10-28 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002318",
+    "stock_name": "久立特材",
+    "success": true,
+    "elapsed_time": 5.150912046432495,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.38,
+      "avg_score": 12.323986581939844,
+      "matches_count": 2,
+      "B_values": [
+        9.6,
+        13.78,
+        17.96,
+        22.14,
+        26.32,
+        30.5,
+        34.68,
+        38.86
+      ],
+      "anchor_A": 5.42,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600133",
+    "stock_name": "东湖高新",
+    "success": true,
+    "elapsed_time": 5.0969321727752686,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.37,
+      "avg_score": 19.324393740293797,
+      "matches_count": 2,
+      "B_values": [
+        5.390000000000001,
+        6.5,
+        7.61,
+        8.719999999999999,
+        9.83,
+        10.940000000000001,
+        12.05,
+        13.16,
+        14.27,
+        15.379999999999999
+      ],
+      "anchor_A": 4.28,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600796",
+    "stock_name": "钱江生化",
+    "success": true,
+    "elapsed_time": 4.9563047885894775,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.61,
+      "avg_score": 28.445629835445157,
+      "matches_count": 2,
+      "B_values": [
+        4.42,
+        5.03,
+        5.640000000000001,
+        6.25,
+        6.859999999999999,
+        7.470000000000001,
+        8.08,
+        8.69,
+        9.3,
+        9.91
+      ],
+      "anchor_A": 3.81,
+      "anchor_date": "2024-02-07 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603588",
+    "stock_name": "高能环境",
+    "success": true,
+    "elapsed_time": 4.956321954727173,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 21.478044594854104,
+      "matches_count": 2,
+      "B_values": [
+        4.48,
+        4.720000000000001,
+        4.96,
+        5.2,
+        5.44,
+        5.68,
+        5.92,
+        6.16,
+        6.4,
+        6.640000000000001
+      ],
+      "anchor_A": 4.24,
+      "anchor_date": "2024-09-23 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600586",
+    "stock_name": "金晶科技",
+    "success": true,
+    "elapsed_time": 4.717890024185181,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 37.22205048788116,
+      "matches_count": 2,
+      "B_values": [
+        4.29,
+        6.18,
+        8.07,
+        9.96,
+        11.850000000000001,
+        13.74,
+        15.63,
+        17.52
+      ],
+      "anchor_A": 2.4,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601865",
+    "stock_name": "福莱特",
+    "success": true,
+    "elapsed_time": 4.734800100326538,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 2.376709833405202,
+      "matches_count": 2,
+      "B_values": [
+        14.1,
+        14.33,
+        14.559999999999999,
+        14.79,
+        15.02,
+        15.25,
+        15.479999999999999,
+        15.709999999999999,
+        15.94,
+        16.169999999999998
+      ],
+      "anchor_A": 13.87,
+      "anchor_date": "2025-06-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000534",
+    "stock_name": "万泽股份",
+    "success": true,
+    "elapsed_time": 4.838586091995239,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.48,
+      "avg_score": 14.19488228785098,
+      "matches_count": 3,
+      "B_values": [
+        4.96,
+        7.359999999999999,
+        9.76,
+        12.16,
+        14.56,
+        16.959999999999997,
+        19.36,
+        21.759999999999998,
+        24.159999999999997,
+        26.56
+      ],
+      "anchor_A": 2.56,
+      "anchor_date": "2008-11-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001266",
+    "stock_name": "宏英智能",
+    "success": true,
+    "elapsed_time": 4.879139184951782,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 18.005197497293675,
+      "matches_count": 3,
+      "B_values": [
+        18.59,
+        19.310000000000002,
+        20.03,
+        20.75,
+        21.47,
+        22.19,
+        22.91,
+        23.630000000000003,
+        24.35,
+        25.07
+      ],
+      "anchor_A": 17.87,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002414",
+    "stock_name": "高德红外",
+    "success": true,
+    "elapsed_time": 4.936391115188599,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.49,
+      "avg_score": 18.190478331234964,
+      "matches_count": 2,
+      "B_values": [
+        5.36,
+        5.85,
+        6.34,
+        6.83,
+        7.32,
+        7.8100000000000005,
+        8.3,
+        8.79,
+        9.280000000000001,
+        9.77
+      ],
+      "anchor_A": 4.87,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605056",
+    "stock_name": "咸亨国际",
+    "success": true,
+    "elapsed_time": 4.82529878616333,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.3,
+      "avg_score": 14.670085458896018,
+      "matches_count": 2,
+      "B_values": [
+        11.299999999999999,
+        13.399999999999999,
+        15.5,
+        17.6,
+        19.7,
+        21.799999999999997,
+        23.9
+      ],
+      "anchor_A": 9.2,
+      "anchor_date": "2024-08-20 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002056",
+    "stock_name": "横店东磁",
+    "success": true,
+    "elapsed_time": 4.751355886459351,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.67,
+      "avg_score": 19.726763078956573,
+      "matches_count": 2,
+      "B_values": [
+        8.02,
+        11.370000000000001,
+        14.72,
+        18.07,
+        21.42,
+        24.770000000000003,
+        28.120000000000005,
+        31.47,
+        34.82
+      ],
+      "anchor_A": 4.67,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002129",
+    "stock_name": "TCL中环",
+    "success": true,
+    "elapsed_time": 4.6522698402404785,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 17.452744702197553,
+      "matches_count": 2,
+      "B_values": [
+        7.4,
+        7.63,
+        7.86,
+        8.09,
+        8.32,
+        8.55,
+        8.78,
+        9.01,
+        9.24,
+        9.47
+      ],
+      "anchor_A": 7.17,
+      "anchor_date": "2025-06-23 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002169",
+    "stock_name": "智光电气",
+    "success": true,
+    "elapsed_time": 4.593504905700684,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.5,
+      "avg_score": 37.082554782860235,
+      "matches_count": 2,
+      "B_values": [
+        4.58,
+        5.08,
+        5.58,
+        6.08,
+        6.58,
+        7.08,
+        7.58,
+        8.08,
+        8.58,
+        9.08
+      ],
+      "anchor_A": 4.08,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002358",
+    "stock_name": "森源电气",
+    "success": true,
+    "elapsed_time": 4.598492860794067,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 12.632635128716593,
+      "matches_count": 2,
+      "B_values": [
+        3.96,
+        5.61,
+        7.26,
+        8.91,
+        10.56,
+        12.21
+      ],
+      "anchor_A": 2.31,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002441",
+    "stock_name": "众业达",
+    "success": true,
+    "elapsed_time": 4.463644981384277,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 26.933313783617056,
+      "matches_count": 2,
+      "B_values": [
+        7.68,
+        9.39,
+        11.1,
+        12.809999999999999,
+        14.52,
+        16.23,
+        17.939999999999998
+      ],
+      "anchor_A": 5.97,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002459",
+    "stock_name": "晶澳科技",
+    "success": true,
+    "elapsed_time": 4.6259050369262695,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.35,
+      "avg_score": 45.002156411730866,
+      "matches_count": 2,
+      "B_values": [
+        9.549999999999999,
+        9.899999999999999,
+        10.25,
+        10.6,
+        10.95,
+        11.299999999999999,
+        11.649999999999999,
+        12.0,
+        12.35,
+        12.7
+      ],
+      "anchor_A": 9.2,
+      "anchor_date": "2024-08-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002546",
+    "stock_name": "新联电子",
+    "success": true,
+    "elapsed_time": 4.639300107955933,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 9.128015808471876,
+      "matches_count": 2,
+      "B_values": [
+        3.34,
+        3.7,
+        4.0600000000000005,
+        4.42,
+        4.779999999999999,
+        5.140000000000001,
+        5.5,
+        5.859999999999999,
+        6.22,
+        6.58
+      ],
+      "anchor_A": 2.98,
+      "anchor_date": "2024-07-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600067",
+    "stock_name": "冠城新材",
+    "success": true,
+    "elapsed_time": 4.676841974258423,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.26,
+      "avg_score": 6.42502098526211,
+      "matches_count": 2,
+      "B_values": [
+        1.95,
+        2.21,
+        2.4699999999999998,
+        2.73,
+        2.99,
+        3.25,
+        3.51,
+        3.77,
+        4.029999999999999,
+        4.29
+      ],
+      "anchor_A": 1.69,
+      "anchor_date": "2024-02-07 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600478",
+    "stock_name": "科力远",
+    "success": true,
+    "elapsed_time": 4.789952993392944,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.44,
+      "avg_score": 17.352613513188075,
+      "matches_count": 2,
+      "B_values": [
+        3.61,
+        4.05,
+        4.49,
+        4.93,
+        5.37,
+        5.8100000000000005,
+        6.25,
+        6.6899999999999995,
+        7.13,
+        7.57
+      ],
+      "anchor_A": 3.17,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601012",
+    "stock_name": "隆基绿能",
+    "success": true,
+    "elapsed_time": 4.7790162563323975,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 24.434323371232338,
+      "matches_count": 2,
+      "B_values": [
+        13.26,
+        13.620000000000001,
+        13.98,
+        14.34,
+        14.7,
+        15.06,
+        15.42,
+        15.780000000000001,
+        16.14,
+        16.5
+      ],
+      "anchor_A": 12.9,
+      "anchor_date": "2024-08-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601616",
+    "stock_name": "广电电气",
+    "success": true,
+    "elapsed_time": 4.730590105056763,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.43,
+      "avg_score": 16.259926519222027,
+      "matches_count": 2,
+      "B_values": [
+        2.71,
+        3.1399999999999997,
+        3.57,
+        4.0,
+        4.43,
+        4.859999999999999,
+        5.289999999999999,
+        5.72,
+        6.15
+      ],
+      "anchor_A": 2.28,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603218",
+    "stock_name": "日月股份",
+    "success": true,
+    "elapsed_time": 4.734640121459961,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.28,
+      "avg_score": 16.298937968048598,
+      "matches_count": 2,
+      "B_values": [
+        9.44,
+        10.28,
+        11.120000000000001,
+        11.96,
+        12.8,
+        13.64,
+        14.48,
+        15.32,
+        16.16,
+        17.0
+      ],
+      "anchor_A": 8.6,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603489",
+    "stock_name": "八方股份",
+    "success": true,
+    "elapsed_time": 4.706263065338135,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 22.714775104134496,
+      "matches_count": 2,
+      "B_values": [
+        17.66,
+        19.310000000000002,
+        20.96,
+        22.610000000000003,
+        24.26,
+        25.910000000000004,
+        27.560000000000002,
+        29.21,
+        30.860000000000003,
+        32.510000000000005
+      ],
+      "anchor_A": 16.01,
+      "anchor_date": "2024-09-24 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000637",
+    "stock_name": "茂化实华",
+    "success": true,
+    "elapsed_time": 4.532796859741211,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.42,
+      "avg_score": 11.739883737586009,
+      "matches_count": 2,
+      "B_values": [
+        3.08,
+        3.5,
+        3.92,
+        4.34,
+        4.76,
+        5.18,
+        5.6,
+        6.02,
+        6.4399999999999995
+      ],
+      "anchor_A": 2.66,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601857",
+    "stock_name": "中国石油",
+    "success": true,
+    "elapsed_time": 4.56207799911499,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.39,
+      "avg_score": 20.323805012799337,
+      "matches_count": 2,
+      "B_values": [
+        5.22,
+        6.39,
+        7.5600000000000005,
+        8.73,
+        9.9,
+        11.07,
+        12.239999999999998,
+        13.41
+      ],
+      "anchor_A": 4.05,
+      "anchor_date": "2020-10-29 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600084",
+    "stock_name": "中信尼雅",
+    "success": true,
+    "elapsed_time": 4.843583106994629,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.53,
+      "avg_score": 9.650485856853395,
+      "matches_count": 3,
+      "B_values": [
+        2.7199999999999998,
+        3.25,
+        3.7800000000000002,
+        4.3100000000000005,
+        4.84,
+        5.37,
+        5.9,
+        6.43,
+        6.960000000000001,
+        7.49
+      ],
+      "anchor_A": 2.19,
+      "anchor_date": "2019-05-24 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002293",
+    "stock_name": "罗莱生活",
+    "success": true,
+    "elapsed_time": 4.834687948226929,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.38,
+      "avg_score": 8.746238716148694,
+      "matches_count": 1,
+      "B_values": [
+        6.55,
+        6.93,
+        7.3100000000000005,
+        7.6899999999999995,
+        8.07,
+        8.45,
+        8.83,
+        9.21,
+        9.59,
+        9.969999999999999
+      ],
+      "anchor_A": 6.17,
+      "anchor_date": "2024-09-20 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002397",
+    "stock_name": "梦洁股份",
+    "success": true,
+    "elapsed_time": 4.912217140197754,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.54,
+      "avg_score": 18.551255513517386,
+      "matches_count": 2,
+      "B_values": [
+        2.3200000000000003,
+        2.8600000000000003,
+        3.4000000000000004,
+        3.9400000000000004,
+        4.48,
+        5.0200000000000005,
+        5.5600000000000005
+      ],
+      "anchor_A": 1.78,
+      "anchor_date": "2024-07-10 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603365",
+    "stock_name": "水星家纺",
+    "success": true,
+    "elapsed_time": 5.07951283454895,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.34,
+      "avg_score": 21.056280153913136,
+      "matches_count": 3,
+      "B_values": [
+        11.23,
+        11.57,
+        11.91,
+        12.25,
+        12.59,
+        12.93,
+        13.270000000000001,
+        13.610000000000001,
+        13.950000000000001,
+        14.290000000000001
+      ],
+      "anchor_A": 10.89,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600302",
+    "stock_name": "标准股份",
+    "success": true,
+    "elapsed_time": 4.838616847991943,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 18.635696821515893,
+      "matches_count": 2,
+      "B_values": [
+        4.57,
+        6.02,
+        7.47,
+        8.92,
+        10.37,
+        11.82,
+        13.27,
+        14.719999999999999
+      ],
+      "anchor_A": 3.12,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603025",
+    "stock_name": "大豪科技",
+    "success": true,
+    "elapsed_time": 4.985432863235474,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.38,
+      "avg_score": 18.405293095770325,
+      "matches_count": 4,
+      "B_values": [
+        8.520000000000001,
+        8.9,
+        9.280000000000001,
+        9.66,
+        10.040000000000001,
+        10.420000000000002,
+        10.8,
+        11.18,
+        11.56,
+        11.940000000000001
+      ],
+      "anchor_A": 8.14,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603095",
+    "stock_name": "越剑智能",
+    "success": true,
+    "elapsed_time": 4.988993167877197,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.61,
+      "avg_score": 20.180157860915006,
+      "matches_count": 2,
+      "B_values": [
+        12.27,
+        14.1,
+        15.93,
+        17.759999999999998,
+        19.59,
+        21.42,
+        23.25,
+        25.08,
+        26.909999999999997,
+        28.740000000000002
+      ],
+      "anchor_A": 10.44,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600724",
+    "stock_name": "宁波富达",
+    "success": true,
+    "elapsed_time": 4.876302719116211,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.67,
+      "avg_score": 14.086201068213251,
+      "matches_count": 2,
+      "B_values": [
+        3.6799999999999997,
+        4.35,
+        5.02,
+        5.6899999999999995,
+        6.359999999999999,
+        7.03,
+        7.7,
+        8.370000000000001,
+        9.04,
+        9.71
+      ],
+      "anchor_A": 3.01,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002163",
+    "stock_name": "海南发展",
+    "success": true,
+    "elapsed_time": 4.896343946456909,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.66,
+      "avg_score": 16.438886419941067,
+      "matches_count": 2,
+      "B_values": [
+        5.91,
+        6.57,
+        7.23,
+        7.890000000000001,
+        8.55,
+        9.21,
+        9.870000000000001,
+        10.530000000000001,
+        11.190000000000001,
+        11.850000000000001
+      ],
+      "anchor_A": 5.25,
+      "anchor_date": "2024-07-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603929",
+    "stock_name": "亚翔集成",
+    "success": true,
+    "elapsed_time": 4.819421052932739,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 11.132481269414942,
+      "matches_count": 2,
+      "B_values": [
+        12.99,
+        16.98,
+        20.97,
+        24.96,
+        28.95,
+        32.94,
+        36.92999999999999,
+        40.92,
+        44.91,
+        48.9
+      ],
+      "anchor_A": 9.0,
+      "anchor_date": "2021-02-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600909",
+    "stock_name": "华安证券",
+    "success": true,
+    "elapsed_time": 4.793874979019165,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.26,
+      "avg_score": 41.816124469589745,
+      "matches_count": 2,
+      "B_values": [
+        4.27,
+        4.529999999999999,
+        4.79,
+        5.05,
+        5.31,
+        5.57,
+        5.83,
+        6.09,
+        6.35,
+        6.609999999999999
+      ],
+      "anchor_A": 4.01,
+      "anchor_date": "2024-07-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603990",
+    "stock_name": "麦迪科技",
+    "success": true,
+    "elapsed_time": 4.751162052154541,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.39,
+      "avg_score": 30.961635300643813,
+      "matches_count": 2,
+      "B_values": [
+        8.16,
+        9.33,
+        10.5,
+        11.67,
+        12.84,
+        14.010000000000002,
+        15.18,
+        16.35,
+        17.520000000000003,
+        18.69
+      ],
+      "anchor_A": 6.99,
+      "anchor_date": "2024-08-20 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600300",
+    "stock_name": "维维股份",
+    "success": true,
+    "elapsed_time": 4.702118873596191,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.55,
+      "avg_score": 25.803332188251453,
+      "matches_count": 2,
+      "B_values": [
+        2.84,
+        3.39,
+        3.9400000000000004,
+        4.49,
+        5.04,
+        5.59,
+        6.140000000000001
+      ],
+      "anchor_A": 2.29,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603156",
+    "stock_name": "养元饮品",
+    "success": true,
+    "elapsed_time": 4.855366230010986,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 11.96869591385366,
+      "matches_count": 3,
+      "B_values": [
+        18.13,
+        18.38,
+        18.63,
+        18.88,
+        19.13,
+        19.38,
+        19.63,
+        19.88,
+        20.13,
+        20.38
+      ],
+      "anchor_A": 17.88,
+      "anchor_date": "2024-09-10 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002689",
+    "stock_name": "远大智能",
+    "success": true,
+    "elapsed_time": 4.838721990585327,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.34,
+      "avg_score": 42.76992764825849,
+      "matches_count": 2,
+      "B_values": [
+        2.46,
+        2.8000000000000003,
+        3.14,
+        3.4800000000000004,
+        3.8200000000000003,
+        4.16,
+        4.5,
+        4.84,
+        5.18,
+        5.5200000000000005
+      ],
+      "anchor_A": 2.12,
+      "anchor_date": "2024-07-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603356",
+    "stock_name": "华菱精工",
+    "success": true,
+    "elapsed_time": 4.8635571002960205,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.26,
+      "avg_score": 27.912433570141353,
+      "matches_count": 2,
+      "B_values": [
+        11.42,
+        13.76,
+        16.1,
+        18.439999999999998,
+        20.78,
+        23.12,
+        25.46
+      ],
+      "anchor_A": 9.08,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000586",
+    "stock_name": "汇源通信",
+    "success": true,
+    "elapsed_time": 4.904790878295898,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.54,
+      "avg_score": 30.066656286731845,
+      "matches_count": 2,
+      "B_values": [
+        6.73,
+        7.2700000000000005,
+        7.8100000000000005,
+        8.350000000000001,
+        8.89,
+        9.43,
+        9.97,
+        10.510000000000002,
+        11.05,
+        11.59
+      ],
+      "anchor_A": 6.19,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600131",
+    "stock_name": "国网信通",
+    "success": true,
+    "elapsed_time": 4.917258024215698,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 12.182947150266694,
+      "matches_count": 3,
+      "B_values": [
+        4.1899999999999995,
+        5.99,
+        7.789999999999999,
+        9.59,
+        11.39,
+        13.19,
+        14.99,
+        16.79,
+        18.59,
+        20.39
+      ],
+      "anchor_A": 2.39,
+      "anchor_date": "2008-11-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603803",
+    "stock_name": "瑞斯康达",
+    "success": true,
+    "elapsed_time": 4.892616033554077,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.54,
+      "avg_score": 26.672758796207987,
+      "matches_count": 2,
+      "B_values": [
+        5.88,
+        7.5,
+        9.120000000000001,
+        10.74,
+        12.360000000000001,
+        13.98,
+        15.6,
+        17.22,
+        18.840000000000003
+      ],
+      "anchor_A": 4.26,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000778",
+    "stock_name": "新兴铸管",
+    "success": true,
+    "elapsed_time": 4.763227224349976,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.67,
+      "avg_score": 34.64663177876998,
+      "matches_count": 1,
+      "B_values": [
+        3.71,
+        4.38,
+        5.050000000000001,
+        5.720000000000001,
+        6.390000000000001
+      ],
+      "anchor_A": 3.04,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002114",
+    "stock_name": "罗平锌电",
+    "success": true,
+    "elapsed_time": 4.777357816696167,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 17.40958567903488,
+      "matches_count": 3,
+      "B_values": [
+        4.46,
+        4.819999999999999,
+        5.18,
+        5.539999999999999,
+        5.8999999999999995,
+        6.26,
+        6.619999999999999,
+        6.9799999999999995,
+        7.34,
+        7.699999999999999
+      ],
+      "anchor_A": 4.1,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600338",
+    "stock_name": "西藏珠峰",
+    "success": true,
+    "elapsed_time": 4.624969005584717,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.45,
+      "avg_score": 27.05211748391669,
+      "matches_count": 2,
+      "B_values": [
+        8.19,
+        8.64,
+        9.09,
+        9.540000000000001,
+        9.99,
+        10.440000000000001,
+        10.89,
+        11.34,
+        11.79,
+        12.24
+      ],
+      "anchor_A": 7.74,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002171",
+    "stock_name": "楚江新材",
+    "success": true,
+    "elapsed_time": 4.6830503940582275,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 24.21649940336613,
+      "matches_count": 3,
+      "B_values": [
+        5.1499999999999995,
+        6.08,
+        7.01,
+        7.9399999999999995,
+        8.870000000000001,
+        9.8,
+        10.73,
+        11.66,
+        12.59,
+        13.52
+      ],
+      "anchor_A": 4.22,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603271",
+    "stock_name": "永杰新材",
+    "success": true,
+    "elapsed_time": 4.968569040298462,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.55,
+      "avg_score": 27.523943623975534,
+      "matches_count": 2,
+      "B_values": [
+        33.849999999999994,
+        34.4,
+        34.949999999999996,
+        35.5,
+        36.05,
+        36.599999999999994,
+        37.15,
+        37.699999999999996,
+        38.25,
+        38.8
+      ],
+      "anchor_A": 33.3,
+      "anchor_date": "2025-04-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002948",
+    "stock_name": "青岛银行",
+    "success": true,
+    "elapsed_time": 4.9318273067474365,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 9.999999999999998,
+      "matches_count": 1,
+      "B_values": [
+        3.19,
+        3.42,
+        3.65,
+        3.88,
+        4.11,
+        4.34,
+        4.57,
+        4.8,
+        5.03,
+        5.26
+      ],
+      "anchor_A": 2.96,
+      "anchor_date": "2024-01-23 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601288",
+    "stock_name": "农业银行",
+    "success": true,
+    "elapsed_time": 4.952457904815674,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.28,
+      "avg_score": 23.780786990903785,
+      "matches_count": 2,
+      "B_values": [
+        2.5700000000000003,
+        2.85,
+        3.13,
+        3.41,
+        3.6900000000000004,
+        3.97,
+        4.25,
+        4.53,
+        4.8100000000000005,
+        5.09
+      ],
+      "anchor_A": 2.29,
+      "anchor_date": "2014-03-12 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601963",
+    "stock_name": "重庆银行",
+    "success": true,
+    "elapsed_time": 4.995795965194702,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 20.52379191590622,
+      "matches_count": 2,
+      "B_values": [
+        6.88,
+        7.19,
+        7.5,
+        7.8100000000000005,
+        8.120000000000001,
+        8.43,
+        8.74,
+        9.05,
+        9.36,
+        9.67
+      ],
+      "anchor_A": 6.57,
+      "anchor_date": "2022-10-31 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002702",
+    "stock_name": "海欣食品",
+    "success": true,
+    "elapsed_time": 4.784416913986206,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.59,
+      "avg_score": 17.922828638497563,
+      "matches_count": 2,
+      "B_values": [
+        3.56,
+        4.15,
+        4.74,
+        5.33,
+        5.92,
+        6.51,
+        7.1,
+        7.6899999999999995,
+        8.28,
+        8.87
+      ],
+      "anchor_A": 2.97,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603317",
+    "stock_name": "天味食品",
+    "success": true,
+    "elapsed_time": 4.861085891723633,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 45.41098501573349,
+      "matches_count": 2,
+      "B_values": [
+        8.81,
+        9.06,
+        9.31,
+        9.56,
+        9.81,
+        10.06,
+        10.31,
+        10.56,
+        10.81,
+        11.06
+      ],
+      "anchor_A": 8.56,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603345",
+    "stock_name": "安井食品",
+    "success": true,
+    "elapsed_time": 4.80926513671875,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.59,
+      "avg_score": 52.911633491999986,
+      "matches_count": 2,
+      "B_values": [
+        70.7,
+        72.47000000000001,
+        74.24000000000001,
+        76.01,
+        77.78,
+        79.55000000000001,
+        81.32000000000001,
+        83.09,
+        84.86000000000001,
+        86.63000000000001
+      ],
+      "anchor_A": 68.93,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600262",
+    "stock_name": "北方股份",
+    "success": true,
+    "elapsed_time": 4.976511001586914,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.28,
+      "avg_score": 16.35586034610154,
+      "matches_count": 5,
+      "B_values": [
+        12.41,
+        12.690000000000001,
+        12.97,
+        13.25,
+        13.530000000000001,
+        13.81,
+        14.090000000000002,
+        14.370000000000001,
+        14.650000000000002,
+        14.930000000000001
+      ],
+      "anchor_A": 12.13,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600572",
+    "stock_name": "康恩贝",
+    "success": true,
+    "elapsed_time": 5.047540903091431,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.4,
+      "avg_score": 30.82873825427509,
+      "matches_count": 2,
+      "B_values": [
+        4.25,
+        4.65,
+        5.050000000000001,
+        5.45,
+        5.85,
+        6.25,
+        6.65,
+        7.050000000000001,
+        7.45,
+        7.85
+      ],
+      "anchor_A": 3.85,
+      "anchor_date": "2022-09-26 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603689",
+    "stock_name": "皖天然气",
+    "success": true,
+    "elapsed_time": 4.977515935897827,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 12.986660079051292,
+      "matches_count": 2,
+      "B_values": [
+        6.9,
+        7.13,
+        7.36,
+        7.59,
+        7.82,
+        8.05,
+        8.28,
+        8.51,
+        8.74,
+        8.97
+      ],
+      "anchor_A": 6.67,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000045",
+    "stock_name": "深纺织Ａ",
+    "success": true,
+    "elapsed_time": 4.949004173278809,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.49,
+      "avg_score": 11.26151367891936,
+      "matches_count": 2,
+      "B_values": [
+        6.66,
+        8.13,
+        9.600000000000001,
+        11.07,
+        12.54,
+        14.010000000000002,
+        15.48,
+        16.95,
+        18.42,
+        19.89
+      ],
+      "anchor_A": 5.19,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603703",
+    "stock_name": "盛洋科技",
+    "success": true,
+    "elapsed_time": 4.7213521003723145,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 28.354719651507683,
+      "matches_count": 2,
+      "B_values": [
+        8.7,
+        10.35,
+        12.0,
+        13.65,
+        15.3,
+        16.95,
+        18.6,
+        20.25,
+        21.900000000000002,
+        23.55
+      ],
+      "anchor_A": 7.05,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000620",
+    "stock_name": "盈新发展",
+    "success": true,
+    "elapsed_time": 4.877269983291626,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 15.950930626057529,
+      "matches_count": 3,
+      "B_values": [
+        1.21,
+        1.45,
+        1.69,
+        1.93,
+        2.17,
+        2.41,
+        2.65,
+        2.8899999999999997,
+        3.13,
+        3.37
+      ],
+      "anchor_A": 0.97,
+      "anchor_date": "2023-05-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002785",
+    "stock_name": "万里石",
+    "success": true,
+    "elapsed_time": 5.168659925460815,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.59,
+      "avg_score": 18.09723422473828,
+      "matches_count": 2,
+      "B_values": [
+        12.69,
+        18.0,
+        23.31,
+        28.619999999999997,
+        33.93,
+        39.24,
+        44.55,
+        49.86,
+        55.17
+      ],
+      "anchor_A": 7.38,
+      "anchor_date": "2018-10-16 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002326",
+    "stock_name": "永太科技",
+    "success": true,
+    "elapsed_time": 5.21240496635437,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 15.845155955009162,
+      "matches_count": 2,
+      "B_values": [
+        8.05,
+        8.77,
+        9.49,
+        10.21,
+        10.93,
+        11.65,
+        12.370000000000001,
+        13.09,
+        13.809999999999999,
+        14.53
+      ],
+      "anchor_A": 7.33,
+      "anchor_date": "2024-08-28 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600989",
+    "stock_name": "宝丰能源",
+    "success": true,
+    "elapsed_time": 5.149487018585205,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.4,
+      "avg_score": 31.98272287199348,
+      "matches_count": 2,
+      "B_values": [
+        14.68,
+        21.48,
+        28.28,
+        35.080000000000005,
+        41.88
+      ],
+      "anchor_A": 7.88,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001309",
+    "stock_name": "德明利",
+    "success": true,
+    "elapsed_time": 5.041822910308838,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.56,
+      "avg_score": 15.514580456039322,
+      "matches_count": 2,
+      "B_values": [
+        60.06,
+        81.9,
+        103.74000000000001,
+        125.58000000000001,
+        147.42000000000002,
+        169.26000000000002,
+        191.10000000000002,
+        212.94000000000003,
+        234.78000000000003,
+        256.62
+      ],
+      "anchor_A": 38.22,
+      "anchor_date": "2022-07-01 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600848",
+    "stock_name": "上海临港",
+    "success": true,
+    "elapsed_time": 4.7612998485565186,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.39,
+      "avg_score": 23.983126622076618,
+      "matches_count": 2,
+      "B_values": [
+        8.68,
+        9.069999999999999,
+        9.459999999999999,
+        9.85,
+        10.239999999999998,
+        10.629999999999999,
+        11.02,
+        11.41,
+        11.799999999999999,
+        12.19
+      ],
+      "anchor_A": 8.29,
+      "anchor_date": "2024-09-10 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603856",
+    "stock_name": "东宏股份",
+    "success": true,
+    "elapsed_time": 4.684503793716431,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.44,
+      "avg_score": 10.490639148975067,
+      "matches_count": 2,
+      "B_values": [
+        9.959999999999999,
+        10.4,
+        10.84,
+        11.28,
+        11.719999999999999,
+        12.16,
+        12.6,
+        13.04,
+        13.48,
+        13.92
+      ],
+      "anchor_A": 9.52,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603038",
+    "stock_name": "华立股份",
+    "success": true,
+    "elapsed_time": 4.6961681842803955,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.34,
+      "avg_score": 38.74474306323881,
+      "matches_count": 2,
+      "B_values": [
+        12.29,
+        18.07,
+        23.85,
+        29.630000000000003,
+        35.410000000000004,
+        41.19,
+        46.97
+      ],
+      "anchor_A": 6.51,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601956",
+    "stock_name": "东贝集团",
+    "success": true,
+    "elapsed_time": 4.644927978515625,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.45,
+      "avg_score": 19.376026272577995,
+      "matches_count": 2,
+      "B_values": [
+        4.08,
+        4.53,
+        4.98,
+        5.43,
+        5.88,
+        6.33,
+        6.779999999999999,
+        7.23,
+        7.68,
+        8.129999999999999
+      ],
+      "anchor_A": 3.63,
+      "anchor_date": "2024-02-07 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603311",
+    "stock_name": "金海高科",
+    "success": true,
+    "elapsed_time": 4.6891188621521,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.5,
+      "avg_score": 17.2202245149587,
+      "matches_count": 2,
+      "B_values": [
+        7.14,
+        7.64,
+        8.14,
+        8.64,
+        9.14,
+        9.64,
+        10.14,
+        10.64,
+        11.14,
+        11.64
+      ],
+      "anchor_A": 6.64,
+      "anchor_date": "2024-02-07 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000680",
+    "stock_name": "山推股份",
+    "success": true,
+    "elapsed_time": 4.7166078090667725,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.63,
+      "avg_score": 15.373778202178094,
+      "matches_count": 2,
+      "B_values": [
+        3.62,
+        4.25,
+        4.880000000000001,
+        5.51,
+        6.140000000000001,
+        6.7700000000000005,
+        7.4,
+        8.030000000000001,
+        8.66,
+        9.29
+      ],
+      "anchor_A": 2.99,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603071",
+    "stock_name": "物产环能",
+    "success": true,
+    "elapsed_time": 4.718095779418945,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.43,
+      "avg_score": 9.999999999999998,
+      "matches_count": 1,
+      "B_values": [
+        10.92,
+        11.35,
+        11.780000000000001,
+        12.21,
+        12.64,
+        13.07,
+        13.5,
+        13.93,
+        14.36,
+        14.79
+      ],
+      "anchor_A": 10.49,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605098",
+    "stock_name": "行动教育",
+    "success": true,
+    "elapsed_time": 4.8229289054870605,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.61,
+      "avg_score": 24.681682330778216,
+      "matches_count": 2,
+      "B_values": [
+        24.21,
+        26.04,
+        27.869999999999997,
+        29.7,
+        31.53,
+        33.36,
+        35.19,
+        37.019999999999996,
+        38.849999999999994,
+        40.68
+      ],
+      "anchor_A": 22.38,
+      "anchor_date": "2022-10-12 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000155",
+    "stock_name": "川能动力",
+    "success": true,
+    "elapsed_time": 4.713096857070923,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.32,
+      "avg_score": 31.904608819894936,
+      "matches_count": 2,
+      "B_values": [
+        9.600000000000001,
+        10.56,
+        11.52,
+        12.48,
+        13.440000000000001,
+        14.4,
+        15.36,
+        16.32,
+        17.28
+      ],
+      "anchor_A": 8.64,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000923",
+    "stock_name": "河钢资源",
+    "success": true,
+    "elapsed_time": 4.703704833984375,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.47,
+      "avg_score": 23.65803129473877,
+      "matches_count": 2,
+      "B_values": [
+        10.81,
+        12.22,
+        13.629999999999999,
+        15.04,
+        16.45,
+        17.86,
+        19.27,
+        20.68,
+        22.09,
+        23.5
+      ],
+      "anchor_A": 9.4,
+      "anchor_date": "2022-10-31 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600569",
+    "stock_name": "安阳钢铁",
+    "success": true,
+    "elapsed_time": 4.626975774765015,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.4,
+      "avg_score": 22.45916540047768,
+      "matches_count": 2,
+      "B_values": [
+        1.7000000000000002,
+        2.1,
+        2.5,
+        2.9000000000000004,
+        3.3,
+        3.7
+      ],
+      "anchor_A": 1.3,
+      "anchor_date": "2024-09-11 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601969",
+    "stock_name": "海南矿业",
+    "success": true,
+    "elapsed_time": 4.486437082290649,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.42,
+      "avg_score": 17.721396044180754,
+      "matches_count": 3,
+      "B_values": [
+        5.33,
+        5.75,
+        6.17,
+        6.59,
+        7.01,
+        7.43,
+        7.85,
+        8.27,
+        8.69,
+        9.11
+      ],
+      "anchor_A": 4.91,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605060",
+    "stock_name": "联德股份",
+    "success": true,
+    "elapsed_time": 4.772321939468384,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.38,
+      "avg_score": 17.653612186795524,
+      "matches_count": 3,
+      "B_values": [
+        12.090000000000002,
+        12.47,
+        12.850000000000001,
+        13.23,
+        13.610000000000001,
+        13.990000000000002,
+        14.370000000000001,
+        14.75,
+        15.13,
+        15.510000000000002
+      ],
+      "anchor_A": 11.71,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603378",
+    "stock_name": "亚士创能",
+    "success": true,
+    "elapsed_time": 4.71661114692688,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 18.62681431764334,
+      "matches_count": 2,
+      "B_values": [
+        5.76,
+        6.57,
+        7.380000000000001,
+        8.190000000000001,
+        9.0,
+        9.81,
+        10.620000000000001,
+        11.43,
+        12.240000000000002
+      ],
+      "anchor_A": 4.95,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600236",
+    "stock_name": "桂冠电力",
+    "success": true,
+    "elapsed_time": 4.768885850906372,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.62,
+      "avg_score": 47.094230378879274,
+      "matches_count": 2,
+      "B_values": [
+        4.5600000000000005,
+        6.42,
+        8.280000000000001,
+        10.14,
+        12.0,
+        13.86,
+        15.719999999999999,
+        17.58
+      ],
+      "anchor_A": 2.7,
+      "anchor_date": "2014-06-23 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600769",
+    "stock_name": "祥龙电业",
+    "success": true,
+    "elapsed_time": 4.8432769775390625,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.39,
+      "avg_score": 14.340364215072821,
+      "matches_count": 2,
+      "B_values": [
+        4.640000000000001,
+        5.8100000000000005,
+        6.98,
+        8.15,
+        9.32,
+        10.49,
+        11.66,
+        12.83,
+        14.000000000000002,
+        15.170000000000002
+      ],
+      "anchor_A": 3.47,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002596",
+    "stock_name": "海南瑞泽",
+    "success": true,
+    "elapsed_time": 4.597775220870972,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.43,
+      "avg_score": 13.06634114500785,
+      "matches_count": 2,
+      "B_values": [
+        1.7,
+        2.13,
+        2.56,
+        2.99,
+        3.42,
+        3.85,
+        4.279999999999999,
+        4.71,
+        5.140000000000001,
+        5.57
+      ],
+      "anchor_A": 1.27,
+      "anchor_date": "2024-07-24 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000559",
+    "stock_name": "万向钱潮",
+    "success": true,
+    "elapsed_time": 4.796419858932495,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.35,
+      "avg_score": 17.508782107711816,
+      "matches_count": 2,
+      "B_values": [
+        4.34,
+        4.69,
+        5.04,
+        5.390000000000001,
+        5.74,
+        6.09,
+        6.4399999999999995,
+        6.79,
+        7.140000000000001,
+        7.49
+      ],
+      "anchor_A": 3.99,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "003033",
+    "stock_name": "征和工业",
+    "success": true,
+    "elapsed_time": 4.8037269115448,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.55,
+      "avg_score": 11.661882322145523,
+      "matches_count": 2,
+      "B_values": [
+        36.61,
+        53.66,
+        70.71000000000001,
+        87.76,
+        104.81,
+        121.86000000000001
+      ],
+      "anchor_A": 19.56,
+      "anchor_date": "2022-04-26 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603037",
+    "stock_name": "凯众股份",
+    "success": true,
+    "elapsed_time": 4.729457139968872,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.34,
+      "avg_score": 32.89503223382712,
+      "matches_count": 2,
+      "B_values": [
+        13.07,
+        14.77,
+        16.47,
+        18.17,
+        19.869999999999997,
+        21.57,
+        23.27
+      ],
+      "anchor_A": 11.37,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603730",
+    "stock_name": "岱美股份",
+    "success": true,
+    "elapsed_time": 4.80335807800293,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 8.449131513647949,
+      "matches_count": 1,
+      "B_values": [
+        5.81,
+        6.06,
+        6.31,
+        6.56,
+        6.81,
+        7.06,
+        7.31,
+        7.56,
+        7.81,
+        8.059999999999999
+      ],
+      "anchor_A": 5.56,
+      "anchor_date": "2025-08-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600546",
+    "stock_name": "山煤国际",
+    "success": true,
+    "elapsed_time": 4.807949066162109,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.53,
+      "avg_score": 14.496871921430277,
+      "matches_count": 3,
+      "B_values": [
+        4.5,
+        6.09,
+        7.680000000000001,
+        9.27,
+        10.86,
+        12.450000000000001,
+        14.040000000000001,
+        15.63,
+        17.22,
+        18.810000000000002
+      ],
+      "anchor_A": 2.91,
+      "anchor_date": "2016-06-15 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601225",
+    "stock_name": "陕西煤业",
+    "success": true,
+    "elapsed_time": 5.337877035140991,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.34,
+      "avg_score": 14.038578832654983,
+      "matches_count": 2,
+      "B_values": [
+        6.1000000000000005,
+        8.48,
+        10.860000000000001,
+        13.240000000000002,
+        15.620000000000001,
+        18.0,
+        20.38,
+        22.76,
+        25.14,
+        27.52
+      ],
+      "anchor_A": 3.72,
+      "anchor_date": "2016-02-01 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600526",
+    "stock_name": "菲达环保",
+    "success": true,
+    "elapsed_time": 5.192583322525024,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 40.916635907362014,
+      "matches_count": 2,
+      "B_values": [
+        5.66,
+        7.83,
+        10.0,
+        12.17,
+        14.34,
+        16.509999999999998
+      ],
+      "anchor_A": 3.49,
+      "anchor_date": "2019-01-31 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603568",
+    "stock_name": "伟明环保",
+    "success": true,
+    "elapsed_time": 5.426271915435791,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 27.107740585774042,
+      "matches_count": 2,
+      "B_values": [
+        15.16,
+        15.39,
+        15.62,
+        15.85,
+        16.08,
+        16.31,
+        16.54,
+        16.77,
+        17.0,
+        17.23
+      ],
+      "anchor_A": 14.93,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603097",
+    "stock_name": "江苏华辰",
+    "success": true,
+    "elapsed_time": 5.330013275146484,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 23.921659405265324,
+      "matches_count": 2,
+      "B_values": [
+        14.44,
+        16.6,
+        18.759999999999998,
+        20.92,
+        23.08,
+        25.24,
+        27.4,
+        29.560000000000002,
+        31.72,
+        33.879999999999995
+      ],
+      "anchor_A": 12.28,
+      "anchor_date": "2022-05-12 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002554",
+    "stock_name": "惠博普",
+    "success": true,
+    "elapsed_time": 4.936604976654053,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.41,
+      "avg_score": 27.996915820029226,
+      "matches_count": 2,
+      "B_values": [
+        2.43,
+        2.84,
+        3.25,
+        3.66,
+        4.07,
+        4.48,
+        4.89,
+        5.3,
+        5.71,
+        6.119999999999999
+      ],
+      "anchor_A": 2.02,
+      "anchor_date": "2021-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600759",
+    "stock_name": "洲际油气",
+    "success": true,
+    "elapsed_time": 5.199336290359497,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 44.68962274938221,
+      "matches_count": 2,
+      "B_values": [
+        1.83,
+        2.14,
+        2.45,
+        2.76,
+        3.0700000000000003,
+        3.38,
+        3.69,
+        4.0,
+        4.3100000000000005,
+        4.62
+      ],
+      "anchor_A": 1.52,
+      "anchor_date": "2021-01-29 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603353",
+    "stock_name": "和顺石油",
+    "success": true,
+    "elapsed_time": 4.915154933929443,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 16.332760924440784,
+      "matches_count": 2,
+      "B_values": [
+        12.04,
+        13.39,
+        14.74,
+        16.09,
+        17.439999999999998,
+        18.79,
+        20.14,
+        21.490000000000002,
+        22.84,
+        24.189999999999998
+      ],
+      "anchor_A": 10.69,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600029",
+    "stock_name": "南方航空",
+    "success": true,
+    "elapsed_time": 4.8805999755859375,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 43.83906779009453,
+      "matches_count": 2,
+      "B_values": [
+        3.87,
+        5.48,
+        7.09,
+        8.7,
+        10.31,
+        11.92,
+        13.530000000000001,
+        15.14,
+        16.75,
+        18.36
+      ],
+      "anchor_A": 2.26,
+      "anchor_date": "2014-06-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603889",
+    "stock_name": "新澳股份",
+    "success": true,
+    "elapsed_time": 4.761886119842529,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.26,
+      "avg_score": 27.174876243489624,
+      "matches_count": 2,
+      "B_values": [
+        5.71,
+        7.01,
+        8.31,
+        9.61,
+        10.91,
+        12.21
+      ],
+      "anchor_A": 4.41,
+      "anchor_date": "2021-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000632",
+    "stock_name": "三木集团",
+    "success": true,
+    "elapsed_time": 4.6490020751953125,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.28,
+      "avg_score": 12.610652355542976,
+      "matches_count": 2,
+      "B_values": [
+        2.8099999999999996,
+        3.09,
+        3.37,
+        3.65,
+        3.9299999999999997,
+        4.21,
+        4.49,
+        4.77,
+        5.050000000000001,
+        5.33
+      ],
+      "anchor_A": 2.53,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601198",
+    "stock_name": "东兴证券",
+    "success": true,
+    "elapsed_time": 4.6938629150390625,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 25.01566846685471,
+      "matches_count": 2,
+      "B_values": [
+        7.91,
+        8.48,
+        9.05,
+        9.62,
+        10.19,
+        10.76,
+        11.33,
+        11.899999999999999,
+        12.469999999999999,
+        13.04
+      ],
+      "anchor_A": 7.34,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002474",
+    "stock_name": "榕基软件",
+    "success": true,
+    "elapsed_time": 4.694789886474609,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.47,
+      "avg_score": 18.307699978625518,
+      "matches_count": 2,
+      "B_values": [
+        4.24,
+        4.71,
+        5.18,
+        5.65,
+        6.119999999999999,
+        6.59,
+        7.0600000000000005,
+        7.529999999999999,
+        8.0,
+        8.469999999999999
+      ],
+      "anchor_A": 3.77,
+      "anchor_date": "2024-02-07 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002611",
+    "stock_name": "东方精工",
+    "success": true,
+    "elapsed_time": 4.712914943695068,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.29,
+      "avg_score": 11.048719606575201,
+      "matches_count": 2,
+      "B_values": [
+        6.4399999999999995,
+        9.629999999999999,
+        12.819999999999999,
+        16.009999999999998,
+        19.2,
+        22.389999999999997,
+        25.58,
+        28.77
+      ],
+      "anchor_A": 3.25,
+      "anchor_date": "2019-02-01 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002478",
+    "stock_name": "常宝股份",
+    "success": true,
+    "elapsed_time": 4.709208250045776,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.47,
+      "avg_score": 38.34842016184821,
+      "matches_count": 2,
+      "B_values": [
+        4.25,
+        4.72,
+        5.1899999999999995,
+        5.66,
+        6.129999999999999,
+        6.6,
+        7.07,
+        7.539999999999999,
+        8.01,
+        8.479999999999999
+      ],
+      "anchor_A": 3.78,
+      "anchor_date": "2022-04-28 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000505",
+    "stock_name": "京粮控股",
+    "success": true,
+    "elapsed_time": 4.59538197517395,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.34,
+      "avg_score": 47.25844141197202,
+      "matches_count": 2,
+      "B_values": [
+        5.9399999999999995,
+        6.96,
+        7.98,
+        9.0,
+        10.02,
+        11.04,
+        12.06,
+        13.08,
+        14.100000000000001,
+        15.120000000000001
+      ],
+      "anchor_A": 4.92,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601608",
+    "stock_name": "中信重工",
+    "success": true,
+    "elapsed_time": 4.623791933059692,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 17.91305382931573,
+      "matches_count": 3,
+      "B_values": [
+        3.25,
+        4.0600000000000005,
+        4.87,
+        5.68,
+        6.49,
+        7.300000000000001,
+        8.11,
+        8.92,
+        9.73,
+        10.540000000000001
+      ],
+      "anchor_A": 2.44,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603656",
+    "stock_name": "泰禾智能",
+    "success": true,
+    "elapsed_time": 4.681118965148926,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 21.84944923883695,
+      "matches_count": 3,
+      "B_values": [
+        10.29,
+        11.49,
+        12.69,
+        13.89,
+        15.09,
+        16.29,
+        17.490000000000002,
+        18.689999999999998,
+        19.89,
+        21.09
+      ],
+      "anchor_A": 9.09,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600748",
+    "stock_name": "上实发展",
+    "success": true,
+    "elapsed_time": 4.689842939376831,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.42,
+      "avg_score": 15.095383363839323,
+      "matches_count": 2,
+      "B_values": [
+        2.79,
+        3.21,
+        3.63,
+        4.05,
+        4.470000000000001,
+        4.890000000000001,
+        5.3100000000000005,
+        5.73,
+        6.15,
+        6.57
+      ],
+      "anchor_A": 2.37,
+      "anchor_date": "2024-08-28 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605318",
+    "stock_name": "法狮龙",
+    "success": true,
+    "elapsed_time": 4.98970103263855,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.37,
+      "avg_score": 18.808344249213256,
+      "matches_count": 2,
+      "B_values": [
+        12.989999999999998,
+        13.36,
+        13.729999999999999,
+        14.1,
+        14.469999999999999,
+        14.84,
+        15.209999999999999,
+        15.579999999999998,
+        15.95,
+        16.32
+      ],
+      "anchor_A": 12.62,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002181",
+    "stock_name": "粤 传 媒",
+    "success": true,
+    "elapsed_time": 4.887776851654053,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.64,
+      "avg_score": 12.750856259916747,
+      "matches_count": 3,
+      "B_values": [
+        4.8100000000000005,
+        6.73,
+        8.65,
+        10.57,
+        12.49,
+        14.41,
+        16.33
+      ],
+      "anchor_A": 2.89,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000006",
+    "stock_name": "深振业Ａ",
+    "success": true,
+    "elapsed_time": 4.835806846618652,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 18.51319961076062,
+      "matches_count": 2,
+      "B_values": [
+        5.279999999999999,
+        6.99,
+        8.7,
+        10.41,
+        12.12,
+        13.83,
+        15.54,
+        17.25,
+        18.959999999999997
+      ],
+      "anchor_A": 3.57,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603301",
+    "stock_name": "振德医疗",
+    "success": true,
+    "elapsed_time": 5.064145088195801,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 22.36729502972303,
+      "matches_count": 2,
+      "B_values": [
+        17.46,
+        18.03,
+        18.6,
+        19.17,
+        19.740000000000002,
+        20.310000000000002,
+        20.88,
+        21.45,
+        22.02,
+        22.59
+      ],
+      "anchor_A": 16.89,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600829",
+    "stock_name": "人民同泰",
+    "success": true,
+    "elapsed_time": 4.890811920166016,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.38,
+      "avg_score": 33.87547376347483,
+      "matches_count": 3,
+      "B_values": [
+        5.8,
+        6.18,
+        6.5600000000000005,
+        6.9399999999999995,
+        7.32,
+        7.7,
+        8.08,
+        8.46,
+        8.84,
+        9.219999999999999
+      ],
+      "anchor_A": 5.42,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603726",
+    "stock_name": "朗迪集团",
+    "success": true,
+    "elapsed_time": 5.038419961929321,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 16.90366043581778,
+      "matches_count": 3,
+      "B_values": [
+        9.23,
+        9.95,
+        10.67,
+        11.39,
+        12.11,
+        12.83,
+        13.55,
+        14.27,
+        14.989999999999998,
+        15.709999999999999
+      ],
+      "anchor_A": 8.51,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603799",
+    "stock_name": "华友钴业",
+    "success": true,
+    "elapsed_time": 5.180477142333984,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.67,
+      "avg_score": 13.897079029428014,
+      "matches_count": 2,
+      "B_values": [
+        23.14,
+        25.15,
+        27.16,
+        29.17,
+        31.18,
+        33.19,
+        35.2,
+        37.21,
+        39.22,
+        41.230000000000004
+      ],
+      "anchor_A": 21.13,
+      "anchor_date": "2024-07-09 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603993",
+    "stock_name": "洛阳钼业",
+    "success": true,
+    "elapsed_time": 4.939903974533081,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.27,
+      "avg_score": 19.710751602361704,
+      "matches_count": 2,
+      "B_values": [
+        4.41,
+        5.76,
+        7.110000000000001,
+        8.46,
+        9.81,
+        11.160000000000002,
+        12.510000000000002,
+        13.860000000000001,
+        15.21,
+        16.56
+      ],
+      "anchor_A": 3.06,
+      "anchor_date": "2016-01-28 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600637",
+    "stock_name": "东方明珠",
+    "success": true,
+    "elapsed_time": 4.9471282958984375,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 16.582567027509185,
+      "matches_count": 2,
+      "B_values": [
+        6.050000000000001,
+        6.28,
+        6.510000000000001,
+        6.74,
+        6.970000000000001,
+        7.2,
+        7.430000000000001,
+        7.66,
+        7.890000000000001,
+        8.120000000000001
+      ],
+      "anchor_A": 5.82,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600593",
+    "stock_name": "大连圣亚",
+    "success": true,
+    "elapsed_time": 4.897252082824707,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.31,
+      "avg_score": 18.05373933112928,
+      "matches_count": 2,
+      "B_values": [
+        15.360000000000001,
+        20.01,
+        24.66,
+        29.310000000000002,
+        33.96,
+        38.61,
+        43.26,
+        47.910000000000004,
+        52.56,
+        57.21
+      ],
+      "anchor_A": 10.71,
+      "anchor_date": "2022-01-28 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001203",
+    "stock_name": "大中矿业",
+    "success": true,
+    "elapsed_time": 4.851150989532471,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.46,
+      "avg_score": 22.11633451329805,
+      "matches_count": 2,
+      "B_values": [
+        7.7,
+        8.16,
+        8.620000000000001,
+        9.08,
+        9.540000000000001,
+        10.0,
+        10.46,
+        10.92,
+        11.38,
+        11.84
+      ],
+      "anchor_A": 7.24,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605100",
+    "stock_name": "华丰股份",
+    "success": true,
+    "elapsed_time": 4.983169794082642,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.67,
+      "avg_score": 12.705611489593762,
+      "matches_count": 2,
+      "B_values": [
+        10.67,
+        11.34,
+        12.01,
+        12.68,
+        13.35,
+        14.02,
+        14.690000000000001,
+        15.36,
+        16.03,
+        16.7
+      ],
+      "anchor_A": 10.0,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002679",
+    "stock_name": "福建金森",
+    "success": true,
+    "elapsed_time": 4.914441108703613,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.61,
+      "avg_score": 20.436373690069672,
+      "matches_count": 2,
+      "B_values": [
+        6.82,
+        7.43,
+        8.04,
+        8.65,
+        9.26,
+        9.870000000000001,
+        10.48,
+        11.09,
+        11.7,
+        12.309999999999999
+      ],
+      "anchor_A": 6.21,
+      "anchor_date": "2024-08-23 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601118",
+    "stock_name": "海南橡胶",
+    "success": true,
+    "elapsed_time": 4.869668960571289,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.53,
+      "avg_score": 30.17180315153818,
+      "matches_count": 2,
+      "B_values": [
+        4.47,
+        5.0,
+        5.53,
+        6.0600000000000005,
+        6.59,
+        7.12,
+        7.65,
+        8.18
+      ],
+      "anchor_A": 3.94,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000572",
+    "stock_name": "海马汽车",
+    "success": true,
+    "elapsed_time": 4.787784099578857,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 24.85486247676998,
+      "matches_count": 3,
+      "B_values": [
+        2.66,
+        3.65,
+        4.640000000000001,
+        5.63,
+        6.62,
+        7.61,
+        8.600000000000001,
+        9.59,
+        10.58,
+        11.57
+      ],
+      "anchor_A": 1.67,
+      "anchor_date": "2019-08-15 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000599",
+    "stock_name": "青岛双星",
+    "success": true,
+    "elapsed_time": 4.708507061004639,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.32,
+      "avg_score": 11.309363680597976,
+      "matches_count": 3,
+      "B_values": [
+        3.17,
+        3.49,
+        3.81,
+        4.13,
+        4.45,
+        4.77,
+        5.09,
+        5.41,
+        5.73,
+        6.050000000000001
+      ],
+      "anchor_A": 2.85,
+      "anchor_date": "2024-02-07 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002028",
+    "stock_name": "思源电气",
+    "success": true,
+    "elapsed_time": 4.864092826843262,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 18.98664095998534,
+      "matches_count": 2,
+      "B_values": [
+        15.170000000000002,
+        21.29,
+        27.41,
+        33.53,
+        39.65,
+        45.769999999999996,
+        51.89,
+        58.010000000000005,
+        64.13,
+        70.25
+      ],
+      "anchor_A": 9.05,
+      "anchor_date": "2014-06-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002249",
+    "stock_name": "大洋电机",
+    "success": true,
+    "elapsed_time": 4.88498592376709,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 19.647683269249598,
+      "matches_count": 3,
+      "B_values": [
+        3.88,
+        4.45,
+        5.02,
+        5.59,
+        6.16,
+        6.73,
+        7.3,
+        7.869999999999999,
+        8.44,
+        9.01
+      ],
+      "anchor_A": 3.31,
+      "anchor_date": "2020-02-04 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002759",
+    "stock_name": "天际股份",
+    "success": true,
+    "elapsed_time": 4.947856187820435,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 12.411599425599718,
+      "matches_count": 2,
+      "B_values": [
+        7.85,
+        10.16,
+        12.47,
+        14.780000000000001,
+        17.09,
+        19.400000000000002,
+        21.71,
+        24.02,
+        26.330000000000002,
+        28.64
+      ],
+      "anchor_A": 5.54,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603530",
+    "stock_name": "神马电力",
+    "success": true,
+    "elapsed_time": 4.921921014785767,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.44,
+      "avg_score": 18.675074628232643,
+      "matches_count": 2,
+      "B_values": [
+        14.96,
+        20.68,
+        26.4,
+        32.12,
+        37.84,
+        43.56,
+        49.28,
+        55.0,
+        60.72
+      ],
+      "anchor_A": 9.24,
+      "anchor_date": "2022-04-27 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600172",
+    "stock_name": "黄河旋风",
+    "success": true,
+    "elapsed_time": 4.837152004241943,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.24,
+      "avg_score": 9.237788631475237,
+      "matches_count": 4,
+      "B_values": [
+        2.0700000000000003,
+        2.31,
+        2.55,
+        2.79,
+        3.0300000000000002,
+        3.27,
+        3.51,
+        3.75,
+        3.99,
+        4.23
+      ],
+      "anchor_A": 1.83,
+      "anchor_date": "2024-07-25 00:00:00"
+    }
+  },
+  {
+    "stock_code": "605178",
+    "stock_name": "时空科技",
+    "success": true,
+    "elapsed_time": 4.970373868942261,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 19.94440270598743,
+      "matches_count": 2,
+      "B_values": [
+        12.690000000000001,
+        14.4,
+        16.11,
+        17.82,
+        19.53,
+        21.240000000000002,
+        22.95,
+        24.66,
+        26.369999999999997,
+        28.08
+      ],
+      "anchor_A": 10.98,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001206",
+    "stock_name": "依依股份",
+    "success": true,
+    "elapsed_time": 4.964181900024414,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.25,
+      "avg_score": 17.100204098497812,
+      "matches_count": 2,
+      "B_values": [
+        10.91,
+        12.16,
+        13.41,
+        14.66,
+        15.91,
+        17.16,
+        18.41,
+        19.66,
+        20.91,
+        22.16
+      ],
+      "anchor_A": 9.66,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601212",
+    "stock_name": "白银有色",
+    "success": true,
+    "elapsed_time": 4.980524063110352,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.39,
+      "avg_score": 26.041110442597713,
+      "matches_count": 2,
+      "B_values": [
+        2.65,
+        3.04,
+        3.4299999999999997,
+        3.82,
+        4.21,
+        4.6,
+        4.99,
+        5.38,
+        5.77,
+        6.16
+      ],
+      "anchor_A": 2.26,
+      "anchor_date": "2024-02-05 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000807",
+    "stock_name": "云铝股份",
+    "success": true,
+    "elapsed_time": 4.906836032867432,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.67,
+      "avg_score": 15.91709898367294,
+      "matches_count": 2,
+      "B_values": [
+        6.88,
+        10.23,
+        13.58,
+        16.93,
+        20.28,
+        23.630000000000003,
+        26.980000000000004,
+        30.330000000000002,
+        33.68
+      ],
+      "anchor_A": 3.53,
+      "anchor_date": "2019-02-01 00:00:00"
+    }
+  },
+  {
+    "stock_code": "601999",
+    "stock_name": "出版传媒",
+    "success": true,
+    "elapsed_time": 4.683156251907349,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 37.94447705936225,
+      "matches_count": 2,
+      "B_values": [
+        5.96,
+        7.609999999999999,
+        9.26,
+        10.91,
+        12.559999999999999,
+        14.21,
+        15.86
+      ],
+      "anchor_A": 4.31,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002096",
+    "stock_name": "易普力",
+    "success": true,
+    "elapsed_time": 4.565577983856201,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 25.68575319690248,
+      "matches_count": 2,
+      "B_values": [
+        8.75,
+        12.71,
+        16.669999999999998,
+        20.63,
+        24.59,
+        28.549999999999997
+      ],
+      "anchor_A": 4.79,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002489",
+    "stock_name": "浙江永强",
+    "success": true,
+    "elapsed_time": 4.460907220840454,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.44,
+      "avg_score": 7.1677814846165955,
+      "matches_count": 2,
+      "B_values": [
+        2.67,
+        3.11,
+        3.55,
+        3.99,
+        4.43,
+        4.87,
+        5.3100000000000005
+      ],
+      "anchor_A": 2.23,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001259",
+    "stock_name": "利仁科技",
+    "success": true,
+    "elapsed_time": 4.456073999404907,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.38,
+      "avg_score": 22.520089650933198,
+      "matches_count": 2,
+      "B_values": [
+        20.2,
+        22.1,
+        24.0,
+        25.9,
+        27.8,
+        29.700000000000003,
+        31.6,
+        33.5,
+        35.400000000000006
+      ],
+      "anchor_A": 18.3,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002863",
+    "stock_name": "今飞凯达",
+    "success": true,
+    "elapsed_time": 4.452859163284302,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.28,
+      "avg_score": 20.91024709302331,
+      "matches_count": 2,
+      "B_values": [
+        4.3,
+        5.140000000000001,
+        5.98,
+        6.82,
+        7.66,
+        8.5
+      ],
+      "anchor_A": 3.46,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600469",
+    "stock_name": "风神股份",
+    "success": true,
+    "elapsed_time": 4.425407886505127,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.51,
+      "avg_score": 13.478245048548672,
+      "matches_count": 2,
+      "B_values": [
+        4.65,
+        6.18,
+        7.71,
+        9.24,
+        10.77
+      ],
+      "anchor_A": 3.12,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603700",
+    "stock_name": "宁水集团",
+    "success": true,
+    "elapsed_time": 4.46772313117981,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.66,
+      "avg_score": 22.075677075406812,
+      "matches_count": 2,
+      "B_values": [
+        9.56,
+        10.22,
+        10.88,
+        11.540000000000001,
+        12.200000000000001,
+        12.86,
+        13.52,
+        14.18,
+        14.84,
+        15.5
+      ],
+      "anchor_A": 8.9,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600560",
+    "stock_name": "金自天正",
+    "success": true,
+    "elapsed_time": 4.395002841949463,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.42,
+      "avg_score": 18.839634825592736,
+      "matches_count": 2,
+      "B_values": [
+        9.97,
+        13.75,
+        17.53,
+        21.31,
+        25.09,
+        28.87,
+        32.65
+      ],
+      "anchor_A": 6.19,
+      "anchor_date": "2018-10-19 00:00:00"
+    }
+  },
+  {
+    "stock_code": "600847",
+    "stock_name": "万里股份",
+    "success": true,
+    "elapsed_time": 4.53099799156189,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.62,
+      "avg_score": 18.7681568968434,
+      "matches_count": 2,
+      "B_values": [
+        6.23,
+        6.8500000000000005,
+        7.470000000000001,
+        8.09,
+        8.71,
+        9.33,
+        9.95,
+        10.57,
+        11.190000000000001,
+        11.81
+      ],
+      "anchor_A": 5.61,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002216",
+    "stock_name": "三全食品",
+    "success": true,
+    "elapsed_time": 4.552212953567505,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 32.71643914802788,
+      "matches_count": 2,
+      "B_values": [
+        9.77,
+        10.46,
+        11.15,
+        11.84,
+        12.530000000000001,
+        13.22,
+        13.91,
+        14.600000000000001,
+        15.29
+      ],
+      "anchor_A": 9.08,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001366",
+    "stock_name": "播恩集团",
+    "success": true,
+    "elapsed_time": 4.500606298446655,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.57,
+      "avg_score": 45.11584015916131,
+      "matches_count": 2,
+      "B_values": [
+        11.81,
+        14.66,
+        17.509999999999998,
+        20.36,
+        23.21
+      ],
+      "anchor_A": 8.96,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002696",
+    "stock_name": "百洋股份",
+    "success": true,
+    "elapsed_time": 4.569723129272461,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.33,
+      "avg_score": 16.671891537198185,
+      "matches_count": 2,
+      "B_values": [
+        4.03,
+        4.36,
+        4.69,
+        5.0200000000000005,
+        5.3500000000000005,
+        5.68,
+        6.01,
+        6.34,
+        6.67,
+        7.0
+      ],
+      "anchor_A": 3.7,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "001336",
+    "stock_name": "楚环科技",
+    "success": true,
+    "elapsed_time": 4.5366530418396,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.23,
+      "avg_score": 19.665168322990574,
+      "matches_count": 2,
+      "B_values": [
+        15.69,
+        16.38,
+        17.07,
+        17.76,
+        18.45,
+        19.14,
+        19.83,
+        20.52,
+        21.21,
+        21.9
+      ],
+      "anchor_A": 15.0,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  },
+  {
+    "stock_code": "002494",
+    "stock_name": "华斯股份",
+    "success": true,
+    "elapsed_time": 4.589169979095459,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.35,
+      "avg_score": 14.297448125668001,
+      "matches_count": 2,
+      "B_values": [
+        3.16,
+        3.51,
+        3.86,
+        4.21,
+        4.5600000000000005,
+        4.91,
+        5.26,
+        5.609999999999999,
+        5.96,
+        6.3100000000000005
+      ],
+      "anchor_A": 2.81,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603172",
+    "stock_name": "万丰股份",
+    "success": true,
+    "elapsed_time": 4.661581039428711,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.53,
+      "avg_score": 51.849522612430896,
+      "matches_count": 2,
+      "B_values": [
+        12.49,
+        14.08,
+        15.670000000000002,
+        17.26,
+        18.85,
+        20.44,
+        22.03,
+        23.62,
+        25.21
+      ],
+      "anchor_A": 10.9,
+      "anchor_date": "2024-02-06 00:00:00"
+    }
+  },
+  {
+    "stock_code": "000159",
+    "stock_name": "国际实业",
+    "success": true,
+    "elapsed_time": 4.654863119125366,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.3,
+      "avg_score": 20.000467794790538,
+      "matches_count": 2,
+      "B_values": [
+        4.11,
+        4.41,
+        4.71,
+        5.01,
+        5.3100000000000005,
+        5.609999999999999,
+        5.91,
+        6.21,
+        6.51,
+        6.8100000000000005
+      ],
+      "anchor_A": 3.81,
+      "anchor_date": "2024-02-08 00:00:00"
+    }
+  },
+  {
+    "stock_code": "603073",
+    "stock_name": "彩蝶实业",
+    "success": true,
+    "elapsed_time": 4.571130275726318,
+    "error": null,
+    "anchorBackLines": {
+      "best_N": 0.36,
+      "avg_score": 16.45086472015765,
+      "matches_count": 2,
+      "B_values": [
+        13.39,
+        14.47,
+        15.55,
+        16.630000000000003,
+        17.71,
+        18.79,
+        19.87,
+        20.950000000000003,
+        22.03
+      ],
+      "anchor_A": 12.31,
+      "anchor_date": "2024-09-18 00:00:00"
+    }
+  }
+]

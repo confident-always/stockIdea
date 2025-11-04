@@ -475,30 +475,43 @@ class MidLineDrawer:
         per_k_matches = []
         
         for k_idx, B_k in enumerate(B_values):
-            upper = None
-            lower = None
+            # 优化：扩展匹配范围，从2个扩展到3个
+            # 高点：收集最近3个候选
+            # 低点：保持1个（使用最低收盘价）
             
+            # 1. 收集高于B_k的最近3个高点
+            upper_list = []
             for e_price in extreme_prices_sorted:
                 if e_price >= B_k:
-                    upper = e_price
-                    break
+                    upper_list.append(e_price)
+                    if len(upper_list) >= 5:
+                        break
             
+            # 2. 选择低于B_k的最近1个低点
+            lower = None
             for e_price in reversed(extreme_prices_sorted):
                 if e_price <= B_k:
                     lower = e_price
                     break
             
-            selected_extremes = []
-            if upper is not None:
-                selected_extremes.append(upper)
-            if lower is not None and lower != upper:
-                selected_extremes.append(lower)
+            # 3. 组合所有候选极值点（最多3个高点 + 1个低点）
+            candidates = []
+            candidates.extend(upper_list)
+            if lower is not None and lower not in candidates:
+                candidates.append(lower)
             
-            if not selected_extremes:
+            # 4. 从候选中选择误差最小的前3个作为最终的selected_extremes
+            if candidates:
+                # 按照与B_k的误差排序
+                candidates_with_error = [(abs(e - B_k), e) for e in candidates]
+                candidates_with_error.sort()
+                # 取误差最小的3个（或更少）
+                selected_extremes = [e for _, e in candidates_with_error[:5]]
+            else:
+                # 如果没有候选，选择距离最近的一个
                 distances = [(abs(e_price - B_k), e_price) for e_price in extreme_prices]
                 distances.sort()
-                if distances:
-                    selected_extremes.append(distances[0][1])
+                selected_extremes = [distances[0][1]] if distances else []
             
             k_scores = []
             for e_price in selected_extremes:
