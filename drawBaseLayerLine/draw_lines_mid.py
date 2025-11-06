@@ -614,7 +614,7 @@ class MidLineDrawer:
                 logger.info(f"⚠️ [{stock_code}] 未找到局部极值，跳过AnchorM线")
                 return None
             
-            m_range = config.get('m_range', {'start': 13.0, 'end': 9.0, 'step': -0.1})
+            m_range = config.get('m_range', {'start': 13.0, 'end': 9.0, 'step': -0.01})
             M_start = m_range['start']
             M_end = m_range['end']
             M_step = abs(m_range['step'])
@@ -673,7 +673,7 @@ class MidLineDrawer:
                     logger.info(f"⚠️ [{stock_code}] 未找到满足条件的M值(最小匹配数={min_matches})，跳过AnchorM线")
                 return None
             
-            logger.debug(f"✅ 最佳M={best_M:.1f}%, 平均分={best_result['avg_score']:.2f}, "
+            logger.debug(f"✅ 最佳M={best_M:.2f}%, 平均分={best_result['avg_score']:.2f}, "
                         f"匹配数={best_result['matches_count']}")
             
             return {
@@ -920,7 +920,7 @@ class MidLineDrawer:
                                transform=ax.get_yaxis_transform(), ha='right', va='center')
                     
                     # 在图片左上角添加M值信息 - 只显示匹配的B值
-                    text_lines = [f"M={best_M:.1f}%"]
+                    text_lines = [f"M={best_M:.2f}%"]
                     
                     # 提取得分 > 0 的 B 值（与极值点匹配的）
                     if 'per_k_matches' in m_lines_result:
@@ -952,7 +952,7 @@ class MidLineDrawer:
                                     edgecolor='purple', linewidth=2.5),
                            ha='left', va='top', family='monospace')
                     
-                    logger.info(f"✅ [{stock_code}] 绘制AnchorM线: M={best_M:.1f}%, {len(B_values)}条线")
+                    logger.info(f"✅ [{stock_code}] 绘制AnchorM线: M={best_M:.2f}%, {len(B_values)}条线")
                 
                 # 4.5 统一调整Y轴范围（考虑百分比线和AnchorM线）
                 if stage_lows:
@@ -1169,7 +1169,7 @@ class MidLineDrawer:
                 # 更新进度
                 with progress_lock:
                     self.processed_count += 1
-                    m_info = f", M={m_lines_result['best_M']:.1f}%" if m_lines_result else ""
+                    m_info = f", M={m_lines_result['best_M']:.2f}%" if m_lines_result else ""
                     logger.info(f"✅ [{self.processed_count}/{self.total_count}] {stock_code} {stock_name}{m_info}")
             else:
                 result['error'] = "图表创建失败"

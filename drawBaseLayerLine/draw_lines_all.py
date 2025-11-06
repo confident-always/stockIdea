@@ -288,7 +288,7 @@ def draw_all_for_stock(mid_drawer: MidLineDrawer,
                        transform=ax.get_yaxis_transform(), ha='right', va='center')
             
             # 在图片左上角添加M值信息
-            text_lines = [f"M={best_M:.1f}%"]
+            text_lines = [f"M={best_M:.2f}%"]
             
             if 'per_k_matches' in m_lines_result:
                 matched_B = []
@@ -319,7 +319,7 @@ def draw_all_for_stock(mid_drawer: MidLineDrawer,
                             edgecolor='purple', linewidth=2.5),
                    ha='left', va='top', family='monospace')
             
-            logger.info(f"✅ [{stock_code}] 绘制AnchorM线: M={best_M:.1f}%, {len(M_B_values)}条线")
+            logger.info(f"✅ [{stock_code}] 绘制AnchorM线: M={best_M:.2f}%, {len(M_B_values)}条线")
         
         # 6. 添加AnchorBack线（蓝色）
         if back_data:
