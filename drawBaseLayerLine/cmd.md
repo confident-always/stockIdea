@@ -1,6 +1,6 @@
 # 画线流水线
 ```bash
-python run_draw_lines_pipeline.py --date 2025-10-27 --workers 4
+python run_draw_lines_pipeline.py --date 2025-11-06 --workers 4
 # 输出目录: {date}-drawLine/
 ```
 # 处理指定股票
