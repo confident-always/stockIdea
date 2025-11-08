@@ -371,7 +371,7 @@ def draw_all_for_stock(mid_drawer: MidLineDrawer,
                        alpha=b_line_alpha, zorder=2.4, clip_on=False)
             
             # 在图片右上角添加N值信息
-            text_lines = [f"N={best_N:.2f}"]
+            text_lines = [f"N={best_N:.3f}"]
             
             if 'per_k_matches' in back_data:
                 matched_items = []
@@ -404,7 +404,7 @@ def draw_all_for_stock(mid_drawer: MidLineDrawer,
                             edgecolor=b_line_color, linewidth=2.5),
                    ha='right', va='top', family='monospace')
             
-            logger.info(f"✅ [{stock_code}] 绘制AnchorBack线: N={best_N:.2f}, {len(B_B_values)}条线")
+            logger.info(f"✅ [{stock_code}] 绘制AnchorBack线: N={best_N:.3f}, {len(B_B_values)}条线")
         
         # 7. 统一调整Y轴范围
         min_price = df_mpf['low'].min()

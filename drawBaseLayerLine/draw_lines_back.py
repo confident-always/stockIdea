@@ -95,7 +95,7 @@ class BackLineDrawer:
                         'enabled': True,
                         'zigzag_percent': 15,
                         'pivot_window': 5,
-                        'n_range': {'start': 0.23, 'end': 0.68, 'step': 0.01},
+                        'n_range': {'start': 0.23, 'end': 0.68, 'step': 0.001},
                         'k_list': [1, 3, 5, 7, 9, 11, 13, 15, 17, 19],
                         'match_tolerance_ratio': 0.006,
                         'min_matches': 1,
@@ -654,7 +654,7 @@ class BackLineDrawer:
                 return None
             
             # 4. 遍历N值范围
-            n_range = config.get('n_range', {'start': 0.23, 'end': 0.68, 'step': 0.01})
+            n_range = config.get('n_range', {'start': 0.23, 'end': 0.68, 'step': 0.001})
             N_start = n_range['start']
             N_end = n_range['end']
             N_step = n_range['step']
@@ -662,7 +662,7 @@ class BackLineDrawer:
             N_values = []
             N_current = N_start
             while N_current <= N_end + 0.001:
-                N_values.append(round(N_current, 2))
+                N_values.append(round(N_current, 3))
                 N_current += N_step
             
             k_list = config.get('k_list', [1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
@@ -759,7 +759,7 @@ class BackLineDrawer:
                                                       -x[0]),  # 负号表示优先选择更小的N
                                         reverse=True)
                         best_N, best_result = sorted_N[0]
-                        logger.info(f"📊 [{stock_code}] 动态调整：降低N值以获得>=2个匹配 → N={best_N:.2f}, 匹配数={best_result['matches_count']}")
+                        logger.info(f"📊 [{stock_code}] 动态调整：降低N值以获得>=2个匹配 → N={best_N:.3f}, 匹配数={best_result['matches_count']}")
                     else:
                         # 如果没有匹配数>=2的，至少选择匹配数最多的
                         sorted_by_matches = sorted(N_results.items(), 
@@ -769,7 +769,7 @@ class BackLineDrawer:
                                                   reverse=True)
                         best_N, best_result = sorted_by_matches[0]
                         if best_result['matches_count'] >= 1:
-                            logger.info(f"📊 [{stock_code}] 动态调整：未找到>=2个匹配，使用最佳结果 → N={best_N:.2f}, 匹配数={best_result['matches_count']}")
+                            logger.info(f"📊 [{stock_code}] 动态调整：未找到>=2个匹配，使用最佳结果 → N={best_N:.3f}, 匹配数={best_result['matches_count']}")
                         else:
                             logger.info(f"⚠️ [{stock_code}] 所有N值匹配数均<1，跳过AnchorBack线")
                             return None
@@ -777,7 +777,7 @@ class BackLineDrawer:
                     logger.info(f"⚠️ [{stock_code}] 未找到任何有效的N值，跳过AnchorBack线")
                     return None
             
-            logger.debug(f"✅ 最佳N={best_N:.2f}, M基数={best_result.get('m_base', '?')}, "
+            logger.debug(f"✅ 最佳N={best_N:.3f}, M基数={best_result.get('m_base', '?')}, "
                         f"平均分={best_result['avg_score']:.2f}, 匹配数={best_result['matches_count']}")
             
             return {
@@ -1073,7 +1073,7 @@ class BackLineDrawer:
                             logger.warning(f"⚠️ [{stock_code}] 锚定点日期 {anchor_date_dt} 不在显示范围内，跳过标注")
                     
                     # 在图片左上角添加N值信息 - 只显示匹配的B值
-                    text_lines = [f"N={best_N:.2f}"]
+                    text_lines = [f"N={best_N:.3f}"]
                     
                     # 提取得分 > 0 的 B 值（与极值点匹配的）
                     if 'per_k_matches' in back_lines_result:
@@ -1105,7 +1105,7 @@ class BackLineDrawer:
                                     edgecolor='#1E90FF', linewidth=2.5),
                            ha='left', va='top', family='monospace')
                     
-                    logger.info(f"✅ [{stock_code}] 绘制AnchorBack线: N={best_N:.2f}, M基数={m_base}, {len(B_values)}条线")
+                    logger.info(f"✅ [{stock_code}] 绘制AnchorBack线: N={best_N:.3f}, M基数={m_base}, {len(B_values)}条线")
                 
                 # 4.5 统一调整Y轴范围（考虑百分比线和AnchorBack线）
                 if stage_lows:
@@ -1321,7 +1321,7 @@ class BackLineDrawer:
                 # 更新进度
                 with progress_lock:
                     self.processed_count += 1
-                    n_info = f", N={back_lines_result['best_N']:.2f}" if back_lines_result else ""
+                    n_info = f", N={back_lines_result['best_N']:.3f}" if back_lines_result else ""
                     logger.info(f"✅ [{self.processed_count}/{self.total_count}] {stock_code} {stock_name}{n_info}")
             else:
                 result['error'] = "图表创建失败"

@@ -44,6 +44,6 @@ python draw_lines_mid.py --date 2025-10-20 --workers 4
 ### 背景格子
 # 指定线程数（加快处理速度）
 ```bash
-python draw_lines_back.py --date 2025-10-22 --workers 4
+python draw_lines_back.py --date 2025-11-06 --workers 4
 # 输出目录: {date}-drawLineBack/
 ```
