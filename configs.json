@@ -87,11 +87,11 @@
 
     "//2":"前高价格过滤配置：计算上穿前N天的收盘最高价M，计算上穿后最高收盘价H后的最低收盘价J相对于M的涨幅K",
     "preHighDays": 60,
-    "preHighMinRange": "-20%",
+    "preHighMinRange": "-15%",
     "//3": "前高最大涨幅过滤：前高价格M到上穿后最高收盘价H的涨幅，preHighMinRange和preHighMaxRange可以为负值表示跌幅，为none时表示不进行过滤",
     "preHighMaxRange": "300%",
     "//6": "前高当前涨幅过滤：前高价格到最后一日收盘价的涨幅范围，格式为'-1%-10%'，表示选出跌幅小于-1%涨幅不超过10%的股票，为none时表示不进行过滤",
-    "preHighCurrentRangeFilter": "-15%-250%",
+    "preHighCurrentRangeFilter": "-8%-250%",
 
     "//4":"历史低点涨幅过滤：计算最后一天收盘价相对于历史最低价的涨幅HisLowPointRange，格式为16-600%，表示当前价格与历史最低价的涨幅，为none时表示不进行过滤",
     "lookback_months": 120,
@@ -103,7 +103,7 @@
     "minRange": "3%",
     "maxRange": "200%",
     "//5": "当前涨幅过滤：枢轴点价格到最后一日收盘价的涨幅范围，格式为'-1%-10%'，表示选出跌幅小于-1%涨幅不超过10%的股票，为none时表示不进行过滤",
-    "currentRangeFilter": "3%-200%",
+    "currentRangeFilter": "5%-200%",
 
     "//1": "发生上穿前后N日的最大涨幅必须大于M%,maxRangeUp为none时表示不进行过滤",
     "lookback_days": 3,
@@ -111,11 +111,11 @@
 
     "//2":"前高价格过滤配置：计算上穿前N天的收盘最高价M，计算上穿后最高收盘价H后的最低收盘价J相对于M的涨幅K",
     "preHighDays": 60,
-    "preHighMinRange": "-20%",
+    "preHighMinRange": "-15%",
     "//3": "前高最大涨幅过滤：前高价格M到上穿后最高收盘价H的涨幅，preHighMinRange和preHighMaxRange可以为负值表示跌幅，为none时表示不进行过滤",
     "preHighMaxRange": "300%",
     "//6": "前高当前涨幅过滤：前高价格到最后一日收盘价的涨幅范围，格式为'-1%-10%'，表示选出跌幅小于-1%涨幅不超过10%的股票，为none时表示不进行过滤",
-    "preHighCurrentRangeFilter": "-15%-250%",
+    "preHighCurrentRangeFilter": "-12%-250%",
 
     "//4": "历史低点涨幅过滤：计算最后一天收盘价相对于历史最低价的涨幅HisLowPointRange，格式为16-600%，表示当前价格与历史最低价的涨幅，为none时表示不进行过滤",
     "lookback_months": 120,
