@@ -123,7 +123,7 @@ def fetch_one(ak_symbol: str, start: Optional[str], end: Optional[str], out_dir:
     import time
     import random
     
-    max_retries = 3
+    max_retries = 1
     base_delay = 1.0
     
     for attempt in range(max_retries):
