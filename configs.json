@@ -93,9 +93,8 @@
     "//6": "前高当前涨幅过滤：前高价格到最后一日收盘价的涨幅范围，格式为'-1%-10%'，表示选出跌幅小于-1%涨幅不超过10%的股票，为none时表示不进行过滤",
     "preHighCurrentRangeFilter": "-10%-250%",
 
-    "//4":"历史低点涨幅过滤：计算最后一天收盘价相对于历史最低价的涨幅HisLowPointRange，格式为16-600%，表示当前价格与历史最低价的涨幅，为none时表示不进行过滤",
-    "lookback_months": 120,
-    "HisLowPointRange": "none"
+    "//4":"ZigZag涨幅过滤：计算zig(zigzag_period)低点到当前收盘价的涨幅ZigRange，格式为3%-200%，表示选择这个涨幅范围内的股票，为none时表示不进行过滤",
+    "ZigRange": "none"
   },
   "PDIfilteringconfig": {
     "active": true,
@@ -117,9 +116,8 @@
     "//6": "前高当前涨幅过滤：前高价格到最后一日收盘价的涨幅范围，格式为'-1%-10%'，表示选出跌幅小于-1%涨幅不超过10%的股票，为none时表示不进行过滤",
     "preHighCurrentRangeFilter": "-15%-250%",
 
-    "//4": "历史低点涨幅过滤：计算最后一天收盘价相对于历史最低价的涨幅HisLowPointRange，格式为16-600%，表示当前价格与历史最低价的涨幅，为none时表示不进行过滤",
-    "lookback_months": 120,
-    "HisLowPointRange": "none"
+    "//4": "ZigZag涨幅过滤：计算zig(zigzag_period)低点到当前收盘价的涨幅ZigRange，格式为3%-200%，表示选择这个涨幅范围内的股票，为none时表示不进行过滤",
+    "ZigRange": "none"
   }
 
 

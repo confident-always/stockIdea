@@ -6,6 +6,7 @@ ADX过滤脚本
 """
 
 import pandas as pd
+import numpy as np
 import json
 import os
 import glob
@@ -27,25 +28,53 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+def load_line_config(config_file='drawBaseLayerLine/lineConfig.json'):
+    """
+    加载lineConfig配置文件
+
+    Args:
+        config_file: lineConfig配置文件路径
+
+    Returns:
+        dict: 包含lineConfig配置的字典
+    """
+    try:
+        with open(config_file, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+
+        return config
+    except FileNotFoundError:
+        logger.warning(f"lineConfig配置文件 {config_file} 未找到，使用默认值")
+        return {
+            'zigzag_period': 55,
+            'zigzag_threshold': 0.05
+        }
+    except json.JSONDecodeError as e:
+        logger.error(f"lineConfig配置文件 {config_file} 格式错误: {e}")
+        return {
+            'zigzag_period': 55,
+            'zigzag_threshold': 0.05
+        }
+
 def load_config(config_file='configs.json'):
     """
     加载配置文件
-    
+
     Args:
         config_file: 配置文件路径
-    
+
     Returns:
         dict: 包含ADX、PDI和stock_info_filter配置的字典
     """
     try:
         with open(config_file, 'r', encoding='utf-8') as f:
             config = json.load(f)
-        
+
         # 提取ADX和PDI过滤配置
         adx_config = config.get('ADXfilteringconfig', {})
         pdi_config = config.get('PDIfilteringconfig', {})
         stock_info_filter = config.get('stock_info_filter', {})
-        
+
         return {
             'ADX': adx_config,
             'PDI': pdi_config,
@@ -610,6 +639,206 @@ def calculate_current_range_from_base(kline_df, signal_date):
         return 0.0
 
 
+def zigzag_algorithm(high_prices: np.ndarray, low_prices: np.ndarray,
+                      threshold_pct: float = 0.55) -> list:
+    """
+    ZigZag算法实现，来自draw_lines_mid.py
+
+    Args:
+        high_prices: 最高价数组
+        low_prices: 最低价数组
+        threshold_pct: 阈值百分比，默认0.55（55%）
+
+    Returns:
+        List[Tuple[int, float, str]]: 转折点列表 (索引, 价格, 类型)
+    """
+    if len(high_prices) < 3:
+        return []
+
+    pivots = []
+    last_pivot_idx = 0
+    last_pivot_price = low_prices[0]
+    last_pivot_type = 'low'
+    searching_for = 'high'
+
+    for i in range(1, len(high_prices)):
+        if searching_for == 'high':
+            current_high = high_prices[i]
+            if last_pivot_type == 'low':
+                pct_change = (current_high - last_pivot_price) / last_pivot_price
+                if pct_change >= threshold_pct:
+                    pivots.append((last_pivot_idx, last_pivot_price, 'low'))
+                    last_pivot_idx = i
+                    last_pivot_price = current_high
+                    last_pivot_type = 'high'
+                    searching_for = 'low'
+                else:
+                    if low_prices[i] < last_pivot_price:
+                        last_pivot_idx = i
+                        last_pivot_price = low_prices[i]
+        else:
+            current_low = low_prices[i]
+            if last_pivot_type == 'high':
+                pct_change = (last_pivot_price - current_low) / last_pivot_price
+                if pct_change >= threshold_pct:
+                    pivots.append((last_pivot_idx, last_pivot_price, 'high'))
+                    last_pivot_idx = i
+                    last_pivot_price = current_low
+                    last_pivot_type = 'low'
+                    searching_for = 'high'
+                else:
+                    if high_prices[i] > last_pivot_price:
+                        last_pivot_idx = i
+                        last_pivot_price = high_prices[i]
+
+    if pivots and last_pivot_idx != pivots[-1][0]:
+        pivots.append((last_pivot_idx, last_pivot_price, last_pivot_type))
+
+    return pivots
+
+def find_stage_lows_unified(df: pd.DataFrame, zigzag_period: int = 55) -> list:
+    """
+    统一版阶段低点检测 - 使用ZigZag算法，来自draw_lines_mid.py
+
+    Args:
+        df: K线数据DataFrame
+        zigzag_period: ZigZag周期参数，默认55
+
+    Returns:
+        List[Tuple[int, float, str]]: 阶段低点列表 (索引, 价格, 日期)
+    """
+    try:
+        threshold_pct = zigzag_period / 100.0
+        logger.debug(f"🔍 开始ZigZag阶段低点检测 (阈值={zigzag_period}%)")
+
+        high_prices = df['high'].values
+        low_prices = df['low'].values
+
+        pivots = zigzag_algorithm(high_prices, low_prices, threshold_pct)
+
+        stage_lows = []
+
+        if not pivots:
+            logger.warning("⚠️ ZigZag未找到转折点，使用全局最低点")
+            min_idx = df['low'].idxmin()
+            min_price = df.loc[min_idx, 'low']
+            min_date = df.loc[min_idx, 'date']
+
+            if hasattr(min_date, 'strftime'):
+                min_date_str = min_date.strftime("%Y-%m-%d")
+            else:
+                min_date_str = str(min_date)
+
+            stage_lows = [(min_idx, min_price, min_date_str)]
+        else:
+            low_pivots = [(idx, price, pivot_type) for idx, price, pivot_type in pivots if pivot_type == 'low']
+
+            if not low_pivots:
+                logger.warning("⚠️ ZigZag未找到低点转折，使用全局最低点")
+                min_idx = df['low'].idxmin()
+                min_price = df.loc[min_idx, 'low']
+                min_date = df.loc[min_idx, 'date']
+            else:
+                idx, price, _ = low_pivots[-1]
+                low_date = df.loc[idx, 'date']
+
+                logger.debug(f"✅ ZigZag找到 {len(low_pivots)} 个低点转折")
+                logger.debug(f"✅ ZigZag最近低点: 索引={idx}, 价格={price:.2f}")
+
+                if idx < len(df) - 1:
+                    after_low_df = df.iloc[idx+1:]
+                    after_min_idx = after_low_df['low'].idxmin()
+                    after_min_price = after_low_df.loc[after_min_idx, 'low']
+
+                    if after_min_price < price:
+                        logger.debug(f"🔽 发现更低价格: 原价格={price:.2f}, 新价格={after_min_price:.2f}")
+                        idx = after_min_idx
+                        price = after_min_price
+                        low_date = df.loc[after_min_idx, 'date']
+                        logger.debug(f"✅ 更新锚定低点: 索引={idx}, 日期={low_date}, 价格={price:.2f}")
+
+                min_idx = idx
+                min_price = price
+                min_date = low_date
+
+            if hasattr(min_date, 'strftime'):
+                min_date_str = min_date.strftime("%Y-%m-%d")
+            else:
+                min_date_str = str(min_date)
+
+            stage_lows = [(min_idx, min_price, min_date_str)]
+
+        logger.debug(f"✅ 最终阶段低点: 索引={stage_lows[0][0]}, 日期={stage_lows[0][2]}, 价格={stage_lows[0][1]:.2f}")
+        return stage_lows
+
+    except Exception as e:
+        logger.error(f"❌ ZigZag阶段低点检测失败: {e}")
+        import traceback
+        logger.debug(f"详细错误信息: {traceback.format_exc()}")
+
+        try:
+            global_min_idx = df['low'].idxmin()
+            global_min_price = df.loc[global_min_idx, 'low']
+            global_min_date = df.loc[global_min_idx, 'date']
+
+            if hasattr(global_min_date, 'strftime'):
+                global_min_date_str = global_min_date.strftime('%Y-%m-%d')
+            else:
+                global_min_date_str = str(global_min_date)
+
+            return [(global_min_idx, global_min_price, global_min_date_str)]
+        except Exception as backup_e:
+            logger.error(f"❌ 备选方案也失败: {backup_e}")
+            return []
+
+def calculate_zig_range(kline_df: pd.DataFrame, depth: int = 55) -> float | None:
+    """
+    计算ZigZag(depth)低点那个交易日的最低价到当前收盘价的涨幅
+
+    Args:
+        kline_df: K线数据DataFrame，包含date, high, low, close列
+        depth: ZigZag深度参数，默认55
+
+    Returns:
+        float: 涨幅比例值，例如0.16表示16%。如果无法计算则返回None
+    """
+    try:
+        if kline_df is None or kline_df.empty:
+            return None
+
+        # 使用draw_lines_mid.py中的方法找阶段低点
+        stage_lows = find_stage_lows_unified(kline_df, depth)
+
+        if not stage_lows:
+            logger.warning(f"无法计算ZigZag({depth})阶段低点")
+            return None
+
+        # 获取最近的阶段低点
+        low_idx, low_price, low_date = stage_lows[0]
+
+        # 使用低点那个交易日的最低价（这是关键修改）
+        if low_idx < len(kline_df):
+            low_price = float(kline_df.loc[low_idx, 'low'])
+        else:
+            logger.warning(f"ZigZag({depth})低点索引超出范围")
+            return None
+
+        current_price = float(kline_df['close'].iloc[-1])
+
+        if low_price <= 0:
+            logger.warning(f"ZigZag({depth})低点交易日最低价<=0，无法计算涨幅")
+            return None
+
+        # 计算涨幅
+        range_pct = (current_price - low_price) / low_price
+        logger.debug(f"ZigZag({depth})低点日期: {low_date}, 最低价: {low_price:.2f}, 当前价格: {current_price:.2f}, 涨幅: {range_pct:.2%}")
+
+        return range_pct
+
+    except Exception as e:
+        logger.error(f"计算ZigZag({depth})涨幅失败: {e}")
+        return None
+
 def calculate_hislow_point_range(kline_df: pd.DataFrame, lookback_months: int | None = None) -> float | None:
     """
     计算最后一天收盘价相对于历史最低价的涨幅。
@@ -642,10 +871,10 @@ def calculate_hislow_point_range(kline_df: pd.DataFrame, lookback_months: int | 
         return None
 
 
-def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=None, pre_high_days=10, pre_high_min_range=None, pre_high_max_range=None, hislow_range: tuple | None = None, hislow_lookback_months: int | None = None, current_range_filter: tuple | None = None, pre_high_current_range_filter: tuple | None = None, target_date=None, stock_info_filter_config=None):
+def filter_results(input_file, output_file, range_up, range_down, file_type, lookback_days=3, max_range_up=None, pre_high_days=10, pre_high_min_range=None, pre_high_max_range=None, zig_range: tuple | None = None, zig_period: int = 55, current_range_filter: tuple | None = None, pre_high_current_range_filter: tuple | None = None, target_date=None, stock_info_filter_config=None):
     """
     过滤结果文件
-    
+
     Args:
         input_file: 输入文件路径
         output_file: 输出文件路径
@@ -657,8 +886,8 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
         pre_high_days: 前高天数N
         pre_high_min_range: 前高最小涨幅阈值K（可以为负值表示跌幅，None表示不过滤）
         pre_high_max_range: 前高最大涨幅阈值（前高价格M到上穿后最高收盘价H的涨幅，可以为负值表示跌幅，None表示不过滤）
-        hislow_range: 历史低点涨幅范围（tuple (min, max)，None表示不过滤）
-        hislow_lookback_months: 历史低点涨幅回看月数
+        zig_range: ZigZag涨幅范围（tuple (min, max)，None表示不过滤）
+        zig_period: ZigZag周期参数
         current_range_filter: 当前涨幅范围（tuple (min, max)，None表示不过滤）
         pre_high_current_range_filter: 前高当前涨幅范围（tuple (min, max)，None表示不过滤）
         target_date: 目标日期，用于修正CSV文件中的日期字段
@@ -737,10 +966,10 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
                 logger.warning(f"股票 {matched_code} 无法计算前高价格相关指标")
                 continue
 
-            # 计算历史低点涨幅（按配置的 lookback_months 窗口）
-            hislow_pct = calculate_hislow_point_range(kline_df, hislow_lookback_months)
-            # 历史低点涨幅过滤（None 表示不过滤）
-            hislow_ok = hislow_range is None or (hislow_pct is not None and hislow_range[0] <= hislow_pct <= hislow_range[1])
+            # 计算ZigZag涨幅（按配置的 zig_period 周期）
+            zig_pct = calculate_zig_range(kline_df, zig_period)
+            # ZigZag涨幅过滤（None 表示不过滤）
+            zig_ok = zig_range is None or (zig_pct is not None and zig_range[0] <= zig_pct <= zig_range[1])
             
             # 检查是否符合过滤条件
             # 计算当前涨幅（枢轴点价格到最后一日的涨幅）
@@ -769,16 +998,16 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
             # 6. 前高当前涨幅过滤（前高价格到最后一日的涨幅，None表示不过滤）
             pre_high_current_ok = pre_high_current_range_filter is None or (pre_high_current_range_filter[0] <= pre_high_metrics['pre_high_current_range'] <= pre_high_current_range_filter[1])
             
-            if up_ok and down_ok and crossover_ok and pre_high_ok and pre_high_max_ok and hislow_ok and current_range_ok and pre_high_current_ok:
+            if up_ok and down_ok and crossover_ok and pre_high_ok and pre_high_max_ok and zig_ok and current_range_ok and pre_high_current_ok:
                 # 创建新的行数据，包含原有字段和新增的字段
                 new_row = row.copy()
                 new_row['code'] = matched_code  # 使用从data文件夹中匹配到的代码
                 # 如果指定了target_date，则更新日期字段
                 if target_date:
                     new_row['date'] = target_date
-                # 历史低点涨幅（在CSV中位于枢轴点价格之前），并注明窗口月数
-                hislow_label = f"历史低点涨幅({hislow_lookback_months}月)" if hislow_lookback_months else "历史低点涨幅"
-                new_row[hislow_label] = f"{round((hislow_pct or 0) * 100, 2)}%"
+                # ZigZag涨幅（在CSV中位于枢轴点价格之前），并注明周期参数
+                zig_label = f"zig({zig_period})涨幅"
+                new_row[zig_label] = f"{round((zig_pct or 0) * 100, 2)}%"
                 new_row['枢轴点价格'] = round(base_price, 2)
                 new_row['当前涨幅'] = f"{round(current_range * 100, 2)}%"  # 转换为百分比并添加百分号
                 new_row['最小涨幅'] = f"{round(max_down_pct * 100, 2)}%"  # 转换为百分比并添加百分号
@@ -795,7 +1024,8 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
                            f"上穿期间最大涨幅 {crossover_max_range:.2%}, "
                            f"前高价格 {pre_high_metrics['pre_high_price']:.2f}, "
                            f"前高最小涨幅 {pre_high_metrics['pre_high_min_range']:.2%}, "
-                           f"前高最大涨幅 {pre_high_metrics['pre_high_max_range']:.2%}")
+                           f"前高最大涨幅 {pre_high_metrics['pre_high_max_range']:.2%}, "
+                           f"zig({zig_period})涨幅 {zig_pct:.2%}")
             else:
                 logger.info(f"股票 {matched_code} 被过滤: 信号日期 {signal_date}, "
                            f"枢轴点价格 {base_price:.2f}, 当前涨幅 {current_range:.2%}, 最大涨幅 {max_up_pct:.2%}, 最小涨幅 {max_down_pct:.2%}, "
@@ -804,23 +1034,23 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
                            f"前高当前涨幅 {pre_high_metrics['pre_high_current_range']:.2%}, "
                            f"前高最小涨幅 {pre_high_metrics['pre_high_min_range']:.2%}, "
                            f"前高最大涨幅 {pre_high_metrics['pre_high_max_range']:.2%}, "
-                           f"历史低点涨幅({hislow_lookback_months}月) {'' if hislow_pct is None else f'{hislow_pct:.2%}'} "
+                           f"zig({zig_period})涨幅 {'' if zig_pct is None else f'{zig_pct:.2%}'} "
                            f"(涨幅超限: {max_up_pct > range_up if range_up is not None else False}, "
                            f"跌幅超限: {max_down_pct > range_down if range_down is not None else False}, "
                            f"上穿期间涨幅不足: {crossover_max_range < max_range_up if max_range_up is not None else False}, "
                            f"前高最小涨幅不足: {pre_high_metrics['pre_high_min_range'] < pre_high_min_range if pre_high_min_range is not None else False}, "
                            f"前高最大涨幅超限: {pre_high_metrics['pre_high_max_range'] > pre_high_max_range if pre_high_max_range is not None else False}, "
-                           f"历史低点涨幅不在区间: {False if hislow_range is None or hislow_pct is None else not (hislow_range[0] <= hislow_pct <= hislow_range[1])}, "
+                           f"zig({zig_period})涨幅不在区间: {False if zig_range is None or zig_pct is None else not (zig_range[0] <= zig_pct <= zig_range[1])}, "
                            f"当前涨幅不在区间: {False if current_range_filter is None else not (current_range_filter[0] <= current_range <= current_range_filter[1])}, "
                            f"前高当前涨幅不在区间: {False if pre_high_current_range_filter is None else not (pre_high_current_range_filter[0] <= pre_high_metrics['pre_high_current_range'] <= pre_high_current_range_filter[1])})")
         
         # 保存过滤结果
         if filtered_results:
             filtered_df = pd.DataFrame(filtered_results)
-            # 统一列顺序，确保“历史低点涨幅(XX月)”位于“枢轴点价格”之前
+            # 统一列顺序，确保"zig(XX)涨幅"位于"枢轴点价格"之前
             base_cols = list(df.columns)
-            hislow_label = f"历史低点涨幅({hislow_lookback_months}月)" if hislow_lookback_months else "历史低点涨幅"
-            extra_cols = [hislow_label, '枢轴点价格', '当前涨幅', '最小涨幅', '最大涨幅', '上穿期间最大涨幅', '前高价格', '前高当前涨幅', '前高最小涨幅', '前高最大涨幅']
+            zig_label = f"zig({zig_period})涨幅"
+            extra_cols = [zig_label, '枢轴点价格', '当前涨幅', '最小涨幅', '最大涨幅', '上穿期间最大涨幅', '前高价格', '前高当前涨幅', '前高最小涨幅', '前高最大涨幅']
             desired_cols = base_cols + [c for c in extra_cols if c not in base_cols]
             filtered_df = filtered_df.reindex(columns=desired_cols)
             filtered_df.to_csv(output_file, index=False)
@@ -828,33 +1058,34 @@ def filter_results(input_file, output_file, range_up, range_down, file_type, loo
         else:
             logger.warning("没有股票通过过滤条件")
             # 创建空文件但保持相同的列结构，包含新增的字段
-            hislow_label = f"历史低点涨幅({hislow_lookback_months}月)" if hislow_lookback_months else "历史低点涨幅"
-            columns = list(df.columns) + [hislow_label, '枢轴点价格', '当前涨幅', '最小涨幅', '最大涨幅', '上穿期间最大涨幅', '前高价格', '前高当前涨幅', '前高最小涨幅', '前高最大涨幅']
+            zig_label = f"zig({zig_period})涨幅"
+            columns = list(df.columns) + [zig_label, '枢轴点价格', '当前涨幅', '最小涨幅', '最大涨幅', '上穿期间最大涨幅', '前高价格', '前高当前涨幅', '前高最小涨幅', '前高最大涨幅']
             empty_df = pd.DataFrame(columns=columns)
             empty_df.to_csv(output_file, index=False)
             
     except Exception as e:
         logger.error(f"过滤结果失败: {e}")
 
-def process_single_file(input_file, output_dir, file_type, config, target_date=None, stock_info_filter_config=None):
+def process_single_file(input_file, output_dir, file_type, config, line_config, target_date=None, stock_info_filter_config=None):
     """
     处理单个文件的函数，用于并行处理
-    
+
     Args:
         input_file: 输入文件路径
         output_dir: 输出目录
         file_type: 文件类型 ('ADX' 或 'PDI')
         config: 配置字典
+        line_config: lineConfig配置字典
         target_date: 目标日期，用于修正CSV文件中的日期字段
         stock_info_filter_config: 股票信息过滤配置
-    
+
     Returns:
         str: 处理结果信息
     """
     try:
         filename = os.path.basename(input_file)
         output_file = os.path.join(output_dir, filename)
-        
+
         # 解析配置参数
         range_up = parse_percentage(config.get('maxRange', '0%'))
         range_down = parse_percentage(config.get('minRange', '0%'))
@@ -863,18 +1094,18 @@ def process_single_file(input_file, output_dir, file_type, config, target_date=N
         pre_high_days = config.get('preHighDays', 10)
         pre_high_min_range = parse_percentage(config.get('preHighMinRange', '0%'))
         pre_high_max_range = parse_percentage(config.get('preHighMaxRange', '0%'))
-        hislow_range = parse_range_percent(config.get('HisLowPointRange', 'none'))
-        lookback_months = config.get('lookback_months', 120)
+        zig_range = parse_range_percent(config.get('ZigRange', 'none'))
+        zig_period = line_config.get('zigzag_period', 55)
         current_range_filter = parse_range_percent(config.get('currentRangeFilter', 'none'))
         pre_high_current_range_filter = parse_range_percent(config.get('preHighCurrentRangeFilter', 'none'))
-        
+
         logger.info(f"开始处理{file_type}文件: {input_file}")
-        filter_results(input_file, output_file, range_up, range_down, file_type, 
-                     lookback_days, max_range_up, pre_high_days, pre_high_min_range, 
-                     pre_high_max_range, hislow_range, lookback_months, 
+        filter_results(input_file, output_file, range_up, range_down, file_type,
+                     lookback_days, max_range_up, pre_high_days, pre_high_min_range,
+                     pre_high_max_range, zig_range, zig_period,
                      current_range_filter, pre_high_current_range_filter,
                      target_date, stock_info_filter_config)
-        
+
         return f"成功处理 {filename}"
     except Exception as e:
         error_msg = f"处理文件 {input_file} 时出错: {str(e)}"
@@ -925,6 +1156,11 @@ def main():
     adx_config = configs['ADX']
     pdi_config = configs['PDI']
     stock_info_filter_config = configs['stock_info_filter']
+
+    # 加载lineConfig配置
+    line_config = load_line_config()
+    zig_period = line_config.get('zigzag_period', 55)
+    logger.info(f"已加载lineConfig，zigzag_period: {zig_period}")
     
     # 打印股票信息过滤配置
     if stock_info_filter_config.get('active', False):
@@ -983,22 +1219,21 @@ def main():
         adx_max_range_up = parse_percentage(adx_config.get('maxRangeUp', '0%'))
         adx_pre_high_min_range = parse_percentage(adx_config.get('preHighMinRange', '0%'))
         adx_pre_high_max_range = parse_percentage(adx_config.get('preHighMaxRange', '0%'))
-        adx_hislow_range = parse_range_percent(adx_config.get('HisLowPointRange', 'none'))
+        adx_zig_range = parse_range_percent(adx_config.get('ZigRange', 'none'))
         adx_current_range_filter = parse_range_percent(adx_config.get('currentRangeFilter', 'none'))
         adx_pre_high_current_range_filter = parse_range_percent(adx_config.get('preHighCurrentRangeFilter', 'none'))
-        
+
         logger.info(f"ADX过滤配置: 最大涨幅 {'none' if adx_range_up is None else f'{adx_range_up:.2%}'}, "
                    f"最大跌幅 {'none' if adx_range_down is None else f'{adx_range_down:.2%}'}, "
                    f"回看天数 {adx_config.get('lookback_days', 3)}, 上穿期间最大涨幅阈值 {'none' if adx_max_range_up is None else f'{adx_max_range_up:.2%}'}, "
                    f"前高天数 {adx_config.get('preHighDays', 10)}, 前高最小涨幅阈值 {'none' if adx_pre_high_min_range is None else f'{adx_pre_high_min_range:.2%}'}, "
                    f"前高最大涨幅阈值 {'none' if adx_pre_high_max_range is None else f'{adx_pre_high_max_range:.2%}'}, "
-                   f"历史低点涨幅区间 {'none' if adx_hislow_range is None else f'{adx_hislow_range[0]:.2%}-{adx_hislow_range[1]:.2%}'}, "
-                   f"历史低点涨幅窗口 {adx_config.get('lookback_months', 120)}月, "
+                   f"zig({zig_period})涨幅区间 {'none' if adx_zig_range is None else f'{adx_zig_range[0]:.2%}-{adx_zig_range[1]:.2%}'}, "
                    f"当前涨幅区间 {'none' if adx_current_range_filter is None else f'{adx_current_range_filter[0]:.2%}-{adx_current_range_filter[1]:.2%}'}, "
                    f"前高当前涨幅区间 {'none' if adx_pre_high_current_range_filter is None else f'{adx_pre_high_current_range_filter[0]:.2%}-{adx_pre_high_current_range_filter[1]:.2%}'}")
-        
+
         for input_file in adx_files:
-            tasks.append((input_file, args.output_dir, 'ADX', adx_config, target_date, stock_info_filter_config))
+            tasks.append((input_file, args.output_dir, 'ADX', adx_config, line_config, target_date, stock_info_filter_config))
     elif adx_files:
         logger.info("ADX配置未启用，跳过ADX文件处理")
     
@@ -1009,22 +1244,21 @@ def main():
         pdi_max_range_up = parse_percentage(pdi_config.get('maxRangeUp', '0%'))
         pdi_pre_high_min_range = parse_percentage(pdi_config.get('preHighMinRange', '0%'))
         pdi_pre_high_max_range = parse_percentage(pdi_config.get('preHighMaxRange', '0%'))
-        pdi_hislow_range = parse_range_percent(pdi_config.get('HisLowPointRange', 'none'))
+        pdi_zig_range = parse_range_percent(pdi_config.get('ZigRange', 'none'))
         pdi_current_range_filter = parse_range_percent(pdi_config.get('currentRangeFilter', 'none'))
         pdi_pre_high_current_range_filter = parse_range_percent(pdi_config.get('preHighCurrentRangeFilter', 'none'))
-        
+
         logger.info(f"PDI过滤配置: 最大涨幅 {'none' if pdi_range_up is None else f'{pdi_range_up:.2%}'}, "
                    f"最大跌幅 {'none' if pdi_range_down is None else f'{pdi_range_down:.2%}'}, "
                    f"回看天数 {pdi_config.get('lookback_days', 3)}, 上穿期间最大涨幅阈值 {'none' if pdi_max_range_up is None else f'{pdi_max_range_up:.2%}'}, "
                    f"前高天数 {pdi_config.get('preHighDays', 10)}, 前高最小涨幅阈值 {'none' if pdi_pre_high_min_range is None else f'{pdi_pre_high_min_range:.2%}'}, "
                    f"前高最大涨幅阈值 {'none' if pdi_pre_high_max_range is None else f'{pdi_pre_high_max_range:.2%}'}, "
-                   f"历史低点涨幅区间 {'none' if pdi_hislow_range is None else f'{pdi_hislow_range[0]:.2%}-{pdi_hislow_range[1]:.2%}'}, "
-                   f"历史低点涨幅窗口 {pdi_config.get('lookback_months', 120)}月, "
+                   f"zig({zig_period})涨幅区间 {'none' if pdi_zig_range is None else f'{pdi_zig_range[0]:.2%}-{pdi_zig_range[1]:.2%}'}, "
                    f"当前涨幅区间 {'none' if pdi_current_range_filter is None else f'{pdi_current_range_filter[0]:.2%}-{pdi_current_range_filter[1]:.2%}'}, "
                    f"前高当前涨幅区间 {'none' if pdi_pre_high_current_range_filter is None else f'{pdi_pre_high_current_range_filter[0]:.2%}-{pdi_pre_high_current_range_filter[1]:.2%}'}")
-        
+
         for input_file in pdi_files:
-            tasks.append((input_file, args.output_dir, 'PDI', pdi_config, target_date, stock_info_filter_config))
+            tasks.append((input_file, args.output_dir, 'PDI', pdi_config, line_config, target_date, stock_info_filter_config))
     elif pdi_files:
         logger.info("PDI配置未启用，跳过PDI文件处理")
     
@@ -1038,8 +1272,8 @@ def main():
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
         # 提交所有任务
         futures = [
-            executor.submit(process_single_file, input_file, output_dir, file_type, config, target_date, stock_info_filter_config)
-            for input_file, output_dir, file_type, config, target_date, stock_info_filter_config in tasks
+            executor.submit(process_single_file, input_file, output_dir, file_type, config, line_config, target_date, stock_info_filter_config)
+            for input_file, output_dir, file_type, config, line_config, target_date, stock_info_filter_config in tasks
         ]
         
         # 使用tqdm显示进度条
