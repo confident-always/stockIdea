@@ -18,6 +18,8 @@ python run_draw_lines_pipeline.py --date 2025-10-22 --workers 4
 
 ```bash
 python fetch_kline_akshare.py --start 0 --end today --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 12
+
+python fetch_kline.py --mode update --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 12
 ```
 ### 运行选股
 ```bash

@@ -119,9 +119,9 @@ def _filter_by_boards_stocklist(df: pd.DataFrame, exclude_boards: set[str]) -> p
     exclude_boards 子集：{'gem','star','bj'}
     - gem  : 创业板 300/301（.SZ）
     - star : 科创板 688（.SH）
-    - bj   : 北交所（.BJ 或 4/8 开头）
+    - bj   : 北交所（.BJ 或 4/8 开头，以及转换后的bj开头代码）
     """
-    code = df["symbol"].astype(str)
+    code = df["symbol"].astype(str).str.zfill(6)
     ts_code = df["ts_code"].astype(str).str.upper()
     mask = pd.Series(True, index=df.index)
 
@@ -130,6 +130,7 @@ def _filter_by_boards_stocklist(df: pd.DataFrame, exclude_boards: set[str]) -> p
     if "star" in exclude_boards:
         mask &= ~code.str.startswith(("688",))
     if "bj" in exclude_boards:
+        # 北交所股票：.BJ结尾 或 symbol以4/8开头
         mask &= ~(ts_code.str.endswith(".BJ") | code.str.startswith(("4", "8")))
 
     return df[mask].copy()
@@ -172,9 +173,81 @@ def fetch_one(
     else:
         logger.error("%s 三次抓取均失败，已跳过！", code)
 
+# --------------------------- 增量更新（补充数据到最新日期） --------------------------- #
+def update_one_to_latest(
+    code: str,
+    out_dir: Path,
+):
+    """补充单只股票的数据到最后一天的下一天到当前日期"""
+    csv_path = out_dir / f"{code}.csv"
+
+    # 如果文件不存在，跳过
+    if not csv_path.exists():
+        logger.debug(f"{code} 文件不存在，跳过更新")
+        return
+
+    # 读取现有数据
+    try:
+        existing_df = pd.read_csv(csv_path)
+        if existing_df.empty:
+            logger.debug(f"{code} 现有数据为空，跳过更新")
+            return
+
+        # 确保date列是datetime类型
+        existing_df["date"] = pd.to_datetime(existing_df["date"])
+        last_date = existing_df["date"].max()
+
+        # 计算开始日期（最后一天的下一天）
+        start_date = (last_date + pd.Timedelta(days=1)).strftime("%Y%m%d")
+        end_date = dt.date.today().strftime("%Y%m%d")
+
+        # 如果开始日期大于等于今天，说明数据已经是最新的
+        if start_date >= end_date:
+            logger.debug(f"{code} 数据已是最新，无需更新")
+            return
+
+        logger.info(f"{code} 开始补充数据: {start_date} -> {end_date}")
+
+    except Exception as e:
+        logger.error(f"{code} 读取现有数据失败: {e}")
+        return
+
+    # 获取新数据
+    for attempt in range(1, 4):
+        try:
+            new_df = _get_kline_tushare(code, start_date, end_date)
+            if new_df.empty:
+                logger.debug(f"{code} 期间无新数据")
+                break
+
+            new_df = validate(new_df)
+
+            # 合并数据
+            combined_df = pd.concat([existing_df, new_df], ignore_index=True)
+            combined_df = combined_df.drop_duplicates(subset="date").sort_values("date").reset_index(drop=True)
+
+            # 保存合并后的数据
+            combined_df.to_csv(csv_path, index=False)
+            logger.info(f"{code} 补充完成，新增 {len(new_df)} 条数据")
+            break
+
+        except Exception as e:
+            if _looks_like_ip_ban(e):
+                logger.error(f"{code} 第 {attempt} 次补充数据疑似被封禁，沉睡 {COOLDOWN_SECS} 秒")
+                _cool_sleep(COOLDOWN_SECS)
+            else:
+                silent_seconds = 15 * attempt
+                logger.info(f"{code} 第 {attempt} 次补充数据失败，{silent_seconds} 秒后重试：{e}")
+                time.sleep(silent_seconds)
+    else:
+        logger.error(f"{code} 三次补充数据均失败，已跳过！")
+
 # --------------------------- 主入口 --------------------------- #
 def main():
-    parser = argparse.ArgumentParser(description="从 stocklist.csv 读取股票池并用 Tushare 抓取日线K线（不复权，全量覆盖）")
+    parser = argparse.ArgumentParser(description="从 stocklist.csv 读取股票池并用 Tushare 抓取日线K线（不复权，全量覆盖或增量更新）")
+    # 运行模式
+    parser.add_argument("--mode", choices=["fetch", "update"], default="fetch",
+                       help="运行模式: fetch(全量抓取), update(增量更新到最新日期)")
     # 抓取范围（传 0 表示不向接口传该参数）
     parser.add_argument("--start", default="20190101", help="起始日期 YYYYMMDD 或 'today'；传 0 表示不填接口参数")
     parser.add_argument("--end", default="today", help="结束日期 YYYYMMDD 或 'today'；传 0 表示不填接口参数")
@@ -223,27 +296,49 @@ def main():
         logger.error("stocklist 为空或被过滤后无代码，请检查。")
         sys.exit(1)
 
-    logger.info(
-        "开始抓取 %d 支股票 | 数据源:Tushare(日线,不复权) | 日期:%s → %s | 排除:%s",
-        len(codes), start or "(未指定)", end or "(未指定)", ",".join(sorted(exclude_boards)) or "无",
-    )
+    # 根据模式执行不同的操作
+    if args.mode == "update":
+        logger.info(
+            "开始增量更新 %d 支股票 | 数据源:Tushare(日线,不复权) | 补充到最新日期 | 排除:%s",
+            len(codes), ",".join(sorted(exclude_boards)) or "无",
+        )
 
-    # ---------- 多线程抓取（全量覆盖） ---------- #
-    with ThreadPoolExecutor(max_workers=args.workers) as executor:
-        futures = [
-            executor.submit(
-                fetch_one,
-                code,
-                start,
-                end,
-                out_dir,
-            )
-            for code in codes
-        ]
-        for _ in tqdm(as_completed(futures), total=len(futures), desc="下载进度"):
-            pass
+        # ---------- 多线程增量更新 ---------- #
+        with ThreadPoolExecutor(max_workers=args.workers) as executor:
+            futures = [
+                executor.submit(
+                    update_one_to_latest,
+                    code,
+                    out_dir,
+                )
+                for code in codes
+            ]
+            for _ in tqdm(as_completed(futures), total=len(futures), desc="更新进度"):
+                pass
 
-    logger.info("全部任务完成，数据已保存至 %s", out_dir.resolve())
+        logger.info("增量更新任务完成，数据已保存至 %s", out_dir.resolve())
+    else:
+        logger.info(
+            "开始抓取 %d 支股票 | 数据源:Tushare(日线,不复权) | 日期:%s → %s | 排除:%s",
+            len(codes), start or "(未指定)", end or "(未指定)", ",".join(sorted(exclude_boards)) or "无",
+        )
+
+        # ---------- 多线程抓取（全量覆盖） ---------- #
+        with ThreadPoolExecutor(max_workers=args.workers) as executor:
+            futures = [
+                executor.submit(
+                    fetch_one,
+                    code,
+                    start,
+                    end,
+                    out_dir,
+                )
+                for code in codes
+            ]
+            for _ in tqdm(as_completed(futures), total=len(futures), desc="下载进度"):
+                pass
+
+        logger.info("全部任务完成，数据已保存至 %s", out_dir.resolve())
 
 if __name__ == "__main__":
     main()

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 股票数据处理流水线脚本
-依次执行README myself.md中的三个脚本命令：
-1. fetch_kline_akshare.py - 获取股票历史数据
+依次执行三个脚本命令：
+1. fetch_kline.py --mode update - 更新股票数据到最新日期
 2. select_stock.py - 进行选股
 3. adx_filter.py - 进行涨跌幅过滤
 """
@@ -60,8 +60,8 @@ def main():
     # 定义三个要执行的命令
     commands = [
         {
-            "command": "python fetch_kline_akshare.py --start 0 --end today --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 12",
-            "description": "第一步: 获取股票历史数据 (fetch_kline_akshare.py)"
+            "command": "python fetch_kline.py --mode update --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 12",
+            "description": "第一步: 更新股票数据到最新日期 (fetch_kline.py)"
         },
         {
             "command": "python select_stock.py --data-dir ./data --config ./configs.json --meta-workers 6",
