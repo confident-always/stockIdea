@@ -1,6 +1,6 @@
 # 画线流水线
 ```bash
-python run_draw_lines_pipeline.py --date 2025-11-06 --workers 4
+python run_draw_lines_pipeline.py --date 2025-11-14 --workers 6
 # 输出目录: {date}-drawLine/
 ```
 # 处理指定股票
@@ -26,7 +26,7 @@ python draw_lines_all.py --codes 000001 600000 --workers 2
 ```bash
 # 处理指定日期的股票（只生成基础图表）
 cd drawBaseLayerLine
-python draw_lines_base.py --date 2025-10-20 --workers 4
+python draw_lines_base.py --date 2025-10-20 --workers 
 
 # 输出目录: {date}-drawLineRes/
 ```
@@ -36,7 +36,7 @@ python draw_lines_base.py --date 2025-10-20 --workers 4
 ```bash
 # 处理指定日期的股票（生成基础图表 + AnchorM线）
 cd drawBaseLayerLine
-python draw_lines_mid.py --date 2025-10-20 --workers 4
+python draw_lines_mid.py --date 2025-10-20 --workers 6
 
 # 输出目录: {date}-drawLineMid/
 ```
@@ -44,6 +44,6 @@ python draw_lines_mid.py --date 2025-10-20 --workers 4
 ### 背景格子
 # 指定线程数（加快处理速度）
 ```bash
-python draw_lines_back.py --date 2025-11-06 --workers 4
+python draw_lines_back.py --date 2025-11-06 --workers 6
 # 输出目录: {date}-drawLineBack/
 ```

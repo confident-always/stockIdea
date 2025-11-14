@@ -201,12 +201,14 @@ def update_one_to_latest(
         start_date = (last_date + pd.Timedelta(days=1)).strftime("%Y%m%d")
         end_date = dt.date.today().strftime("%Y%m%d")
 
-        # 如果开始日期大于等于今天，说明数据已经是最新的
-        if start_date >= end_date:
+        # 如果开始日期大于今天，说明数据已经是最新的
+        if start_date > end_date:
             logger.debug(f"{code} 数据已是最新，无需更新")
             return
 
-        logger.info(f"{code} 开始补充数据: {start_date} -> {end_date}")
+        # 计算需要补充的天数
+        days_to_add = (dt.datetime.strptime(end_date, '%Y%m%d').date() - dt.datetime.strptime(start_date, '%Y%m%d').date()).days + 1
+        logger.info(f"{code} 补充数据: 最后日期 {last_date.strftime('%Y-%m-%d')}，需补充 {days_to_add} 天 ({start_date} -> {end_date})")
 
     except Exception as e:
         logger.error(f"{code} 读取现有数据失败: {e}")
@@ -269,8 +271,21 @@ def main():
     os.environ["NO_PROXY"] = "api.waditu.com,.waditu.com,waditu.com"
     os.environ["no_proxy"] = os.environ["NO_PROXY"]
     ts_token = os.environ.get("TUSHARE_TOKEN")
+
+    # 如果环境变量中没有token，尝试从.tushare_token文件读取
     if not ts_token:
-        raise ValueError("请先设置环境变量 TUSHARE_TOKEN，例如：export TUSHARE_TOKEN=你的token")
+        token_file = Path(".tushare_token")
+        if token_file.exists():
+            try:
+                with open(token_file, 'r') as f:
+                    ts_token = f.read().strip()
+                logger.info("从.tushare_token文件读取token成功")
+            except Exception as e:
+                logger.error(f"读取.tushare_token文件失败: {e}")
+
+    if not ts_token:
+        raise ValueError("请先设置环境变量 TUSHARE_TOKEN 或创建 .tushare_token 文件")
+
     ts.set_token(ts_token)
     global pro
     pro = ts.pro_api()

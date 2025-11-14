@@ -60,8 +60,8 @@ def main():
     # 定义三个要执行的命令
     commands = [
         {
-            "command": "python fetch_kline.py --mode update --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 12",
-            "description": "第一步: 更新股票数据到最新日期 (fetch_kline.py)"
+            "command": "python fetch_kline_akshare.py --mode update --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 6",
+            "description": "第一步: 更新股票数据到最新日期 (fetch_kline_akshare.py)"
         },
         {
             "command": "python select_stock.py --data-dir ./data --config ./configs.json --meta-workers 6",

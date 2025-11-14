@@ -9,7 +9,7 @@ python run_pipeline.py
 
 # 画线流水线
 ```bash
-python run_draw_lines_pipeline.py --date 2025-10-22 --workers 4
+python run_draw_lines_pipeline.py --date 2025-10-22 --workers 6
 # 输出目录: {date}-drawLine/
 ```
 
@@ -17,9 +17,16 @@ python run_draw_lines_pipeline.py --date 2025-10-22 --workers 4
 ### 运行fetch_kline_akshare
 
 ```bash
-python fetch_kline_akshare.py --start 0 --end today --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 12
+# akshare
+# 增量更新模式（补充到最新日期）
+python fetch_kline_akshare.py --mode update --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 6
 
-python fetch_kline.py --mode update --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 12
+# 全量抓取模式（原有功能）
+python fetch_kline_akshare.py --start 0 --end today --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 6
+
+# tushare
+# 增量更新模式（补充到最新日期）
+python fetch_kline.py --mode update --stocklist ./stocklist.csv --exclude-boards gem star bj --out ./data --workers 6
 ```
 ### 运行选股
 ```bash
